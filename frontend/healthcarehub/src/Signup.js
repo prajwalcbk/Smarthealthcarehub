@@ -9,6 +9,7 @@ function SignUpPage() {
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const [isDoctor, setIsDoctor] = useState(false);
+  const [isPharmacist, setIsPharmacist] = useState(false);
   const [error, setError] = useState(null);
 
   const handleSignUp = () => {
@@ -20,7 +21,14 @@ function SignUpPage() {
 
   const handleToggleDoctor = () => {
     setIsDoctor(!isDoctor);
+    setIsPharmacist(false); // Uncheck pharmacist if doctor is checked
   };
+
+  const handleTogglePharmacist = () => {
+    setIsPharmacist(!isPharmacist);
+    setIsDoctor(false); // Uncheck doctor if pharmacist is checked
+  };
+
 
   const handleLoginLink = () => {
     // Implement navigation to login page
@@ -107,7 +115,7 @@ function SignUpPage() {
               checked={isDoctor}
               onChange={handleToggleDoctor}
             />
-            <div className="slider round"></div>
+            <div className="slider round" onClick={handleToggleDoctor}></div>
           </div>
           <label htmlFor="isDoctor">  Are you a Doctor ? </label>
         </div>
@@ -116,16 +124,16 @@ function SignUpPage() {
           <div className="toggle">
             <input
               type="checkbox"
-              id="isDoctor"
-              checked={isDoctor}
-              onChange={handleToggleDoctor}
+              id="isPharmacist"
+              checked={isPharmacist}
+              onChange={handleTogglePharmacist}
             />
-            <div className="slider round"></div>
+            <div className="slider round" onClick={handleTogglePharmacist}></div>
           </div>
-          <label htmlFor="isDoctor">  Are you a Pharmacist ? </label>
+          <label htmlFor="isPharmacist">  Are you a Pharmacist ? </label>
         </div>
 
-        <button onClick={handleSignUp}>Sign Up</button>
+        <button onClick={handleSignUp}>Next</button>
         <div className="form-links">
           <span>Already have an account? </span>
           <a href="/login" onClick={handleLoginLink}>Login</a>

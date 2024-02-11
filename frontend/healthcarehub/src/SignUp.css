@@ -20,13 +20,7 @@
   margin-bottom: 15px;
 }
 
-label {
-  font-weight: bold;
-}
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
 input[type="checkbox"] {
   width: 90%;
   padding: 10px;
@@ -35,18 +29,11 @@ input[type="checkbox"] {
 }
 
 
-
-
-/* SignUpPage.css */
-
-/* SignUpPage.css */
-
 .toggle {
   position: relative;
   display: inline-block;
-  width: 40px; /* Adjust width */
-  height: 20px; /* Adjust height */
-  margin-left: auto; /* Align to the right */
+  width: 40px;
+  height: 20px;
 }
 
 .toggle input {
@@ -60,24 +47,22 @@ input[type="checkbox"] {
   cursor: pointer;
   top: 0;
   left: 0;
-  right: 0;
   bottom: 0;
+  right: 0; /* Adjusted to cover the entire toggle area */
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-  border-radius: 20px; /* Adjust border-radius */
+  transition: background-color 0.4s;
+  border-radius: 20px;
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 16px; /* Adjust height */
-  width: 16px; /* Adjust width */
-  left: 2px; /* Adjust position */
-  bottom: 2px; /* Adjust position */
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  transition: transform 0.4s;
   border-radius: 50%;
 }
 
@@ -90,14 +75,12 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(20px); /* Adjust position */
-  -ms-transform: translateX(20px); /* Adjust position */
-  transform: translateX(20px); /* Adjust position */
+  transform: translateX(20px);
 }
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 20px; /* Adjust border-radius */
+  border-radius: 20px;
 }
 
 .slider.round:before {
