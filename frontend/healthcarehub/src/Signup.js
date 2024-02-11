@@ -6,7 +6,8 @@ function SignUpPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
   const [isDoctor, setIsDoctor] = useState(false);
   const [error, setError] = useState(null);
 
