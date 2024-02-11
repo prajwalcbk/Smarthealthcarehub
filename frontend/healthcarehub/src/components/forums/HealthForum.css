@@ -1,0 +1,28 @@
+.post {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.post.selected {
+  background-color: #f0f0f0;
+}
+
+.post h3 {
+  margin: 0;
+  cursor: pointer;
+}
+
+.post p {
+  margin: 5px 0;
+}
+
+.post input {
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+}
