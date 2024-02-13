@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Login.css'; // Import your custom CSS for styling
-
+import Navbar from './../navbar/Navbar'
 
 function LoginPage() {
   const [email, setemail] = useState('');
@@ -15,6 +15,7 @@ function LoginPage() {
 
   return (
     <div className="container">
+    <Navbar />
       <div className="login-form">
         <h1>Admin Login</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>

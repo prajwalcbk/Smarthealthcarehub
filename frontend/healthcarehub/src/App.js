@@ -5,7 +5,10 @@ import AdminLogin from './components/adminlogin/Login';
 import Forums from './components/forums/HealthForum';
 import SignUp from './components/signup/Signup';
 import ForgotPassword from './components/forgotpassword/ForgotPassword'
+import Doctor from './components/signup/doctor/Doctor'
+import Pharmacist from './components/signup/pharmacist/Pharmacist'
 import Patient from './components/signup/patient/Patient'
+import ForumApp from './components/forums/ForumApp';
 
 function App() {
   return (
@@ -18,7 +21,10 @@ function App() {
           <Route path="/healthadminlogin" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/" element={<Patient />} />
+          <Route path="/a" element={<Doctor />} />
+          <Route path="/b" element={<Pharmacist />} />
+          <Route path="/c" element={<Patient />} />
+          <Route path="/" element={<ForumApp />} />
 
           {/* Add more routes for other pages */}
         </Routes>

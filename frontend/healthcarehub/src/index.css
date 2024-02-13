@@ -74,12 +74,21 @@ button:hover {
 }
 
 
-.error-message {
-  color: red;
-}
 
 .success-message {
   color: green;
+}
+
+.success-message {
+    color: rgb(61 116 20);
+    background-color: rgb(207 234 212);
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    width: 88%;
+
 }
 
 .error-message {

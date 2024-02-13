@@ -10,10 +10,8 @@ function PatientSignup(props) {
   const [gender, setGender] = useState('');
   const [emergencycontactnumber, setEmergencyContactNumber] = useState('');
   const [primarycareprovider, setPrimaryCareProvider] = useState('');
-  const [options, setOptions] = useState([]);
+  const [careprovideroptions, setCareProviderOptions] = useState([]);
 
-  const [doctors, setDoctors] = useState([]);
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   const [error, setError] = useState(null);
 
@@ -45,14 +43,14 @@ function PatientSignup(props) {
       // Perform API call to fetch primary care providers based on inputValue
       //const response = await fetch(`YOUR_API_ENDPOINT?search=${inputValue}`);
       //const data = await response.json();
-      const data= [ {"name":"Prajwal","id":123},{"name":"kenchiiiiii","id":123},{"name":"ptrajjuuu","id":1243},{"name":"amith","id":1243}]
+      const data= [ {"name":"Prajwal","id":123},{"name":"kenchiiiiii","id":1253},{"name":"ptrajjuuu","id":1243},{"name":"amith","id":12493}]
 
       // Transform API response data to the format expected by React Select
       const transformedOptions = data.map((provider) => ({
         value: provider.id,
         label: provider.name,
       }));
-      setOptions(transformedOptions);
+      setCareProviderOptions(transformedOptions);
     } catch (error) {
       console.error('Error fetching primary care providers:', error);
     }
@@ -60,30 +58,9 @@ function PatientSignup(props) {
   useEffect(() => {
     // Fetch doctors from API when the component mounts
     fetchPrimaryCareProviders();
-    fetchDoctors();
   }, []);
 
-  const fetchDoctors = async () => {
-    try {
-      // Fetch list of doctors from API
-      //const response = await fetch('API_ENDPOINT_HERE');
-      const data= [ {"name":"Rahul","id":1243},{"name":"Prajwal A","id":123}]
-      //const data = await response.json();
-      // Transform data to format expected by react-select
-      const options = data.map(doctor => ({
-        value: doctor.id,
-        label: doctor.name,
-      }));
-      // Set doctors state with the fetched options
-      setDoctors(options);
-    } catch (error) {
-      console.error('Error fetching doctors:', error);
-    }
-  };
-
-  const handleDoctorChange = (selectedOption) => {
-    setSelectedDoctor(selectedOption);
-  };
+  
 
     // Function to handle primary care provider selection
   const handlePrimaryCareProviderChange = (selectedOption) => {
@@ -106,7 +83,7 @@ function PatientSignup(props) {
   return (
     <div className="container">
       <div className="details-form">
-        <h1>Enter Details</h1>
+        <h1>User Details</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
         
         <div className="form-group">
@@ -138,7 +115,7 @@ function PatientSignup(props) {
 
         
         <div className="form-group">
-          <label htmlFor="Emergency Contact Number">Emergency Contact Number Number</label>
+          <label htmlFor="Emergency Contact Number">Emergency Contact Number</label>
           <input
             type="text"
             id="emergencycontactnumber"
@@ -154,7 +131,7 @@ function PatientSignup(props) {
             id="primarycareprovider"
             value={primarycareprovider}
             onChange={handlePrimaryCareProviderChange}
-            options={options}
+            options={careprovideroptions}
             placeholder="Search or select primary care provider"
             isSearchable
           />

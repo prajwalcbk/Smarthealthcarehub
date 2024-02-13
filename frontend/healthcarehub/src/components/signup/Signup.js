@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './SignUp.css'; // Import your custom CSS for styling
 import Patient from './patient/Patient'
+import Navbar from './../navbar/Navbar'
 
 function SignUpPage() {
   const [email, setEmail] = useState('');
@@ -45,6 +46,7 @@ function SignUpPage() {
 
   return (
     <div className="container">
+    <Navbar />
       {!nextClicked && (
         <div className="signup-form">
           <h1>Sign Up</h1>

@@ -10,13 +10,13 @@ function Doctor(props) {
   const [gender, setGender] = useState('');
   const [qualification, setQualification]= useState('');
   const [specialization, setSpecialization] = useState('');
-  const [licensenumber, setLicenseNumber] = useState([]);
-  const []
+  const [licensenumber, setLicenseNumber] = useState();
+
+  const [healthfacilityname, setHealthFacilityName] = useState('');
+  const [healthfacilitynameoptions, setHealthFacilityNameOptions] = useState([]);
+  
   const [about, setAbout] = useState('');
   
-
-  const [doctors, setDoctors] = useState([]);
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   const [error, setError] = useState(null);
 
@@ -43,54 +43,32 @@ function Doctor(props) {
 
 
   // Function to fetch primary care provider options from API
-  const fetchPrimaryCareProviders = async (inputValue) => {
+  const fetchHealthFacilityName = async (inputValue) => {
     try {
       // Perform API call to fetch primary care providers based on inputValue
       //const response = await fetch(`YOUR_API_ENDPOINT?search=${inputValue}`);
       //const data = await response.json();
-      const data= [ {"name":"Prajwal","id":123},{"name":"kenchiiiiii","id":123},{"name":"ptrajjuuu","id":1243},{"name":"amith","id":1243}]
+      const data= [ {"name":"Prajwal","id":123},{"name":"kenchiiiiii","id":1203},{"name":"ptrajjuuu","id":1243},{"name":"amith","id":12493}]
 
       // Transform API response data to the format expected by React Select
       const transformedOptions = data.map((provider) => ({
         value: provider.id,
         label: provider.name,
       }));
-      setOptions(transformedOptions);
+      setHealthFacilityNameOptions(transformedOptions);
     } catch (error) {
       console.error('Error fetching primary care providers:', error);
     }
   };
   useEffect(() => {
     // Fetch doctors from API when the component mounts
-    fetchPrimaryCareProviders();
-    fetchDoctors();
+    fetchHealthFacilityName();
   }, []);
 
-  const fetchDoctors = async () => {
-    try {
-      // Fetch list of doctors from API
-      //const response = await fetch('API_ENDPOINT_HERE');
-      const data= [ {"name":"Rahul","id":1243},{"name":"Prajwal A","id":123}]
-      //const data = await response.json();
-      // Transform data to format expected by react-select
-      const options = data.map(doctor => ({
-        value: doctor.id,
-        label: doctor.name,
-      }));
-      // Set doctors state with the fetched options
-      setDoctors(options);
-    } catch (error) {
-      console.error('Error fetching doctors:', error);
-    }
-  };
-
-  const handleDoctorChange = (selectedOption) => {
-    setSelectedDoctor(selectedOption);
-  };
 
     // Function to handle primary care provider selection
-  const handlePrimaryCareProviderChange = (selectedOption) => {
-    setPrimaryCareProvider(selectedOption);
+  const handleHealthFacilityChange = (selectedOption) => {
+    setHealthFacilityName(selectedOption);
   };
 
   const handleSubmit = () => {
@@ -98,7 +76,7 @@ function Doctor(props) {
       setError('Please enter a valid date (MM/DD/YYYY).');
       return;
     }
-    if (!dateofbirth || !gender ) {
+    if (!dateofbirth || !gender || !qualification || !specialization || !licensenumber || !about || !healthfacilityname) {
       setError('Please fill out the required fields.');
       return;
     }
@@ -109,7 +87,7 @@ function Doctor(props) {
   return (
     <div className="container">
       <div className="details-form">
-        <h1>Enter Details</h1>
+        <h1>Doctor Details</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
         
         <div className="form-group">
@@ -141,24 +119,57 @@ function Doctor(props) {
 
         
         <div className="form-group">
-          <label htmlFor="Emergency Contact Number">Emergency Contact Number Number</label>
+          <label htmlFor="Qualification">Qualification *</label>
           <input
             type="text"
-            id="emergencycontactnumber"
-            placeholder="+1 408480XXXX"
-            value={emergencycontactnumber}
-            onChange={e => setEmergencyContactNumber(e.target.value)}
+            id="qualification"
+            placeholder="MBBS MD Masters"
+            value={qualification}
+            onChange={e => setQualification(e.target.value)}
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="primarycareprovider">Primary Health Care Provider</label>
+          <label htmlFor="Specialization">Specialization *</label>
+          <input
+            type="text"
+            id="specialization"
+            placeholder="Cardiologist"
+            value={specialization}
+            onChange={e => setSpecialization(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="License Number">License Number *</label>
+          <input
+            type="text"
+            id="licensenumber"
+            placeholder="XXXXXXXXX"
+            value={licensenumber}
+            onChange={e => setLicenseNumber(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="about">About *</label>
+          <textarea
+            id="about"
+            value={about}
+            onChange={e => setAbout(e.target.value)}
+            placeholder="Explain YourSelf in few sentences..."
+            rows={4} // Set the number of visible rows
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="healthfacilityname">Health Facility Name *</label>
           <Select
-            id="primarycareprovider"
-            value={primarycareprovider}
-            onChange={handlePrimaryCareProviderChange}
-            options={options}
-            placeholder="Search or select primary care provider"
+            id="healthfacilityname"
+            value={healthfacilityname}
+            onChange={handleHealthFacilityChange}
+            options={healthfacilitynameoptions}
+            placeholder="Search or select Health Facility"
             isSearchable
           />
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './HealthForum.css'; // Import your CSS file for styling
+import Navbar from './../navbar/Navbar'
 
 function HealthForum() {
   const [posts, setPosts] = useState([]);
@@ -77,7 +78,9 @@ function HealthForum() {
   };
 
   return (
-    <div>
+    <div className="container">
+    <Navbar />
+    <div className="details-form">
       <h2>Health Posts</h2>
       {posts.map((post) => (
         <div key={post.id} className={`post ${selectedPost === post.id ? 'selected' : ''}`}>
@@ -101,6 +104,7 @@ function HealthForum() {
         </div>
       ))}
       {error && <p className="error-message">{error}</p>}
+      </div>
     </div>
   );
 }

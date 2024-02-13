@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Import Link from React Router
 import './ForgotPassword.css'; // Import your custom CSS for styling
+import Navbar from './../navbar/Navbar'
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -51,6 +52,7 @@ function ForgotPassword() {
 
   return (
     <div className="container">
+    <Navbar />
       <div className="forgot-password-form">
         <h1>Forgot your password?</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
