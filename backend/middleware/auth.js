@@ -14,6 +14,7 @@
 //     return error;
 //   }
 // };
+//module.exports = auth;
 
 const jwt = require('jsonwebtoken');
 
@@ -28,6 +29,6 @@ function authenticateToken(req, res, next) {
   });
 }
 
-module.exports = auth;
+module.exports = authenticateToken;
 
 
