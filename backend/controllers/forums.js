@@ -25,6 +25,52 @@ router.post('/forums', (req, res) => {
 
 });
 
+
+// DELETE endpoint to delete a forum post by its ID
+router.delete('/forums/:postId', (req, res) => {
+  const postId = req.params.postId;
+
+  // Delete the forum post from the database
+  pool.query('DELETE FROM health_forum_posts WHERE id = ?', [postId], (err, results) => {
+    if (err) {
+      console.error('Error deleting forum post:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    if (results.affectedRows === 0) {
+      res.status(404).json({ message: 'Forum post not found' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Forum post deleted successfully' });
+  });
+});
+
+// PUT endpoint to update a forum post by its ID
+router.put('/forums/:postId', (req, res) => {
+  const postId = req.params.postId;
+  const { title, description, userId } = req.body;
+
+  // Update the forum post in the database
+  pool.query('UPDATE health_forum_posts SET title = ?, description = ?, user_id = ? WHERE id = ?', [title, description, userId, postId], (err, results) => {
+    if (err) {
+      console.error('Error updating forum post:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    if (results.affectedRows === 0) {
+      res.status(404).json({ message: 'Forum post not found' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Forum post updated successfully' });
+  });
+});
+
+
+
 router.post('/forums/answer', (req, res) => {
   const { forum_id, answer, userid } = req.body;
 
@@ -41,6 +87,49 @@ router.post('/forums/answer', (req, res) => {
     }
 
     res.status(200).json({ message: 'Forum Answer Posted Successfully' });
+  });
+});
+
+
+router.delete('/forums/answer/:answerId', (req, res) => {
+  const answerId = req.params.answerId;
+
+  // Delete the answer from the database
+  pool.query('DELETE FROM forum_answers WHERE id = ?', [answerId], (err, results) => {
+    if (err) {
+      console.error('Error deleting forum answer:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    if (results.affectedRows === 0) {
+      res.status(404).json({ message: 'Forum answer not found' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Forum answer deleted successfully' });
+  });
+});
+
+
+router.put('/forums/answer/:answerId', (req, res) => {
+  const answerId = req.params.answerId;
+  const { answer } = req.body;
+
+  // Update the answer in the database
+  pool.query('UPDATE forum_answers SET answer = ? WHERE id = ?', [answer, answerId], (err, results) => {
+    if (err) {
+      console.error('Error updating forum answer:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    if (results.affectedRows === 0) {
+      res.status(404).json({ message: 'Forum answer not found' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Forum answer updated successfully' });
   });
 });
 
