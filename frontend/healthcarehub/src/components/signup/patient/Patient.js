@@ -91,7 +91,7 @@ function PatientSignup(props) {
     console.log(data)
     
 
-      axios.post('http://localhost/register/patients', data)
+      axios.post('http://localhost/register/patient', data)
       .then(response => {
         console.log('Patient data submitted successfully:', response.data);
         // Optionally, reset form fields or perform other actions upon successful submission
