@@ -3,11 +3,12 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const pool = require('../db/connection');
+const authenticateToken = require('../middleware/auth');
 
 
 
 
-router.post('/forums', (req, res) => {
+router.post('/forums',authenticateToken , (req, res) => {
   const { title, description , userid  } = req.body;
   
   console.log(req.body)
