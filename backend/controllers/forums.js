@@ -13,7 +13,7 @@ router.post('/forums', (req, res) => {
   console.log(req.body)
     
 	// Save the user to the database
-	pool.query('INSERT INTO health_forum_posts (title, description , userid ) VALUES (?, ? , ? )', [title, description, userid  ], (err, results) => {
+	pool.query('INSERT INTO health_forum_posts (title, description , user_id ) VALUES (?, ? , ? )', [title, description, userid  ], (err, results) => {
 	  if (err) {
 	    console.error('Error registering user:', err);
 	    res.status(500).send('Internal Server Error');
@@ -34,7 +34,7 @@ router.post('/forums/answer', (req, res) => {
   console.log(req.body);
 
   // Save the user to the database
-  pool.query('INSERT INTO forum_answers (forum_id, answer, userid) VALUES (?, ?, ?)', [forumId, answer, userid], (err, results) => {
+  pool.query('INSERT INTO forum_answers (forum_id, answer, user_id) VALUES (?, ?, ?)', [forumId, answer, userid], (err, results) => {
     if (err) {
       console.error('Error answering forum:', err);
       res.status(500).send('Internal Server Error');
