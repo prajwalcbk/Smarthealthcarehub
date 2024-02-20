@@ -29,12 +29,11 @@ router.post('/forums/answer', (req, res) => {
   const { forum_id, answer, userid } = req.body;
 
   // Get the forum_id from the query parameters
-  const forumId = req.query.id;
 
   console.log(req.body);
 
   // Save the user to the database
-  pool.query('INSERT INTO forum_answers (forum_id, answer, user_id) VALUES (?, ?, ?)', [forumId, answer, userid], (err, results) => {
+  pool.query('INSERT INTO forum_answers (forum_id, answer, user_id) VALUES (?, ?, ?)', [forum_id, answer, userid], (err, results) => {
     if (err) {
       console.error('Error answering forum:', err);
       res.status(500).send('Internal Server Error');
@@ -90,7 +89,7 @@ router.get('/forums/:id', (req, res) => {
     // Query to fetch all answers for the forum_id
     const answerQuery = 'SELECT * FROM forum_answers WHERE forum_id = ?';
 
-    pool.query(answerQuery, [forumId], (err, answerResults) => {
+    pool.query(answerQuery, [Id], (err, answerResults) => {
       if (err) {
         console.error('Error fetching forum answers:', err);
         res.status(500).send('Internal Server Error');
