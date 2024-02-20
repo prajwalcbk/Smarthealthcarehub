@@ -109,5 +109,5 @@ router.get('/forums/:id', (req, res) => {
   });
 });
 
-
+module.exports = router;
 
