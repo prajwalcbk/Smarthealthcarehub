@@ -73,7 +73,7 @@ router.post('/adminlogin', (req, res) => {
         return;
       }
       // Generate JWT
-      const token = jwt.sign({ username: user.username , role: user.role }, 'your_secret_key');
+      const token = jwt.sign({ email: user.email , role: "ADMIN" }, 'your_secret_key');
       res.status(200).json({ token });
     });
   });

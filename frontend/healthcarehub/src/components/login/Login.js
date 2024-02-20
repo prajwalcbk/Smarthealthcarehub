@@ -9,6 +9,22 @@ function LoginPage() {
 
   const handleLogin = () => {
     // Implement login functionality here
+    const data= {
+      email : email ,
+      password : password 
+    }
+    console.log(data)
+    
+
+      axios.post('http://localhost/login', data)
+      .then(response => {
+        console.log('Loggedin Successfully:', response.data);
+        // Optionally, reset form fields or perform other actions upon successful submission
+      })
+      .catch(error => {
+        console.error('Failed to login', error);
+        // Handle error appropriately, e.g., display error message to user
+      });
     console.log('Logging in with email:', email, 'and password:', password);
   };
 

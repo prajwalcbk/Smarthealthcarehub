@@ -28,7 +28,7 @@ router.post('/forums',authenticateToken , (req, res) => {
 
 
 // DELETE endpoint to delete a forum post by its ID
-router.delete('/forums/:postId', (req, res) => {
+router.delete('/forums/:postId',authenticateToken, (req, res) => {
   const postId = req.params.postId;
 
   // Delete the forum post from the database
@@ -49,7 +49,7 @@ router.delete('/forums/:postId', (req, res) => {
 });
 
 // PUT endpoint to update a forum post by its ID
-router.put('/forums/:postId', (req, res) => {
+router.put('/forums/:postId',authenticateToken ,  (req, res) => {
   const postId = req.params.postId;
   const { title, description, userId } = req.body;
 
@@ -72,7 +72,7 @@ router.put('/forums/:postId', (req, res) => {
 
 
 
-router.post('/forums/answer', (req, res) => {
+router.post('/forums/answer',authenticateToken ,  (req, res) => {
   const { forum_id, answer, userid } = req.body;
 
   // Get the forum_id from the query parameters
@@ -92,7 +92,7 @@ router.post('/forums/answer', (req, res) => {
 });
 
 
-router.delete('/forums/answer/:answerId', (req, res) => {
+router.delete('/forums/answer/:answerId',authenticateToken, (req, res) => {
   const answerId = req.params.answerId;
 
   // Delete the answer from the database
@@ -113,7 +113,7 @@ router.delete('/forums/answer/:answerId', (req, res) => {
 });
 
 
-router.put('/forums/answer/:answerId', (req, res) => {
+router.put('/forums/answer/:answerId',authenticateToken, (req, res) => {
   const answerId = req.params.answerId;
   const { answer } = req.body;
 
@@ -136,7 +136,7 @@ router.put('/forums/answer/:answerId', (req, res) => {
 
 
 
-router.get('/forums', (req, res) => {
+router.get('/forums',authenticateToken, (req, res) => {
   const { offset = 0, limit = 10 } = req.query; // Default offset to 0 and limit to 10 if not provided
 
   // Parse offset and limit as integers
@@ -163,7 +163,7 @@ router.get('/forums', (req, res) => {
 });
 
 
-router.get('/forums/:id', (req, res) => {
+router.get('/forums/:id',authenticateToken, (req, res) => {
   const Id = req.params.id; // Extract the forumid parameter from the request URL
 
   // Query to fetch the forum post based on the forum_id
