@@ -2,6 +2,7 @@
 //import React from 'react';
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
+import axios from 'axios';
 import './Patient.css';
 
 function PatientSignup(props) {
@@ -64,7 +65,7 @@ function PatientSignup(props) {
 
     // Function to handle primary care provider selection
   const handlePrimaryCareProviderChange = (selectedOption) => {
-    setPrimaryCareProvider(selectedOption);
+    setPrimaryCareProvider(selectedOption.id);
   };
 
   const handleSubmit = () => {
@@ -76,6 +77,29 @@ function PatientSignup(props) {
       setError('Please fill out the required fields.');
       return;
     }
+    const data= {
+    email : props.email ,
+    password : props.password ,
+    firstname: props.firstname ,
+    lastname : props.lastname ,
+    phoneNumber : props.phoneNumber,
+    dateofbirth: dateofbirth,
+    gender: gender,
+    emergencycontactnumber: emergencycontactnumber,
+    primarycareprovider: primarycareprovider // Replace primaryCareProviderId with the actual provider ID
+      }
+    console.log(data)
+    
+
+      axios.post('http://localhost/register/patients', data)
+      .then(response => {
+        console.log('Patient data submitted successfully:', response.data);
+        // Optionally, reset form fields or perform other actions upon successful submission
+      })
+      .catch(error => {
+        console.error('Error submitting patient data:', error);
+        // Handle error appropriately, e.g., display error message to user
+      });
 
   };
 
