@@ -54,7 +54,7 @@ ul.answer-list li {
 }
 
 /* AnswerForm styles */
-textarea {
+#forums_answers.textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;

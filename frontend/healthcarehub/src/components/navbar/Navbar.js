@@ -1,12 +1,14 @@
-
-
 import React from 'react';
 import './Navbar.css'; // Import your custom CSS for styling
+import Logo from '../../assets/Logo.svg';
 
 function Navbar() {
   return (
     <div className="navbar">
-      <div className="logo">SmarthHeathCare Hub</div>
+    <a href='/' className="logo-container">
+    <img src={Logo} width="40" height="40" alt="Logo" />
+    <span className="logo-text">SmarthHeathCare Hub</span>
+  </a> 
       <div className="nav-links">
         <a href="/"><i className="fas fa-home"></i> Home</a>
         <a href="/forums"><i className="fas fa-comments"></i> Forums</a>

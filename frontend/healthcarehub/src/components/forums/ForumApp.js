@@ -75,7 +75,7 @@ const AnswerForm = ({ postId }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form class='forums_answers' onSubmit={handleSubmit}>
       <textarea value={answer} onChange={(e) => setAnswer(e.target.value)} />
       <button type="submit">Submit</button>
     </form>

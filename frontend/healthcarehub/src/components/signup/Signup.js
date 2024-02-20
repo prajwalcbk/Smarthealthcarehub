@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './SignUp.css'; // Import your custom CSS for styling
 import Patient from './patient/Patient'
+import Doctor from './doctor/Doctor'
+import Pharmacist from './pharmacist/Pharmacist'
 import Navbar from './../navbar/Navbar'
 
 function SignUpPage() {
@@ -162,7 +164,28 @@ function SignUpPage() {
         password={password}
         confirmPassword={confirmPassword} 
         firstname={firstname} 
-        lastname={lastname}  />}
+        lastname={lastname} 
+        phoneNumber={phoneNumber}
+        />}
+
+        {nextClicked && isDoctor && !isPharmacist && <Doctor 
+        email={email} 
+        password={password}
+        confirmPassword={confirmPassword} 
+        firstname={firstname} 
+        lastname={lastname}
+        phoneNumber={phoneNumber}
+        />}
+
+        {nextClicked && !isDoctor && isPharmacist && <Pharmacist 
+        email={email} 
+        password={password}
+        confirmPassword={confirmPassword} 
+        firstname={firstname} 
+        lastname={lastname}
+        phoneNumber={phoneNumber}
+        />}
+
     </div>
       
     
