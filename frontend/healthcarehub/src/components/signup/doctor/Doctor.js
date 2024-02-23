@@ -162,7 +162,7 @@ function Doctor(props) {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group options">
           <label htmlFor="healthfacilityname">Health Facility Name *</label>
           <Select
             id="healthfacilityname"

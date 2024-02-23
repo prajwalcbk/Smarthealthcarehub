@@ -3,9 +3,10 @@
 
 
 .login-form {
-  background-color: #ffffff;
+  background-color: rgb(28 27 27 / 70%);
+  color: white;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   width: 100%;
@@ -17,11 +18,6 @@
 }
 
 
-
-.form-links {
-  text-align: center;
-}
-
 .separator {
   margin: 0 5px;
 }
@@ -30,24 +26,25 @@
 .login-form h1 {
   margin-bottom: 20px;
   text-align: center;
-  color: black; /* Change color to your preferred highlight color */
+  color: white; 
 }
 
 /* Style the login button */
 .login-form button {
-  width: 100%;
+  font-weight: bold;
+  width: 95%;
   padding: 10px;
-  margin-top: 10px; /* Add margin to separate from form fields */
+  margin-top: 10px; 
   border: none;
-  border-radius: 5px;
-  background-color: #007bff; /* Change background color to your preferred color */
+  border-radius: 10px;
+  background-color: #007bff; 
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s; /* Add transition for hover effect */
+  transition: background-color 0.3s; 
 }
 
 .login-form button:hover {
-  background-color: #0056b3; /* Change hover background color to your preferred color */
+  background-color: #0056b3; 
 }
 
 

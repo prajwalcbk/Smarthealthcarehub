@@ -1,15 +1,22 @@
 .home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   font-family: Arial, sans-serif;
-  background-color: #f8f8f8;
+  /*background-image: url('../../../public/3734225.jpg'); */
+  background-image: url('../../../public/3734225 copy.jpg'); 
+  background-size: cover;
   padding: 20px;
-  margin-top: 60px; /* Adjust the top margin based on the height of your navbar */
+  background-position: center;
 }
 
 
 .quote-container {
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 30px;
   padding: 20px;
+  margin-top: 850px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -27,9 +34,9 @@
 }
 
 .box {
-  background-color: #fff;
-  border-radius: 8px;
+  border-radius: 30px;
   padding: 20px;
+  background: #eeeeec;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   flex: 1;
 }
@@ -41,7 +48,7 @@
 }
 
 .box p {
-  color: #666;
+  color: #504f4f;
   font-size: 16px;
 }
 

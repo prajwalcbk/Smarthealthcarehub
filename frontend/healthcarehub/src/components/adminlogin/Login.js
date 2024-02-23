@@ -16,7 +16,7 @@ function LoginPage() {
   return (
     <div className="container">
     <Navbar />
-      <div className="login-form">
+      <div className="admin-login-form">
         <h1>Admin Login</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
         <div className="form-group">
@@ -29,7 +29,7 @@ function LoginPage() {
             onChange={e => setemail(e.target.value)}
           />
         </div>
-        <div className="form-group">
+        <div className="admin-form-group">
           <label htmlFor="password">Password</label>
           <div className="password-input">
             <input
@@ -41,7 +41,7 @@ function LoginPage() {
             />
           </div>
         </div>
-        <div className="form-group">
+        <div className="admin-form-group">
           <button onClick={handleLogin}>Login</button>
         </div>
         <div className="form-links">

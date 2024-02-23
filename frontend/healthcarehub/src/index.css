@@ -17,9 +17,9 @@ code {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /*background-image: url('../public/Login.jpg'); /* Update the path to your background image */
+  background-image: url('../public/3734225.jpg');  /*Update the path to your background image */
   background-size: cover;
-  background: #ddd;
+  /*background: #ddd;*/
   background-position: center;
 }
 
@@ -33,7 +33,7 @@ input[type="email"],
 input[type="password"] {
   width: 90%;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   border: 1.5px solid #ccc;
 }
 
@@ -62,6 +62,7 @@ button:hover {
 
 .form-links {
   margin-top: 15px;
+  font-weight: bold;
   text-align: center;
 }
 
@@ -76,6 +77,7 @@ button:hover {
 
 
 
+
 .success-message {
   color: green;
 }
@@ -84,7 +86,7 @@ button:hover {
     color: rgb(61 116 20);
     background-color: rgb(207 234 212);
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 15px;
     margin-bottom: 10px;
     text-align: center;
     font-weight: bold;
@@ -96,7 +98,7 @@ button:hover {
     color: rgb(215, 92, 84);
     background-color: rgb(234, 207, 210);
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 15px;
     margin-bottom: 10px;
     text-align: center;
     font-weight: bold;

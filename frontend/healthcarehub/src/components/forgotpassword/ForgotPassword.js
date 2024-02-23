@@ -67,8 +67,7 @@ function ForgotPassword() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <button onClick={handleForgotPassword}>Send Reset Email</button>
-        {/* Button to navigate to login page */}
+        <button onClick={handleForgotPassword} >Send Reset Email</button>
         <div className="form-links">
           <span>Remembered your password ? </span>
           <Link to="/login">Login</Link>

@@ -2,52 +2,42 @@
 
 
 
-.login-form {
-  background-color: #ffffff;
+.admin-login-form {
+  background-color: rgb(28 27 27 / 70%);
+  color: white;
+  border-radius: 20px;
   padding: 20px;
-  border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   width: 100%;
 }
 
 
-.form-group {
+.admin-form-group {
   margin-bottom: 20px;
 }
 
 
-
-.form-links {
-  text-align: center;
-}
-
-.separator {
-  margin: 0 5px;
-}
-
-
-.login-form h1 {
+.admin-login-form h1 {
   margin-bottom: 20px;
   text-align: center;
-  color: black; /* Change color to your preferred highlight color */
+  color: white; /* Change color to your preferred highlight color */
 }
 
 /* Style the login button */
-.login-form button {
-  width: 100%;
+.admin-login-form button {
+  font-weight: bold;
+  width: 95%;
   padding: 10px;
   margin-top: 10px; /* Add margin to separate from form fields */
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: #007bff; /* Change background color to your preferred color */
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s; /* Add transition for hover effect */
 }
 
-.login-form button:hover {
+.admin-login-form button:hover {
   background-color: #0056b3; /* Change hover background color to your preferred color */
 }
-
-

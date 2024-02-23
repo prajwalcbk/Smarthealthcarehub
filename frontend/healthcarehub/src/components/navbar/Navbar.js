@@ -1,6 +1,6 @@
 import React from 'react';
 import './Navbar.css'; // Import your custom CSS for styling
-import Logo from '../../assets/Logo.svg';
+import Logo from '../../assets/daily-health-app.png';
 
 function Navbar() {
   return (

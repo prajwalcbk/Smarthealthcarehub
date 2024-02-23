@@ -27,7 +27,7 @@ li {
   background-color: #ffffff;
   padding: 10px;
   margin-bottom: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
