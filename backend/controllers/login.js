@@ -8,7 +8,7 @@ router.post('/login', (req, res) => {
   const { email, password } = req.body;
   
   // Find the user in the database
-  pool.query('SELECT * FROM users WHERE email = ? and role!="ADMIN"', [email], (err, results) => {
+  pool.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
     if (err) {
       console.error('Error finding user:', err);
       res.status(500).send('Internal Server Error');
@@ -35,7 +35,7 @@ router.post('/login', (req, res) => {
         return;
       }
       // Generate JWT
-      const token = jwt.sign({ username: user.username , role: user.role }, 'your_secret_key');
+      const token = jwt.sign({ email: user.email , role: "Patient" }, 'your_secret_key');
       res.status(200).json({ token });
     });
   });
