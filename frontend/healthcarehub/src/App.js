@@ -10,6 +10,8 @@ import Pharmacist from './components/signup/pharmacist/Pharmacist'
 import Patient from './components/signup/patient/Patient'
 import Home from './components/home/home';
 import DoctorSearchPage from './components/appointment/doctorsearch'
+import HealthRecords from './components/UserProfile/HealthRecords'
+import User from './components/UserProfile/User'
 
 function App() {
   return (
@@ -27,6 +29,10 @@ function App() {
           <Route path="/c" element={<Patient />} />
           <Route path="/doctors" element={<DoctorSearchPage />} />
           <Route path="/" element={<Home />} />
+
+          <Route path="/d" element={<HealthRecords />} />
+          <Route path="/e" element={<Home />} />
+          <Route path="/user" element={<User />} />
 
 
           {/* Add more routes for other pages */}

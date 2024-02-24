@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+}
+
+.profile-container {
+  flex: 1; /* Take remaining space */
+  padding: 20px;
+}
+
+.sidebar {
+  width: 300px; /* Adjust width as needed */
+  padding: 20px;
+  padding-top: 10%;
+  height: 80%;
+background-color: rgb(28 27 27 / 70%);
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  font-size: large;
+
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+
+
+.sidebar button:hover {
+
+  background-color: rgb(28 27 27 / 70%);
+}
+
+.user-data {
+  flex: 1; /* Take remaining space */
+  padding: 25%;
+}

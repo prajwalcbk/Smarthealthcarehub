@@ -99,6 +99,7 @@ input:checked + .slider:before {
 /* Style the login button */
 .details-form button , 
 .signup-form button {
+    height: 50px;
   font-weight: bold;
   width: 95%;
   padding: 10px;

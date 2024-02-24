@@ -31,6 +31,7 @@
 
 /* Style the login button */
 .login-form button {
+  height: 50px;
   font-weight: bold;
   width: 95%;
   padding: 10px;
