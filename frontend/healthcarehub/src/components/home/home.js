@@ -17,7 +17,7 @@ function Home() {
         <div className='content-wrapper'>
 
           <div className='box border'>
-          <Link to='appointments'>
+          <Link to='doctors'>
             <img src={calender} alt="Calender Icon" style={{ width: '50px', height: '50px' }} />
             <h2>Book an Appointment</h2>
           </Link>

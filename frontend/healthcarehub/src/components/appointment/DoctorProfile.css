@@ -1,0 +1,25 @@
+/* DoctorProfile.css */
+
+.doctor-profile {
+  /*background-color: #f4f4f4;*/
+  border: 2px solid #ddd;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  width: 85%;
+}
+
+.profile-info div {
+  margin-bottom: 10px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.DoctorProfile label
+{
+  font-size: 40px;
+}

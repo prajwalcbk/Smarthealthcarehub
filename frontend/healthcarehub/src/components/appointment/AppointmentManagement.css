@@ -1,5 +1,6 @@
 .appointment-management {
   font-family: Arial, sans-serif;
+  width: 100%;
 }
 
 .appointment-management-container {
@@ -9,19 +10,33 @@
 }
 
 .calendar-container,
-.reason-container {
+.reason-container , 
+.calendar-container button{
   width: 45%;
+  color: black;
+  border-radius: 4px;
+}
+
+.reason-container input[type="time"]{
+  width: 85%;
+}
+
+.appointment-management-container h2{
   color: white;
 }
 
 .Calendar{
   color: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
 }
-textarea {
-  width: 100%;
+
+.reason-container textarea {
+  width: 90%;
   resize: vertical;
+  border-radius: 15px;
+  resize: none;
 }
-button {
+.confirm-appointment button {
   margin-top: 20px;
   padding: 10px 20px;
   background-color: #007bff;
@@ -31,10 +46,19 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.confirm-appointment button:hover {
   background-color: #0056b3;
 }
 
-button:active {
+.confirm-appointment button:active {
   background-color: #004080;
+}
+
+.duration-select {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 18px;
+  height: 40px;
 }

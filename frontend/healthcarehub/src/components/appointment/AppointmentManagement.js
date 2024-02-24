@@ -7,6 +7,12 @@ import './AppointmentManagement.css';
 function AppointmentManagement() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [reason, setReason] = useState('');
+  const [selectedTime, setSelectedTime] = useState('12:00');
+  const [duration , setDuration] = useState(15);
+
+  const handleTimeChange = (event) => {
+    setSelectedTime(event.target.value);
+  };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -30,18 +36,37 @@ function AppointmentManagement() {
           <h2>Select Appointment Date:</h2>
           <Calendar className="Calendar" onChange={handleDateChange} value={selectedDate} />
         </div>
+
         <div className="reason-container">
+
+        <h2>Duration:</h2>
+        <select className="duration-select"
+            value={duration}
+            onChange={e => setDuration(e.target.value)}
+          >
+          <option value="15">15 minutes</option>
+          <option value="30">30 minutes</option>
+          <option value="60">60 minutes</option>
+        </select>
+
+        <h2>Time:</h2>
+          <input
+          type="time"
+          value={selectedTime}
+          onChange={handleTimeChange}
+        />
+
           <h2>Reason for Visit:</h2>
           <textarea
-            rows="4"
+            rows="6"
             cols="50"
             value={reason}
             onChange={handleReasonChange}
-            placeholder="Enter reason for visit"
+            placeholder=" "
           ></textarea>
         </div>
       </div>
-      <button onClick={handleSubmit}>Submit Appointment</button>
+      <button className="confirm-appointment" onClick={handleSubmit}>Confirm Appointment</button>
     </div>
   );
 }

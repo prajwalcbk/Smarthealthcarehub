@@ -31,7 +31,8 @@ label {
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="time"] {
   width: 90%;
   padding: 10px;
   border-radius: 10px;

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './doctorsearch.css'; // Import your CSS file for DoctorSearchPage styling
 import AppointmentManagement from './AppointmentManagement';
+import DoctorProfile from './doctorprofile';
 import male_doctor from './../../assets/male_doctor.png'
 import female_doctor from './../../assets/female_doctor.png'
 import location from './../../assets/location.png'
 import Navbar from '../navbar/Navbar';
+
+
 
 const DoctorSearchPage = () => {
   const [doctors, setDoctors] = useState([]);
@@ -15,10 +18,21 @@ const DoctorSearchPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [doctorsPerPage, setdoctorsPerPage ] = useState(10);
   const [bookAppointmentClicked, setBookAppointmentClicked] = useState([]);
+  const [viewprofileClicked, setviewprofileClicked] = useState([]);
 
 
     const handleBookAppointmentClick = (doctorId) => {
     setBookAppointmentClicked((prevClicked) => {
+      // Create a new array based on the previous state
+      const newClicked = [...prevClicked];
+      // Toggle the clicked state for the clicked doctor
+      newClicked[doctorId] = !newClicked[doctorId];
+      return newClicked;
+    });
+  };
+
+  const handleviewprofileClickedClick = (doctorId) => {
+    setviewprofileClicked((prevClicked) => {
       // Create a new array based on the previous state
       const newClicked = [...prevClicked];
       // Toggle the clicked state for the clicked doctor
@@ -116,7 +130,8 @@ const DoctorSearchPage = () => {
       <div className="doctor-list">
         {currentDoctors.map(doctor => (
           <div key={doctor.id} className="doctor-card">
-            <div className="left-section">
+          {viewprofileClicked[doctor.id] && <DoctorProfile />}
+            <div className="left-section" style={{ display: viewprofileClicked[doctor.id] ? 'none' : 'flex' }}>
               <img src={doctor.gender === 'male' ? male_doctor : female_doctor} alt="Doctor icon" className="profile-pic" style={{ width: '50px', height: '50px' }} />
               <div style={{ paddingLeft: '20px' }}>
 
@@ -127,12 +142,16 @@ const DoctorSearchPage = () => {
             </div>
             <div className="right-section">
 
-              {!bookAppointmentClicked[doctor.id] && <button onClick={() => handleBookAppointmentClick(doctor.id)}>Book Appointment</button>}
-              {!bookAppointmentClicked[doctor.id] && <button onClick={() => handleBookAppointmentClick(doctor.id)}>View Profile</button>}
+              {!bookAppointmentClicked[doctor.id] && !viewprofileClicked[doctor.id] && <button onClick={() => handleBookAppointmentClick(doctor.id)}>Book Appointment</button>}
+              {!bookAppointmentClicked[doctor.id] && !viewprofileClicked[doctor.id] && <button onClick={() => handleviewprofileClickedClick(doctor.id)}>View Profile</button>}
 
               {bookAppointmentClicked[doctor.id] && <AppointmentManagement />}
+
+
               {bookAppointmentClicked[doctor.id] && <button onClick={() => handleBookAppointmentClick(doctor.id)}>Cancel</button>}
+              {viewprofileClicked[doctor.id] && <button onClick={() => handleviewprofileClickedClick(doctor.id)}>Close</button>}
             </div>
+
           </div>
         ))}
       </div>
