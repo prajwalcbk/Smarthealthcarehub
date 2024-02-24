@@ -58,15 +58,15 @@ const DoctorSearchPage = () => {
       { id: 7, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"female" },
       { id: 8, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sanfrancisco" , gender:"male"},
       { id: 9, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" , gender:"male" },
-      { id: 1, name: 'Dr. John Doe', specialization: 'Cardiologist', about: 'Experienced cardiologist with expertise in treating heart diseases.',location:"US Sillicon valley" ,gender:"female" },
-      { id: 2, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"male" },
-      { id: 3, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"male"  },
-      { id: 4, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"female" },
-      { id: 5, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sanfrancisco" ,gender:"male"  },
-      { id: 6, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sillicon valley" ,gender:"female" },
-      { id: 7, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"female"  },
-      { id: 8, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sillicon valley" ,gender:"male" },
-      { id: 9, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" , gender:"male"  },
+      { id: 11, name: 'Dr. John Doe', specialization: 'Cardiologist', about: 'Experienced cardiologist with expertise in treating heart diseases.',location:"US Sillicon valley" ,gender:"female" },
+      { id: 12, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"male" },
+      { id: 13, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"male"  },
+      { id: 14, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"female" },
+      { id: 15, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sanfrancisco" ,gender:"male"  },
+      { id: 16, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sillicon valley" ,gender:"female" },
+      { id: 17, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"female"  },
+      { id: 18, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sillicon valley" ,gender:"male" },
+      { id: 19, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" , gender:"male"  },
       // Add more dummy data as needed
     ];
     setDoctors(dummyDoctorsData);
@@ -130,7 +130,7 @@ const DoctorSearchPage = () => {
       <div className="doctor-list">
         {currentDoctors.map(doctor => (
           <div key={doctor.id} className="doctor-card">
-          {viewprofileClicked[doctor.id] && <DoctorProfile />}
+          {viewprofileClicked[doctor.id] && <DoctorProfile id={doctor.id}  />}
             <div className="left-section" style={{ display: viewprofileClicked[doctor.id] ? 'none' : 'flex' }}>
               <img src={doctor.gender === 'male' ? male_doctor : female_doctor} alt="Doctor icon" className="profile-pic" style={{ width: '50px', height: '50px' }} />
               <div style={{ paddingLeft: '20px' }}>
