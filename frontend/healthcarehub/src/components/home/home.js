@@ -1,11 +1,11 @@
 import React from 'react';
 import Navbar from '../navbar/Navbar'; // Make sure to import the Navbar component
+import { Link } from "react-router-dom";
 import './home.css'; // Import your custom CSS for styling
 import calender from './../../assets/calendar.png';
 import medicalrecord from'./../../assets/medical-record.png'
 import prescription from './../../assets/prescription.png'
 import symptomchecker from './../../assets/symptomchecker.png'
-
 
 function Home() {
   return (
@@ -13,14 +13,16 @@ function Home() {
       <Navbar />
 
 
-
       <div className='quote-container'>
         <div className='content-wrapper'>
 
           <div className='box border'>
+          <Link to='appointments'>
             <img src={calender} alt="Calender Icon" style={{ width: '50px', height: '50px' }} />
             <h2>Book an Appointment</h2>
+          </Link>
             <p>Schedule appointments with healthcare professionals to discuss health concerns and receive treatment.</p>
+          
           </div>
 
           <div className='box'>

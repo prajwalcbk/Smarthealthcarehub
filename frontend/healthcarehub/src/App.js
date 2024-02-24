@@ -8,9 +8,8 @@ import ForgotPassword from './components/forgotpassword/ForgotPassword'
 import Doctor from './components/signup/doctor/Doctor'
 import Pharmacist from './components/signup/pharmacist/Pharmacist'
 import Patient from './components/signup/patient/Patient'
-import ForumApp from './components/forums/ForumApp';
 import Home from './components/home/home';
-
+import DoctorSearchPage from './components/appointment/doctorsearch'
 
 function App() {
   return (
@@ -26,7 +25,9 @@ function App() {
           <Route path="/a" element={<Doctor />} />
           <Route path="/b" element={<Pharmacist />} />
           <Route path="/c" element={<Patient />} />
+          <Route path="/appointments" element={<DoctorSearchPage />} />
           <Route path="/" element={<Home />} />
+
 
           {/* Add more routes for other pages */}
         </Routes>
