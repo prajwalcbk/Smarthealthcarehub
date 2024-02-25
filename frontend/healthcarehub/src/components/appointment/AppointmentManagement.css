@@ -3,19 +3,42 @@
   width: 100%;
 }
 
-.appointment-management-container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+/* Styles for desktop */
+@media (min-width: 768px) {
+  .appointment-management-container {
+    justify-content: space-between;
+    display: flex;
+    margin-top: 20px;
+  }
 }
 
 .calendar-container,
 .reason-container , 
 .calendar-container button{
-  width: 45%;
+  width: 100%;
   color: black;
   border-radius: 4px;
 }
+
+
+/* Styles for mobile */
+@media (max-width: 767px) {
+  .appointment-management-container {
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .calendar-container button{
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
 
 .reason-container input[type="time"]{
   width: 85%;

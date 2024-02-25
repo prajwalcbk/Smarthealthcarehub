@@ -8,15 +8,24 @@
 }
 
 .sidebar {
-  width: 300px; /* Adjust width as needed */
+  /*width: 300px;  Adjust width as needed */
   padding: 20px;
   padding-top: 10%;
   height: 80%;
 background-color: rgb(28 27 27 / 70%);
 }
 
+button img {
+  margin-right: 10px; /* Add some margin between the image and text */
+}
+
 .sidebar button {
-  display: block;
+  display: flex; /* Use flexbox to align items */
+  align-items: center; /* Align items vertically */
+}
+
+.sidebar button {
+  /*display: block;*/
   width: 100%;
   padding: 10px 0;
   margin-bottom: 10px;
@@ -31,12 +40,11 @@ background-color: rgb(28 27 27 / 70%);
   transition: background-color 0.3s;
 }
 
-
-
-.sidebar button:hover {
-
-  background-color: rgb(28 27 27 / 70%);
+.hide-sidebar {
+  width: 0; /* Set the width of the sidebar to 0 to hide it */
 }
+
+
 
 .user-data {
   flex: 1; /* Take remaining space */

@@ -6,12 +6,12 @@ import calender from './../../assets/calendar.png';
 import medicalrecord from'./../../assets/medical-record.png'
 import prescription from './../../assets/prescription.png'
 import symptomchecker from './../../assets/symptomchecker.png'
+import User from '../UserProfile/User'
 
 function Home() {
   return (
     <div className="home-container">
       <Navbar />
-
 
       <div className='quote-container'>
         <div className='content-wrapper'>
@@ -26,8 +26,10 @@ function Home() {
           </div>
 
           <div className='box'>
+          <Link to='user'>
             <img src={medicalrecord} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }} />
             <h2>Track Your Medical Records</h2>
+            </Link>
             <p>Access and manage your medical records digitally, ensuring they are available when needed.</p>
           </div>
 

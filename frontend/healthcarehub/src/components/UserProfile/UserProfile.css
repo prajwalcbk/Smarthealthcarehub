@@ -47,6 +47,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  ont-weight: bold;
 }
 
 .user-profile button:hover {
