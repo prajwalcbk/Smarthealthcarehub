@@ -11,6 +11,7 @@ import Doctor from './components/signup/doctor/Doctor'
 import Pharmacist from './components/signup/pharmacist/Pharmacist'
 import Patient from './components/signup/patient/Patient'
 import Home from './components/home/home';
+import Analytics from './components/analytics/analytics';
 import DoctorSearchPage from './components/appointment/doctorsearch'
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/forumpage" element={<ForumPage />} />
           <Route path="/createforum" element={<CreateForum />} />
+          <Route path="/analytics" element={<Analytics />} />
 
 
           {/* Add more routes for other pages */}

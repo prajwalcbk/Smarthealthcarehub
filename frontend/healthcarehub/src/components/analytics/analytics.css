@@ -1,0 +1,77 @@
+/* CustomApp.css */
+
+/* Main container */
+.analytics-container{
+    margin: 0 auto;
+    padding: 20px;
+    padding-right: 20px;
+    overflow-x: auto;
+    overflow-y: auto;
+    background-size: cover;
+    background-position: center;
+    /* background-image: url("../../../public/forum_bg.jpg"); */
+    height: 100%;
+    position: fixed;
+    width: 100%;
+}
+/* CustomApp.css */
+
+/* Main container */
+.app-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #000; /* Black text */
+    margin-top: 30px;
+  }
+  
+  /* Header */
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Stats container */
+  .stats-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  /* Patient and doctor stats */
+  .patient-stats, .doctor-stats {
+    flex: 1;
+    text-align: center;
+    border: 1px solid #000; /* Black border */
+    padding: 10px;
+    margin-right: 10px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    color: #000; /* Black text */
+  }
+  
+  /* Appointment and prescription stats */
+  .appointment-stats, .prescription-stats {
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    color: #000; /* Black text */
+  }
+  
+  /* Graphs container */
+  .graphs-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* Individual graph */
+  .graph {
+    flex: 1;
+  }
+  
+  /* Canvas for charts */
+  canvas {
+    width: 100%;
+    height: auto;
+    border: 1px solid #000; /* Black border */
+    margin-bottom: 20px;
+  }
+  
