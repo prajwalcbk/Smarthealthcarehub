@@ -4,9 +4,10 @@
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  width: 100%;
+  width: 50%;
+  margin-left: 20%;
 }
+
 
 .prescription-list h2 {
   text-align: center;
@@ -40,4 +41,5 @@
   border-radius: 20%;
   border: 2px solid black;
 }
+
 

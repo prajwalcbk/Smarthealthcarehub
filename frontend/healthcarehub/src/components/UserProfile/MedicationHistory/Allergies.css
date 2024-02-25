@@ -1,60 +1,60 @@
-.medical-history {
+.allergies {
   font-family: Arial, sans-serif;
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.medical-history{
+.allergies{
   background-color: rgb(3 15 39 / 96%);
   /*background-color: white;*/
   color: white;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 2px solid white;
   width: 100%;
   align-items: center;
 }
 
-.medical-history h2 {
+.allergies h2 {
   align-items: center;
   text-align: center;
   font-size: 150%;
 }
 
-.medical-history li{
+.allergies li{
   list-style: none;
+
 }
 
-.medical-history h3 {
+.allergies h3 {
   margin-top: 15px;
 }
 
-.medical-history label {
+.allergies label {
   display: inline-block;
   width: 80px;
   margin-right: 10px;
   font-weight: bold;
 }
 
-.medical-history input[type="text"] {
+.allergies input[type="text"] {
   padding: 8px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   /*background-color: rgba(59, 59, 59, 0.3);*/
   color: white;
+  width: 30%;
 }
 
-.medical-history input[type="text"].editable {
+.allergies input[type="text"].editable {
   background-color: white;
   color: black;
 }
 
-.medical-history button {
+.allergies button {
   width: 20%;
   padding: 8px 15px;
   margin-top: 10px;
@@ -65,15 +65,15 @@
   cursor: pointer;
 }
 
-.medical-history button:hover {
+.allergies button:hover {
   background-color: #0056b3;
 }
 
-.medical-history button[type="submit"] {
+.allergies button[type="submit"] {
   background-color: #28a745;
   width: 100%;
 }
 
-.medical-history button[type="submit"]:hover {
+.allergies button[type="submit"]:hover {
   background-color: #218838;
 }

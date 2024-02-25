@@ -48,7 +48,7 @@ function UserProfileData() {
     // After successful update, setEditMode to false
     setEditMode(false);
     // Here, you can use editedUserProfile to update the health records
-    console.log('Edited UserProfile records:', seteditedUserProfile);
+    console.log('Edited UserProfile records:', editedUserProfile);
   };
 
   const handleInputChange = (event) => {

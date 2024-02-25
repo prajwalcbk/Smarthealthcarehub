@@ -1,60 +1,65 @@
-.medical-history {
+.surgeries {
   font-family: Arial, sans-serif;
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.medical-history{
+.surgeries{
   background-color: rgb(3 15 39 / 96%);
   /*background-color: white;*/
   color: white;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 2px solid white;
   width: 100%;
   align-items: center;
 }
 
-.medical-history h2 {
+.surgeries h2 {
   align-items: center;
   text-align: center;
   font-size: 150%;
 }
 
-.medical-history li{
+.surgeries ul{
+padding: inherit;
+}
+.surgeries li{
   list-style: none;
+  border: 1px solid white;
+  border-radius: 40px;
+  padding: 5%;
+  margin-bottom: 5%;
 }
 
-.medical-history h3 {
+.surgeries h3 {
   margin-top: 15px;
 }
 
-.medical-history label {
+.surgeries label {
   display: inline-block;
   width: 80px;
   margin-right: 10px;
   font-weight: bold;
 }
 
-.medical-history input[type="text"] {
+.surgeries input[type="text"] {
   padding: 8px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 5px;
   /*background-color: rgba(59, 59, 59, 0.3);*/
   color: white;
 }
 
-.medical-history input[type="text"].editable {
+.surgeries input[type="text"].editable {
   background-color: white;
   color: black;
 }
 
-.medical-history button {
+.surgeries button {
   width: 20%;
   padding: 8px 15px;
   margin-top: 10px;
@@ -65,15 +70,15 @@
   cursor: pointer;
 }
 
-.medical-history button:hover {
+.surgeries button:hover {
   background-color: #0056b3;
 }
 
-.medical-history button[type="submit"] {
+.surgeries button[type="submit"] {
   background-color: #28a745;
   width: 100%;
 }
 
-.medical-history button[type="submit"]:hover {
+.surgeries button[type="submit"]:hover {
   background-color: #218838;
 }

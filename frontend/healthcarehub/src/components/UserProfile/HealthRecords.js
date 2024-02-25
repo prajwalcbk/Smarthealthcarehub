@@ -20,7 +20,6 @@ function HealthRecords() {
         weight: '70 kg',
         age: '30 years',
         heartRate: '75 bpm',
-        allergies: 'Pollen, Penicillin 23445654321243546, Pollen, Penicillin 23445654321243546',
         bloodGroup: 'A+',
         // Add more health records as needed
       };
@@ -138,18 +137,6 @@ function HealthRecords() {
             </div>
 
 
-            
-            <div>
-              <label htmlFor="allergies">Allergies:</label>
-              <input
-                type="text"
-                id="allergies"
-                name="allergies"
-                value={editMode ? editedHealthRecords.allergies : healthRecords.allergies}
-                onChange={handleInputChange}
-                disabled={!editMode}
-              />
-            </div>
             {editMode && <button onClick={handleCancel}>Cancel</button>}
             {editMode && <button type="submit" onClick={handleSubmit}>Save</button>}
           </form>
