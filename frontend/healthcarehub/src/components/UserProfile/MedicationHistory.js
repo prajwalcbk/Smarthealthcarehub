@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './MedicationHistory.css';
 
 function MedicationHistory() {
   const [medicationHistory, setMedicationHistory] = useState([]);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MedicationHistory from './MedicationHistory';
-import Prescriptions from './Prescriptions';
+import PrescriptionsList from './PrescriptionsList';
 import HealthRecords from './HealthRecords';
 import UserProfile from './UserProfile';
 
@@ -31,16 +31,16 @@ function User() {
           <button onClick={handleToggle}> <img src={bar} alt="menu bar" style={{ width: '40px', height: '40px' }} /> Menu Bar </button>
           <button onClick={() => setActiveComponent('UserProfile')}> <img src={user} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} /> User Details</button>
           <button onClick={() => setActiveComponent('MedicationHistory')}> <img src={medicalrecord} alt="MedicationHistory Icon" style={{ width: '40px', height: '40px' }} /> Medication History</button>
-          <button onClick={() => setActiveComponent('Prescriptions')}> <img src={prescription} alt="Prescriptions Icon" style={{ width: '40px', height: '40px' }} /> Prescriptions</button>
+          <button onClick={() => setActiveComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon" style={{ width: '40px', height: '40px' }} /> Prescriptions</button>
           <button onClick={() => setActiveComponent('HealthRecords')}> <img src={prescription} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /> Health Records</button>
       </div>
-      )}:
+      )}
       {!isOpen && (
       <div className="sidebar">
           <button onClick={handleToggle}> <img src={bar} alt="menu bar" style={{ width: '40px', height: '40px' }} /> </button>
           <button onClick={() => setActiveComponent('UserProfile')}> <img src={user} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} /> </button>
           <button onClick={() => setActiveComponent('MedicationHistory')}> <img src={medicalrecord} alt="MedicationHistory Icon" style={{ width: '40px', height: '40px' }} /></button>
-          <button onClick={() => setActiveComponent('Prescriptions')}> <img src={prescription} alt="Prescriptions Icon" style={{ width: '40px', height: '40px' }} /> </button>
+          <button onClick={() => setActiveComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon" style={{ width: '40px', height: '40px' }} /> </button>
           <button onClick={() => setActiveComponent('HealthRecords')}> <img src={prescription} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /></button>
       </div>
       )}
@@ -48,7 +48,7 @@ function User() {
         <div className="user-data">
           {activeComponent === 'UserProfile' && <UserProfile />}
           {activeComponent === 'MedicationHistory' && <MedicationHistory />}
-          {activeComponent === 'Prescriptions' && <Prescriptions />}
+          {activeComponent === 'PrescriptionsList' && <PrescriptionsList />}
           {activeComponent === 'HealthRecords' && <HealthRecords />}
         </div>
     </div>
