@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './analytics.css'; // Import CSS file for styling
 import Chart from 'chart.js/auto'; // Import Chart.js
+import Navbar from '../navbar/Navbar';
 
 const Analytics = () => {
   // Sample data for patients and doctors (replace with actual data from backend)
@@ -115,6 +116,8 @@ const Analytics = () => {
   };
 
   return (
+    <div className='analytics-container'>
+        <Navbar />
     <div className="app-container">
       <h1>SmartHealth Hub</h1>
       <div className="stats-container">
@@ -153,6 +156,7 @@ const Analytics = () => {
           <canvas ref={prescriptionsChartRef} id="prescriptionsChart" width="400" height="200"></canvas>
         </div>
       </div>
+    </div>
     </div>
   );
 };
