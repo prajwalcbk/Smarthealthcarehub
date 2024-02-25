@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/login/Login';
 import AdminLogin from './components/adminlogin/Login';
 import Forums from './components/forums/HealthForum';
+import ForumPage from './components/forums/ForumPage';
+import CreateForum from './components/forums/CreateForum';
 import SignUp from './components/signup/Signup';
 import ForgotPassword from './components/forgotpassword/ForgotPassword'
 import Doctor from './components/signup/doctor/Doctor'
@@ -27,6 +29,8 @@ function App() {
           <Route path="/c" element={<Patient />} />
           <Route path="/appointments" element={<DoctorSearchPage />} />
           <Route path="/" element={<Home />} />
+          <Route path="/forumpage" element={<ForumPage />} />
+          <Route path="/createforum" element={<CreateForum />} />
 
 
           {/* Add more routes for other pages */}
