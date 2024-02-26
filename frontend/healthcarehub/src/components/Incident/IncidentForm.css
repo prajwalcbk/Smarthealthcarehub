@@ -1,0 +1,61 @@
+.incident-main-conatiner{
+    margin: 0 auto;
+    padding: 20px;
+    padding-right: 20px;
+    overflow-x: auto;
+    overflow-y: auto;
+    background-size: cover;
+    background-position: center;
+    /* background-image: url("../../../public/forum_bg.jpg"); */
+    height: 100%;
+    position: fixed;
+    width: 100%;
+}
+
+
+.incident-form-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 80px;
+  }
+  
+  .incident-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="date"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .submit-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  

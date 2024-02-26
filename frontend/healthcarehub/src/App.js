@@ -13,6 +13,7 @@ import Patient from './components/signup/patient/Patient'
 import Home from './components/home/home';
 import Analytics from './components/analytics/analytics';
 import DoctorSearchPage from './components/appointment/doctorsearch'
+import IncidentForm from './components/Incident/IncidentForm'
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/forumpage" element={<ForumPage />} />
           <Route path="/createforum" element={<CreateForum />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path='/incident' element={<IncidentForm />} />
 
 
           {/* Add more routes for other pages */}
