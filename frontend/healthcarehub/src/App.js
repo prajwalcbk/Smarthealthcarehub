@@ -5,12 +5,13 @@ import AdminLogin from './components/adminlogin/Login';
 import Forums from './components/forums/HealthForum';
 import SignUp from './components/signup/Signup';
 import ForgotPassword from './components/forgotpassword/ForgotPassword'
-import Doctor from './components/signup/doctor/Doctor'
-import Pharmacist from './components/signup/pharmacist/Pharmacist'
-import Patient from './components/signup/patient/Patient'
+
+import ForumPage from './components/forums/ForumPage';
+import FF from './components/forums/f';
+import CreateForum from './components/forums/CreateForum';
+
 import Home from './components/home/home';
 import DoctorSearchPage from './components/appointment/doctorsearch'
-import HealthRecords from './components/UserProfile/HealthRecords'
 import User from './components/UserProfile/User'
 
 function App() {
@@ -24,15 +25,13 @@ function App() {
           <Route path="/healthadminlogin" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/a" element={<Doctor />} />
-          <Route path="/b" element={<Pharmacist />} />
-          <Route path="/c" element={<Patient />} />
           <Route path="/doctors" element={<DoctorSearchPage />} />
           <Route path="/" element={<Home />} />
-
-          <Route path="/d" element={<HealthRecords />} />
-          <Route path="/e" element={<Home />} />
+          <Route path="/f" element={<FF />} />
           <Route path="/user" element={<User />} />
+          <Route path="/forumpage" element={<ForumPage form/>} />
+          <Route path="/forum/:forumId" element={<ForumPage />} />
+          <Route path="/createforum" element={<CreateForum />} />
 
 
           {/* Add more routes for other pages */}

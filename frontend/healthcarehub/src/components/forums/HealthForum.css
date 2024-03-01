@@ -1,28 +1,145 @@
-.post {
-  margin-bottom: 20px;
+.healthforum-container {
+  margin: 0 auto;
+  padding: 20px;
+  padding-right: 20px;
+  overflow-x: auto;
+  overflow-y: auto;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../../../public/3734225.jpg");
+  height: 100%;
+  position: fixed;
+  width: 100%;
+
+}
+
+.healthforum-pagination-container label{
+  width: 30%;
+  padding: 10px;
+  font-size: 18px;
+  height: 40px;
+  color: white;
+}
+
+.healthforum-pagination-container select{
+  width: 25%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 18px;
+  height: 40px;
+}
+
+.healthforum-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-top: 3%;
+  color: black;
+  font-size: 40px;
+}
+
+.healthforum-filter-container {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+  padding: 2%;
+  margin-bottom: 20px;
+  padding: 2%;
+}
+
+.healthforum-filter-container select {
+  width: 239px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-size: 18px;
+  height: 45px;
+}
+
+.healthforum-filter-container input{
+  width: 400px;
+  height: 30px;
+}
+
+.healthforum-filter-container button {
+      margin-top: 20px; 
+    padding: 10px 20px;
+    background-color: #1e3a8a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 15rem;
+    height: 3rem;
+    font-size: 24px;
+} 
+
+
+
+.healthforum-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+}
+
+
+.healthforum-card {
+  background-color: rgb(28 27 27 / 70%);
+  padding: 20px;
+  border-radius: 10px;
+  margin-right: 20px;
+  margin-left: 340px;
+  margin-bottom: 20px;
+  display: flex;
+  width: 60%;
+  color: white;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+.right-section {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  justify-content: center;
+}
+
+.right-section button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
-.post.selected {
-  background-color: #f0f0f0;
+
+
+.healthforum-pagination-container {
+  display: flex;
+  justify-content: center;
+  padding: 3%;
 }
 
-.post h3 {
-  margin: 0;
+.healthforum-pagination-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  margin: 0 5px;
 }
 
-.post p {
-  margin: 5px 0;
-}
-
-.post input {
-  margin-top: 10px;
-}
-
-.error-message {
-  color: red;
+.healthforum-description {
+  max-height: 3em; /* Adjust as needed for two lines */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 }

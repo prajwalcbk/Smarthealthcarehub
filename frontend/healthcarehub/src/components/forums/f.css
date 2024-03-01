@@ -1,0 +1,132 @@
+/* Shared styles */
+.health-forum {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 40px auto;
+  font-family: sans-serif;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Navigation */
+nav {
+  margin-bottom: 20px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Main content */
+main {
+  flex: 1;
+}
+
+.sort-bar {
+  margin-bottom: 20px;
+}
+
+.sort-bar label {
+  margin-right: 10px;
+}
+
+select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.topics-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.topics-list li {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.topic-info {
+  margin-bottom: 10px;
+}
+
+.topic-info h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.author {
+  color: #888;
+  font-style: italic;
+}
+
+.read-more {
+  text-align: right;
+}
+
+.read-more a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+.read-more a:hover {
+  text-decoration: underline;
+}
+
+/* Pagination (add specific styles as needed) */
+.pagination {
+  /* Add your styles for pagination elements here */
+}
+
+/* Aside (add specific styles as needed) */
+aside {
+  /* Add your styles for the sidebar content here */
+}

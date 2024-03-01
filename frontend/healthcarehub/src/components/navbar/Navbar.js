@@ -1,6 +1,8 @@
 import React from 'react';
 import './Navbar.css'; // Import your custom CSS for styling
 import Logo from '../../assets/daily-health-app.png';
+import { Link } from "react-router-dom";
+
 
 function Navbar() {
   return (
@@ -10,10 +12,11 @@ function Navbar() {
     <span className="logo-text">SmarthHeathCare Hub</span>
   </a> 
       <div className="nav-links">
-        <a href="/"><i className="fas fa-home"></i> Home</a>
-        <a href="/forums"><i className="fas fa-comments"></i> Forums</a>
-        <a href="/login"><i className="fas fa-sign-in-alt"></i> Login</a>
-        <a href="/signup"><i className="fas fa-user-plus"></i> Sign Up</a>
+      <Link to='/'>  <i className="fas fa-home"> </i> Home </Link>
+      <Link to='/forums'>  <i className="fas fa-comments">  </i> Forums </Link>
+      <Link to='/login'>  <i className="fas fa-sign-in-alt">  </i> Login </Link>
+      <Link to='/signup'>  <i className="fas fa-user-plus">  </i> Sign Up</Link>
+
       </div>
     </div>
   );

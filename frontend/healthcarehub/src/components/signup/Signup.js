@@ -4,6 +4,8 @@ import Patient from './patient/Patient'
 import Doctor from './doctor/Doctor'
 import Pharmacist from './pharmacist/Pharmacist'
 import Navbar from './../navbar/Navbar'
+import { Link } from "react-router-dom";
+
 
 function SignUpPage() {
   const [email, setEmail] = useState('');
@@ -155,7 +157,7 @@ function SignUpPage() {
           <button onClick={handleSignupNext}>Next</button>
           <div className="form-links">
             <span>Already have an account? </span>
-            <a href="/login" >Login</a>
+            <Link to='/login'>  Login </Link>
           </div>
         </div>
     )}

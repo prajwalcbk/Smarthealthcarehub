@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import './Pharmacist.css';
+import { Link } from "react-router-dom";
+
 
 function Pharmacist(props) {
 
@@ -151,7 +153,7 @@ function Pharmacist(props) {
         <button onClick={handleSubmit}>Submit</button>
         <div className="form-links">
           <span>Already have an account? </span>
-          <a href="/login">Login</a>
+          <Link to='/login'>  Login </Link>
         </div>
       </div>
     </div>

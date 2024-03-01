@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './Login.css'; // Import your custom CSS for styling
 import Navbar from './../navbar/Navbar'
+import { Link } from "react-router-dom";
+
 
 function LoginPage() {
   const [email, setemail] = useState('');
@@ -45,7 +47,9 @@ function LoginPage() {
           <button onClick={handleLogin}>Login</button>
         </div>
         <div className="form-links">
-          <a href="/forgotpassword" >Forgot Password?</a>
+          <Link to='/forgotpassword'>
+            Forgot Password?
+          </Link>
         </div>
       </div>
     </div>
