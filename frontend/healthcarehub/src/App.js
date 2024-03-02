@@ -13,7 +13,12 @@ import CreateForum from './components/forums/CreateForum';
 import Forums from './components/forums/HealthForum';
 
 import DoctorSearchPage from './components/appointment/doctorsearch'
-import User from './components/User/User'
+
+
+import Patient from './components/Patient/User'
+import Doctor from './components/Doctor/User'
+import Pharmacist from './components/Pharmacist/User'
+
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
 import Dummy from './components/dummy'
 
@@ -31,7 +36,9 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
 
           <Route path="/doctors" element={<DoctorSearchPage />} />
-          <Route path="/user" element={<User />} />
+          <Route path="/patient" element={<Patient />} />
+          <Route path="/doctor" element={<Doctor />} />
+          <Route path="/pharmacist" element={<Pharmacist />} />
 
           <Route path="/forums" element={<Forums />} />                    
           <Route path="/forum/:forumId" element={<ForumPage />} />
