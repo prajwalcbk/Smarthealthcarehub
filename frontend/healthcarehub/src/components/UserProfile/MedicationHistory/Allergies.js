@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Allergies.css'
 
 function Allergies() {
-  const [allergies, setallergies] = useState([{"name":"fever","index":1},{"name":"headache","index":2,}]);
+  const [allergies, setallergies] = useState([{"name":"fever","index":1},{"name":"headache","index":2}]);
 
   const [editMode, setEditMode] = useState(false);
 

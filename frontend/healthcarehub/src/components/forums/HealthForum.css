@@ -38,6 +38,10 @@
   font-size: 40px;
 }
 
+
+
+
+
 .healthforum-filter-container {
   display: flex;
   align-items: baseline;
@@ -61,13 +65,30 @@
   height: 30px;
 }
 
+
+.healthforum-filter-container input,
+.healthforum-filter-container select{
+  width: 30%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 18px;
+  height: 40px;
+}
+
+.healthforum-filter-container select{
+  height: 60px;
+}
+
+
+
 .healthforum-filter-container button {
       margin-top: 20px; 
     padding: 10px 20px;
-    background-color: #1e3a8a;
+    background-color: 007bff;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     width: 15rem;
     height: 3rem;
@@ -89,7 +110,6 @@
   padding: 20px;
   border-radius: 10px;
   margin-right: 20px;
-  margin-left: 340px;
   margin-bottom: 20px;
   display: flex;
   width: 60%;

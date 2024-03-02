@@ -88,10 +88,16 @@ const HealthForum = () => {
           value={specializationFilter}
           onChange={e => setSpecializationFilter(e.target.value)}
         >
-          <option value="">Health Category</option>
-          <option value="C1">C1</option>
-          <option value="C2">C2</option>
-          <option value="C3">C3</option>
+          <option value="">Select Category</option>
+          <option value="All">All</option>
+          <option value="Diet">Diet</option>
+          <option value="Exercise">Exercise</option>
+          <option value="Mental Health">Mental Health</option>
+          <option value="Sleep">Sleep</option>
+          <option value="Weight Loss">Weight Loss</option>
+          <option value="Women's Health">Women's Health</option>
+          <option value="Men's Health">Men's Health</option>
+          <option value="Heart Health">Heart Health</option>
         </select>
 
 

@@ -7,15 +7,18 @@ import medicalrecord from'./../../assets/medical-record.png'
 import prescription from './../../assets/prescription.png'
 import symptomchecker from './../../assets/symptomchecker.png'
 import User from '../UserProfile/User'
+import SymptomChecker from '../SymptomChecker/SymptomChecker'
+import Notification from '../UserProfile/Notification'
 
 function Home() {
   return (
     <div className="home-container">
       <Navbar />
-
+      <Notification />
       <div className='quote-container'>
         <div className='content-wrapper'>
 
+          
           <div className='box border'>
           <Link to='doctors'>
             <img src={calender} alt="Calender Icon" style={{ width: '50px', height: '50px' }} />
@@ -34,8 +37,10 @@ function Home() {
           </div>
 
           <div className='box'>
+          <Link to='symptomchecker'>
             <img src={symptomchecker} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }} />
             <h2>Symptom Checker</h2>
+          </Link>
             <p>Use symptom checker tool to assess your symptoms and receive guidance on possible causes and next steps.</p>
           </div>
 

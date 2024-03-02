@@ -12,6 +12,7 @@
     width: 100%;
   }
   
+
   .forum-pagination-container label{
     width: 30%;
     padding: 10px;
@@ -93,6 +94,35 @@
     color: white;
   }
   
+
+.answer-section {
+  background-color: rgb(28 27 27 / 70%);
+  padding: 20px;
+  border-radius: 10px;
+  margin-right: 20px;
+  margin-top: 10px;
+  width: 70%;
+  color: white;
+}
+.answer-section textarea {
+    width: 90%;
+    margin-top: 2%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1.5px solid #ccc;
+    resize: none;
+}
+
+  .answer {
+    background-color: rgb(28 27 27 / 70%);
+    padding: 20px;
+    border-radius: 10px;
+    margin-right: 20px;
+    margin-top: 10px;
+    width: 60%;
+    color: white;
+}
+
   .left-section {
     display: flex;
     align-items: center;

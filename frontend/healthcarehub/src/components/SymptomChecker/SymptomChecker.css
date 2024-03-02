@@ -1,0 +1,82 @@
+
+
+.symptomchecker-container {
+  background-color: rgb(28 27 27 / 70%);
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+
+.symptomchecker-container select
+{
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    height: 50px;
+}
+.symptomchecker-container button{
+  width: 50%;
+}
+
+.disclaimer{
+    margin-top:  2%;
+    background: white;
+    color: black;
+    border-radius: inherit;
+    padding: 2%;
+}
+.added-symptoms-list p{
+  padding: 10%;
+}
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+select {
+  font-size: 16px;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+button {
+  font-size: 16px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+li button {
+  margin-left: 10px;
+  background-color: #dc3545;
+}
+
+li button:hover {
+  background-color: #c82333;
+}

@@ -66,6 +66,7 @@ function PastIllness() {
                 className={illness.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemovePastIllness(index)}>Remove</button>
+              <button type="button" onClick={() => handleRemovePastIllness(index)}> Save</button>
             </li>
           ))}
         </ul>

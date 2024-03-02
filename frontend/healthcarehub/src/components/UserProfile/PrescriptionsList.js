@@ -38,7 +38,7 @@ function PrescriptionList() {
     fetchPrescriptions();
   }, []);
 
-  const handleViewClickedClick = (id) => {
+  const handleViewClick = (id) => {
     setViewClicked(prevClicked => ({
       ...prevClicked,
       [id]: !prevClicked[id]
@@ -68,8 +68,8 @@ function PrescriptionList() {
                 <td>{prescription.status}</td>
                 <td>
                   
-                  {viewClicked[prescription.id] && <button onClick={() => handleViewClickedClick(prescription.id)}>Close</button>}
-                  {!viewClicked[prescription.id] && <button onClick={() => handleViewClickedClick(prescription.id)}>View</button>}
+                  {viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>Close</button>}
+                  {!viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>View</button>}
                 </td>
               </tr>
               {viewClicked[prescription.id] && (

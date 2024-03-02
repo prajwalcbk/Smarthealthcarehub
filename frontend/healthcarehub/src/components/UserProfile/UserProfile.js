@@ -12,15 +12,14 @@ function UserProfileData() {
       const response = await fetch('your-api-endpoint');
       // const data = await response.json();
       const sampleUser = {
-        email: 'prajwalcbk@gmail.com',
+        email: 'example@gmail.com',
         firstname: 'Prajwal',
         lastname: 'A Gowda',
-        phoneNumber: '123',
-        emergencycontactnumber: '123',
-        dateofbirth: "123",
+        phoneNumber: '+1 4084805932',
+        emergencycontactnumber: '+1 4084805456',
+        dateofbirth: "11/02/2000",
         gender: "male",
-        emergencycontactnumber: "123",
-        primarycareprovider:"primarycareprovider"
+        primarycareprovider:"Dr Jon Alert"
       };
       const data=sampleUser;
       setUserProfile(data);
