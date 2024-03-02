@@ -16,6 +16,9 @@ import DoctorSearchPage from './components/appointment/doctorsearch'
 import User from './components/User/User'
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
 import Dummy from './components/dummy'
+import FacilityManagement from './components/facility/FacilityManagement';
+import StaffCoordination from './components/staff/StaffCoordination';
+import MedicationDispensation from './components/MedicationDispensation/MedicationDispensation';
 
 function App() {
   return (
@@ -41,7 +44,9 @@ function App() {
           <Route path="/symptomchecker" element={<SymptomChecker />} />
 
           <Route path="/dummy" element={<Dummy />} />
-
+          <Route path="/FacilityManagement" element={<FacilityManagement />} />
+          <Route path="/StaffCoordination" element={<StaffCoordination />} />
+          <Route path="/MedicationDispensation" element={<MedicationDispensation />} />
 
 
           {/* Add more routes for other pages */}
