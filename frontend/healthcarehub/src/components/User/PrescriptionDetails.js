@@ -92,7 +92,7 @@ const handleInputChange = (event) => {
                 </select>
               </td>
               <td>
-              {viewReminder[prescription.id] && <button onClick={() => handleReminderClick(prescription.id)}>Close</button>}
+              {viewReminder[prescription.id] && <button onClick={() => handleReminderClick(prescription.id)}>Delete Reminder</button>}
               {!viewReminder[prescription.id] && <button onClick={() => handleReminderClick(prescription.id)}>Create Reminder</button>}
               </td>
             </tr>

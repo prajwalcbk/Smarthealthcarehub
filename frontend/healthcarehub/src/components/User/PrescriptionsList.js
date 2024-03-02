@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './prescriptionlist.css';
-import Prescription from './Prescription';
+import Prescription from './PrescriptionDetails';
 
 function PrescriptionList() {
   const [prescriptionList, setPrescriptionList] = useState([]);

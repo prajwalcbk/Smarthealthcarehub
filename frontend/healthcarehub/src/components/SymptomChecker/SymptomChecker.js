@@ -108,10 +108,10 @@ const SymptomChecker = () => {
             </option>
           ))}
         </select>
-        { false && <button onClick={handleAddSymptom}>Add Symptom</button> } 
+        <button onClick={handleAddSymptom}>Add Symptom</button>
       </div>
       <div className="added-symptoms-list">
-        { false &&  <h2>Symptoms Added:</h2> }
+        <h2>Symptoms Added:</h2> 
         <ul>
           {symptoms.map((symptom, index) => (
             <li key={index}>

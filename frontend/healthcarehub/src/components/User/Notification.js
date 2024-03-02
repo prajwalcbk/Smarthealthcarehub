@@ -41,6 +41,7 @@ const MedicationReminders = () => {
         <div className="notification-content">
 
           <h3> It's time to take your medication </h3>
+
           <p>Name : {medicationReminder.name}  </p>
           Dosage : {medicationReminder.dosage}
           <button onClick={handleNotificationClose}>Close</button>

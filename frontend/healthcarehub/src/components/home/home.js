@@ -6,9 +6,9 @@ import calender from './../../assets/calendar.png';
 import medicalrecord from'./../../assets/medical-record.png'
 import prescription from './../../assets/prescription.png'
 import symptomchecker from './../../assets/symptomchecker.png'
-import User from '../UserProfile/User'
+import User from '../User/User'
 import SymptomChecker from '../SymptomChecker/SymptomChecker'
-import Notification from '../UserProfile/Notification'
+import Notification from '../User/Notification'
 
 function Home() {
   return (
@@ -18,7 +18,7 @@ function Home() {
       <div className='quote-container'>
         <div className='content-wrapper'>
 
-          
+
           <div className='box border'>
           <Link to='doctors'>
             <img src={calender} alt="Calender Icon" style={{ width: '50px', height: '50px' }} />

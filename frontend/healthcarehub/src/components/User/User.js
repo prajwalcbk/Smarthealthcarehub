@@ -7,6 +7,7 @@ import PastIllness from './MedicationHistory/PastIllness'
 import PrescriptionsList from './PrescriptionsList';
 import HealthRecords from './HealthRecords';
 import UserProfile from './UserProfile';
+import AppointmentList from './AppointmentLists';
 
 import Navbar from './../navbar/Navbar'
 import './User.css'
@@ -15,6 +16,7 @@ import prescription from './../../assets/prescription.png'
 import user from './../../assets/examination.png'
 import bar from './../../assets/menu-bar-.png'
 import close from './../../assets/cross.png'
+import calender from './../../assets/calendar.png';
 
 function User() {
 
@@ -59,6 +61,7 @@ function User() {
           )}
           <button onClick={() => setActiveComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon" style={{ width: '40px', height: '40px' }} /> Prescriptions</button>
           <button onClick={() => setActiveComponent('HealthRecords')}> <img src={prescription} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /> Health Records</button>
+          <button onClick={() => setActiveComponent('AppointmentList')}> <img src={calender} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /> Appointments</button>
       </div>
       )}
       {!isOpen && (
@@ -70,6 +73,7 @@ function User() {
           
           <button onClick={() => setActiveComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon" style={{ width: '40px', height: '40px' }} /> </button>
           <button onClick={() => setActiveComponent('HealthRecords')}> <img src={prescription} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /></button>
+          <button onClick={() => setActiveComponent('AppointmentList')}> <img src={calender} alt="Appointments Icon" style={{ width: '40px', height: '40px' }} /> </button>
       </div>
       )}
 
@@ -79,6 +83,7 @@ function User() {
           {activeComponent === 'PastIllness' && <PastIllness />}
           {activeComponent === 'Surgeries' && <Surgeries />}
           {activeComponent === 'FamilyHistory' && <FamilyHistory />}
+          {activeComponent === 'AppointmentList' && <AppointmentList />}
 
 
           {activeComponent === 'PrescriptionsList' && <PrescriptionsList />}

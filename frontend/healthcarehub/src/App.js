@@ -13,7 +13,7 @@ import CreateForum from './components/forums/CreateForum';
 import Forums from './components/forums/HealthForum';
 
 import DoctorSearchPage from './components/appointment/doctorsearch'
-import User from './components/UserProfile/User'
+import User from './components/User/User'
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
 import Dummy from './components/dummy'
 
