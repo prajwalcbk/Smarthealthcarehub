@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../navbar/Navbar'; // Make sure to import the Navbar component
+import Footer from '../footer/Footer'; 
 import { Link } from "react-router-dom";
 import './home.css'; // Import your custom CSS for styling
 import calender from './../../assets/calendar.png';
@@ -49,7 +50,9 @@ function Home() {
           </div>
           
           </div>
+          <Footer />
       </div>
+      
     </div>
   );
 }
