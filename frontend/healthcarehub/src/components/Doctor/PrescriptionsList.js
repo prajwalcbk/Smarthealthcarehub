@@ -5,38 +5,47 @@ import Prescription from './PrescriptionDetails';
 function PrescriptionList() {
   const [prescriptionList, setPrescriptionList] = useState([]);
   const [viewClicked, setViewClicked] = useState([]);
+  const [filterpatient , setFilterpatient] = useState('');
+  const [iscreatenewprescription , setiscreatenewprescription]= useState(false);
 
   // Fetch prescription history data from an external source (e.g., API)
   useEffect(() => {
     const fetchPrescriptions = async () => {
       // Simulated response from API
       const prescriptionResponse = [
-        { "id": 1, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 3, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 2, "description": "Typhoid", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 4, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 5, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 6, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 7, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 8, "description": "Typhoid", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 9, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 10, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 11, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 13, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 12, "description": "Typhoid", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 14, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 15, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 16, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 17, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 18, "description": "Typhoid", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 19, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 20, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
+        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "provider": "Rahul", "status": "Active" },
+        { "id": 3, "description": "Due to Headache", "issuedDate": "25/01/2024", "provider": "prajwal", "status": "Active" },
+        { "id": 2, "description": "Typhoid", "issuedDate": "25/01/200", "provider": "Rahul", "status": "Active" },
+        { "id": 4, "description": "Due to Fever", "issuedDate": "11/01/2001", "provider": "Rahul", "status": "Active" },
+        { "id": 5, "description": "Due to Headache", "issuedDate": "22/08/2024", "provider": "prajwal", "status": "Active" },
+        { "id": 6, "description": "Due to Fever", "issuedDate": "22/08/2024", "provider": "Rahul", "status": "Active" },
+        { "id": 7, "description": "Due to Headache", "issuedDate": "11/02/200", "provider": "prajwal", "status": "Active" },
+
+
       ];
       setPrescriptionList(prescriptionResponse);
     };
 
     fetchPrescriptions();
   }, []);
+
+    const SearchPrescriptions = () => {
+      // Simulated response from API
+      const prescriptionResponse = [
+        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "provider": "Rahul", "status": "Active" },
+        { "id": 3, "description": "Due to Headache", "issuedDate": "25/01/2024", "provider": "prajwal", "status": "Active" },
+        { "id": 2, "description": "Typhoid", "issuedDate": "25/01/200", "provider": "Rahul", "status": "Active" },
+
+
+
+      ];
+      setPrescriptionList(prescriptionResponse);
+    }
+
+    const CreateNewPrescription = () => {
+      setiscreatenewprescription(!iscreatenewprescription)
+
+    }
 
   const handleViewClick = (id) => {
     setViewClicked(prevClicked => ({
@@ -46,12 +55,27 @@ function PrescriptionList() {
   };
 
   return (
+    <div>
+    {!iscreatenewprescription ? (
     <div className="prescription-list">
       <h2>Prescriptions</h2>
+      <div className="prescription-filter-container">
+
+
+        <input
+          type="text"
+          placeholder="Search Patient"
+          value={filterpatient}
+          onChange={e => setFilterpatient(e.target.value)}
+          style={{"width":"60%"}}
+        />
+        <button style={{"margin":"2%"}} onClick={SearchPrescriptions}> Search </button>
+        <button style={{"margin":"2%"}} onClick={CreateNewPrescription}> Create New </button>
+      </div>
       <table>
         <thead>
           <tr>
-            <th>Provider</th>
+            <th>Issued to</th>
             <th>Description</th>
             <th>Issued On</th>
             <th>Status</th>
@@ -83,6 +107,12 @@ function PrescriptionList() {
           ))}
         </tbody>
       </table>
+    </div>
+    ) : ( 
+     <div className="create-prescription">
+        {/* JSX content for another component */}
+      </div>
+    )}
     </div>
   );
 }

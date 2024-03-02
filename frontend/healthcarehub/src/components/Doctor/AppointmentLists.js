@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './AppointmentList.css';
-import AppointmentManagement from './AppointmentManagement'
 //import appointment from './appointmentDetails';
 
 function AppointmentList() {
   const [appointmentList, setappointmentList] = useState([]);
-  const [viewClicked, setViewClicked] = useState([]);
 
   // Fetch appointment history data from an external source (e.g., API)
   useEffect(() => {
@@ -27,16 +25,14 @@ function AppointmentList() {
     fetchappointments();
   }, []);
 
-  const handleViewClick = (id) => {
-    setViewClicked(prevClicked => ({
-      ...prevClicked,
-      [id]: !prevClicked[id]
-    }));
+  const handleCancelAppointmentClick = (id) => {
+    const updatedAppointments = appointmentList.filter(appointment => appointment.id !== id);
+    setappointmentList(updatedAppointments);
   };
 
   return (
     <div className="appointment-list">
-      <h2>Your Appointments</h2>
+      <h2>Your Upcoming Appointments</h2>
       <table>
         <thead>
           <tr>
@@ -56,31 +52,17 @@ function AppointmentList() {
                 <td>{appointment.Date}</td>
                 <td>{appointment.Time}</td>
                 <td>{appointment.Duration}</td>
-                <td>{appointment.Doctor}</td>
+                <td>{appointment.Patient}</td>
                  <td>{appointment.Reason}</td>
                 
 
 
                 <td>{appointment.status}</td>
                 <td>
-                  {viewClicked[appointment.id] && <button onClick={() => handleViewClick(appointment.id)}>Close</button>}
-                  {!viewClicked[appointment.id] && <button onClick={() => handleViewClick(appointment.id)}>Edit</button>}
+                  <button onClick={() => handleCancelAppointmentClick(appointment.id)}>Cancel Appointment</button>
                 </td>
               </tr>
-              {viewClicked[appointment.id] && (
-                <tr>
-                  <td colSpan="7">
-                    <AppointmentManagement 
-                    reason={appointment.Reason}
-                    duration={appointment.Duration}
-                    Time={appointment.Time}
-                    Date='Fri Mar 08 2024 00:00:00 GMT+0530 (India Standard Time)'
-                    id={appointment.id}
 
-                    />
-                  </td>
-                </tr>
-              )}
             </React.Fragment>
           ))}
         </tbody>

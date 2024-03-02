@@ -10,7 +10,8 @@ import VitalSigns from './HealthRecords/VitalSigns'
 
 import PrescriptionsList from './PrescriptionsList';
 import UserProfile from './UserProfile';
-import AppointmentList from './AppointmentLists';
+import UpcomingAppointments from './AppointmentLists';
+import OlderAppointments from './AppointmentHistory';
 
 import Navbar from './../navbar/Navbar'
 import './User.css'
@@ -31,15 +32,24 @@ function User() {
   const [isOpen, setIsopen] = useState(true);
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [isDropDownOpen1, setDropDownOpen1] = useState(false);
+  const [isDropDownOpen2, setDropDownOpen2] = useState(false);
 
   const handleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
     setDropDownOpen1(false);
+    setDropDownOpen2(false);
   };
 
   const handleDropDown1 = () => {
     setDropDownOpen1(!isDropDownOpen1);
     setDropDownOpen(false);
+    setDropDownOpen2(false);
+  };
+
+  const handleDropDown2 = () => {
+    setDropDownOpen2(!isDropDownOpen2);
+    setDropDownOpen(false);
+    setDropDownOpen1(false);
   };
 
   const handleToggle = () => {
@@ -54,7 +64,7 @@ function User() {
       {isOpen && (
       <div className="sidebar">
           <button onClick={handleToggle}> <img src={bar} alt="menu bar" style={{ width: '40px', height: '40px' }} /> Menu Bar </button>
-          <button onClick={() => setActiveComponent('UserProfile')}> <img src={user} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} /> User Details</button>
+          <button onClick={() => setActiveComponent('UserProfile')}> <img src={user} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} /> Doctor Details</button>
           <button onClick={handleDropDown}>
             <img src={medicalrecord} alt="MedicationHistory Icon" style={{ width: '40px', height: '40px' }} />
             Medication History 
@@ -73,8 +83,9 @@ function User() {
           </div>
           )}
           <button onClick={() => setActiveComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon" style={{ width: '40px', height: '40px' }} /> Prescriptions</button>
-          <button onClick={handleDropDown1}> <img src={vitalsigns} alt="MedicationHistory Icon" style={{ width: '40px', height: '40px' }} />  Health Records {isDropDownOpen1 && <img src={close} alt="menu bar" style={{ width: '40px', height: '40px' }} />}
-          </button>
+          
+
+          <button onClick={handleDropDown1}> <img src={vitalsigns} alt="MedicationHistory Icon" style={{ width: '40px', height: '40px' }} />  Health Records {isDropDownOpen1 && <img src={close} alt="menu bar" style={{ width: '40px', height: '40px' }} />} </button>
           {(
             isDropDownOpen1
           ) && (          
@@ -85,7 +96,18 @@ function User() {
             <button onClick={() => setActiveComponent('VitalSigns')}> Vital Signs </button>
           </div>
           )}
-          <button onClick={() => setActiveComponent('AppointmentList')}> <img src={calender} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /> Appointments</button>
+
+          
+          <button onClick={handleDropDown2}> <img src={calender} alt="Appointments Icon" style={{ width: '40px', height: '40px' }} />  Appointments {isDropDownOpen2 && <img src={close} alt="menu bar" style={{ width: '40px', height: '40px' }} />} </button>
+          {(
+            isDropDownOpen2
+          ) && (          
+          <div className="medical-record-drop-down" >
+          
+            <button onClick={() => setActiveComponent('UpcomingAppointments')}>  Upcoming </button>
+            <button onClick={() => setActiveComponent('OlderAppointments')}> Older </button>
+          </div>
+          )}
           <button onClick={() => setActiveComponent('Messenger')}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> Messenger</button>
       </div>
       )}
@@ -111,7 +133,8 @@ function User() {
           {activeComponent === 'FamilyHistory' && <FamilyHistory />}
 
          {activeComponent === 'PrescriptionsList' && <PrescriptionsList />}
-          {activeComponent === 'AppointmentList' && <AppointmentList />}
+          {activeComponent === 'UpcomingAppointments' && <UpcomingAppointments />}
+          {activeComponent === 'OlderAppointments' && <OlderAppointments />}
          
           {activeComponent === 'Exercise' && <Exercise />}
           {activeComponent === 'VitalSigns' && <VitalSigns />}
