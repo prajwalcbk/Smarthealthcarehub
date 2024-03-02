@@ -1,54 +1,135 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './dummy.css';
+import React, { useState } from 'react';
+import './dummy.css'
 
-const MedicationReminders = () => {
-  const [medicationReminder, setMedicationReminder] = useState(null);
+const VitalSignsTracking = () => {
+  const [vitalSigns, setVitalSigns] = useState([]);
+  const [exerciseData, setExerciseData] = useState([]);
 
-  useEffect(() => {
-    // Check if the reminder has already been shown
-    const reminderShown = sessionStorage.getItem('medicationReminderShown');
-    if (!reminderShown) {
-      // Fetch medication reminder when the component mounts
-      fetchMedicationReminder();
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // This effect runs only once when the component mounts
-
-  const fetchMedicationReminder = async () => {
-    try {
-      //const response = await axios.get('/api/medication-reminder');
-      const response={"name":"DOLO  50" , "dosage":1}
-      setMedicationReminder(response);
-      // Store that the reminder has been shown
-      sessionStorage.setItem('medicationReminderShown', 'true');
-    } catch (error) {
-      console.error('Error fetching medication reminder:', error);
-    }
+  const handleAddVitalSigns = (newVitalSigns) => {
+    setVitalSigns([...vitalSigns, newVitalSigns]);
   };
 
-  const handleNotificationClose = () => {
-    // Close the notification and clear the medication reminder
-    setMedicationReminder(null);
+  const handleAddExerciseData = (newExerciseData) => {
+    setExerciseData([...exerciseData, newExerciseData]);
   };
 
   return (
-    <div className="notification-container">
-      {medicationReminder && (
-        <div className="notification">
-        <h2> Medication Reminders </h2>
-        <div className="notification-content">
-
-          <h3> It's time to take your medication </h3>
-          <p>Name : {medicationReminder.name}  </p>
-          Dosage : {medicationReminder.dosage}
-          <button onClick={handleNotificationClose}>Close</button>
-          </div>
-        </div>
-      )}
+    <div>
+      <h2>Vital Signs Tracking</h2>
+      <VitalSignsForm onAddVitalSigns={handleAddVitalSigns} />
+      <VitalSignsList vitalSigns={vitalSigns} />
+      
+      <h2>Exercise Tracking</h2>
+      <ExerciseForm onAddExerciseData={handleAddExerciseData} />
+      <ExerciseList exerciseData={exerciseData} />
     </div>
   );
 };
 
-export default MedicationReminders;
+const VitalSignsForm = ({ onAddVitalSigns }) => {
+  const [bloodPressure, setBloodPressure] = useState('');
+  const [heartRate, setHeartRate] = useState('');
+  const [bloodSugar, setBloodSugar] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onAddVitalSigns({ bloodPressure, heartRate, bloodSugar });
+    setBloodPressure('');
+    setHeartRate('');
+    setBloodSugar('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Blood Pressure"
+        value={bloodPressure}
+        onChange={(e) => setBloodPressure(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Heart Rate"
+        value={heartRate}
+        onChange={(e) => setHeartRate(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Blood Sugar"
+        value={bloodSugar}
+        onChange={(e) => setBloodSugar(e.target.value)}
+      />
+      <button type="submit">Add Vital Signs</button>
+    </form>
+  );
+};
+
+const VitalSignsList = ({ vitalSigns }) => {
+  return (
+    <div>
+      <h3>Vital Signs History</h3>
+      <ul>
+        {vitalSigns.map((signs, index) => (
+          <li key={index}>
+            Blood Pressure: {signs.bloodPressure}, Heart Rate: {signs.heartRate}, Blood Sugar: {signs.bloodSugar}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+const ExerciseForm = ({ onAddExerciseData }) => {
+  const [workout, setWorkout] = useState('');
+  const [duration, setDuration] = useState('');
+  const [intensity, setIntensity] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onAddExerciseData({ workout, duration, intensity });
+    setWorkout('');
+    setDuration('');
+    setIntensity('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Workout"
+        value={workout}
+        onChange={(e) => setWorkout(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Duration"
+        value={duration}
+        onChange={(e) => setDuration(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Intensity"
+        value={intensity}
+        onChange={(e) => setIntensity(e.target.value)}
+      />
+      <button type="submit">Add Exercise Data</button>
+    </form>
+  );
+};
+
+const ExerciseList = ({ exerciseData }) => {
+  return (
+    <div>
+      <h3>Exercise History</h3>
+      <ul>
+        {exerciseData.map((data, index) => (
+          <li key={index}>
+            Workout: {data.workout}, Duration: {data.duration}, Intensity: {data.intensity}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default VitalSignsTracking;

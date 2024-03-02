@@ -57,11 +57,11 @@ function FamilyHistory() {
                 className={history.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemovefamilyhistory(index)}>Remove</button>
+              <button type="button" onClick={() => handleRemovefamilyhistory(index)}>Save</button>
             </li>
           ))}
         </ul>
         <button type="button" style={{"width":"100%"}} onClick={handleAddfamilyhistory}>Add</button>
-        <button type="submit">Submit</button>
       </form>
     </div>
   );

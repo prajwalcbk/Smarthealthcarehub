@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import MedicationHistory from './MedicationHistory';
 import Allergies from './MedicationHistory/Allergies'
 import FamilyHistory from './MedicationHistory/FamilyHistory'
 import Surgeries from './MedicationHistory/Surgeries'
 import PastIllness from './MedicationHistory/PastIllness'
+
+import Exercise from './HealthRecords/Exercise'
+import BasicHealthRecord from './HealthRecords/BasicHealthRecord'
+import VitalSigns from './HealthRecords/VitalSigns'
+
 import PrescriptionsList from './PrescriptionsList';
-import HealthRecords from './HealthRecords';
 import UserProfile from './UserProfile';
 import AppointmentList from './AppointmentLists';
 
@@ -17,6 +20,8 @@ import user from './../../assets/examination.png'
 import bar from './../../assets/menu-bar-.png'
 import close from './../../assets/cross.png'
 import calender from './../../assets/calendar.png';
+import vitalsigns from './../../assets/vital-signs.png'
+import messenger from './../../assets/online-chat.png'
 
 function User() {
 
@@ -25,13 +30,21 @@ function User() {
 
   const [isOpen, setIsopen] = useState(true);
   const [isDropDownOpen, setDropDownOpen] = useState(false);
+  const [isDropDownOpen1, setDropDownOpen1] = useState(false);
 
   const handleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
+    setDropDownOpen1(false);
+  };
+
+  const handleDropDown1 = () => {
+    setDropDownOpen1(!isDropDownOpen1);
+    setDropDownOpen(false);
   };
 
   const handleToggle = () => {
     setIsopen(!isOpen);
+
   };
 
 
@@ -60,8 +73,20 @@ function User() {
           </div>
           )}
           <button onClick={() => setActiveComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon" style={{ width: '40px', height: '40px' }} /> Prescriptions</button>
-          <button onClick={() => setActiveComponent('HealthRecords')}> <img src={prescription} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /> Health Records</button>
+          <button onClick={handleDropDown1}> <img src={vitalsigns} alt="MedicationHistory Icon" style={{ width: '40px', height: '40px' }} />  Health Records {isDropDownOpen1 && <img src={close} alt="menu bar" style={{ width: '40px', height: '40px' }} />}
+          </button>
+          {(
+            isDropDownOpen1
+          ) && (          
+          <div className="medical-record-drop-down" >
+          
+            <button onClick={() => setActiveComponent('BasicHealthRecord')}>  Basic </button>
+            <button onClick={() => setActiveComponent('Exercise')}> Exercise </button>
+            <button onClick={() => setActiveComponent('VitalSigns')}> Vital Signs </button>
+          </div>
+          )}
           <button onClick={() => setActiveComponent('AppointmentList')}> <img src={calender} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /> Appointments</button>
+          <button onClick={() => setActiveComponent('Messenger')}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> Messenger</button>
       </div>
       )}
       {!isOpen && (
@@ -72,8 +97,9 @@ function User() {
           
           
           <button onClick={() => setActiveComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon" style={{ width: '40px', height: '40px' }} /> </button>
-          <button onClick={() => setActiveComponent('HealthRecords')}> <img src={prescription} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /></button>
+          <button onClick={() => setActiveComponent('HealthRecords')}> <img src={vitalsigns} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /></button>
           <button onClick={() => setActiveComponent('AppointmentList')}> <img src={calender} alt="Appointments Icon" style={{ width: '40px', height: '40px' }} /> </button>
+          <button onClick={() => setActiveComponent('Messenger')}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> </button>
       </div>
       )}
 
@@ -83,11 +109,16 @@ function User() {
           {activeComponent === 'PastIllness' && <PastIllness />}
           {activeComponent === 'Surgeries' && <Surgeries />}
           {activeComponent === 'FamilyHistory' && <FamilyHistory />}
+
+         {activeComponent === 'PrescriptionsList' && <PrescriptionsList />}
           {activeComponent === 'AppointmentList' && <AppointmentList />}
+         
+          {activeComponent === 'Exercise' && <Exercise />}
+          {activeComponent === 'VitalSigns' && <VitalSigns />}
+          {activeComponent === 'BasicHealthRecord' && <BasicHealthRecord />}
 
 
-          {activeComponent === 'PrescriptionsList' && <PrescriptionsList />}
-          {activeComponent === 'HealthRecords' && <HealthRecords />}
+          
         </div>
     </div>
   );

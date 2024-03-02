@@ -71,7 +71,6 @@ function PastIllness() {
           ))}
         </ul>
         <button type="button" style={{"width":"100%"}} onClick={handleAddPastIllness}>Add</button>
-        <button type="submit">Submit</button>
       </form>
     </div>
   );

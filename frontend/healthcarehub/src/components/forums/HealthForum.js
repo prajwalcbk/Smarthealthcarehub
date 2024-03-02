@@ -107,7 +107,7 @@ const HealthForum = () => {
           value={titleFilter}
           onChange={e => setTitleFilter(e.target.value)}
         />
-        <button onClick={handleCreateClick}> Ask </button>
+        <button onClick={handleCreateClick}> Create  </button>
         
       </div>
       <div className="healthforum-list">

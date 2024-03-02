@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './MedicationHistory.css'
+import './PastIllness.css'
 
-function MedicalHistory() {
-  const [pastIllnesses, setPastIllnesses] = useState([{"name":"fever","index":1, "date": "25-11-200"},{"name":"fever","index":2,"date": "25-11-200"},{"name":"fever","index":3,"date": "25-11-200"}]);
+function PastIllness() {
+  const [pastIllnesses, setPastIllnesses] = useState([{"name":"fever","index":1, "date": "25-11-200" , "description" : "Description"},{"name":"fever","index":2,"date": "25-11-200" , "description" : "Description"},{"name":"fever","index":3,"date": "25-11-200" ,"description" : "Description"}]);
 
   const [editMode, setEditMode] = useState(false);
 
@@ -26,11 +26,11 @@ function MedicalHistory() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Medical history:', pastIllnesses);
+    console.log('pastIllnesses history:', pastIllnesses);
   };
 
   return (
-    <div className="medical-history">
+    <div className="pastIllnesses-history">
       <h2>Past Illnesses History</h2>
       <form onSubmit={handleSubmit}>
         <h3>Past Illnesses:</h3>
@@ -56,15 +56,24 @@ function MedicalHistory() {
                 disabled={!illness.editable}
                 className={illness.editable ? "editable" : ""}
               />
+              <label htmlFor={`description-${index}`}>Description:</label>
+              <input
+                id={`description-${index}`}
+                type="text"
+                value={illness.description}
+                onChange={(e) => handleInputChange(e, index, 'description')}
+                disabled={!illness.editable}
+                className={illness.editable ? "editable" : ""}
+              />
               <button type="button" onClick={() => handleRemovePastIllness(index)}>Remove</button>
+              <button type="button" onClick={() => handleRemovePastIllness(index)}> Save</button>
             </li>
           ))}
         </ul>
         <button type="button" style={{"width":"100%"}} onClick={handleAddPastIllness}>Add</button>
-        <button type="submit">Submit</button>
       </form>
     </div>
   );
 }
 
-export default MedicalHistory;
+export default PastIllness;

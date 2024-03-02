@@ -6,9 +6,7 @@ import calender from './../../assets/calendar.png';
 import medicalrecord from'./../../assets/medical-record.png'
 import prescription from './../../assets/prescription.png'
 import symptomchecker from './../../assets/symptomchecker.png'
-import User from '../User/User'
-import SymptomChecker from '../SymptomChecker/SymptomChecker'
-import Notification from '../User/Notification'
+import Notification from '../Patient/Notification'
 
 function Home() {
   return (
@@ -29,7 +27,7 @@ function Home() {
           </div>
 
           <div className='box'>
-          <Link to='user'>
+          <Link to='patient'>
             <img src={medicalrecord} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }} />
             <h2>Track Your Medical Records</h2>
             </Link>

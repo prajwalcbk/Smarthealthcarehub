@@ -6,10 +6,12 @@ import './AppointmentManagement.css';
 
 function AppointmentManagement(props) {
   const [selectedDate, setSelectedDate] = useState(props.Date);
+  const [id, setId] = useState(props.id);
   const [reason, setReason] = useState(props.reason);
   const [selectedTime, setSelectedTime] = useState(props.Time);
   const [duration , setDuration] = useState(props.duration);
 
+  console.log(selectedTime)
   const handleTimeChange = (event) => {
     setSelectedTime(event.target.value);
   };
@@ -44,9 +46,9 @@ function AppointmentManagement(props) {
             value={duration}
             onChange={e => setDuration(e.target.value)}
           >
-          <option value="15">15 minutes</option>
-          <option value="30">30 minutes</option>
-          <option value="60">60 minutes</option>
+          <option value="15 minutes">15 minutes</option>
+          <option value="30 minutes">30 minutes</option>
+          <option value="60 minutes">60 minutes</option>
         </select>
 
         <h2>Time:</h2>
@@ -64,8 +66,8 @@ function AppointmentManagement(props) {
             onChange={handleReasonChange}
             placeholder=" "
           ></textarea>
-                  <button className="user-confirm-appointment" onClick={handleSubmit}>Submit</button>
-        <button className="user-confirm-appointment" onClick={handleSubmit}>Delete</button>
+                  <button className="user-confirm-appointment" onClick={handleSubmit} style={{"margin" : "2%" }} >Save</button>
+        <button className="user-confirm-appointment" onClick={handleSubmit} style={{"margin" : "2%" }} >Cancel Appointment</button>
         </div>
       </div>
     </div>

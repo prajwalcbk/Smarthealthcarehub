@@ -28,7 +28,7 @@
   /*width: 300px;  Adjust width as needed */
   /*padding: 20px;*/
   margin-top: 3%;
-  padding-top: 10%;
+  /*padding-top: 10%;*/
   height: 100%;
   position: fixed;
   /*background-color: rgb(28 27 27 / 70%);*/
@@ -65,6 +65,13 @@ button img {
 
 .medical-history-drop-down {
   background-color: rgb(3 15 39 / 96%);
+  border-radius: 25px;
+  padding: 10%;
+  text-align: center;
+}
+
+.medical-record-drop-down {
+    background-color: rgb(3 15 39 / 96%);
   border-radius: 25px;
   padding: 10%;
   text-align: center;

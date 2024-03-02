@@ -12,14 +12,14 @@ function AppointmentList() {
     const fetchappointments = async () => {
       // Simulated response from API
       const appointmentResponse = [
-        { "id": 1, "Reason": "Due to Fever", "Date": "25-01-2024" , "Time": "12:00 PM" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 3, "Reason": "Due to Headache", "Date": "25-01-2024" , "Time": "12:00 PM" , "Duration" : "30 minutes" ,  "Patient": "prajwal" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 2, "Reason": "Typhoid", "Date": "25-01-2024" , "Time": "12:00 PM" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 4, "Reason": "Due to Fever", "Date": "25-01-2024" , "Time": "12:00 PM" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 5, "Reason": "Due to Headache", "Date": "25-01-2024" , "Time": "12:00 PM" , "Duration" : "30 minutes" ,  "Patient": "prajwal" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 6, "Reason": "Due to Fever", "Date": "25-01-2024" , "Time": "12:00 PM" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 7, "Reason": "Due to Headache", "Date": "25-01-2024" , "Time": "12:00 PM" , "Duration" : "30 minutes" ,  "Patient": "prajwal" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 8, "Reason": "Typhoid", "Date": "25-01-2024" , "Time": "12:00 PM" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
+        { "id": 1, "Reason": "Due to Fever", "Date": "25-01-2024" , "Time": "01:00" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
+        { "id": 3, "Reason": "Due to Headache", "Date": "25-01-2024" , "Time": "02:00" , "Duration" : "30 minutes" ,  "Patient": "prajwal" ,  "Doctor":"Amith" , "status": "Active" },
+        { "id": 2, "Reason": "Typhoid", "Date": "25-01-2024" , "Time": "03:00" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
+        { "id": 4, "Reason": "Due to Fever", "Date": "25-01-2024" , "Time": "04:00" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
+        { "id": 5, "Reason": "Due to Headache", "Date": "25-01-2024" , "Time": "05:00" , "Duration" : "30 minutes" ,  "Patient": "prajwal" ,  "Doctor":"Amith" , "status": "Active" },
+        { "id": 6, "Reason": "Due to Fever", "Date": "25-01-2024" , "Time": "06:00" , "Duration" : "15 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
+        { "id": 7, "Reason": "Due to Headache", "Date": "25-01-2024" , "Time": "07:00" , "Duration" : "30 minutes" ,  "Patient": "prajwal" ,  "Doctor":"Amith" , "status": "Active" },
+        { "id": 8, "Reason": "Typhoid", "Date": "25-01-2024" , "Time": "08:00" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
       ];
       setappointmentList(appointmentResponse);
     };
@@ -72,6 +72,11 @@ function AppointmentList() {
                   <td colSpan="7">
                     <AppointmentManagement 
                     reason={appointment.Reason}
+                    duration={appointment.Duration}
+                    Time={appointment.Time}
+                    Date='Fri Mar 08 2024 00:00:00 GMT+0530 (India Standard Time)'
+                    id={appointment.id}
+
                     />
                   </td>
                 </tr>

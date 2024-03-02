@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './HealthRecords.css'; //
-import Navbar from '../navbar/Navbar';
+import './BasicHealthRecord.css'; //
+import Navbar from '../../navbar/Navbar';
 
 function HealthRecords() {
   const [healthRecords, setHealthRecords] = useState(null);
@@ -19,7 +19,6 @@ function HealthRecords() {
         height: '175 cm',
         weight: '70 kg',
         age: '30 years',
-        heartRate: '75 bpm',
         bloodGroup: 'A+',
         // Add more health records as needed
       };
@@ -110,19 +109,8 @@ function HealthRecords() {
               />
             </div>
 
-            <div>
-              <label htmlFor="heartRate">Heart Rate:</label>
-              <input
-                type="text"
-                id="heartRate"
-                name="heartRate"
-                value={editMode ? editedHealthRecords.heartRate : healthRecords.heartRate}
-                onChange={handleInputChange}
-                disabled={!editMode}
-              />
-            </div>
 
-            </div>
+
 
             <div>
               <label htmlFor="bloodGroup">Blood Group:</label>
@@ -135,6 +123,8 @@ function HealthRecords() {
                 disabled={!editMode}
               />
             </div>
+
+             </div>
 
 
             {editMode && <button onClick={handleCancel}>Cancel</button>}

@@ -67,11 +67,11 @@ function Surgeries() {
                 className={surgery.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemoveSurgeries(index)}>Remove</button>
+              <button type="button" onClick={() => handleRemoveSurgeries(index)}>Save</button>
             </li>
           ))}
         </ul>
         <button type="button" style={{"width":"100%"}} onClick={handleAddSurgeries}>Add</button>
-        <button type="submit">Submit</button>
       </form>
     </div>
   );
