@@ -1,0 +1,70 @@
+.communication {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.user-list {
+  flex: 1;
+  max-width: 200px;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+}
+
+.user-list h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.user-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.user-list li {
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.user-list li:hover {
+  background-color: #eaeaea;
+}
+
+.message-container {
+  flex: 2;
+  padding: 20px;
+}
+
+.message-container h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.message-list {
+  overflow-y: auto;
+}
+
+.message {
+  margin-bottom: 20px;
+}
+
+.sent {
+  margin-left: auto;
+  background-color: #dbe8fc;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+.received {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 10px;
+  max-width: 70%;
+}

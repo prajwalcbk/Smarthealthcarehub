@@ -23,6 +23,7 @@ import Admin from './components/Admin/Admin'
 
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
 import Dummy from './components/dummy'
+import Messenger from './components/messenger/Messenger'
 
 
 function App() {
@@ -30,7 +31,6 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-
           <Route path="/" element={<Home />} />
 
           <Route path="/login" element={<Login />} />
@@ -54,6 +54,8 @@ function App() {
           <Route path="/symptomchecker" element={<SymptomChecker />} />
 
           <Route path="/dummy" element={<Dummy />} />
+
+          <Route path="/messenger" element={<Messenger />} />
 
 
 

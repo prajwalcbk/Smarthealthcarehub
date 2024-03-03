@@ -9,7 +9,7 @@ function Navbar() {
     <div className="navbar">
     <a href='/' className="logo-container">
     <img src={Logo} width="40" height="40" alt="Logo" />
-    <span className="logo-text">SmarthHeathCare Hub</span>
+    <span className="logo-text">SmartHealthCare Hub</span>
   </a> 
       <div className="nav-links">
       <Link to='/'>  <i className="fas fa-home"> </i> Home </Link>
