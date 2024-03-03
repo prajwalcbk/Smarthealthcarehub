@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './MedicationDispensation.css'; // Import CSS file for styling
-import Navbar from '../navbar/Navbar';
+import Navbar from '../../navbar/Navbar';
 
 function MedicationDispensation() {
   // Static data for prescriptions

@@ -8,6 +8,7 @@ import medicalrecord from'./../../assets/medical-record.png'
 import prescription from './../../assets/prescription.png'
 import symptomchecker from './../../assets/symptomchecker.png'
 import Notification from '../Patient/Notification'
+import IncidentReportIcon from '../IncidentReport/IncidentReportIcon';
 
 function Home() {
   return (
@@ -52,7 +53,7 @@ function Home() {
           </div>
           <Footer />
       </div>
-      
+       <IncidentReportIcon />
     </div>
   );
 }

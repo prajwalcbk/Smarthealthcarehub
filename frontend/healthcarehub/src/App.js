@@ -21,6 +21,9 @@ import Pharmacist from './components/Pharmacist/User'
 import HealthAdmin from './components/HealthAdmin/HealthAdmin'
 import Admin from './components/Admin/Admin'
 import AnalyticsDashboard from './components/AnalyticsDashboard/AnalyticsDashboard';
+import AboutUsPage from './components/AboutUs/AboutUsPage';
+import Services from './components/Services/ServicePage';
+import IncidentReportPage from './components/IncidentReport/IncidentReportPage';
 
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
 import Dummy from './components/dummy'
@@ -56,6 +59,10 @@ function App() {
 
           <Route path="/dummy" element={<Dummy />} />
           <Route path="/analytics" element={<AnalyticsDashboard />} />
+          <Route path="/aboutus" element={<AboutUsPage />} />
+          <Route path="/services" element={<Services />} />
+          <Route path='/IncidentReport' element={<IncidentReportPage />} />
+
 
 
 
