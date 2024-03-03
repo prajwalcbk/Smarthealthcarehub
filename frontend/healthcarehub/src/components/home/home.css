@@ -63,3 +63,32 @@
 }
 
 
+/* IconsRow.css */
+.icon-container{
+  margin-top: 10px;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.icons-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.icon-container {
+  text-align: center;
+}
+
+.icon {
+  font-size: 3rem;
+  color: #007bff; /* Adjust icon color */
+}
+
+.role {
+  display: block;
+  font-size: 1rem;
+  color: #333333; /* Adjust role text color */
+  margin-top: 8px;
+  font-weight: bold;
+}
