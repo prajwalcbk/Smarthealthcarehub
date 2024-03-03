@@ -1,20 +1,23 @@
 .staff-container{
-    margin: 0 auto;
-    padding: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding-right: 20px;
     overflow-x: auto;
     overflow-y: auto;
     background-size: cover;
     background-position: center;
-    height: 100%;
-    position: fixed;
-    width: 100%;
+    border-collapse: collapse;
+    background-color: rgb(3 15 39 / 96%); /* Transparent black background */
+    width: 50%;
+    margin-left: 20%;
+    color: white;
 }
 
 .staff-coordination-container {
     max-width: 800px;
     margin: 0 auto;
-    margin-top: 35px;
+    margin-top: 0;
     padding: 20px;
   }
 
@@ -22,7 +25,7 @@
     text-align: center;
     margin-bottom: 20px;
     padding-top: 3%;
-    color: black;
+    color: white;
     font-size: 40px;
 }
   
@@ -34,7 +37,7 @@
   }
   
   .staff-list th, .staff-list td {
-    border: 1px solid #ccc;
+    border: 1px black;
     padding: 8px;
     text-align: left;
   }

@@ -1,0 +1,45 @@
+/* ComplianceOversight.css */
+
+.compliance-oversight-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgb(3 15 39 / 96%);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .compliance-issues-list {
+    margin-top: 20px;
+  }
+  
+  .issue-details {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(3 15 39 / 100%);
+  }
+  
+  .issue-details h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+  
+  .issue-details p {
+    margin: 5px 0;
+  }
+  
+  .issue-details button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .issue-details button:hover {
+    background-color: #0056b3;
+  }
+  

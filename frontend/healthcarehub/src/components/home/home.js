@@ -8,6 +8,9 @@ import medicalrecord from'./../../assets/medical-record.png'
 import prescription from './../../assets/prescription.png'
 import symptomchecker from './../../assets/symptomchecker.png'
 import Notification from '../Patient/Notification'
+import IncidentReportIcon from '../IncidentReport/IncidentReportIcon';
+import { FaUserMd, FaUserCog, FaUserNurse, FaHospital } from 'react-icons/fa';
+
 
 function Home() {
   return (
@@ -50,9 +53,37 @@ function Home() {
           </div>
           
           </div>
+          <div className='icon-container'>
+          <div className="icons-row">
+      <Link to='/doctor'>
+      <div className="icon-container">
+        <FaUserMd className="icon" />
+        <span className="role">Health Care Provider</span>
+      </div>
+      </Link>
+      <Link to='/admin'>
+      <div className="icon-container">
+        <FaUserCog className="icon" />
+        <span className="role">Admin</span>
+      </div>
+      </Link>
+      <Link to='/pharmacist'>
+      <div className="icon-container">
+        <FaUserNurse className="icon" />
+        <span className="role">Pharmacist</span>
+      </div>
+      </Link>
+      <Link to='/healthadmin'>
+      <div className="icon-container">
+        <FaHospital className="icon" />
+        <span className="role">Health Admin</span>
+      </div>
+      </Link>
+    </div>
+          </div>
           <Footer />
       </div>
-      
+       <IncidentReportIcon />
     </div>
   );
 }
