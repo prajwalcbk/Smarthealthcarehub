@@ -12,6 +12,7 @@ import VitalSigns from './HealthRecords/VitalSigns'
 import PrescriptionsList from './PrescriptionsList';
 import UserProfile from './UserProfile';
 import AppointmentList from './AppointmentLists';
+import Messenger from '../messenger/Messenger'
 
 import Footer from './../footer/Footer'; 
 import Navbar from './../navbar/Navbar'
@@ -24,6 +25,8 @@ import close from './../../assets/cross.png'
 import calender from './../../assets/calendar.png';
 import vitalsigns from './../../assets/vital-signs.png'
 import messenger from './../../assets/online-chat.png'
+import { useHistory, useNavigate } from 'react-router-dom';
+
 
 function User() {
 
@@ -47,6 +50,12 @@ function User() {
   const handleToggle = () => {
     setIsopen(!isOpen);
 
+  };
+
+  const navigate = useNavigate();
+
+  const handleCreateClick = () => {
+    navigate('/messenger');
   };
 
 
@@ -88,7 +97,7 @@ function User() {
           </div>
           )}
           <button onClick={() => setActiveComponent('AppointmentList')}> <img src={calender} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /> Appointments</button>
-          <button onClick={() => setActiveComponent('Messenger')}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> Messenger</button>
+          <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> Messenger</button>
       </div>
       )}
       {!isOpen && (
@@ -101,7 +110,7 @@ function User() {
           <button onClick={() => setActiveComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon" style={{ width: '40px', height: '40px' }} /> </button>
           <button onClick={() => setActiveComponent('HealthRecords')}> <img src={vitalsigns} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /></button>
           <button onClick={() => setActiveComponent('AppointmentList')}> <img src={calender} alt="Appointments Icon" style={{ width: '40px', height: '40px' }} /> </button>
-          <button onClick={() => setActiveComponent('Messenger')}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> </button>
+          <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> </button>
       </div>
       )}
 
@@ -118,6 +127,8 @@ function User() {
           {activeComponent === 'Exercise' && <Exercise />}
           {activeComponent === 'VitalSigns' && <VitalSigns />}
           {activeComponent === 'BasicHealthRecord' && <BasicHealthRecord />}
+
+          {activeComponent === 'Messenger' && <Messenger />}
 
 
           

@@ -1,151 +1,59 @@
 import React, { useState } from 'react';
-import { CSVLink } from 'react-csv';
-//dummy
+import './dummy.css'
 
-const ReportGeneration = () => {
-  const [reportType, setReportType] = useState('');
-  const [reportData, setReportData] = useState(null);
-  const [showDownloadCSV, setShowDownloadCSV] = useState(false);
+const Communication = () => {
+  const [users] = useState([
+    { id: 1, name: 'John Doe' },
+    { id: 2, name: 'Jane Smith' },
+    // Add more users as needed
+  ]);
 
-  const handleGenerateReport = (reportype) => {
-    setReportType(reportype);
-    // Implement logic to fetch data based on the selected report type
-    // This is a placeholder example, replace with your actual data fetching logic
-    let data;
-    switch (reportype) {
-      case 'users-list':
-        data = {
-          users: [
-            { username: 'JohnDoe', email: 'john@example.com', status: 'Active', createdDate: '2022-03-01', lastLogin: '2022-03-10' },
-            { username: 'JaneSmith', email: 'jane@example.com', status: 'Inactive', createdDate: '2022-03-05', lastLogin: '2022-03-08' }
-          ]
-        };
-        break;
-      case 'doctors-list':
-        data = {
-          doctors: [
-            { username: 'DrJohn', email: 'drjohn@example.com', role: 'General Practitioner', status: 'Active', createdDate: '2022-03-01' },
-            { username: 'DrJane', email: 'drjane@example.com', role: 'Pediatrician', status: 'Active', createdDate: '2022-03-05' }
-          ]
-        };
-        break;
-      case 'appointments':
-        data = {
-          appointments: [
-            { date: '2022-03-10', time: '10:00 AM', duration: '1 hour', with: 'DrJohn', reason: 'Checkup', status: 'Confirmed' },
-            { date: '2022-03-12', time: '11:00 AM', duration: '45 minutes', with: 'DrJane', reason: 'Consultation', status: 'Pending' }
-          ]
-        };
-        break;
-      case 'system-performance':
-        data = {
-          performance: {
-            activeUsers: 100,
-            concurrentConnections: 50,
-            resourceRequests: 200,
-            resourceQueueLength: 10
-          }
-        };
-        break;
-      default:
-        data = null;
-    }
-    setReportData(data);
-    setShowDownloadCSV(true);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [messages, setMessages] = useState([]);
+
+  const loadMessages = (userId) => {
+    // Simulate loading messages from the server based on the selected user
+    // Replace this with actual data fetching logic
+    const sampleMessages = [
+      { text: 'Hello, how can I assist you today?', sender: 'pharmacist', timestamp: '2024-03-10T08:30:00Z' },
+      { text: 'I need to refill my prescription.', sender: 'patient', timestamp: '2024-03-10T08:35:00Z' },
+      { text: 'Sure, could you please provide your prescription ID?', sender: 'pharmacist', timestamp: '2024-03-10T08:40:00Z' },
+    ];
+    setMessages(sampleMessages);
   };
 
-const csvData = () => {
-  // Convert reportData to CSV format
-  if (!reportData) return [];
-  let csvContent = [];
-  switch (reportType) {
-    case 'users-list':
-      csvContent = reportData.users.map(user => ({
-        Username: user.username,
-        Email: user.email,
-        Status: user.status,
-        'Created Date': user.createdDate,
-        'Last Login': user.lastLogin
-      }));
-      break;
-    case 'doctors-list':
-      csvContent = reportData.doctors.map(doctor => ({
-        Username: doctor.username,
-        Email: doctor.email,
-        Role: doctor.role,
-        Status: doctor.status,
-        'Created Date': doctor.createdDate
-      }));
-      break;
-    case 'appointments':
-      csvContent = reportData.appointments.map(appointment => ({
-        Date: appointment.date,
-        Time: appointment.time,
-        Duration: appointment.duration,
-        With: appointment.with,
-        Reason: appointment.reason,
-        Status: appointment.status
-      }));
-      break;
-    case 'system-performance':
-      csvContent = [{
-        'Active Users': reportData.performance.activeUsers,
-        'Concurrent Connections': reportData.performance.concurrentConnections,
-        'Resource Requests': reportData.performance.resourceRequests,
-        'Resource Queue Length': reportData.performance.resourceQueueLength
-      }];
-      break;
-    default:
-      csvContent = [];
-  }
-  return csvContent;
-};
-
-
-return (
-    <div className="report-generation">
-      <h2>Reports</h2>
-      <ul>
-        <li>
-          <label>List of Users</label>
-          <button onClick={() => handleGenerateReport('users-list')}>Generate Report</button>
-          {showDownloadCSV && reportType === 'users-list' && (
-            <CSVLink data={csvData()} filename="users-list.csv">
-              Download CSV
-            </CSVLink>
-          )}
-        </li>
-        <li>
-          <label>List of Doctors</label>
-          <button onClick={() => handleGenerateReport('doctors-list')}>Generate Report</button>
-          {showDownloadCSV && reportType === 'doctors-list' && (
-            <CSVLink data={csvData()} filename="doctors-list.csv">
-              Download CSV
-            </CSVLink>
-          )}
-        </li>
-        <li>
-          <label>Appointments</label>
-          <button onClick={() => handleGenerateReport('appointments')}>Generate Report</button>
-          {showDownloadCSV && reportType === 'appointments' && (
-            <CSVLink data={csvData()} filename="appointments.csv">
-              Download CSV
-            </CSVLink>
-          )}
-        </li>
-        <li>
-          <label>System Performance</label>
-          <button onClick={() => handleGenerateReport('system-performance')}>Generate Report</button>
-          {showDownloadCSV && reportType === 'system-performance' && (
-            <CSVLink data={csvData()} filename="system-performance.csv">
-              Download CSV
-            </CSVLink>
-          )}
-        </li>
-      </ul>
+  return (
+    <div className="communication">
+      <div className="user-list">
+        <h2>Users</h2>
+        <ul>
+          {users.map(user => (
+            <li key={user.id} onClick={() => {
+              setSelectedUser(user);
+              loadMessages(user.id);
+            }}>
+              {user.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="message-container">
+        <h2>Messages</h2>
+        {selectedUser ? (
+          <div className="message-list">
+            {messages.map((message, index) => (
+              <div key={index} className={message.sender === 'pharmacist' ? 'sent' : 'received'}>
+                <p>{message.text}</p>
+                <small>{new Date(message.timestamp).toLocaleString()}</small>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>Select a user to view messages.</p>
+        )}
+      </div>
     </div>
   );
 };
 
-
-export default ReportGeneration;
+export default Communication;

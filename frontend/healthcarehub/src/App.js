@@ -27,6 +27,7 @@ import IncidentReportPage from './components/IncidentReport/IncidentReportPage';
 
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
 import Dummy from './components/dummy'
+import Messenger from './components/messenger/Messenger'
 
 
 function App() {
@@ -34,7 +35,6 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-
           <Route path="/" element={<Home />} />
 
           <Route path="/login" element={<Login />} />
@@ -63,6 +63,8 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path='/IncidentReport' element={<IncidentReportPage />} />
 
+
+          <Route path="/messenger" element={<Messenger />} />
 
 
 
