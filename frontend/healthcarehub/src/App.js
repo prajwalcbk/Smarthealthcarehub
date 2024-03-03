@@ -20,6 +20,7 @@ import Doctor from './components/Doctor/User'
 import Pharmacist from './components/Pharmacist/User'
 import HealthAdmin from './components/HealthAdmin/HealthAdmin'
 import Admin from './components/Admin/Admin'
+import AnalyticsDashboard from './components/AnalyticsDashboard/AnalyticsDashboard';
 
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
 import Dummy from './components/dummy'
@@ -54,6 +55,7 @@ function App() {
           <Route path="/symptomchecker" element={<SymptomChecker />} />
 
           <Route path="/dummy" element={<Dummy />} />
+          <Route path="/analytics" element={<AnalyticsDashboard />} />
 
 
 
