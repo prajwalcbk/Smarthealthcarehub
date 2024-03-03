@@ -1,3 +1,5 @@
+// AnalyticsDashboard.js
+
 import React, { useState, useEffect } from 'react';
 import './AnalyticsDashboard.css'; // Import CSS file for styling
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar } from 'recharts'; // Import recharts for chart components
@@ -35,6 +37,15 @@ function AnalyticsDashboard() {
 
   // Calculate total patients
   const totalPatients = analyticsData.reduce((total, dataPoint) => total + dataPoint.patientCount, 0);
+
+  // Sample data for symptoms and their counts
+  const symptomsData = [
+    { symptom: 'Fever', count: 25 },
+    { symptom: 'Cough', count: 30 },
+    { symptom: 'Headache', count: 15 },
+    { symptom: 'Fatigue', count: 20 },
+    { symptom: 'Muscle pain', count: 10 },
+  ];
 
   return (
     <div className='analytics-container'>
@@ -93,8 +104,29 @@ function AnalyticsDashboard() {
           {/* Line chart */}
           <Line type="monotone" dataKey="revenue" stroke="#ffc658" />
         </LineChart>
+
+        {/* Symptoms Analytics Table */}
+          <h2>Symptoms Analytics</h2>
+          <div className="symptoms-analytics">
+          <table className="symptoms-table">
+            <thead>
+              <tr>
+                <th>Symptom</th>
+                <th>Total Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {symptomsData.map((symptom, index) => (
+                <tr key={index}>
+                  <td>{symptom.symptom}</td>
+                  <td>{symptom.count}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+        </div>
       </div>
-    </div>
     </div>
   );
 }
