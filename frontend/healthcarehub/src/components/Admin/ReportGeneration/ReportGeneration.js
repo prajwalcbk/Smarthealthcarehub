@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { CSVLink } from 'react-csv';
-//dummy
+import './ReportGeneration.css'
 
 const ReportGeneration = () => {
   const [reportType, setReportType] = useState('');
   const [reportData, setReportData] = useState(null);
   const [showDownloadCSV, setShowDownloadCSV] = useState(false);
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleGenerateReport = (reportype) => {
     setReportType(reportype);
@@ -52,55 +54,55 @@ const ReportGeneration = () => {
     }
     setReportData(data);
     setShowDownloadCSV(true);
+    setSuccessMessage("Report Generated Succefully !")
   };
 
-const csvData = () => {
-  // Convert reportData to CSV format
-  if (!reportData) return [];
-  let csvContent = [];
-  switch (reportType) {
-    case 'users-list':
-      csvContent = reportData.users.map(user => ({
-        Username: user.username,
-        Email: user.email,
-        Status: user.status,
-        'Created Date': user.createdDate,
-        'Last Login': user.lastLogin
-      }));
-      break;
-    case 'doctors-list':
-      csvContent = reportData.doctors.map(doctor => ({
-        Username: doctor.username,
-        Email: doctor.email,
-        Role: doctor.role,
-        Status: doctor.status,
-        'Created Date': doctor.createdDate
-      }));
-      break;
-    case 'appointments':
-      csvContent = reportData.appointments.map(appointment => ({
-        Date: appointment.date,
-        Time: appointment.time,
-        Duration: appointment.duration,
-        With: appointment.with,
-        Reason: appointment.reason,
-        Status: appointment.status
-      }));
-      break;
-    case 'system-performance':
-      csvContent = [{
-        'Active Users': reportData.performance.activeUsers,
-        'Concurrent Connections': reportData.performance.concurrentConnections,
-        'Resource Requests': reportData.performance.resourceRequests,
-        'Resource Queue Length': reportData.performance.resourceQueueLength
-      }];
-      break;
-    default:
-      csvContent = [];
-  }
-  return csvContent;
-};
-
+  const csvData = () => {
+    // Convert reportData to CSV format
+    if (!reportData) return [];
+    let csvContent = [];
+    switch (reportType) {
+      case 'users-list':
+        csvContent = reportData.users.map(user => ({
+          Username: user.username,
+          Email: user.email,
+          Status: user.status,
+          'Created Date': user.createdDate,
+          'Last Login': user.lastLogin
+        }));
+        break;
+      case 'doctors-list':
+        csvContent = reportData.doctors.map(doctor => ({
+          Username: doctor.username,
+          Email: doctor.email,
+          Role: doctor.role,
+          Status: doctor.status,
+          'Created Date': doctor.createdDate
+        }));
+        break;
+      case 'appointments':
+        csvContent = reportData.appointments.map(appointment => ({
+          Date: appointment.date,
+          Time: appointment.time,
+          Duration: appointment.duration,
+          With: appointment.with,
+          Reason: appointment.reason,
+          Status: appointment.status
+        }));
+        break;
+      case 'system-performance':
+        csvContent = [{
+          'Active Users': reportData.performance.activeUsers,
+          'Concurrent Connections': reportData.performance.concurrentConnections,
+          'Resource Requests': reportData.performance.resourceRequests,
+          'Resource Queue Length': reportData.performance.resourceQueueLength
+        }];
+        break;
+      default:
+        csvContent = [];
+    }
+    return csvContent;
+  };
 
 return (
     <div className="report-generation">
@@ -109,6 +111,8 @@ return (
         <li>
           <label>List of Users</label>
           <button onClick={() => handleGenerateReport('users-list')}>Generate Report</button>
+        <div>{error && <p className="error-message">{error}</p>}</div>
+        <div>{successMessage && reportType === 'users-list' &&  <p className="success-message">{successMessage}</p>}</div>
           {showDownloadCSV && reportType === 'users-list' && (
             <CSVLink data={csvData()} filename="users-list.csv">
               Download CSV
@@ -118,6 +122,8 @@ return (
         <li>
           <label>List of Doctors</label>
           <button onClick={() => handleGenerateReport('doctors-list')}>Generate Report</button>
+        <div>{error && <p className="error-message">{error}</p>}</div>
+        <div>{successMessage && reportType === 'doctors-list' && <p className="success-message">{successMessage}</p>}</div>
           {showDownloadCSV && reportType === 'doctors-list' && (
             <CSVLink data={csvData()} filename="doctors-list.csv">
               Download CSV
@@ -127,6 +133,8 @@ return (
         <li>
           <label>Appointments</label>
           <button onClick={() => handleGenerateReport('appointments')}>Generate Report</button>
+        <div>{error && reportType === 'appointments' &&  <p className="error-message">{error}</p>}</div>
+        <div>{successMessage && reportType === 'appointments' &&  <p className="success-message">{successMessage}</p>}</div>
           {showDownloadCSV && reportType === 'appointments' && (
             <CSVLink data={csvData()} filename="appointments.csv">
               Download CSV
@@ -136,6 +144,8 @@ return (
         <li>
           <label>System Performance</label>
           <button onClick={() => handleGenerateReport('system-performance')}>Generate Report</button>
+        <div>{error && <p className="error-message">{error}</p>}</div>
+        <div>{successMessage && reportType === 'system-performance' && <p className="success-message">{successMessage}</p>}</div>
           {showDownloadCSV && reportType === 'system-performance' && (
             <CSVLink data={csvData()} filename="system-performance.csv">
               Download CSV
@@ -146,6 +156,5 @@ return (
     </div>
   );
 };
-
 
 export default ReportGeneration;

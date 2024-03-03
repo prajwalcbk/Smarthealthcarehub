@@ -14,16 +14,16 @@ import Forums from './components/forums/HealthForum';
 
 import DoctorSearchPage from './components/appointment/doctorsearch'
 
-
+import Footer from './components/footer/Footer'
 import Patient from './components/Patient/User'
 import Doctor from './components/Doctor/User'
 import Pharmacist from './components/Pharmacist/User'
+import HealthAdmin from './components/HealthAdmin/HealthAdmin'
+import Admin from './components/Admin/Admin'
 
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
 import Dummy from './components/dummy'
-import FacilityManagement from './components/facility/FacilityManagement';
-import StaffCoordination from './components/staff/StaffCoordination';
-import MedicationDispensation from './components/MedicationDispensation/MedicationDispensation';
+
 
 function App() {
   return (
@@ -39,9 +39,12 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
 
           <Route path="/doctors" element={<DoctorSearchPage />} />
+          
           <Route path="/patient" element={<Patient />} />
           <Route path="/doctor" element={<Doctor />} />
           <Route path="/pharmacist" element={<Pharmacist />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/healthadmin" element={<HealthAdmin />} />
 
           <Route path="/forums" element={<Forums />} />                    
           <Route path="/forum/:forumId" element={<ForumPage />} />
@@ -51,14 +54,14 @@ function App() {
           <Route path="/symptomchecker" element={<SymptomChecker />} />
 
           <Route path="/dummy" element={<Dummy />} />
-          <Route path="/FacilityManagement" element={<FacilityManagement />} />
-          <Route path="/StaffCoordination" element={<StaffCoordination />} />
-          <Route path="/MedicationDispensation" element={<MedicationDispensation />} />
+
+
 
 
           {/* Add more routes for other pages */}
         </Routes>
       </div>
+
     </Router>
   );
 }

@@ -8,10 +8,12 @@ import Exercise from './HealthRecords/Exercise'
 import BasicHealthRecord from './HealthRecords/BasicHealthRecord'
 import VitalSigns from './HealthRecords/VitalSigns'
 
+
 import PrescriptionsList from './PrescriptionsList';
 import UserProfile from './UserProfile';
 import AppointmentList from './AppointmentLists';
 
+import Footer from './../footer/Footer'; 
 import Navbar from './../navbar/Navbar'
 import './User.css'
 import medicalrecord from'./../../assets/medical-record.png'

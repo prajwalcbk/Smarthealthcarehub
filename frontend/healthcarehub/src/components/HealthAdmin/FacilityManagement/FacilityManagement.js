@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '../navbar/Navbar';
 import './FacilityManagement.css'; // Import CSS file for styling
 
 function FacilityManagement() {
@@ -29,8 +28,6 @@ function FacilityManagement() {
 
   return (
     <div className='facility-container'>
-        <Navbar />
-    <div className="facility-management-container">
       <h1 className='facility-heading'>FACILITY MANAGEMENT</h1>
       <div className="facility-list">
         <h2>Facility List</h2>
@@ -46,7 +43,6 @@ function FacilityManagement() {
             </li>
           ))}
         </ul>
-      </div>
     </div>
     </div>
   );

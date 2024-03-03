@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Navbar from '../navbar/Navbar';
 import './StaffCoordination.css'; // Import CSS file for styling
 
 function StaffCoordination() {
@@ -24,7 +23,6 @@ function StaffCoordination() {
 
   return (
     <div className='staff-container'>
-        <Navbar />
     <div className="staff-coordination-container">
       <h1 className='staff-heading'>Staff Coordination</h1>
       <div className="staff-list">

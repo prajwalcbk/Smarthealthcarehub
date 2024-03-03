@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './prescriptionlist.css';
 import Prescription from './PrescriptionDetails';
+import AddMedication from './AddMedication'
 
 function PrescriptionList() {
   const [prescriptionList, setPrescriptionList] = useState([]);
@@ -109,8 +110,8 @@ function PrescriptionList() {
       </table>
     </div>
     ) : ( 
-     <div className="create-prescription">
-        {/* JSX content for another component */}
+    <div>
+     <AddMedication />
       </div>
     )}
     </div>
