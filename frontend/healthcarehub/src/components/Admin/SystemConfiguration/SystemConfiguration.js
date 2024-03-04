@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import './SystemConfiguration.css'
+
 const SystemConfiguration = () => {
   const [loginEnabled, setLoginEnabled] = useState(false);
   const [signUpEnabled, setSignUpEnabled] = useState(false);
@@ -56,7 +58,7 @@ const SystemConfiguration = () => {
   };
 
   return (
-    <div>
+    <div className="systemconfiguration">
       <h2>System Configuration</h2>
 
       <div>

@@ -28,13 +28,13 @@
     margin-bottom: 20px;
   }
   
-  label {
+.incident-report-container  label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
   }
   
-  input[type='text'],
+.incident-report-container  input[type='text'],
   textarea {
     width: 100%;
     padding: 10px;
@@ -42,7 +42,7 @@
     border-radius: 5px;
   }
   
-  button {
+.incident-report-container  button {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
@@ -52,7 +52,7 @@
     transition: background-color 0.3s;
   }
   
-  button:hover {
+.incident-report-container  button:hover {
     background-color: #0056b3;
   }
   

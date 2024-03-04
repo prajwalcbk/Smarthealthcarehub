@@ -53,34 +53,55 @@ function Home() {
           </div>
           
           </div>
-          <div className='icon-container'>
-          <div className="icons-row">
-      <Link to='/doctor'>
-      <div className="icon-container">
-        <FaUserMd className="icon" />
-        <span className="role">Health Care Provider</span>
-      </div>
-      </Link>
-      <Link to='/admin'>
-      <div className="icon-container">
-        <FaUserCog className="icon" />
-        <span className="role">Admin</span>
-      </div>
-      </Link>
-      <Link to='/pharmacist'>
-      <div className="icon-container">
-        <FaUserNurse className="icon" />
-        <span className="role">Pharmacist</span>
-      </div>
-      </Link>
-      <Link to='/healthadmin'>
-      <div className="icon-container">
-        <FaHospital className="icon" />
-        <span className="role">Health Admin</span>
-      </div>
-      </Link>
-    </div>
+
+          <div className='content-wrapper'>
+
+
+          <div className='box border'>
+          <Link to='doctor'>
+            <img src={calender} alt="Calender Icon" style={{ width: '50px', height: '50px' }} />
+            <h2>Health Provider</h2>
+          </Link>
+            <p>Schedule appointments with healthcare professionals to discuss health concerns and receive treatment.</p>
+          
           </div>
+
+          <div className='box'>
+          <Link to='patient'>
+            <img src={medicalrecord} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }} />
+            <h2> Patients </h2>
+            </Link>
+            <p>Access and manage your medical records digitally, ensuring they are available when needed.</p>
+          </div>
+
+          <div className='box'>
+          <Link to='pharmacist'>
+            <img src={symptomchecker} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }} />
+            <h2>Pharmacist</h2>
+          </Link>
+            <p>Use symptom checker tool to assess your symptoms and receive guidance on possible causes and next steps.</p>
+          </div>
+
+          <div className='box'>
+          <Link to='admin'>
+            <img src={prescription} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }}/>
+            <h2>Administrator</h2>
+          </Link>
+            <p>Conveniently request prescription refills and have them delivered to your preferred Loaction.</p>
+          </div>
+          
+          <div className='box'>
+          <Link to="/healthadmin">
+            <img src={prescription} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }}/>
+            <h2>Health Administrator</h2>
+          </Link>
+            <p>Conveniently request prescription refills and have them delivered to your preferred Loaction.</p>
+          </div>
+
+          </div>
+
+
+
           <Footer />
       </div>
        <IncidentReportIcon />

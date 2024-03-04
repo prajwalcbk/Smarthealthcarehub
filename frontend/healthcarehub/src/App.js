@@ -58,6 +58,7 @@ function App() {
           <Route path="/symptomchecker" element={<SymptomChecker />} />
 
           <Route path="/dummy" element={<Dummy />} />
+          
           <Route path="/analytics" element={<AnalyticsDashboard />} />
           <Route path="/aboutus" element={<AboutUsPage />} />
           <Route path="/services" element={<Services />} />
