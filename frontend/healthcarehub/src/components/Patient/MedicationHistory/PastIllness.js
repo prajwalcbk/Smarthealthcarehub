@@ -31,9 +31,9 @@ function PastIllness() {
 
   return (
     <div className="pastIllnesses-history">
-      <h2>Past Illnesses History</h2>
+      <h2>Past illness History</h2>
       <form onSubmit={handleSubmit}>
-        <h3>Past Illnesses:</h3>
+        <h3>Past illness:</h3>
         <ul>
           {pastIllnesses.map((illness, index) => (
             <li key={index}>

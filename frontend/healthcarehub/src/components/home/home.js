@@ -10,6 +10,13 @@ import symptomchecker from './../../assets/symptomchecker.png'
 import Notification from '../Patient/Notification'
 import IncidentReportIcon from '../IncidentReport/IncidentReportIcon';
 import { FaUserMd, FaUserCog, FaUserNurse, FaHospital } from 'react-icons/fa';
+import doctor from './../../assets/doctor.png'
+import patient from './../../assets/patient.png'
+import pharmacist from './../../assets/pharmacist.png'
+import healthadmin from './../../assets/healthadmin.png'
+import admin from './../../assets/admin.png'
+
+
 
 
 function Home() {
@@ -59,50 +66,47 @@ function Home() {
 
           <div className='box border'>
           <Link to='doctor'>
-            <img src={calender} alt="Calender Icon" style={{ width: '50px', height: '50px' }} />
+            <img src={doctor} alt="Calender Icon" style={{ width: '50px', height: '50px' }} />
             <h2>Health Provider</h2>
           </Link>
-            <p>Schedule appointments with healthcare professionals to discuss health concerns and receive treatment.</p>
+            <p>Provides medical care and treatment in hospitals and clinics</p>
           
           </div>
 
           <div className='box'>
           <Link to='patient'>
-            <img src={medicalrecord} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }} />
+            <img src={patient} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }} />
             <h2> Patients </h2>
             </Link>
-            <p>Access and manage your medical records digitally, ensuring they are available when needed.</p>
+            <p>Seeks medical care and plays an active role in health management.</p>
           </div>
 
           <div className='box'>
           <Link to='pharmacist'>
-            <img src={symptomchecker} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }} />
+            <img src={pharmacist} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }} />
             <h2>Pharmacist</h2>
           </Link>
-            <p>Use symptom checker tool to assess your symptoms and receive guidance on possible causes and next steps.</p>
+            <p>Dispenses medications and ensures their safety and effectiveness.</p>
           </div>
 
           <div className='box'>
           <Link to='admin'>
-            <img src={prescription} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }}/>
+            <img src={admin} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }}/>
             <h2>Administrator</h2>
           </Link>
-            <p>Conveniently request prescription refills and have them delivered to your preferred Loaction.</p>
+            <p>Manages operations and supports healthcare providers.</p>
           </div>
           
           <div className='box'>
           <Link to="/healthadmin">
-            <img src={prescription} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }}/>
+            <img src={healthadmin} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }}/>
             <h2>Health Administrator</h2>
           </Link>
-            <p>Conveniently request prescription refills and have them delivered to your preferred Loaction.</p>
+            <p>Oversees healthcare organization management and drives improvement.</p>
           </div>
 
           </div>
-
-
-
-          <Footer />
+           <Footer />
       </div>
        <IncidentReportIcon />
     </div>

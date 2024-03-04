@@ -33,7 +33,7 @@ function Exercise() {
     <div className="exercises">
       <h2>Exercise Tracking</h2>
       <form onSubmit={handleSubmit}>
-        <h3>Past Exercise record:</h3>
+        <h3>Exercise records:</h3>
         <ul>
           {exercises.map((exercise, index) => (
             <li key={index}>

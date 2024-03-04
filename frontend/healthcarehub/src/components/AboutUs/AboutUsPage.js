@@ -1,6 +1,8 @@
 import React from 'react';
 import './AboutUsPage.css'; // Import CSS file for styling
 import Navbar from '../navbar/Navbar';
+import profile from './../../assets/profile.png'
+import woman from './../../assets/woman.png'
 
 function AboutUsPage() {
   return (
@@ -19,27 +21,27 @@ function AboutUsPage() {
         <h2>Our Team</h2>
         <div className="team-members">
           <div className="team-member">
-            <img src="https://via.placeholder.com/150" alt="Team Member 1" />
+            <img src={profile} alt="Team Member 1" />
             <h3>John Doe</h3>
             <p>Founder & CEO</p>
           </div>
           <div className="team-member">
-            <img src="https://via.placeholder.com/150" alt="Team Member 2" />
+            <img src={profile}  alt="Team Member 2" />
             <h3>Jane Smith</h3>
             <p>CTO</p>
           </div>
           <div className="team-member">
-            <img src="https://via.placeholder.com/150" alt="Team Member 3" />
+            <img src={profile}  alt="Team Member 3" />
             <h3>Michael Johnson</h3>
             <p>Lead Developer</p>
           </div>
           <div className="team-member">
-            <img src="https://via.placeholder.com/150" alt="Team Member 4" />
+            <img src={profile}  alt="Team Member 4" />
             <h3>Emily Brown</h3>
             <p>UX Designer</p>
           </div>
           <div className="team-member">
-            <img src="https://via.placeholder.com/150" alt="Team Member 5" />
+            <img src={profile}  alt="Team Member 5" />
             <h3>David Wilson</h3>
             <p>Marketing Manager</p>
           </div>

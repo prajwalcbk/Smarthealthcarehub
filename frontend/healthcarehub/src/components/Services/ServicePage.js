@@ -16,6 +16,7 @@ function ServicePage() {
     <div className="service-container">
       <h1>Our Services</h1>
       <div className="service-list">
+        
         <div className="service-category">
           <img src={UserCentricIcon} alt="User-Centric Features" />
           <h2>Healthcare Consumer Features</h2>
@@ -28,6 +29,8 @@ function ServicePage() {
             <li>Prescription Management</li>
           </ul>
         </div>
+        
+
         <div className="service-category">
           <img src={HealthcareProviderIcon} alt="Healthcare Provider Features" />
           <h2>Healthcare Provider Features</h2>
@@ -40,6 +43,30 @@ function ServicePage() {
             <li>Analytics Dashboard</li>
           </ul>
         </div>
+
+        <div className="service-category">
+          <img src={PharmacistIcon} alt="Pharmacist Features" />
+          <h2>Pharmacist Features</h2>
+          <ul>
+            <li>Medication Dispensation</li>
+            <li>Medication History</li>
+            <li>Communication</li>
+          </ul>
+        </div>
+
+        <div className="service-category">
+          <img src={FacilityManagementIcon} alt="Facility Management and Compliance" />
+          <h2>Health Administrator </h2>
+          <ul>
+            <li>Facility Management</li>
+            <li>Staff Coordination</li>
+            <li>Compliance Oversight</li>
+            <li>Incident Response</li>
+
+          </ul>
+        </div>
+
+
         <div className="service-category">
           <img src={AdminIcon} alt="Administrative Features" />
           <h2>Administrative Features</h2>
@@ -51,25 +78,14 @@ function ServicePage() {
             <li>Report Generation</li>
           </ul>
         </div>
-        <div className="service-category">
-          <img src={FacilityManagementIcon} alt="Facility Management and Compliance" />
-          <h2>Facility Management and Compliance</h2>
-          <ul>
-            <li>Facility Management</li>
-            <li>Staff Coordination</li>
-            <li>Compliance Oversight</li>
-            <li>Incident Response</li>
-          </ul>
-        </div>
-        <div className="service-category">
-          <img src={PharmacistIcon} alt="Pharmacist Features" />
-          <h2>Pharmacist Features</h2>
-          <ul>
-            <li>Medication Dispensation</li>
-            <li>Medication History</li>
-            <li>Communication</li>
-          </ul>
-        </div>
+
+
+
+        
+
+
+
+        
       </div>
     </div>
     </div>

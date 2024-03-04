@@ -40,7 +40,7 @@
 
 .filter-container {
   display: flex;
-  /*justify-content: space-between;*/
+  justify-content: space-between;
   margin-bottom: 20px;
   padding: 2%;
 }

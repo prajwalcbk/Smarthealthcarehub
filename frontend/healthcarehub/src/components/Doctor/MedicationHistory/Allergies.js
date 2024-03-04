@@ -31,7 +31,7 @@ function Allergies() {
 
   return (
     <div className="allergies">
-      <h2>Family Health History</h2>
+      <h2>Allergies</h2>
       <form onSubmit={handleSubmit}>
         <h3>Allergies:</h3>
         <ul>

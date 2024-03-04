@@ -36,18 +36,16 @@
 
 .service-category {
   background-color: #ffffff;
-  border-radius: 10px;
+  border-radius: 20px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  width: calc(50% - 20px); /* 50% width with 20px gap */
+  width: 35%;
+  /*width: calc(50% - 20px); */
   margin-bottom: 20px;
   text-align: left;
 }
 
-.service-category:nth-child(3n + 1),
-.service-category:nth-child(3n + 2) {
-  width: calc(33.33% - 20px); /* 33.33% width with 20px gap */
-}
+
 
 .service-category img {
   width: 80px;

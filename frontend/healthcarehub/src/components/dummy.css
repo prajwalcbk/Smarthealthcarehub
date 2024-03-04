@@ -1,70 +1,60 @@
-.communication {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+.company-dropdown {
+  position: relative; /* Necessary for positioning the dropdown content */
+  display: inline-block; /* Allows the dropdown to be placed inline with text */
 }
 
-.user-list {
-  flex: 1;
-  max-width: 200px;
-  padding: 20px;
-  border-right: 1px solid #ccc;
-}
-
-.user-list h2 {
-  margin-bottom: 15px;
-  color: #333;
-}
-
-.user-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-.user-list li {
+.company-dropdown button {
+  margin-top: 0;
   cursor: pointer;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  padding: 1px 1px;
+  border: 1px solid transparent; /* Adjust border style as needed */
+  border-radius: 4px;
+  font-size: large;
+  background-color: transparent;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 
-.user-list li:hover {
-  background-color: #eaeaea;
+.company-dropdown button:hover {
+  background-color: transparent; /* Adjust hover color as needed */
 }
 
-.message-container {
-  flex: 2;
-  padding: 20px;
+.company-dropdown button i {
+  margin-left: 5px; /* Adjust icon spacing as needed */
 }
 
-.message-container h2 {
-  margin-bottom: 15px;
-  color: #333;
-}
-
-.message-list {
-  overflow-y: auto;
-}
-
-.message {
-  margin-bottom: 20px;
-}
-
-.sent {
-  margin-left: auto;
-  background-color: #dbe8fc;
-  color: #333;
-  padding: 10px 15px;
+.company-dropdown .medical-record-drop-down {
+  position: absolute;
+  top: 100%; /* Position the dropdown below the button */
+  left: 0;
+  background-color: rgb(0 0 0 / 70%); /* Adjust background color as needed */
+  border: 1px solid transparent; /* Adjust border style as needed */
   border-radius: 10px;
-  max-width: 70%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  padding: 5px;
+  list-style: none;
+  padding: 20%;
+  margin: 0;
+  width: max-content;
 }
 
-.received {
-  background-color: #f0f0f0;
-  color: #333;
-  padding: 10px 15px;
-  border-radius: 10px;
-  max-width: 70%;
+.company-dropdown .medical-record-drop-down a {
+  text-decoration: none;
+  width: max-content;
+  display: block;
+  padding: 5%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.company-dropdown .medical-record-drop-down a:hover {
+  background-color: black; /* Adjust hover color as needed */
+}
+
+.company-dropdown {
+  background-color: rgb(0 0 0 / 70%);
+}
+
+.medical-record-drop-down {
+background-color: rgb(0 0 0 / 70%);
 }

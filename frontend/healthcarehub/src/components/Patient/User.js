@@ -19,7 +19,7 @@ import Navbar from './../navbar/Navbar'
 import './User.css'
 import medicalrecord from'./../../assets/medical-record.png'
 import prescription from './../../assets/prescription.png'
-import user from './../../assets/examination.png'
+import user from './../../assets/patient.png'
 import bar from './../../assets/menu-bar-.png'
 import close from './../../assets/cross.png'
 import calender from './../../assets/calendar.png';
@@ -77,7 +77,7 @@ function User() {
           ) && (          
           <div className="medical-history-drop-down" >
           
-            <button onClick={() => setActiveComponent('PastIllness')}> PastIllness </button>
+            <button onClick={() => setActiveComponent('PastIllness')}> Past illness </button>
             <button onClick={() => setActiveComponent('Allergies')}> Allergies </button>
             <button onClick={() => setActiveComponent('Surgeries')}> Surgeries </button>
              <button onClick={() => setActiveComponent('FamilyHistory')}> Family History </button>

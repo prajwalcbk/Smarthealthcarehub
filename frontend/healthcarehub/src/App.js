@@ -60,7 +60,7 @@ function App() {
           <Route path="/dummy" element={<Dummy />} />
           
           <Route path="/analytics" element={<AnalyticsDashboard />} />
-          <Route path="/aboutus" element={<AboutUsPage />} />
+          <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/services" element={<Services />} />
           <Route path='/IncidentReport' element={<IncidentReportPage />} />
 
