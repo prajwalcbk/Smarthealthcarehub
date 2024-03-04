@@ -129,6 +129,7 @@ function SignUpPage() {
           </div>
           
           <div className="form-group">
+            
             <div className="toggle">
               <input
                 type="checkbox"

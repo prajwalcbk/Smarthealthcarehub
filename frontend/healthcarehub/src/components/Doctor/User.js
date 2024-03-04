@@ -12,6 +12,7 @@ import PrescriptionsList from './PrescriptionsList';
 import UserProfile from './UserProfile';
 import UpcomingAppointments from './AppointmentLists';
 import OlderAppointments from './AppointmentHistory';
+import AnalyticsDashboard from './AnalyticsDashboard/AnalyticsDashboard'
 
 import Navbar from './../navbar/Navbar'
 import './User.css'
@@ -23,6 +24,8 @@ import close from './../../assets/cross.png'
 import calender from './../../assets/calendar.png';
 import vitalsigns from './../../assets/vital-signs.png'
 import messenger from './../../assets/online-chat.png'
+import analytics from './../../assets/analytics.png'
+
 
 import { useHistory, useNavigate } from 'react-router-dom';
 
@@ -117,7 +120,7 @@ function User() {
             <button onClick={() => setActiveComponent('OlderAppointments')}> Older </button>
           </div>
           )}
-          <button onClick={() => setActiveComponent('AppointmentList')}> <img src={calender} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /> Analytics</button>
+          <button onClick={() => setActiveComponent('AnalyticsDashboard')}> <img src={analytics} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /> Analytics</button>
           <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> Messenger</button>
       </div>
       )}
@@ -131,7 +134,7 @@ function User() {
           <button onClick={() => setActiveComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon" style={{ width: '40px', height: '40px' }} /> </button>
           <button onClick={() => setActiveComponent('HealthRecords')}> <img src={vitalsigns} alt="HealthRecords Icon" style={{ width: '40px', height: '40px' }} /></button>
           <button onClick={() => setActiveComponent('AppointmentList')}> <img src={calender} alt="Appointments Icon" style={{ width: '40px', height: '40px' }} /> </button>
-          <button onClick={() => setActiveComponent('Messenger')}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> </button>
+          <button onClick={() => setActiveComponent('AnalyticsDashboard')}> <img src={analytics} alt="Analytics Icon" style={{ width: '40px', height: '40px' }} /> </button>
           <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> </button>
       </div>
       )}
@@ -150,6 +153,7 @@ function User() {
           {activeComponent === 'Exercise' && <Exercise />}
           {activeComponent === 'VitalSigns' && <VitalSigns />}
           {activeComponent === 'BasicHealthRecord' && <BasicHealthRecord />}
+          {activeComponent === 'AnalyticsDashboard' && <AnalyticsDashboard />}
 
 
           

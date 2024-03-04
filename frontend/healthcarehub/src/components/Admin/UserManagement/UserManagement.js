@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './UserManagement.css';
 
 function UserManagement() {
-  const [UsersList, setPrescriptionList] = useState([]);
+  const [UsersList, setUsersList] = useState([]);
   const [viewClicked, setViewClicked] = useState([]);
 
   // Fetch user  data from an external source (e.g., API)
@@ -19,15 +19,24 @@ function UserManagement() {
         { "id": 7, "name": "Bantuuu", "CreatedDate": "now", "email": "prajwal@gmail.com", "isActive": true },
 
       ];
-      setPrescriptionList(usersResponse);
+      setUsersList(usersResponse);
     };
 
     fetchUSers();
   }, []);
 
-  const handleDeactivateUser = async (userId) => {
-  // Implement logic to send request to your API endpoint for deactivation/activation
-  
+const handleDeactivateUser = (userId) => {
+  // Update UsersList immutably
+  const updatedUsersList = UsersList.map(user => {
+    if (user.id === userId) {
+      // Return a new object with isActive toggled
+      return { ...user, isActive: !user.isActive };
+    }
+    return user; // Return other users as they are
+  });
+
+  // Update state with the new array
+  setUsersList(updatedUsersList);
 };
 
   return (

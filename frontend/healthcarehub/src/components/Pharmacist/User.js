@@ -91,7 +91,7 @@ function User() {
       )}
 
         <div className="user-data">
-          {activeComponent === 'UserProfile' && <MedicationDispensation />}
+          {activeComponent === 'UserProfile' && <UserProfile />}
           {activeComponent === 'Allergies' && <Allergies />}
           {activeComponent === 'PastIllness' && <PastIllness />}
           {activeComponent === 'Surgeries' && <Surgeries />}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AnalyticsDashboard.css'; // Import CSS file for styling
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar } from 'recharts'; // Import recharts for chart components
-import Navbar from '../navbar/Navbar';
 
 function AnalyticsDashboard() {
   // State for analytics data
@@ -37,8 +36,7 @@ function AnalyticsDashboard() {
   const totalPatients = analyticsData.reduce((total, dataPoint) => total + dataPoint.patientCount, 0);
 
   return (
-    <div className='analytics-container'>
-        <Navbar />
+    <div className='analytics-container1'>
     <div className="analytics-dashboard-container">
       <h1>Analytics Dashboard</h1>
       <div className="analytics-summary">

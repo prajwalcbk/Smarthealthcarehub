@@ -10,6 +10,12 @@ import DataBreachesComponent from './DataOversight/DataBreachesComponent'
 import SystemMalfunctionsComponent from './DataOversight/SystemMalfunctionsComponent'
 import close from './../../assets/cross.png'
 
+import patient from './../../assets/patient.png'
+import doctor from './../../assets/doctor.png'
+import report from './../../assets/report.png'
+import configuration from './../../assets/configuration.png'
+import oversights from './../../assets/oversights.png'
+
 
 
 import user from './../../assets/examination.png'
@@ -45,11 +51,11 @@ function Admin() {
           <button onClick={handleToggle}> <img src={bar} alt="menu bar" style={{ width: '40px', height: '40px' }} /> Menu Bar </button>
 
           
-            <button onClick={() => setActiveComponent('UserManagement')}> <img src={user} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} />  Users </button>
-            <button onClick={() => setActiveComponent('HealthcareProviderManagement')}> <img src={user} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} />  HealthcareProviders </button>
-            <button onClick={() => setActiveComponent('SystemConfiguration')}> <img src={user} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} />  SystemConfiguration </button>
+            <button onClick={() => setActiveComponent('UserManagement')}> <img src={patient} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} />  Users </button>
+            <button onClick={() => setActiveComponent('HealthcareProviderManagement')}> <img src={doctor} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} />  HealthcareProviders </button>
+            <button onClick={() => setActiveComponent('SystemConfiguration')}> <img src={configuration} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} />  SystemConfiguration </button>
             <button onClick={handleDropDown}>
-              <img src={user} alt="DataOversight Icon" style={{ width: '40px', height: '40px' }} />
+              <img src={oversights} alt="DataOversight Icon" style={{ width: '40px', height: '40px' }} />
               Oversights
               {isDropDownOpen && <img src={close} alt="menu bar" style={{ width: '40px', height: '40px' }} />}
             </button>
@@ -64,18 +70,18 @@ function Admin() {
           </div>
           )}
 
-            <button onClick={() => setActiveComponent('ReportGeneration')}> <img src={user} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} />  Reports </button>
+            <button onClick={() => setActiveComponent('ReportGeneration')}> <img src={report} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} />  Reports </button>
 
       </div>
       )}
       {!isOpen && (
       <div className="sidebar">
           <button onClick={handleToggle}> <img src={bar} alt="menu bar" style={{ width: '40px', height: '40px' }} /> </button>
-          <button onClick={() => setActiveComponent('UserManagement')}> <img src={user} alt="UserManagement Icon" style={{ width: '40px', height: '40px' }} /> </button>
-          <button onClick={() => setActiveComponent('HealthcareProviderManagement')}> <img src={user} alt="HealthcareProviderManagement Icon" style={{ width: '40px', height: '40px' }} /></button>
-          <button onClick={() => setActiveComponent('SystemConfiguration')}> <img src={user} alt="SystemConfiguration Icon" style={{ width: '40px', height: '40px' }} /></button>
-          <button onClick={() => setActiveComponent('DataOversight')}> <img src={user} alt="DataOversight Icon" style={{ width: '40px', height: '40px' }} /></button>
-          <button onClick={() => setActiveComponent('ReportGeneration')}> <img src={user} alt="ReportGeneration Icon" style={{ width: '40px', height: '40px' }} /></button>
+          <button onClick={() => setActiveComponent('UserManagement')}> <img src={patient} alt="UserManagement Icon" style={{ width: '40px', height: '40px' }} /> </button>
+          <button onClick={() => setActiveComponent('HealthcareProviderManagement')}> <img src={doctor} alt="HealthcareProviderManagement Icon" style={{ width: '40px', height: '40px' }} /></button>
+          <button onClick={() => setActiveComponent('SystemConfiguration')}> <img src={configuration} alt="SystemConfiguration Icon" style={{ width: '40px', height: '40px' }} /></button>
+          <button onClick={() => setActiveComponent('DataOversight')}> <img src={oversights} alt="DataOversight Icon" style={{ width: '40px', height: '40px' }} /></button>
+          <button onClick={() => setActiveComponent('ReportGeneration')}> <img src={report} alt="ReportGeneration Icon" style={{ width: '40px', height: '40px' }} /></button>
           
       </div>
       )}

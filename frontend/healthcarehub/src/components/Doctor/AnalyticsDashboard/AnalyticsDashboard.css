@@ -7,8 +7,8 @@
     overflow-y: auto;
     background-size: cover;
     background-position: center;
-    background-image: url("../../../public/3734225.jpg");
-    height: 100%;
+    /*background-image: url("../../../public/3734225.jpg");*/
+    /*height: 100%;*/
     position: fixed;
     width: 100%;
 }
@@ -17,7 +17,7 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    margin-top: 50px;
+    margin-top: 0px;
     background-color: rgb(3 15 39 / 96%);
     color: white;
     padding: 20px;

@@ -90,6 +90,14 @@ function Home() {
           </div>
 
           <div className='box'>
+          <Link to="/healthadmin">
+            <img src={healthadmin} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }}/>
+            <h2>Health Administrator</h2>
+          </Link>
+            <p>Oversees healthcare organization management and drives improvement.</p>
+          </div>
+          
+          <div className='box'>
           <Link to='admin'>
             <img src={admin} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }}/>
             <h2>Administrator</h2>
@@ -97,13 +105,6 @@ function Home() {
             <p>Manages operations and supports healthcare providers.</p>
           </div>
           
-          <div className='box'>
-          <Link to="/healthadmin">
-            <img src={healthadmin} alt="Stethoscope Icon" style={{ width: '50px', height: '50px' }}/>
-            <h2>Health Administrator</h2>
-          </Link>
-            <p>Oversees healthcare organization management and drives improvement.</p>
-          </div>
 
           </div>
            <Footer />
