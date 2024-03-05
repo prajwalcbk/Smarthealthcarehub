@@ -87,7 +87,7 @@ function Doctor(props) {
 
 
   return (
-    <div className="container">
+    <div className="doctor-container">
       <div className="details-form">
         <h1>Doctor Details</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>

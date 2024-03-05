@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import './UserProfile.css'
+import './UserProfile.css';
+import Select from 'react-select';
 
 function UserProfileData() {
   const [UserProfile, setUserProfile] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [editedUserProfile, seteditedUserProfile] = useState({});
+  const [healthfacilitynameoptions, setHealthFacilityNameOptions] = useState([]);
+
 
   const fetchUserProfile = async () => {
     try {
@@ -29,7 +32,29 @@ function UserProfileData() {
     }
   };
 
+
+  // Function to fetch primary care provider options from API
+  const fetchHealthFacilityName = async (inputValue) => {
+    try {
+      // Perform API call to fetch primary care providers based on inputValue
+      //const response = await fetch(`YOUR_API_ENDPOINT?search=${inputValue}`);
+      //const data = await response.json();
+      const data= [ {"name":"Prajwal","id":123},{"name":"kenchiiiiii","id":123},{"name":"ptrajjuuu","id":1243},{"name":"amith","id":1243}]
+
+      // Transform API response data to the format expected by React Select
+      const transformedOptions = data.map((provider) => ({
+        value: provider.id,
+        label: provider.name,
+      }));
+      setHealthFacilityNameOptions(transformedOptions);
+    } catch (error) {
+      console.error('Error fetching primary care providers:', error);
+    }
+  };
+
+
   useEffect(() => {
+    fetchHealthFacilityName();
     fetchUserProfile();
   }, []);
 
@@ -132,42 +157,60 @@ function UserProfileData() {
           </div>
 
           <div className="input-row">  
+            
             <div>
-              <label htmlFor="phoneNumber">Phone Number :</label>
+              <label htmlFor="qualification">Qualification: </label>
               <input
                 type="text"
-                id="phoneNumber"
-                name="phoneNumber"
-                value={editMode ? editedUserProfile.phoneNumber : UserProfile.phoneNumber}
+                id="qualification"
+                name="qualification"
+                value={editMode ? editedUserProfile.qualification : UserProfile.qualification}
                 onChange={handleInputChange}
                 disabled={!editMode}
               />
             </div>
+
             <div>
-              <label htmlFor="emergencycontactnumber">Emergency Contact Number: </label>
+              <label htmlFor="specialization">Specialization: </label>
               <input
                 type="text"
-                id="emergencycontactnumber"
-                name="emergencycontactnumber"
-                value={editMode ? editedUserProfile.emergencycontactnumber : UserProfile.emergencycontactnumber}
+                id="specialization"
+                name="specialization"
+                value={editMode ? editedUserProfile.specialization : UserProfile.specialization}
                 onChange={handleInputChange}
                 disabled={!editMode}
               />
             </div>
           </div>
 
+          <div>
+          <label htmlFor="about">About *</label>
+            <textarea
+            id="about"
+            name="about"
+            value={editMode ? editedUserProfile.about : UserProfile.about}
+            onChange={handleInputChange}
+            disabled={!editMode}
+            rows={8} 
+          />
+          </div>
 
-            <div>
-              <label htmlFor="primarycareprovider">Primary Care Provider:</label>
-              <input
-                type="text"
-                id="primarycareprovideri"
-                name="primarycareprovider"
-                value={editMode ? editedUserProfile.primarycareprovider : UserProfile.primarycareprovider}
-                onChange={handleInputChange}
-                disabled={!editMode}
-              />
-            </div>
+
+        <div>
+          <label htmlFor="healthfacilityname">Health Facility Name *</label>
+          <Select
+            id="healthfacilityname"
+            value={editMode ? editedUserProfile.healthfacilityname : UserProfile.healthfacilityname}
+            onChange={handleInputChange}
+            options={healthfacilitynameoptions}
+            placeholder="Search or select Health Facility"
+            isSearchable
+          />
+        </div>
+
+
+
+
             {editMode && <button onClick={handleCancel}>Cancel</button>}
             {editMode && <button type="submit" onClick={handleSubmit}>Save</button>}
           </form>

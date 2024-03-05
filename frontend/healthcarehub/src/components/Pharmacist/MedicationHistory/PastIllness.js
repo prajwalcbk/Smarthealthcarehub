@@ -31,7 +31,7 @@ function PastIllness() {
 
   return (
     <div className="pastIllnesses-history">
-      <h2>Past Illnesses History</h2>
+      <h2>Past illnesses History</h2>
       <form onSubmit={handleSubmit}>
         <h3>Past Illnesses:</h3>
         <ul>

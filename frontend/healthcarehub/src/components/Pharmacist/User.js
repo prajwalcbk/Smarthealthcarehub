@@ -17,7 +17,7 @@ import bar from './../../assets/menu-bar-.png'
 import close from './../../assets/cross.png'
 import calender from './../../assets/calendar.png';
 import messenger from './../../assets/online-chat.png'
-import MedicationDispensation from './MedicationDispensation/MedicationDispensation'
+import DispensedPrescription from './DispensedPrescription'
 
 import { useHistory, useNavigate } from 'react-router-dom';
 
@@ -27,12 +27,19 @@ function User() {
   const [activeComponent, setActiveComponent] = useState('');
 
   const [isOpen, setIsopen] = useState(true);
+
   const [isDropDownOpen, setDropDownOpen] = useState(false);
+  const [isDropDownOpen1, setDropDownOpen1] = useState(false);
 
   const handleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
+    setDropDownOpen1(false);
   };
 
+  const handleDropDown1 = () => {
+    setDropDownOpen1(!isDropDownOpen1);
+    setDropDownOpen(false);
+  };
 
 
   const handleToggle = () => {
@@ -66,13 +73,31 @@ function User() {
           ) && (          
           <div className="medical-history-drop-down" >
           
-            <button onClick={() => setActiveComponent('PastIllness')}> PastIllness </button>
+            <button onClick={() => setActiveComponent('PastIllness')}> Pasts illness </button>
             <button onClick={() => setActiveComponent('Allergies')}> Allergies </button>
             <button onClick={() => setActiveComponent('Surgeries')}> Surgeries </button>
              <button onClick={() => setActiveComponent('FamilyHistory')}> Family History </button>
+
           </div>
           )}
-          <button onClick={() => setActiveComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon" style={{ width: '40px', height: '40px' }} /> Prescriptions</button>
+
+          <button onClick={handleDropDown1}>
+            <img src={prescription} alt="Prescriptions Icon" style={{ width: '40px', height: '40px' }} />
+            Prescriptions
+            {isDropDownOpen1 && <img src={close} alt="menu bar" style={{ width: '40px', height: '40px' }} />}
+          </button>
+
+          {(
+            isDropDownOpen1
+          ) && (          
+          <div className="medical-history-drop-down" >
+          
+            <button onClick={() => setActiveComponent('PrescriptionsList')}> Search  </button>
+            <button onClick={() => setActiveComponent('DispensedPrescription')}> Dispensed </button>
+
+          </div>
+          )}
+
           
           <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> Messenger</button>
       </div>
@@ -98,6 +123,7 @@ function User() {
           {activeComponent === 'FamilyHistory' && <FamilyHistory />}
 
          {activeComponent === 'PrescriptionsList' && <PrescriptionsList />}
+         {activeComponent === 'DispensedPrescription' && <DispensedPrescription />}
          
 
 

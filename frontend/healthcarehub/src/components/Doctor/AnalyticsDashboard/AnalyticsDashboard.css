@@ -45,3 +45,34 @@
     height: 300px;
   }
   
+  .symptoms-analytics {
+  margin-top: 50px;
+  width: 100%; /* Set width to 100% */
+}
+
+.symptoms-table-container {
+  overflow-x: auto; /* Add horizontal scrollbar if table overflows */
+  width: 100%; /* Set width to 100% */
+}
+
+.symptoms-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Set fixed table layout */
+}
+
+.symptoms-table th,
+.symptoms-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  word-wrap: break-word; /* Allow word wrap for long text */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Show ellipsis for overflow text */
+}
+
+.symptoms-table th {
+  background-color: #333;
+  color: white;
+}

@@ -104,14 +104,23 @@ return (
               />
 
               <label htmlFor={`time-${index}`}>Time:</label>
-              <input
-                id={`time-${index}`}
-                type="text"
-                value={medicine.time}
-                onChange={(e) => handleInputChange(e, index, 'time')}
-                disabled={!medicine.editable}
-                className={medicine.editable ? "editable" : ""}
-              />
+
+                <select value={medicine.time}
+                    onChange={(e) => handleInputChange(e, index, 'time')}
+                    disabled={!medicine.editable}
+                    className={medicine.editable ? "editable" : ""}
+                  >
+                  <option value="">Select Medication Time</option>
+                  <option value="1-1-1">1-1-1</option>
+                  <option value="1-0-1">1-0-1</option>
+                  <option value="1-0-0">1-0-0</option>
+                  <option value="0-0-1">0-0-1</option>
+                  <option value="0-1-0">0-1-0</option>
+                  <option value="0-1-1">0-1-1</option>
+                  <option value="1-1-0">1-1-0</option>     
+                </select>
+
+
               <button type="button" style={{"width":"20%"}} onClick={() => handleRemoveMedications(index)}>Remove</button>
             </li>
           ))}

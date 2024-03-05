@@ -107,7 +107,7 @@ function PatientSignup(props) {
 
 
   return (
-    <div className="container">
+    <div className="patient-container">
       <div className="details-form">
         <h1>User Details</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>

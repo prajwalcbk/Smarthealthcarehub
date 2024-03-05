@@ -84,7 +84,7 @@ function Pharmacist(props) {
 
 
   return (
-    <div className="container">
+    <div className="pharmacist-container">
       <div className="details-form">
         <h1>Pharmacist Details</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>

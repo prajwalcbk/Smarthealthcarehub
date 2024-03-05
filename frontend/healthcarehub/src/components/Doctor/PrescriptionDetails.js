@@ -5,7 +5,7 @@ function Prescription() {
   const [prescription, setPrescription] = useState([]);
   const [editedprescription, setEditedprescription] = useState([{}]);
   const [editMode, setEditMode] = useState(false);
-  const [viewReminder, setReminderClicked] = useState([]);
+  const [viewEdit, setEditClicked] = useState([]);
 
   const handleEdit = () => {
     setEditMode(true);
@@ -38,8 +38,9 @@ const handleInputChange = (event) => {
     fetchPrescription();
   }, []);
 
-  const handleReminderClick = (id) => {
-    setReminderClicked(prevClicked => ({
+  const handleEditClick = (id) => {
+    setEditMode(!editMode)
+    setEditClicked(prevClicked => ({
       ...prevClicked,
       [id]: !prevClicked[id]
     }));
@@ -54,7 +55,10 @@ const handleInputChange = (event) => {
             <th>Name</th>
             <th>Dosage</th>
             <th>Time</th>
-            <th>Reminder  </th>
+            <th>
+              {viewEdit[prescription.id] && <button onClick={() => handleEditClick(prescription.id)}>Cancel</button>}
+              {!viewEdit[prescription.id] && <button onClick={() => handleEditClick(prescription.id)}>Edit</button>}
+              </th>
           </tr>
         </thead>
         <tbody>
@@ -91,10 +95,7 @@ const handleInputChange = (event) => {
                   <option value="1-1-0">1-1-0</option>     
                 </select>
               </td>
-              <td>
-              {viewReminder[prescription.id] && <button onClick={() => handleReminderClick(prescription.id)}>Cancel</button>}
-              {!viewReminder[prescription.id] && <button onClick={() => handleReminderClick(prescription.id)}>Edit</button>}
-              </td>
+              
             </tr>
           ))}
         </tbody>

@@ -35,6 +35,14 @@ function AnalyticsDashboard() {
   // Calculate total patients
   const totalPatients = analyticsData.reduce((total, dataPoint) => total + dataPoint.patientCount, 0);
 
+   const symptomsData = [
+    { symptom: 'Fever', count: 25 },
+    { symptom: 'Cough', count: 30 },
+    { symptom: 'Headache', count: 15 },
+    { symptom: 'Fatigue', count: 20 },
+    { symptom: 'Muscle pain', count: 10 },
+  ];
+
   return (
     <div className='analytics-container1'>
     <div className="analytics-dashboard-container">
@@ -44,7 +52,6 @@ function AnalyticsDashboard() {
         <div>Total Patients: {totalPatients}</div>
       </div>
       <div className="analytics-charts">
-        {/* Line chart for patient count */}
         <h2>Patients Over Time</h2>
         <LineChart width={600} height={300} data={analyticsData} className="recharts-wrapper">
           {/* X-axis */}
@@ -60,7 +67,6 @@ function AnalyticsDashboard() {
           <Line type="monotone" dataKey="patientCount" stroke="#8884d8" />
         </LineChart>
 
-        {/* Bar chart for appointment count */}
         <h2>Appointments Over Time</h2>
         <BarChart width={600} height={300} data={analyticsData} className="recharts-wrapper">
           {/* X-axis */}
@@ -76,7 +82,6 @@ function AnalyticsDashboard() {
           <Bar dataKey="appointmentCount" fill="#82ca9d" />
         </BarChart>
 
-        {/* Line chart for revenue */}
         <h2>Revenue Over Time</h2>
         <LineChart width={600} height={300} data={analyticsData} className="recharts-wrapper">
           {/* X-axis */}
@@ -91,6 +96,26 @@ function AnalyticsDashboard() {
           {/* Line chart */}
           <Line type="monotone" dataKey="revenue" stroke="#ffc658" />
         </LineChart>
+
+        <h2>Las Week Symptoms Analytics</h2>
+          <div className="symptoms-analytics">
+          <table className="symptoms-table">
+            <thead>
+              <tr>
+                <th>Symptom</th>
+                <th>Total Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {symptomsData.map((symptom, index) => (
+                <tr key={index}>
+                  <td>{symptom.symptom}</td>
+                  <td>{symptom.count}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
       </div>
     </div>
     </div>

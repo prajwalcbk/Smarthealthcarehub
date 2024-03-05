@@ -13,13 +13,13 @@ function PrescriptionList() {
     const fetchPrescriptions = async () => {
       // Simulated response from API
       const prescriptionResponse = [
-        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "provider": "Rahul", "status": "Active" },
-        { "id": 3, "description": "Due to Headache", "issuedDate": "25/01/2024", "provider": "prajwal", "status": "Active" },
-        { "id": 2, "description": "Typhoid", "issuedDate": "25/01/200", "provider": "Rahul", "status": "Active" },
-        { "id": 4, "description": "Due to Fever", "issuedDate": "11/01/2001", "provider": "Rahul", "status": "Active" },
-        { "id": 5, "description": "Due to Headache", "issuedDate": "22/08/2024", "provider": "prajwal", "status": "Active" },
-        { "id": 6, "description": "Due to Fever", "issuedDate": "22/08/2024", "provider": "Rahul", "status": "Active" },
-        { "id": 7, "description": "Due to Headache", "issuedDate": "11/02/200", "provider": "prajwal", "status": "Active" },
+        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "DispensedDate" : "25/01/2023" ,  "provider": "Rahul", "status": "Delivered" },
+        { "id": 3, "description": "Due to Headache", "issuedDate": "25/01/2024","DispensedDate" : "25/01/2023" ,  "provider": "prajwal", "status": "Delivered" },
+        { "id": 2, "description": "Typhoid", "issuedDate": "25/01/200", "DispensedDate" : "25/01/2023" , "provider": "Rahul", "status": "Cancelled" },
+        { "id": 4, "description": "Due to Fever", "issuedDate": "11/01/2001", "DispensedDate" : "25/01/2023" , "provider": "Rahul", "status": "InTransit" },
+        { "id": 5, "description": "Due to Headache", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "prajwal", "status": "Delivered" },
+        { "id": 6, "description": "Due to Fever", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "Rahul", "status": "Cancelled" },
+        { "id": 7, "description": "Due to Headache", "issuedDate": "11/02/200", "DispensedDate" : "25/01/2023" , "provider": "prajwal", "status": "Delivered" },
 
 
       ];
@@ -32,9 +32,9 @@ function PrescriptionList() {
     const SearchPrescriptions = () => {
       // Simulated response from API
       const prescriptionResponse = [
-        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "provider": "Rahul", "status": "Active" },
-        { "id": 3, "description": "Due to Headache", "issuedDate": "25/01/2024", "provider": "prajwal", "status": "Active" },
-        { "id": 2, "description": "Typhoid", "issuedDate": "25/01/200", "provider": "Rahul", "status": "Active" },
+        { "id": 5, "description": "Due to Headache", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "prajwal", "status": "Delivered" },
+        { "id": 6, "description": "Due to Fever", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "Rahul", "status": "Cancelled" },
+        { "id": 7, "description": "Due to Headache", "issuedDate": "11/02/200", "DispensedDate" : "25/01/2023" , "provider": "prajwal", "status": "Delivered" },
 
 
 
@@ -58,7 +58,7 @@ function PrescriptionList() {
     <div>
     {!iscreatenewprescription ? (
     <div className="prescription-list">
-      <h2>Prescriptions</h2>
+      <h2> Dispensed  Prescriptions</h2>
       <div className="prescription-filter-container">
 
 
@@ -77,6 +77,7 @@ function PrescriptionList() {
             <th>Issued to</th>
             <th>Description</th>
             <th>Issued On</th>
+            <th>Dispensed On</th>
             <th>Status</th>
             <th></th>
           </tr>
@@ -88,11 +89,11 @@ function PrescriptionList() {
                 <td>{prescription.provider}</td>
                 <td>{prescription.description}</td>
                 <td>{prescription.issuedDate}</td>
+                <td>{prescription.DispensedDate}</td>
                 <td>{prescription.status}</td>
                 <td>
                   
                   {viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>Close</button>}
-                  {viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>Dispense</button>}
                   {!viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>View</button>}
                 </td>
               </tr>
