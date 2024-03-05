@@ -23,6 +23,7 @@ import Admin from './components/Admin/Admin'
 import AboutUsPage from './components/AboutUs/AboutUsPage';
 import Services from './components/Services/ServicePage';
 import IncidentReportPage from './components/IncidentReport/IncidentReportPage';
+import ContactUs from './components/ContactUs/ContactUs';
 
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
 import Dummy from './components/dummy'
@@ -61,6 +62,7 @@ function App() {
           <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/services" element={<Services />} />
           <Route path='/IncidentReport' element={<IncidentReportPage />} />
+          <Route path='/contact-us' element={<ContactUs />} />
 
 
           <Route path="/messenger" element={<Messenger />} />
