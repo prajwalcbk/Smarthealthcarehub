@@ -8,7 +8,7 @@ import medicalrecord from'./../../assets/medical-record.png'
 import prescription from './../../assets/prescription.png'
 import symptomchecker from './../../assets/symptomchecker.png'
 import Notification from '../Patient/Notification'
-import IncidentReportIcon from '../IncidentReport/IncidentReportIcon';
+import Support from '../Support/Support';
 import { FaUserMd, FaUserCog, FaUserNurse, FaHospital } from 'react-icons/fa';
 import doctor from './../../assets/doctor.png'
 import patient from './../../assets/patient.png'
@@ -108,8 +108,8 @@ function Home() {
 
           </div>
            <Footer />
+               <Support />
       </div>
-       <IncidentReportIcon />
     </div>
   );
 }

@@ -22,7 +22,6 @@ import HealthAdmin from './components/HealthAdmin/HealthAdmin'
 import Admin from './components/Admin/Admin'
 import AboutUsPage from './components/AboutUs/AboutUsPage';
 import Services from './components/Services/ServicePage';
-import IncidentReportPage from './components/IncidentReport/IncidentReportPage';
 
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
 import Dummy from './components/dummy'
@@ -60,7 +59,6 @@ function App() {
           
           <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/services" element={<Services />} />
-          <Route path='/IncidentReport' element={<IncidentReportPage />} />
 
 
           <Route path="/messenger" element={<Messenger />} />

@@ -17,6 +17,14 @@
 
 }
 
+textarea  {
+    width: 90%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1.5px solid black;
+    resize: none;
+}
+
 .user-profile form {
   margin-bottom: 20px;
 }
@@ -55,7 +63,7 @@
 }
 
 .user-profile div {
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 
 .user-profile p {

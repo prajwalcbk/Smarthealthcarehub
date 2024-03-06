@@ -31,19 +31,20 @@
   position: fixed;
   bottom: 100px; /* Adjusted position to prevent overlap */
   right: 3%;
-  width: 300px;
+  width:400px;
   background-color: rgb(28 27 27 / 70%);
-  border: 1px solid #ccc;
+  border: 1px solid rgb(28 27 27 / 70%);
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 9999;
+  color: white;
 }
 
 .chatbox-header {
   padding: 10px;
   background-color: #007bff;
   color: #fff;
-  border-radius: 10px 10px 0 0;
+  border-radius: 20px 20px 0 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -84,4 +85,15 @@
 
 .button:hover {
   background-color: #0056b3;
+}
+
+
+.forum-form select {    
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 17px;
+    height: 60px;
+    width: 95%;
+    height: auto;
 }

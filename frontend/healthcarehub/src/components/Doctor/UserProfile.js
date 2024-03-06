@@ -7,6 +7,8 @@ function UserProfileData() {
   const [editMode, setEditMode] = useState(false);
   const [editedUserProfile, seteditedUserProfile] = useState({});
   const [healthfacilitynameoptions, setHealthFacilityNameOptions] = useState([]);
+  const [healthfacilityname, setHealthFacilityName] = useState('');
+
 
 
   const fetchUserProfile = async () => {
@@ -39,7 +41,7 @@ function UserProfileData() {
       // Perform API call to fetch primary care providers based on inputValue
       //const response = await fetch(`YOUR_API_ENDPOINT?search=${inputValue}`);
       //const data = await response.json();
-      const data= [ {"name":"Prajwal","id":123},{"name":"kenchiiiiii","id":123},{"name":"ptrajjuuu","id":1243},{"name":"amith","id":1243}]
+      const data= [ {"name":"Prajwal","id":123},{"name":"kenchiiiiii","id":1203},{"name":"ptrajjuuu","id":1243},{"name":"amith","id":12439}]
 
       // Transform API response data to the format expected by React Select
       const transformedOptions = data.map((provider) => ({
@@ -64,6 +66,11 @@ function UserProfileData() {
 
   const handleCancel = () => {
     setEditMode(false);
+  };
+
+      // Function to handle primary care provider selection
+  const handleHealthFacilityChange = (selectedOption) => {
+    setHealthFacilityName(selectedOption);
   };
 
   const handleSubmit = (event) => {
@@ -184,6 +191,18 @@ function UserProfileData() {
           </div>
 
           <div>
+              <label htmlFor="licensenumber">License Number: </label>
+              <input
+                type="text"
+                id="licensenumber"
+                name="licensenumber"
+                value={editMode ? editedUserProfile.licensenumber : UserProfile.licensenumber}
+                onChange={handleInputChange}
+                disabled={!editMode}
+              />
+          </div>
+
+          <div>
           <label htmlFor="about">About *</label>
             <textarea
             id="about"
@@ -200,14 +219,14 @@ function UserProfileData() {
           <label htmlFor="healthfacilityname">Health Facility Name *</label>
           <Select
             id="healthfacilityname"
-            value={editMode ? editedUserProfile.healthfacilityname : UserProfile.healthfacilityname}
-            onChange={handleInputChange}
+            value={healthfacilityname}
+            onChange={handleHealthFacilityChange}
             options={healthfacilitynameoptions}
             placeholder="Search or select Health Facility"
+            style={{ "height": "1px"}}
             isSearchable
           />
         </div>
-
 
 
 
