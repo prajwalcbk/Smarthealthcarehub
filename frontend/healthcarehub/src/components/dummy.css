@@ -1,87 +1,105 @@
-.chatbox-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
+.facility-container {
+    margin: 0 auto;
+    padding: 20px;
+    padding-right: 20px;
+    overflow-x: auto;
+    overflow-y: auto;
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    width: 50%;
+    color: white;
+    
+  }
+.facility-heading{
+    text-align: center;
+    margin-bottom: 20px;
+    padding-top: 3%;
+    color: white;
+    font-size: 40px;
 }
 
-.chatIcon {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background-color: #007bff;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 10000; /* Ensure chat icon is above the chatbox */
-}
+.facility-management-container {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 20px;
+    
+  }
+  
+  .facility-list {
+    margin-top: 20px;
+    color: white;
+  }
+  
+  .facility-details {
+    border: 1px solid rgb(28 27 27 / 70%);
+    padding: 10px;
+    margin-bottom: 10px;
+    color: white;
+  }
+  
+  .facility-details h3 {
+    margin-top: 0;
+  }
+  
+  .facility-details p {
+    margin: 5px 0;
+  }
 
-.chatIcon img {
-  width: 100%;
-  height: 100%;
-}
-
-.chatIcon.active {
-  transform: scale(1.1);
-}
-
-.chatbox {
-  position: fixed;
-  bottom: 100px; /* Adjusted position to prevent overlap */
-  right: 3%;
-  width: 300px;
-  background-color: rgb(28 27 27 / 70%);
-  border: 1px solid #ccc;
+.facility-container {
+  background-color: rgb(3 15 39 / 96%);
+  color: white;
+  padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 9999;
+  width: 50%;
+  margin-left: 20%;
 }
 
-.chatbox-header {
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border-radius: 10px 10px 0 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.chatbox-header-title {
-  font-size: 18px;
-}
-
-.chatbox-header-close {
-  cursor: pointer;
-}
-
-.chatbox-body {
-  padding: 20px;
-}
-
-.chatbox-message {
-  font-size: 16px;
+.facility-container h2 {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-.chatbox-buttons {
-  display: flex;
-  flex-direction: column;
+.facility-container button {
+width: auto;
 }
 
-.button {
+
+.facility-container table {
+  width: 100%;
+  border-collapse: collapse;
+
+}
+
+.facility-container table th,
+.facility-container table td {
+  border: 0px solid white;
   padding: 10px;
-  margin-bottom: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  text-align: left;
+
 }
 
-.button:hover {
-  background-color: #0056b3;
+.facility-container tr:hover{
+  background-color: black;
 }
+
+/*table th {
+  background-color: #f2f2f2;
+}*/
+
+/*.facility-container table tr:nth-child(even) {
+  background-color: rgb(3 15 39 / 96%);
+}*/
+
+#facility-container-table tr {
+  background-color: rgb(1 71 175);
+  border-radius: 20%;
+  border: 2px solid black;
+}
+
+
+
+  

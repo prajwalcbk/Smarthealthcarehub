@@ -22,9 +22,10 @@ import HealthAdmin from './components/HealthAdmin/HealthAdmin'
 import Admin from './components/Admin/Admin'
 import AboutUsPage from './components/AboutUs/AboutUsPage';
 import Services from './components/Services/ServicePage';
+import ContactUs from './components/CompanyDropdown/ContactUs';
 
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
-import Dummy from './components/dummy'
+// import Dummy from './components/dummy'
 import Messenger from './components/messenger/Messenger'
 
 
@@ -55,10 +56,11 @@ function App() {
 
           <Route path="/symptomchecker" element={<SymptomChecker />} />
 
-          <Route path="/dummy" element={<Dummy />} />
+          <Route path="/dummy" element={<SymptomChecker />} />
           
           <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/services" element={<Services />} />
+          <Route path='/contact-us' element={<ContactUs />} />
 
 
           <Route path="/messenger" element={<Messenger />} />

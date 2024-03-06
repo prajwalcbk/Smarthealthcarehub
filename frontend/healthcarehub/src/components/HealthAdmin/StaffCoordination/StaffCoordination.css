@@ -32,7 +32,7 @@
   .staff-list table {
     width: 100%;
     border-collapse: collapse;
-    background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+    /*background-color: rgba(0, 0, 0, 0.5);*/
     color: white; /* White text color */
   }
   
@@ -40,13 +40,5 @@
     border: 1px black;
     padding: 8px;
     text-align: left;
-  }
-  
-  .staff-list th {
-    background-color: rgba(255, 255, 255, 0.1); /* Transparent white background for header */
-  }
-  
-  .staff-list tbody tr:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.1); /* Transparent white background for even rows */
   }
   

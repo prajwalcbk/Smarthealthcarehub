@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import './UserProfile.css'
+import './UserProfile.css';
+import Select from 'react-select';
 
 function UserProfileData() {
   const [UserProfile, setUserProfile] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [editedUserProfile, seteditedUserProfile] = useState({});
+  const [healthfacilitynameoptions, setHealthFacilityNameOptions] = useState([]);
+  const [healthfacilityname, setHealthFacilityName] = useState('');
+
+
 
   const fetchUserProfile = async () => {
     try {
@@ -29,7 +34,29 @@ function UserProfileData() {
     }
   };
 
+
+  // Function to fetch primary care provider options from API
+  const fetchHealthFacilityName = async (inputValue) => {
+    try {
+      // Perform API call to fetch primary care providers based on inputValue
+      //const response = await fetch(`YOUR_API_ENDPOINT?search=${inputValue}`);
+      //const data = await response.json();
+      const data= [ {"name":"Prajwal","id":123},{"name":"kenchiiiiii","id":1203},{"name":"ptrajjuuu","id":1243},{"name":"amith","id":12439}]
+
+      // Transform API response data to the format expected by React Select
+      const transformedOptions = data.map((provider) => ({
+        value: provider.id,
+        label: provider.name,
+      }));
+      setHealthFacilityNameOptions(transformedOptions);
+    } catch (error) {
+      console.error('Error fetching primary care providers:', error);
+    }
+  };
+
+
   useEffect(() => {
+    fetchHealthFacilityName();
     fetchUserProfile();
   }, []);
 
@@ -39,6 +66,11 @@ function UserProfileData() {
 
   const handleCancel = () => {
     setEditMode(false);
+  };
+
+      // Function to handle primary care provider selection
+  const handleHealthFacilityChange = (selectedOption) => {
+    setHealthFacilityName(selectedOption);
   };
 
   const handleSubmit = (event) => {
@@ -119,55 +151,61 @@ function UserProfileData() {
             </div>
 
             <div>
-              <label htmlFor="gender">Gender: </label>
+              <label htmlFor="qualification">Qualification: </label>
               <input
                 type="text"
-                id="gender"
-                name="gender"
-                value={editMode ? editedUserProfile.gender : UserProfile.gender}
+                id="qualification"
+                name="qualification"
+                value={editMode ? editedUserProfile.qualification : UserProfile.qualification}
                 onChange={handleInputChange}
                 disabled={!editMode}
               />
             </div>
-          </div>
 
-          <div className="input-row">  
-            <div>
-              <label htmlFor="phoneNumber">Phone Number :</label>
-              <input
-                type="text"
-                id="phoneNumber"
-                name="phoneNumber"
-                value={editMode ? editedUserProfile.phoneNumber : UserProfile.phoneNumber}
-                onChange={handleInputChange}
-                disabled={!editMode}
-              />
-            </div>
-            <div>
-              <label htmlFor="emergencycontactnumber">Emergency Contact Number: </label>
-              <input
-                type="text"
-                id="emergencycontactnumber"
-                name="emergencycontactnumber"
-                value={editMode ? editedUserProfile.emergencycontactnumber : UserProfile.emergencycontactnumber}
-                onChange={handleInputChange}
-                disabled={!editMode}
-              />
-            </div>
           </div>
 
 
-            <div>
-              <label htmlFor="primarycareprovider">Primary Care Provider:</label>
+          <div>
+              <label htmlFor="licensenumber">License Number: </label>
               <input
                 type="text"
-                id="primarycareprovideri"
-                name="primarycareprovider"
-                value={editMode ? editedUserProfile.primarycareprovider : UserProfile.primarycareprovider}
+                id="licensenumber"
+                name="licensenumber"
+                value={editMode ? editedUserProfile.licensenumber : UserProfile.licensenumber}
                 onChange={handleInputChange}
                 disabled={!editMode}
               />
-            </div>
+          </div>
+
+          <div>
+          <label htmlFor="about">About *</label>
+            <textarea
+            id="about"
+            name="about"
+            value={editMode ? editedUserProfile.about : UserProfile.about}
+            onChange={handleInputChange}
+            disabled={!editMode}
+            rows={8} 
+          />
+          </div>
+
+
+          <div>
+            <label htmlFor="healthfacilityname">Health Facility Name *</label>
+            <Select
+              id="healthfacilityname"
+              value={healthfacilityname}
+              onChange={handleHealthFacilityChange}
+              options={healthfacilitynameoptions}
+              placeholder="Search or select Health Facility"
+              isSearchable
+              style={{ backgroundColor: editMode ? 'white' : 'black' }}
+              isDisabled={!editMode} // Change disabled to isDisabled
+            />
+          </div>
+
+
+
             {editMode && <button onClick={handleCancel}>Cancel</button>}
             {editMode && <button type="submit" onClick={handleSubmit}>Save</button>}
           </form>

@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import './ComplianceOversight.css'; // Import CSS file for styling
 
 function ComplianceOversight() {
-  const [complianceIssues] = useState([
+
+  const [viewcomplianceClicked, setviewpcomplianceClicked] = useState([]);
+    const [ reply , setReply] = useState('');
+    const [ comments , setComments] = useState([]);
+
+  const [Compliances] = useState([
     {
       id: 1,
       title: "HIPAA Violation",
@@ -34,32 +39,86 @@ function ComplianceOversight() {
     // Add more compliance issues as needed
   ]);
 
-  const resolveIssue = (issueId) => {
-    // Implement logic to mark issue as resolved
-    console.log(`Resolved issue with ID ${issueId}`);
-  };
 
-  return (
-    <div className="compliance-oversight-container">
-      <h1>Compliance Oversight</h1>
-      <div className="compliance-issues-list">
-        <h2>Compliance Issues</h2>
-        <ul>
-          {complianceIssues.map(issue => (
-            <li key={issue.id}>
-              <div className="issue-details">
-                <h3>{issue.title}</h3>
-                <p><strong>Description:</strong> {issue.description}</p>
-                <p><strong>Severity:</strong> {issue.severity}</p>
-                <p><strong>Status:</strong> {issue.status}</p>
-                <button onClick={() => resolveIssue(issue.id)}>Resolve Issue</button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+
+
+
+  const handleviewcomplianceClicked = (complianceId) => {
+    setviewpcomplianceClicked((prevClicked) => {
+      // Create a new array based on the previous state
+      const newClicked = [...prevClicked];
+      // Toggle the clicked state for the clicked doctor
+      newClicked[complianceId] = !newClicked[complianceId];
+
+        const dummyCommentsData = [
+  { id: 1, user: 'Alice', message: 'Great facility, I had a wonderful experience!' },
+  { id: 2, user: 'Bob', message: 'The services offered here are excellent.' },
+  { id: 3, user: 'Alice', message: 'I highly recommend this place.' },
+  { id: 4, user: 'Bob', message: 'Friendly staff and clean environment.' },
+  { id: 5, user: 'Eva', message: 'Very satisfied with the treatment received.' },
+];
+
+  setComments(dummyCommentsData);
+      return newClicked;
+    });
+  };
+  const handleresolvecomplianceClicked =(complianceId) => { 
+
+  }
+
+return (
+  <div className="compliance-response-container">
+    <h1>Compliances</h1>
+    <div className="compliance-list">
+      <h2>Compliances List</h2>
+      <ul>
+        {Compliances.map(compliance => (
+          <li key={compliance.id}>
+            <div className="compliance-details">
+              <h3>{compliance.title}</h3>
+              <p><strong>Severity:</strong> {compliance.severity}</p>
+              <p><strong>Status:</strong> {compliance.status}</p>
+              <p><strong>Description:</strong> {compliance.description}</p>
+              <p><strong>Timestamp:</strong> {compliance.timestamp}</p>
+              {viewcomplianceClicked[compliance.id] && (
+                <div>
+                  <h2>Comments</h2>
+                  {comments.map(comment => (
+                    <div key={comment.id} className="comment">
+                      <span className="comment-user">{comment.user}: </span>
+                      <span className="comment-message">{comment.message}</span>
+                    </div>
+                  ))}
+                  <div className="form-group">
+                    <h2>Reply</h2>
+                    <textarea
+                      id="reply"
+                      value={reply}
+                      onChange={e => setReply(e.target.value)}
+                      rows={3} 
+                    />
+                    <button>Submit</button>
+                  </div>
+                </div>
+              )}
+              {!viewcomplianceClicked[compliance.id] && (
+                <div>
+                <button onClick={() => handleviewcomplianceClicked(compliance.id)}>View</button>
+                <button onClick={() => handleresolvecomplianceClicked(compliance.id)}>Mark as Resolved</button>
+                
+                </div>
+              )} 
+              {viewcomplianceClicked[compliance.id] && (
+                <button onClick={() => handleviewcomplianceClicked(compliance.id)}>Close</button>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
-  );
+  </div>
+);
+
 }
 
 export default ComplianceOversight;

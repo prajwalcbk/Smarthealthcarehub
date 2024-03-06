@@ -84,8 +84,10 @@ function Support() {
               <option value="Data Breach">Data Breach</option>
               <option value="General">General</option>
               <option value="Incident">Incident Report</option>
-              <option value="Incident">System Malfunctions</option>
-              <option value="Incident">Privacy Issues</option>
+              <option value="System Malfunctions">System Malfunctions</option>
+              <option value="Privacy Issues">Privacy Issues</option>
+              <option value="Compliance Issues">Compliance Issues</option>
+
               
 
             </select>

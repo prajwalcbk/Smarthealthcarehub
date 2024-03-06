@@ -92,7 +92,7 @@ function User() {
           ) && (          
           <div className="medical-history-drop-down" >
           
-            <button onClick={() => setActiveComponent('PrescriptionsList')}> Search  </button>
+            <button onClick={() => setActiveComponent('PrescriptionsList')}> Shared  </button>
             <button onClick={() => setActiveComponent('DispensedPrescription')}> Dispensed </button>
 
           </div>
