@@ -1,20 +1,21 @@
-// IncidentReportIcon.js
-
-import React from 'react';
-import { Link } from "react-router-dom";
-import comments from './../../assets/comments.png'
-
-import { FaExclamationCircle } from 'react-icons/fa'; // Import icon from react-icons library
-import './IncidentReportIcon.css'; // Import CSS file for styling
+import React, { useState } from 'react';
+import { FaComment } from 'react-icons/fa';
+import './IncidentReportIcon.css';
+import Chatbot from '../Chatbot/Chatbot';
 
 function IncidentReportIcon() {
- 
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+
+  const toggleChatbot = () => {
+    console.log("Toggle chatbot");
+    setIsChatbotOpen(!isChatbotOpen);
+  };
+
   return (
-    <Link to='/incidentreport'>
-    <div className="incident-report-icon" >
-      <img src={comments} alt="comments Icon" style={{ width: '60px', height: '60px' }} />
+    <div className="incident-report-icon" onClick={toggleChatbot}>
+      <FaComment className="chat-icon" />
+      {isChatbotOpen && <Chatbot />}
     </div>
-    </Link>
   );
 }
 

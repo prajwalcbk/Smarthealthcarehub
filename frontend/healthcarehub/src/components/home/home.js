@@ -15,6 +15,7 @@ import patient from './../../assets/patient.png'
 import pharmacist from './../../assets/pharmacist.png'
 import healthadmin from './../../assets/healthadmin.png'
 import admin from './../../assets/admin.png'
+import Chatbot from '../Chatbot/Chatbot';
 
 
 

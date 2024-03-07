@@ -10,15 +10,14 @@ function HealthcareProviderManagement() {
     const fetchUsers = async () => {
       // Simulated response from API
       const usersResponse = [
-        { "id": 1, "name": "Prajwal", "CreatedDate": "now", "email": "Rahul@gmail.com", "status": "Verified" , "role":"Doctor" },
-        { "id": 3, "name": "Rahul ", "CreatedDate": "now", "email": "prajwal@gmail.com", "status": "Inprogess" ,"role":"Pharmacist"  },
-        { "id": 2, "name": "Amith", "CreatedDate": "now", "email": "Rahul@gmail.com", "status": "Verified" , "role":"Pharmacist" },
-        { "id": 4, "name": "Kavana", "CreatedDate": "now", "email": "Rahul@gmail.com", "status": "Verifition Failed" ,"role":"Pharmacist"  },
-        { "id": 5, "name": "Naveen", "CreatedDate": "now", "email": "prajwal@gmail.com", "status": "Inprogess" ,"role":"Pharmacist"  },
-        { "id": 6, "name": "HM", "CreatedDate": "now", "email": "Rahul@gmail.com", "status": "verified" , "role":"Doctor" },
-        { "id": 7, "name": "Bantuuu", "CreatedDate": "now", "email": "prajwal@gmail.com", "status": "Verifition Failed"  ,"role":"Pharmacist" },
-
-      ];
+        { "id": 1, "name": "John Doe", "CreatedDate": "2024-03-07T10:00:00", "email": "johndoe@example.com", "status": "Verified", "role": "Doctor" },
+        { "id": 2, "name": "Jane Smith", "CreatedDate": "2024-03-07T11:30:00", "email": "janesmith@example.com", "status": "InProgress", "role": "Pharmacist" },
+        { "id": 3, "name": "Alice Johnson", "CreatedDate": "2024-03-07T09:15:00", "email": "alicejohnson@example.com", "status": "Verified", "role": "Pharmacist" },
+        { "id": 4, "name": "Bob Brown", "CreatedDate": "2024-03-07T13:45:00", "email": "bobbrown@example.com", "status": "Verification Failed", "role": "Pharmacist" },
+        { "id": 5, "name": "Emily Davis", "CreatedDate": "2024-03-07T08:00:00", "email": "emilydavis@example.com", "status": "InProgress", "role": "Pharmacist" },
+        { "id": 6, "name": "Michael Wilson", "CreatedDate": "2024-03-07T14:20:00", "email": "michaelwilson@example.com", "status": "Verified", "role": "Doctor" },
+        { "id": 7, "name": "Sarah Lee", "CreatedDate": "2024-03-07T12:10:00", "email": "sarahlee@example.com", "status": "Verification Failed", "role": "Pharmacist" }
+    ];
       setPrescriptionList(usersResponse);
     };
 

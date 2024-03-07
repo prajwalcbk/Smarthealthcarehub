@@ -13,8 +13,8 @@ function UserProfileData() {
       // const data = await response.json();
       const sampleUser = {
         email: 'example@gmail.com',
-        firstname: 'Prajwal',
-        lastname: 'A Gowda',
+        firstname: 'John',
+        lastname: 'Smith',
         phoneNumber: '+1 4084805932',
         emergencycontactnumber: '+1 4084805456',
         dateofbirth: "11/02/2000",

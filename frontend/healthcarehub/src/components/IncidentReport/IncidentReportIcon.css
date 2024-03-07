@@ -1,19 +1,18 @@
 /* IncidentReportIcon.css */
 
 .incident-report-icon {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    cursor: pointer;
-    z-index: 9999; /* Ensure the icon appears above other content */
-  }
-  
-  .icon {
-    color: red; /* Customize icon color */
-    font-size: 80px; /* Increase icon size */
-  }
-  
-  .icon:hover {
-    color: #0056b3; /* Change icon color on hover */
-  }
-  
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 9999; /* Ensure the icon appears above other content */
+}
+
+.chat-icon {
+  font-size: 40px;
+  color: #007bff; /* Customize icon color */
+}
+
+.chat-icon:hover {
+  color: #0056b3; /* Change icon color on hover */
+}

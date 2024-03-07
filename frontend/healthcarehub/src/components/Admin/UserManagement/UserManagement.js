@@ -10,15 +10,14 @@ function UserManagement() {
     const fetchUSers = async () => {
       // Simulated response from API
       const usersResponse = [
-        { "id": 1, "name": "Prajwal", "CreatedDate": "now", "email": "Rahul@gmail.com", "isActive": true },
-        { "id": 3, "name": "Rahul ", "CreatedDate": "now", "email": "prajwal@gmail.com", "isActive": true },
-        { "id": 2, "name": "Amith", "CreatedDate": "now", "email": "Rahul@gmail.com", "isActive": true },
-        { "id": 4, "name": "Kavana", "CreatedDate": "now", "email": "Rahul@gmail.com", "isActive": false },
-        { "id": 5, "name": "Naveen", "CreatedDate": "now", "email": "prajwal@gmail.com", "isActive": false },
-        { "id": 6, "name": "HM", "CreatedDate": "now", "email": "Rahul@gmail.com", "isActive": false },
-        { "id": 7, "name": "Bantuuu", "CreatedDate": "now", "email": "prajwal@gmail.com", "isActive": true },
-
-      ];
+        { "id": 1, "name": "John Doe", "CreatedDate": "2024-03-07T10:00:00", "email": "johndoe@example.com", "isActive": true },
+        { "id": 2, "name": "Jane Smith", "CreatedDate": "2024-03-07T11:30:00", "email": "janesmith@example.com", "isActive": true },
+        { "id": 3, "name": "Alice Johnson", "CreatedDate": "2024-03-07T09:15:00", "email": "alicejohnson@example.com", "isActive": true },
+        { "id": 4, "name": "Bob Brown", "CreatedDate": "2024-03-07T13:45:00", "email": "bobbrown@example.com", "isActive": false },
+        { "id": 5, "name": "Emily Davis", "CreatedDate": "2024-03-07T08:00:00", "email": "emilydavis@example.com", "isActive": false },
+        { "id": 6, "name": "Michael Wilson", "CreatedDate": "2024-03-07T14:20:00", "email": "michaelwilson@example.com", "isActive": false },
+        { "id": 7, "name": "Sarah Lee", "CreatedDate": "2024-03-07T12:10:00", "email": "sarahlee@example.com", "isActive": true }
+    ];
       setUsersList(usersResponse);
     };
 

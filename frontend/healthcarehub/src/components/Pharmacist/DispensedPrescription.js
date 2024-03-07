@@ -13,16 +13,14 @@ function PrescriptionList() {
     const fetchPrescriptions = async () => {
       // Simulated response from API
       const prescriptionResponse = [
-        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "DispensedDate" : "25/01/2023" ,  "provider": "Rahul", "status": "Delivered" },
-        { "id": 3, "description": "Due to Headache", "issuedDate": "25/01/2024","DispensedDate" : "25/01/2023" ,  "provider": "prajwal", "status": "Delivered" },
-        { "id": 2, "description": "Typhoid", "issuedDate": "25/01/200", "DispensedDate" : "25/01/2023" , "provider": "Rahul", "status": "Cancelled" },
-        { "id": 4, "description": "Due to Fever", "issuedDate": "11/01/2001", "DispensedDate" : "25/01/2023" , "provider": "Rahul", "status": "InTransit" },
-        { "id": 5, "description": "Due to Headache", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "prajwal", "status": "Delivered" },
-        { "id": 6, "description": "Due to Fever", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "Rahul", "status": "Cancelled" },
-        { "id": 7, "description": "Due to Headache", "issuedDate": "11/02/200", "DispensedDate" : "25/01/2023" , "provider": "prajwal", "status": "Delivered" },
-
-
-      ];
+        { "id": 1, "description": "Common Cold", "issuedDate": "25/01/2023", "DispensedDate" : "25/01/2023" ,  "provider": "John", "status": "Delivered" },
+        { "id": 3, "description": "Sinusitis", "issuedDate": "25/01/2024","DispensedDate" : "25/01/2023" ,  "provider": "Alice", "status": "Delivered" },
+        { "id": 2, "description": "Flu", "issuedDate": "25/01/200", "DispensedDate" : "25/01/2023" , "provider": "Bob", "status": "Cancelled" },
+        { "id": 4, "description": "Stomach Flu", "issuedDate": "11/01/2001", "DispensedDate" : "25/01/2023" , "provider": "Alice", "status": "InTransit" },
+        { "id": 5, "description": "Migraine", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "John", "status": "Delivered" },
+        { "id": 6, "description": "Food Poisoning", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "Bob", "status": "Cancelled" },
+        { "id": 7, "description": "Allergic Rhinitis", "issuedDate": "11/02/200", "DispensedDate" : "25/01/2023" , "provider": "Alice", "status": "Delivered" }
+    ];    
       setPrescriptionList(prescriptionResponse);
     };
 
@@ -32,9 +30,9 @@ function PrescriptionList() {
     const SearchPrescriptions = () => {
       // Simulated response from API
       const prescriptionResponse = [
-        { "id": 5, "description": "Due to Headache", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "prajwal", "status": "Delivered" },
-        { "id": 6, "description": "Due to Fever", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "Rahul", "status": "Cancelled" },
-        { "id": 7, "description": "Due to Headache", "issuedDate": "11/02/200", "DispensedDate" : "25/01/2023" , "provider": "prajwal", "status": "Delivered" },
+        { "id": 5, "description": "Due to Headache", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "John", "status": "Delivered" },
+        { "id": 6, "description": "Due to Fever", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "David", "status": "Cancelled" },
+        { "id": 7, "description": "Due to Headache", "issuedDate": "11/02/200", "DispensedDate" : "25/01/2023" , "provider": "Michael", "status": "Delivered" },
 
 
 

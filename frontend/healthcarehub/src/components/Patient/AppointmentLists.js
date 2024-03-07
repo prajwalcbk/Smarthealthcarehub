@@ -12,15 +12,15 @@ function AppointmentList() {
     const fetchappointments = async () => {
       // Simulated response from API
       const appointmentResponse = [
-        { "id": 1, "Reason": "Due to Fever", "Date": "25-01-2024" , "Time": "01:00" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 3, "Reason": "Due to Headache", "Date": "25-01-2024" , "Time": "02:00" , "Duration" : "30 minutes" ,  "Patient": "prajwal" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 2, "Reason": "Typhoid", "Date": "25-01-2024" , "Time": "03:00" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 4, "Reason": "Due to Fever", "Date": "25-01-2024" , "Time": "04:00" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 5, "Reason": "Due to Headache", "Date": "25-01-2024" , "Time": "05:00" , "Duration" : "30 minutes" ,  "Patient": "prajwal" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 6, "Reason": "Due to Fever", "Date": "25-01-2024" , "Time": "06:00" , "Duration" : "15 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 7, "Reason": "Due to Headache", "Date": "25-01-2024" , "Time": "07:00" , "Duration" : "30 minutes" ,  "Patient": "prajwal" ,  "Doctor":"Amith" , "status": "Active" },
-        { "id": 8, "Reason": "Typhoid", "Date": "25-01-2024" , "Time": "08:00" , "Duration" : "30 minutes" ,  "Patient": "Rahul" ,  "Doctor":"Amith" , "status": "Active" },
-      ];
+        { "id": 1, "Reason": "Flu Symptoms", "Date": "27-01-2024" , "Time": "10:00" , "Duration" : "45 minutes" ,  "Patient": "John" ,  "Doctor":"Smith" , "status": "Active" },
+        { "id": 3, "Reason": "Migraine", "Date": "27-01-2024" , "Time": "11:00" , "Duration" : "60 minutes" ,  "Patient": "Alice" ,  "Doctor":"Jones" , "status": "Active" },
+        { "id": 2, "Reason": "Common Cold", "Date": "27-01-2024" , "Time": "12:00" , "Duration" : "30 minutes" ,  "Patient": "Bob" ,  "Doctor":"Davis" , "status": "Active" },
+        { "id": 4, "Reason": "Stomach Flu", "Date": "27-01-2024" , "Time": "13:00" , "Duration" : "45 minutes" ,  "Patient": "Emma" ,  "Doctor":"Wilson" , "status": "Active" },
+        { "id": 5, "Reason": "Tension Headache", "Date": "27-01-2024" , "Time": "14:00" , "Duration" : "60 minutes" ,  "Patient": "Michael" ,  "Doctor":"Brown" , "status": "Active" },
+        { "id": 6, "Reason": "Seasonal Allergies", "Date": "27-01-2024" , "Time": "15:00" , "Duration" : "30 minutes" ,  "Patient": "Sophia" ,  "Doctor":"Miller" , "status": "Active" },
+        { "id": 7, "Reason": "Sinus Infection", "Date": "27-01-2024" , "Time": "16:00" , "Duration" : "45 minutes" ,  "Patient": "Ethan" ,  "Doctor":"Taylor" , "status": "Active" },
+        { "id": 8, "Reason": "Food Poisoning", "Date": "27-01-2024" , "Time": "17:00" , "Duration" : "60 minutes" ,  "Patient": "Olivia" ,  "Doctor":"Clark" , "status": "Active" }
+    ];    
       setappointmentList(appointmentResponse);
     };
 

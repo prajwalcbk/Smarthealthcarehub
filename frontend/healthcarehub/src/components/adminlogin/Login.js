@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './Login.css'; // Import your custom CSS for styling
 import Navbar from './../navbar/Navbar'
 import { Link } from "react-router-dom";
+import Chatbot from '../Chatbot/Chatbot';
+import IncidentReportIcon from '../IncidentReport/IncidentReportIcon';
 
 
 function LoginPage() {
@@ -52,6 +54,7 @@ function LoginPage() {
           </Link>
         </div>
       </div>
+      
     </div>
   );
 }

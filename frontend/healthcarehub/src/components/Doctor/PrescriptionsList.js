@@ -14,16 +14,14 @@ function PrescriptionList() {
     const fetchPrescriptions = async () => {
       // Simulated response from API
       const prescriptionResponse = [
-        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "provider": "Rahul", "status": "Active" },
-        { "id": 3, "description": "Due to Headache", "issuedDate": "25/01/2024", "provider": "prajwal", "status": "Active" },
-        { "id": 2, "description": "Typhoid", "issuedDate": "25/01/200", "provider": "Rahul", "status": "Active" },
-        { "id": 4, "description": "Due to Fever", "issuedDate": "11/01/2001", "provider": "Rahul", "status": "Active" },
-        { "id": 5, "description": "Due to Headache", "issuedDate": "22/08/2024", "provider": "prajwal", "status": "Active" },
-        { "id": 6, "description": "Due to Fever", "issuedDate": "22/08/2024", "provider": "Rahul", "status": "Active" },
-        { "id": 7, "description": "Due to Headache", "issuedDate": "11/02/200", "provider": "prajwal", "status": "Active" },
-
-
-      ];
+        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "provider": "Alice", "status": "Active" },
+        { "id": 2, "description": "Due to Headache", "issuedDate": "25/01/2024", "provider": "Bob", "status": "Active" },
+        { "id": 3, "description": "Typhoid", "issuedDate": "25/01/200", "provider": "Charlie", "status": "Active" },
+        { "id": 4, "description": "Due to Fever", "issuedDate": "11/01/2001", "provider": "David", "status": "Active" },
+        { "id": 5, "description": "Due to Headache", "issuedDate": "22/08/2024", "provider": "Emily", "status": "Active" },
+        { "id": 6, "description": "Due to Fever", "issuedDate": "22/08/2024", "provider": "Frank", "status": "Active" },
+        { "id": 7, "description": "Due to Headache", "issuedDate": "11/02/200", "provider": "Grace", "status": "Active" }
+    ];    
       setPrescriptionList(prescriptionResponse);
     };
 
@@ -33,13 +31,11 @@ function PrescriptionList() {
     const SearchPrescriptions = () => {
       // Simulated response from API
       const prescriptionResponse = [
-        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "provider": "Rahul", "status": "Active" },
-        { "id": 3, "description": "Due to Headache", "issuedDate": "25/01/2024", "provider": "prajwal", "status": "Active" },
-        { "id": 2, "description": "Typhoid", "issuedDate": "25/01/200", "provider": "Rahul", "status": "Active" },
-
-
-
-      ];
+        { "id": 1, "description": "Cough", "issuedDate": "15/03/2023", "provider": "John", "status": "Active" },
+        { "id": 3, "description": "Migraine", "issuedDate": "22/05/2024", "provider": "Alice", "status": "Active" },
+        { "id": 2, "description": "Food Poisoning", "issuedDate": "05/12/200", "provider": "David", "status": "Active" }
+    ];
+    
       setPrescriptionList(prescriptionResponse);
     }
 
