@@ -30,9 +30,9 @@ function PrescriptionList() {
     const SearchPrescriptions = () => {
       // Simulated response from API
       const prescriptionResponse = [
-        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "provider": "Rahul", "status": "Active" },
-        { "id": 3, "description": "Due to Headache", "issuedDate": "25/01/2024", "provider": "prajwal", "status": "Active" },
-        { "id": 2, "description": "Typhoid", "issuedDate": "25/01/200", "provider": "Rahul", "status": "Active" },
+        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "provider": "Alice", "status": "Active" },
+        { "id": 3, "description": "Due to Headache", "issuedDate": "25/01/2024", "provider": "John", "status": "Active" },
+        { "id": 2, "description": "Typhoid", "issuedDate": "25/01/200", "provider": "David", "status": "Active" },
 
 
 
