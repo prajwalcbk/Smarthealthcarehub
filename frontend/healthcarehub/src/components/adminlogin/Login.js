@@ -2,16 +2,42 @@ import React, { useState } from 'react';
 import './Login.css'; // Import your custom CSS for styling
 import Navbar from './../navbar/Navbar'
 import { Link } from "react-router-dom";
+import { useHistory, useNavigate } from 'react-router-dom';
+
 
 
 function LoginPage() {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
+    const handleLogin = () => {
     // Implement login functionality here
-    console.log('Logging in with email:', email, 'and password:', password);
+    const data= {
+      email : email ,
+      password : password 
+    }
+    console.log(data)
+    if (email === 'admin' && password === 'admin'){
+      setError(null);
+      setSuccessMessage('Logged in successfully as admin');
+      localStorage.setItem('token', '123');
+      localStorage.setItem('role', 'admin');
+       setTimeout(() => {
+            console.log("navigating to / page")
+
+            navigate('/');
+            console.log("refreshing page")
+            window.location.reload();
+
+        }, 1000); 
+    }
+    else{
+      setSuccessMessage(null);
+      setError('Invalid credentials');
+    } 
   };
 
 
@@ -21,7 +47,7 @@ function LoginPage() {
       <div className="admin-login-form">
         <h1>Admin Login</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
-        <div className="form-group">
+        <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>        <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
             type="text"

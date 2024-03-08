@@ -5,18 +5,21 @@ import React, { createContext, useState, useEffect } from 'react';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [authIsReady, setAuthIsReady] = useState(false);
+  const [authIsReady, setAuthIsReady] = useState(null);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Check authentication status or retrieve user information here
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('role')
 
     if (token) {
+      console.log("Adding auth")
       // If token exists, the user is authenticated
-      setUser({ name: "prajwal"});
+      setUser({ 'role': user});
       setAuthIsReady(true);
     } else {
+      console.log("removing auth")
       // If token doesn't exist, the user is not authenticated
       setUser(null);
       setAuthIsReady(false);

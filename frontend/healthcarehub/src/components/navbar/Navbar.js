@@ -15,7 +15,7 @@ function Navbar() {
 
   
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (token){
       setIsloggedIn(true)
     }
@@ -31,42 +31,54 @@ function Navbar() {
 
    const handleLogout = () => {
     
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
     setIsloggedIn(false);
-    console.log("navigating to /123");
     navigate('/');
+    window.location.reload();
+    console.log("navigating to /");
+    
 
   };
 
 
-  return (
-    <div className="navbar">
+return (
+  <div className="navbar">
     <a href='/' className="logo-container">
-    <img src={Logo} width="40" height="40" alt="Logo" />
-    <span className="logo-text">SmartHealthCare Hub</span>
+      <img src={Logo} width="40" height="40" alt="Logo" />
+      <span className="logo-text">SmartHealthCare Hub</span>
     </a> 
-      <div className="nav-links">
-      <Link to='/forums'>  <i className="fas fa-comments">  </i> Forums </Link>
+    <div className="nav-links">
+      <Link to='/forums'>  
+        <i className="fas fa-comments"></i> Forums 
+      </Link>
       <CompanyDropdown />
-
       {!isLoggedIn && 
         <div>
-      <Link to='/login'>  <i className="fas fa-sign-in-alt">  </i> Login </Link>
-      <Link to='/signup'>  <i className="fas fa-user-plus">  </i> Sign Up</Link>
-      </div>
+          <Link to='/login'>  
+            <i className="fas fa-sign-in-alt"></i> Login 
+          </Link>
+          <Link to='/signup'>  
+            <i className="fas fa-user-plus"></i> Sign Up
+          </Link>
+        </div>
       }
       {isLoggedIn && 
         <div> 
-        <Link to={'/' + sessionStorage.getItem('user')}> <i className="fas fa-user-plus"> </i> {sessionStorage.getItem('user')} </Link>
-        <p onClick={handleLogout}> <i className="fas fa-sign-in-alt"> </i>  Logout </p>
-        
+          <Link to={'/' + localStorage.getItem('role')}>
+            <i className="fas fa-user"></i> {localStorage.getItem('role')} 
+          </Link>
         </div>
       }
-
-      </div>
+      {isLoggedIn && 
+        <div onClick={handleLogout}>
+          <i className="fas fa-sign-out-alt" style={{ marginRight: '5px' }}></i>
+          Logout
+        </div>
+      }
     </div>
-  );
+  </div>
+);
 }
 
 export default Navbar;

@@ -21,52 +21,55 @@ function LoginPage() {
       password : password 
     }
     console.log(data)
-    if (email === 'admin' && password === 'admin'){
-      setSuccessMessage('Logged in successfully as admin');
-      sessionStorage.setItem('token', '123');
-      sessionStorage.setItem('user', 'admin');
-       setTimeout(() => {
-            navigate('/admin');
-        }, 2000); 
-    }
 
-    else if (email === 'doctor' && password === 'doctor'){
+    if (email === 'doctor' && password === 'doctor'){
+      setError(null);
       setSuccessMessage('Logged in successfully as doctor');
-      sessionStorage.setItem('token', '123');
-      sessionStorage.setItem('user', 'doctor');
+      localStorage.setItem('token', '123');
+      localStorage.setItem('role', 'doctor');
        setTimeout(() => {
-            navigate('/doctor');
-        }, 2000); 
+            console.log("navigating to / page")
+            navigate('/');
+            window.location.reload();
+        }, 1000); 
     }
 
     else if (email=='patient' && password=='patient'){
+      setError(null);
       setSuccessMessage('Logged in successfully as patient');
-      sessionStorage.setItem('token', '123');
-      sessionStorage.setItem('user', 'patient');
+      localStorage.setItem('token', '123');
+      localStorage.setItem('role', 'patient');
        setTimeout(() => {
-            navigate('/patient');
-        }, 2000); 
+            navigate('/');
+            window.location.reload();
+        }, 1000); 
     }
 
     else if (email=='healthadmin' && password=='healthadmin'){
+      setError(null);
       setSuccessMessage('Logged in successfully as healthadmin');
-      sessionStorage.setItem('token', '123');
-      sessionStorage.setItem('user', 'healthadmin');
+      localStorage.setItem('token', '123');
+      localStorage.setItem('role', 'healthadmin');
        setTimeout(() => {
-            navigate('/healthadmin');
-        }, 2000); 
+            navigate('/');
+            window.location.reload();
+        }, 1000); 
     }
 
     else if (email=='pharmacist' && password=='pharmacist'){
+      setError(null);
       setSuccessMessage('Logged in successfully as pharmacist');
-      sessionStorage.setItem('token', '123');
-      sessionStorage.setItem('user', 'pharmacist');
+      localStorage.setItem('token', '123');
+      localStorage.setItem('role', 'pharmacist');
        setTimeout(() => {
-            navigate('/pharmacist');
-        }, 2000); 
+            navigate('/');
+            window.location.reload();
+
+        }, 1000); 
     }
 
     else{
+      setSuccessMessage(null);
       setError('Invalid credentials');
     }
 

@@ -13,16 +13,14 @@ function PrescriptionList() {
     const fetchPrescriptions = async () => {
       // Simulated response from API
       const prescriptionResponse = [
-        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "provider": "Rahul", "status": "Active" },
-        { "id": 3, "description": "Due to Headache", "issuedDate": "25/01/2024", "provider": "prajwal", "status": "Active" },
-        { "id": 2, "description": "Typhoid", "issuedDate": "25/01/200", "provider": "Rahul", "status": "Active" },
-        { "id": 4, "description": "Due to Fever", "issuedDate": "11/01/2001", "provider": "Rahul", "status": "Active" },
-        { "id": 5, "description": "Due to Headache", "issuedDate": "22/08/2024", "provider": "prajwal", "status": "Active" },
-        { "id": 6, "description": "Due to Fever", "issuedDate": "22/08/2024", "provider": "Rahul", "status": "Active" },
-        { "id": 7, "description": "Due to Headache", "issuedDate": "11/02/200", "provider": "prajwal", "status": "Active" },
-
-
-      ];
+         { "id": 1, "description": "Cold", "issuedDate": "15/03/2023", "provider": "David", "status": "Active" },
+        { "id": 3, "description": "Migraine", "issuedDate": "22/05/2024", "provider": "Alice", "status": "InActive" },
+        { "id": 2, "description": "Food Poisoning", "issuedDate": "05/12/200", "provider": "John", "status": "Active" },
+        { "id": 4, "description": "Stomach Flu", "issuedDate": "20/07/2001", "provider": "David", "status": "Active" },
+        { "id": 5, "description": "Allergy", "issuedDate": "10/10/2024", "provider": "Alice", "status": "InActive" },
+        { "id": 6, "description": "Sinusitis", "issuedDate": "18/09/2024", "provider": "John", "status": "Active" },
+        { "id": 7, "description": "Indigestion", "issuedDate": "30/04/200", "provider": "Alice", "status": "Active" }
+    ];  
       setPrescriptionList(prescriptionResponse);
     };
 
@@ -32,9 +30,9 @@ function PrescriptionList() {
     const SearchPrescriptions = () => {
       // Simulated response from API
       const prescriptionResponse = [
-        { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "provider": "Rahul", "status": "Active" },
-        { "id": 3, "description": "Due to Headache", "issuedDate": "25/01/2024", "provider": "prajwal", "status": "Active" },
-        { "id": 2, "description": "Typhoid", "issuedDate": "25/01/200", "provider": "Rahul", "status": "Active" },
+        { "id": 5, "description": "Allergy", "issuedDate": "10/10/2024", "provider": "Alice", "status": "InActive" },
+        { "id": 6, "description": "Sinusitis", "issuedDate": "18/09/2024", "provider": "John", "status": "Active" },
+        { "id": 7, "description": "Indigestion", "issuedDate": "30/04/200", "provider": "Alice", "status": "Active" }
 
 
 

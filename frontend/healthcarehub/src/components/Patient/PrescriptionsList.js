@@ -11,27 +11,27 @@ function PrescriptionList() {
     const fetchPrescriptions = async () => {
       // Simulated response from API
       const prescriptionResponse = [
-        { "id": 1, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 3, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 2, "description": "Typhoid", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 4, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 5, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 6, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 7, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 8, "description": "Typhoid", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 9, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 10, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 11, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 13, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 12, "description": "Typhoid", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 14, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 15, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 16, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 17, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-        { "id": 18, "description": "Typhoid", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 19, "description": "Due to Fever", "issuedDate": "now", "provider": "Rahul", "status": "Active" },
-        { "id": 20, "description": "Due to Headache", "issuedDate": "now", "provider": "prajwal", "status": "Active" },
-      ];
+       { "id": 1, "description": "Fever and chills", "issuedDate": "now", "provider": "John", "status": "Active" },
+        { "id": 3, "description": "Pounding headache", "issuedDate": "now", "provider": "Smith", "status": "Active" },
+        { "id": 2, "description": "High fever and weakness", "issuedDate": "now", "provider": "John", "status": "Active" },
+        { "id": 4, "description": "Persistent fever", "issuedDate": "now", "provider": "John", "status": "Active" },
+        { "id": 5, "description": "Migraine attack", "issuedDate": "now", "provider": "Smith", "status": "Active" },
+        { "id": 6, "description": "Fever and body aches", "issuedDate": "now", "provider": "John", "status": "Active" },
+        { "id": 7, "description": "Cluster headache", "issuedDate": "now", "provider": "Smith", "status": "Active" },
+        { "id": 8, "description": "Fever due to typhoid", "issuedDate": "now", "provider": "John", "status": "Active" },
+        { "id": 9, "description": "Fever with nausea", "issuedDate": "now", "provider": "John", "status": "Active" },
+        { "id": 10, "description": "Tension headache", "issuedDate": "now", "provider": "Smith", "status": "Active" },
+        { "id": 11, "description": "Low-grade fever", "issuedDate": "now", "provider": "John", "status": "Active" },
+        { "id": 13, "description": "Sinus headache", "issuedDate": "now", "provider": "Smith", "status": "Active" },
+        { "id": 12, "description": "Fever with cough", "issuedDate": "now", "provider": "John", "status": "Active" },
+        { "id": 14, "description": "Intermittent fever", "issuedDate": "now", "provider": "John", "status": "Active" },
+        { "id": 15, "description": "Mild headache", "issuedDate": "now", "provider": "Smith", "status": "Active" },
+        { "id": 16, "description": "Fever and fatigue", "issuedDate": "now", "provider": "John", "status": "Active" },
+        { "id": 17, "description": "Headache due to stress", "issuedDate": "now", "provider": "Smith", "status": "Active" },
+        { "id": 18, "description": "Fever caused by typhoid", "issuedDate": "now", "provider": "John", "status": "Active" },
+        { "id": 19, "description": "Chronic fever", "issuedDate": "now", "provider": "John", "status": "Active" },
+        { "id": 20, "description": "Occasional headache", "issuedDate": "now", "provider": "Smith", "status": "Active" }
+    ];    
       setPrescriptionList(prescriptionResponse);
     };
 

@@ -49,26 +49,18 @@ const DoctorSearchPage = () => {
     //   .then(data => setDoctors(data));
     // For demonstration purpose, I'll just use some dummy data
     const dummyDoctorsData = [
-      { id: 1, name: 'Dr. John Doe', specialization: 'Cardiologist', about: 'Experienced cardiologist with expertise in treating heart diseases.',  location:"US Sillicon valley" , gender:"female"},
-      { id: 2, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"Dallas" ,gender:"male"},
-      { id: 3, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sanfrancisco",gender:"female"},
-      { id: 4, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" , gender:"male" },
-      { id: 5, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sillicon valley" , gender:"male"},
-      { id: 6, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" , gender:"male"},
-      { id: 7, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"female" },
-      { id: 8, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sanfrancisco" , gender:"male"},
-      { id: 9, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" , gender:"male" },
-      { id: 11, name: 'Dr. John Doe', specialization: 'Cardiologist', about: 'Experienced cardiologist with expertise in treating heart diseases.',location:"US Sillicon valley" ,gender:"female" },
-      { id: 12, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"male" },
-      { id: 13, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"male"  },
-      { id: 14, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"female" },
-      { id: 15, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sanfrancisco" ,gender:"male"  },
-      { id: 16, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sillicon valley" ,gender:"female" },
-      { id: 17, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" ,gender:"female"  },
-      { id: 18, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Sillicon valley" ,gender:"male" },
-      { id: 19, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location:"US Dallas" , gender:"male"  },
-      // Add more dummy data as needed
-    ];
+  { id: 1, name: 'Dr. John Doe', specialization: 'Cardiologist', about: 'Experienced cardiologist with expertise in treating heart diseases.', location: 'US Sillicon valley', gender: 'female', licenseNumber: 'MD12345', affiliatedFacility: 'Heart Hospital' },
+  { id: 2, name: 'Dr. Jane Smith', specialization: 'Pediatrician', about: 'Passionate about children\'s health and well-being.', location: 'Dallas', gender: 'male', licenseNumber: 'MD67890', affiliatedFacility: 'Children\'s Hospital' },
+  { id: 3, name: 'Dr. Emily Johnson', specialization: 'Dermatologist', about: 'Expert in diagnosing and treating skin conditions.', location: 'New York', gender: 'female', licenseNumber: 'MD54321', affiliatedFacility: 'Dermatology Clinic' },
+  { id: 4, name: 'Dr. Michael Lee', specialization: 'Orthopedic Surgeon', about: 'Skilled in surgical and non-surgical treatment of musculoskeletal injuries and disorders.', location: 'Los Angeles', gender: 'male', licenseNumber: 'MD98765', affiliatedFacility: 'Orthopedic Center' },
+  { id: 5, name: 'Dr. Sarah Brown', specialization: 'Obstetrician-Gynecologist', about: 'Provides comprehensive care for women\'s reproductive health.', location: 'Chicago', gender: 'female', licenseNumber: 'MD24680', affiliatedFacility: 'Women\'s Clinic' },
+  { id: 6, name: 'Dr. Robert Wilson', specialization: 'Neurologist', about: 'Expert in diagnosing and treating disorders of the nervous system.', location: 'Houston', gender: 'male', licenseNumber: 'MD13579', affiliatedFacility: 'Neurology Center' },
+  { id: 7, name: 'Dr. Elizabeth Martinez', specialization: 'Psychiatrist', about: 'Offers compassionate care for individuals with mental health disorders.', location: 'Miami', gender: 'female', licenseNumber: 'MD02468', affiliatedFacility: 'Psychiatry Clinic' },
+  { id: 8, name: 'Dr. David Wilson', specialization: 'Ophthalmologist', about: 'Specializes in the diagnosis and treatment of eye disorders.', location: 'San Francisco', gender: 'male', licenseNumber: 'MD97531', affiliatedFacility: 'Eye Clinic' },
+  { id: 9, name: 'Dr. Jennifer Garcia', specialization: 'Family Physician', about: 'Provides comprehensive primary care for patients of all ages.', location: 'Seattle', gender: 'female', licenseNumber: 'MD86420', affiliatedFacility: 'Family Medicine Clinic' },
+  { id: 10, name: 'Dr. Christopher Taylor', specialization: 'Endocrinologist', about: 'Specializes in diagnosing and treating hormonal disorders.', location: 'Boston', gender: 'male', licenseNumber: 'MD75319', affiliatedFacility: 'Endocrinology Clinic' }
+];
+
     setDoctors(dummyDoctorsData);
   }, []);
 

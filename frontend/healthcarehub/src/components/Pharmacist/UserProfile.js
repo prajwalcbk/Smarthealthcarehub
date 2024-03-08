@@ -18,8 +18,8 @@ function UserProfileData() {
       // const data = await response.json();
       const sampleUser = {
         email: 'example@gmail.com',
-        firstname: 'Prajwal',
-        lastname: 'A Gowda',
+        firstname: 'David',
+        lastname: 'Miller',
         phoneNumber: '+1 4084805932',
         emergencycontactnumber: '+1 4084805456',
         dateofbirth: "11/02/2000",
@@ -41,7 +41,7 @@ function UserProfileData() {
       // Perform API call to fetch primary care providers based on inputValue
       //const response = await fetch(`YOUR_API_ENDPOINT?search=${inputValue}`);
       //const data = await response.json();
-      const data= [ {"name":"Prajwal","id":123},{"name":"kenchiiiiii","id":1203},{"name":"ptrajjuuu","id":1243},{"name":"amith","id":12439}]
+      const data= [ {"name":"John","id":123},{"name":"David","id":123},{"name":"Joe","id":1243},{"name":"Miller","id":1243}]
 
       // Transform API response data to the format expected by React Select
       const transformedOptions = data.map((provider) => ({

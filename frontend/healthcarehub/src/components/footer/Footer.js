@@ -8,7 +8,7 @@ function Footer() {
       <ul>
         <li>Email: example@example.com</li>
         <li>Phone: 123-456-7890</li>
-        <li>Address: 123 Main Street, City, Country</li>
+        <li>Address: 123 Main Street, Silicon Valley , United States </li>
       </ul>
       <div className="social-icons">
         <a href="#"><i className="fab fa-facebook-f"></i></a>

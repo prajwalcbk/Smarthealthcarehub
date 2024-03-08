@@ -20,7 +20,7 @@ import admin from './../../assets/admin.png'
 
 
 function Home() {
-  const [toShowAllRoles , setToShowAllRoles]=useState(false)
+  const [toShowAllRoles , setToShowAllRoles]=useState(true)
   return (
     <div className="home-container">
       <Navbar />
