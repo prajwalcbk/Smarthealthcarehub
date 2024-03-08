@@ -14,7 +14,7 @@ function UserProfileData() {
   const fetchUserProfile = async () => {
     try {
       // Replace the URL with your actual API endpoint
-      const response = await fetch('your-api-endpoint');
+      // const response = await fetch('your-api-endpoint');
       // const data = await response.json();
       const sampleUser = {
         email: "jane.doe@example.com",

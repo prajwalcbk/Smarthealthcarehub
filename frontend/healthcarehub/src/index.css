@@ -17,7 +17,7 @@ code {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('../public/3734225.jpg');  /*Update the path to your background image */
+  background-image: url('../public/3734225.jpg'); 
   background-size: cover;
   /*background: #ddd;*/
   background-position: center;

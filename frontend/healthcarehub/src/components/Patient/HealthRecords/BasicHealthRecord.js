@@ -12,7 +12,7 @@ function HealthRecords() {
     try {
       // Make API call to fetch health records
       // Replace the URL with your actual API endpoint
-      const response = await fetch('your-api-endpoint');
+      // const response = await fetch('your-api-endpoint');
       // const data = await response.json();
       // Update state with fetched health records
       const sampleHealthRecords = {
