@@ -1,15 +1,14 @@
 /* ServicePage.css */
-.maincontainer{
+
+.maincontainer {
   margin: 0 auto;
   padding: 20px;
-  padding-right: 20px;
   overflow-x: auto;
   overflow-y: auto;
   background-size: cover;
   background-position: center;
   background-image: url("../../../public/3734225.jpg");
-  height: 100%;
-  position: fixed;
+  height: 100vh; /* Changed to viewport height */
   width: 100%;
 }
 
@@ -18,20 +17,17 @@
   margin: 0 auto;
   padding: 20px;
   margin-top: 50px;
-  background-color: rgb(3 15 39 / 96%);
+  background-color: rgba(3, 15, 39, 0.96); /* Updated background color with rgba */
   color: white;
-  padding: 20px;
   border-radius: 20px;
- box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-/* ServicePage.css */
 
 .service-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 10px; /* Reduced gap between services */
 }
 
 .service-category {
@@ -39,13 +35,9 @@
   border-radius: 20px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  width: 35%;
-  /*width: calc(50% - 20px); */
-  margin-bottom: 20px;
+  width: calc(42% - 5px); /* Adjusted width */
   text-align: left;
 }
-
-
 
 .service-category img {
   width: 80px;
@@ -56,6 +48,10 @@
 .service-category h2 {
   color: #333333;
   font-size: 1.5rem;
+}
+
+.service-category p {
+  color: #666666;
 }
 
 .service-category ul {
@@ -79,7 +75,6 @@
 /* Media query for smaller screens */
 @media (max-width: 768px) {
   .service-category {
-    width: calc(100% - 20px); /* 100% width with 20px gap */
-    margin-right: 0;
+    width: calc(70% - 10px); /* Adjusted width for smaller screens */
   }
 }
