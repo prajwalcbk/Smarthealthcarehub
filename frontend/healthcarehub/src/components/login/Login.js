@@ -3,12 +3,16 @@ import './Login.css'; // Import your custom CSS for styling
 import Navbar from './../navbar/Navbar'
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import { useHistory, useNavigate } from 'react-router-dom';
+
 
 
 function LoginPage() {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     // Implement login functionality here
@@ -17,17 +21,69 @@ function LoginPage() {
       password : password 
     }
     console.log(data)
-    
+    if (email === 'admin' && password === 'admin'){
+      setSuccessMessage('Logged in successfully as admin');
+      sessionStorage.setItem('token', '123');
+      sessionStorage.setItem('user', 'admin');
+       setTimeout(() => {
+            navigate('/admin');
+        }, 2000); 
+    }
 
-      axios.post('http://localhost/login', data)
-      .then(response => {
-        console.log('Loggedin Successfully:', response.data);
-        // Optionally, reset form fields or perform other actions upon successful submission
-      })
-      .catch(error => {
-        console.error('Failed to login', error);
-        // Handle error appropriately, e.g., display error message to user
-      });
+    else if (email === 'doctor' && password === 'doctor'){
+      setSuccessMessage('Logged in successfully as doctor');
+      sessionStorage.setItem('token', '123');
+      sessionStorage.setItem('user', 'doctor');
+       setTimeout(() => {
+            navigate('/doctor');
+        }, 2000); 
+    }
+
+    else if (email=='patient' && password=='patient'){
+      setSuccessMessage('Logged in successfully as patient');
+      sessionStorage.setItem('token', '123');
+      sessionStorage.setItem('user', 'patient');
+       setTimeout(() => {
+            navigate('/patient');
+        }, 2000); 
+    }
+
+    else if (email=='healthadmin' && password=='healthadmin'){
+      setSuccessMessage('Logged in successfully as healthadmin');
+      sessionStorage.setItem('token', '123');
+      sessionStorage.setItem('user', 'healthadmin');
+       setTimeout(() => {
+            navigate('/healthadmin');
+        }, 2000); 
+    }
+
+    else if (email=='pharmacist' && password=='pharmacist'){
+      setSuccessMessage('Logged in successfully as pharmacist');
+      sessionStorage.setItem('token', '123');
+      sessionStorage.setItem('user', 'pharmacist');
+       setTimeout(() => {
+            navigate('/pharmacist');
+        }, 2000); 
+    }
+
+    else{
+      setError('Invalid credentials');
+    }
+
+
+
+
+
+
+      // axios.post('http://localhost/login', data)
+      // .then(response => {
+      //   console.log('Loggedin Successfully:', response.data);
+      //   // Optionally, reset form fields or perform other actions upon successful submission
+      // })
+      // .catch(error => {
+      //   console.error('Failed to login', error);
+      //   // Handle error appropriately, e.g., display error message to user
+      // });
     console.log('Logging in with email:', email, 'and password:', password);
   };
 
@@ -38,6 +94,7 @@ function LoginPage() {
       <div className="login-form">
         <h1>Login</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input

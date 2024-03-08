@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../navbar/Navbar'; // Make sure to import the Navbar component
 import Footer from '../footer/Footer'; 
 import { Link } from "react-router-dom";
@@ -20,6 +20,7 @@ import admin from './../../assets/admin.png'
 
 
 function Home() {
+  const [toShowAllRoles , setToShowAllRoles]=useState(false)
   return (
     <div className="home-container">
       <Navbar />
@@ -61,6 +62,7 @@ function Home() {
           
           </div>
 
+          { toShowAllRoles && 
           <div className='content-wrapper'>
 
 
@@ -105,8 +107,9 @@ function Home() {
             <p>Manages operations and supports healthcare providers.</p>
           </div>
           
-
           </div>
+
+        }
            <Footer />
                <Support />
       </div>

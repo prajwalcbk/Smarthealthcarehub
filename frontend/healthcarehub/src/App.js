@@ -27,37 +27,54 @@ import ContactUs from './components/CompanyDropdown/ContactUs';
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
 // import Dummy from './components/dummy'
 import Messenger from './components/messenger/Messenger'
+import useAuthContext from './useAuthContext';
+import { Navigate , Link} from 'react-router-dom';
+
 
 
 function App() {
+  const { authIsReady, user } = useAuthContext();
+  console.log(authIsReady);
+  console.log(user)
   return (
     <Router>
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/adminlogin" element={<AdminLogin />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-
-          <Route path="/doctors" element={<DoctorSearchPage />} />
+          <Route path="/login" element={authIsReady ?  <Navigate to="/" /> : <Login /> } />
           
-          <Route path="/patient" element={<Patient />} />
-          <Route path="/doctor" element={<Doctor />} />
-          <Route path="/pharmacist" element={<Pharmacist />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/healthadmin" element={<HealthAdmin />} />
+          
+          <Route path="/adminlogin" element={authIsReady ?  <Navigate to="/" /> : <AdminLogin /> } />
+          
+          
+          <Route path="/signup" element={authIsReady ?  <Navigate to="/" /> : <SignUp /> } />
+          
+          
+          <Route path="/forgotpassword" element={authIsReady ?  <Navigate to="/" /> : <ForgotPassword /> } />
+
+          
+          <Route path="/doctors" element={authIsReady ? <DoctorSearchPage /> : <Navigate to="/login" />} />
+          
+          
+          <Route path="/patient" element={authIsReady ? <Patient /> : <Navigate to="/login" />} />
+          <Route path="/doctor" element={authIsReady ? <Doctor /> : <Navigate to="/login" />} />
+          <Route path="/pharmacist" element={authIsReady ? <Pharmacist /> : <Navigate to="/login" />} />
+          <Route path="/admin" element={authIsReady ? <Admin /> : <Navigate to="/login" />} />
+          <Route path="/healthadmin" element={authIsReady ? <HealthAdmin /> : <Navigate to="/login" />} />
+
+          
 
           <Route path="/forums" element={<Forums />} />                    
-          <Route path="/forum/:forumId" element={<ForumPage />} />
-          <Route path="/createforum" element={<CreateForum />} />
-
-
-          <Route path="/symptomchecker" element={<SymptomChecker />} />
-
-          <Route path="/dummy" element={<SymptomChecker />} />
           
+
+          <Route path="/forum/:forumId" element={authIsReady ? <ForumPage /> : <Navigate to="/login" />} />
+          
+
+          <Route path="/createforum" element={authIsReady ? <CreateForum /> : <Navigate to="/login" />} />
+
+
+          <Route path="/symptomchecker" element={<SymptomChecker />} />          
           <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/services" element={<Services />} />
           <Route path='/contact-us' element={<ContactUs />} />
@@ -66,12 +83,8 @@ function App() {
           <Route path="/messenger" element={<Messenger />} />
 
 
-
-
-          {/* Add more routes for other pages */}
         </Routes>
       </div>
-
     </Router>
   );
 }
