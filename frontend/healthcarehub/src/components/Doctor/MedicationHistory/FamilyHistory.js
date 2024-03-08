@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './FamilyHistory.css'
+import SearchPatient from './../../SearchPatient'
 
 function FamilyHistory() {
   const [familyhistory, setfamilyhistory] = useState([
@@ -50,6 +51,7 @@ function FamilyHistory() {
   return (
     <div className="family-history">
       <h2>Family Health History</h2>
+      <SearchPatient />
       <form onSubmit={handleSubmit}>
         <h3>FamilyHistory:</h3>
         <ul>
@@ -87,7 +89,6 @@ function FamilyHistory() {
                 className={history.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemovefamilyhistory(index)}>Remove</button>
-              <button type="button" onClick={() => handleRemovefamilyhistory(index)}>Save</button>
             </li>
           ))}
         </ul>

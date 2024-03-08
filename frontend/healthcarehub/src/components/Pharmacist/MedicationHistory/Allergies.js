@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Allergies.css'
+import SearchPatient from './../../SearchPatient'
 
 function Allergies() {
   const [allergies, setallergies] = useState([{"name":"fever","index":1, "Patient":"Charlie"},{"name":"headache","index":2, "Patient":"Johnson"}]);
@@ -33,6 +34,7 @@ function Allergies() {
     <div className="allergies">
       <h2>Allergies </h2>
       <form onSubmit={handleSubmit}>
+      <SearchPatient />
         <h3>Allergies:</h3>
         <ul>
           {allergies.map((allergy, index) => (

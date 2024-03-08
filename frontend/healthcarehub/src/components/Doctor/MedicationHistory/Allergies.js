@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Allergies.css'
+import SearchPatient from './../../SearchPatient'
 
 function Allergies() {
   const [allergies, setallergies] = useState([{"name":"fever","index":1, "Patient":"Charlie"},{"name":"headache","index":2, "Patient":"Johnson"}]);
@@ -32,6 +33,7 @@ function Allergies() {
   return (
     <div className="allergies">
       <h2>Allergies</h2>
+      <SearchPatient />
       <form onSubmit={handleSubmit}>
         <h3>Allergies:</h3>
         <ul>
@@ -47,7 +49,6 @@ function Allergies() {
                 disabled={!allergy.editable}
                 className={allergy.editable ? "editable" : ""}
               />
-              <button type="button" style={{ "marginLeft": "5%" }} onClick={() => handleRemoveallergies(index)}>Remove</button>
             </li>
           ))}
         </ul>

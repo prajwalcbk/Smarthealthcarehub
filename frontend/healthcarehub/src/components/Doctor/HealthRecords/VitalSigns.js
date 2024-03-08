@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './VitalSigns.css'
-
+import SearchPatient from './../../SearchPatient'
 function VitalSigns() {
   const [vitalsigns, setvitalsigns] = useState([
   {
@@ -58,6 +58,7 @@ function VitalSigns() {
       <h2>VitalSigns Tracking</h2>
       <form onSubmit={handleSubmit}>
         <h3>Past VitalSigns records:</h3>
+        <SearchPatient />
         <ul>
           {vitalsigns.map((vitalsign, index) => (
             <li key={index}>
@@ -119,7 +120,7 @@ function VitalSigns() {
 
               
               <button type="button" onClick={() => handleRemoveVitalSigns(index)}>Remove</button>
-              <button type="button" onClick={() => handleRemoveVitalSigns(index)}>Save</button>
+              
             </li>
           ))}
         </ul>

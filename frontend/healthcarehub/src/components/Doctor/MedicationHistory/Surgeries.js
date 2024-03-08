@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Surgeries.css'
+import SearchPatient from './../../SearchPatient'
 
 function Surgeries() {
   const [surgeries, setsurgeries] = useState([
@@ -53,6 +54,7 @@ function Surgeries() {
   return (
     <div className="surgeries">
       <h2>Surgeries</h2>
+      <SearchPatient />
       <form onSubmit={handleSubmit}>
         <h3>Past Surgeries:</h3>
         <ul>
@@ -99,7 +101,6 @@ function Surgeries() {
                 className={surgery.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemoveSurgeries(index)}>Remove</button>
-              <button type="button" onClick={() => handleRemoveSurgeries(index)}>Save</button>
             </li>
           ))}
         </ul>

@@ -100,7 +100,6 @@ function Exercise() {
                 className={exercise.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemoveExercise(index)}>Remove</button>
-              <button type="button" onClick={() => handleRemoveExercise(index)}>Save</button>
             </li>
           ))}
         </ul>

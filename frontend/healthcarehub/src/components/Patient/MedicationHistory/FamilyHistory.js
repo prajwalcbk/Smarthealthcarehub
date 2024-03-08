@@ -69,7 +69,6 @@ function FamilyHistory() {
                 className={history.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemovefamilyhistory(index)}>Remove</button>
-              <button type="button" onClick={() => handleRemovefamilyhistory(index)}>Save</button>
             </li>
           ))}
         </ul>

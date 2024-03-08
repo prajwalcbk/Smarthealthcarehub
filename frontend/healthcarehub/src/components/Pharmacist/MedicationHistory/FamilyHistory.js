@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './FamilyHistory.css'
+import SearchPatient from './../../SearchPatient'
 
 function FamilyHistory() {
   const [familyhistory, setfamilyhistory] = useState([
@@ -51,6 +52,7 @@ function FamilyHistory() {
     <div className="family-history">
       <h2>Family Health History</h2>
       <form onSubmit={handleSubmit}>
+      <SearchPatient />
         <h3>FamilyHistory:</h3>
         <ul>
           {familyhistory.map((history, index) => (

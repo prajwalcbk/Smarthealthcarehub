@@ -104,7 +104,6 @@ function VitalSigns() {
 
               
               <button type="button" onClick={() => handleRemoveVitalSigns(index)}>Remove</button>
-              <button type="button" onClick={() => handleRemoveVitalSigns(index)}>Save</button>
             </li>
           ))}
         </ul>

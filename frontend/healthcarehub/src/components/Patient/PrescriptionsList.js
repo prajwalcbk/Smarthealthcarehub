@@ -11,26 +11,26 @@ function PrescriptionList() {
     const fetchPrescriptions = async () => {
       // Simulated response from API
       const prescriptionResponse = [
-       { "id": 1, "description": "Fever and chills", "issuedDate": "now", "provider": "John", "status": "Active" },
-        { "id": 3, "description": "Pounding headache", "issuedDate": "now", "provider": "Smith", "status": "Active" },
-        { "id": 2, "description": "High fever and weakness", "issuedDate": "now", "provider": "John", "status": "Active" },
-        { "id": 4, "description": "Persistent fever", "issuedDate": "now", "provider": "John", "status": "Active" },
-        { "id": 5, "description": "Migraine attack", "issuedDate": "now", "provider": "Smith", "status": "Active" },
-        { "id": 6, "description": "Fever and body aches", "issuedDate": "now", "provider": "John", "status": "Active" },
-        { "id": 7, "description": "Cluster headache", "issuedDate": "now", "provider": "Smith", "status": "Active" },
-        { "id": 8, "description": "Fever due to typhoid", "issuedDate": "now", "provider": "John", "status": "Active" },
-        { "id": 9, "description": "Fever with nausea", "issuedDate": "now", "provider": "John", "status": "Active" },
-        { "id": 10, "description": "Tension headache", "issuedDate": "now", "provider": "Smith", "status": "Active" },
-        { "id": 11, "description": "Low-grade fever", "issuedDate": "now", "provider": "John", "status": "Active" },
-        { "id": 13, "description": "Sinus headache", "issuedDate": "now", "provider": "Smith", "status": "Active" },
-        { "id": 12, "description": "Fever with cough", "issuedDate": "now", "provider": "John", "status": "Active" },
-        { "id": 14, "description": "Intermittent fever", "issuedDate": "now", "provider": "John", "status": "Active" },
-        { "id": 15, "description": "Mild headache", "issuedDate": "now", "provider": "Smith", "status": "Active" },
-        { "id": 16, "description": "Fever and fatigue", "issuedDate": "now", "provider": "John", "status": "Active" },
-        { "id": 17, "description": "Headache due to stress", "issuedDate": "now", "provider": "Smith", "status": "Active" },
-        { "id": 18, "description": "Fever caused by typhoid", "issuedDate": "now", "provider": "John", "status": "Active" },
-        { "id": 19, "description": "Chronic fever", "issuedDate": "now", "provider": "John", "status": "Active" },
-        { "id": 20, "description": "Occasional headache", "issuedDate": "now", "provider": "Smith", "status": "Active" }
+       { "id": 1, "description": "Fever and chills", "issuedDate": "21/01/2023", "provider": "John", "status": "Active" },
+        { "id": 3, "description": "Pounding headache", "issuedDate": "2/09/2023", "provider": "Smith", "status": "Active" },
+        { "id": 2, "description": "High fever and weakness", "issuedDate": "2/09/2022", "provider": "John", "status": "Active" },
+        { "id": 4, "description": "Persistent fever", "issuedDate": "2/09/2023", "provider": "John", "status": "Active" },
+        { "id": 5, "description": "Migraine attack", "issuedDate": "2/09/2023", "provider": "Smith", "status": "Active" },
+        { "id": 6, "description": "Fever and body aches", "issuedDate": "2/09/2023", "provider": "John", "status": "Active" },
+        { "id": 7, "description": "Cluster headache", "issuedDate": "2/01/2023", "provider": "Smith", "status": "Active" },
+        { "id": 8, "description": "Fever due to typhoid", "issuedDate": "26/09/2023", "provider": "John", "status": "Active" },
+        { "id": 9, "description": "Fever with nausea", "issuedDate": "2/09/2022", "provider": "John", "status": "Active" },
+        { "id": 10, "description": "Tension headache", "issuedDate": "2/09/2023", "provider": "Smith", "status": "Active" },
+        { "id": 11, "description": "Low-grade fever", "issuedDate": "23/08/2021", "provider": "John", "status": "Active" },
+        { "id": 13, "description": "Sinus headache", "issuedDate": "25/02/2019", "provider": "Smith", "status": "Active" },
+        { "id": 12, "description": "Fever with cough", "issuedDate": "2/09/2020", "provider": "John", "status": "Active" },
+        { "id": 14, "description": "Intermittent fever", "issuedDate": "2/03/2018", "provider": "John", "status": "Active" },
+        { "id": 15, "description": "Mild headache", "issuedDate": "2/09/2023", "provider": "Smith", "status": "Active" },
+        { "id": 16, "description": "Fever and fatigue", "issuedDate": "2/01/2023", "provider": "John", "status": "Active" },
+        { "id": 17, "description": "Headache due to stress", "issuedDate": "29/04/2023", "provider": "Smith", "status": "Active" },
+        { "id": 18, "description": "Fever caused by typhoid", "issuedDate": "21/01/2023", "provider": "John", "status": "Active" },
+        { "id": 19, "description": "Chronic fever", "issuedDate": "25/01/2023", "provider": "John", "status": "Active" },
+        { "id": 20, "description": "Occasional headache", "issuedDate": "11/03/2023", "provider": "Smith", "status": "Active" }
     ];    
       setPrescriptionList(prescriptionResponse);
     };

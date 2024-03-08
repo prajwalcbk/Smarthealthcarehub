@@ -82,7 +82,6 @@ function Surgeries() {
                 className={surgery.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemoveSurgeries(index)}>Remove</button>
-              <button type="button" onClick={() => handleRemoveSurgeries(index)}>Save</button>
             </li>
           ))}
         </ul>

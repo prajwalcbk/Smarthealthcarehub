@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Surgeries.css'
+import SearchPatient from './../../SearchPatient'
 
 function Surgeries() {
 const [surgeries, setsurgeries] = useState([
@@ -54,6 +55,7 @@ const [surgeries, setsurgeries] = useState([
   return (
     <div className="surgeries">
       <h2>Surgeries</h2>
+      <SearchPatient /> 
       <form onSubmit={handleSubmit}>
         <h3>Past Surgeries:</h3>
         <ul>
