@@ -7,7 +7,7 @@ function UserProfileData() {
   const [editMode, setEditMode] = useState(false);
   const [editedUserProfile, seteditedUserProfile] = useState({});
   const [healthfacilitynameoptions, setHealthFacilityNameOptions] = useState([]);
-  const [healthfacilityname, setHealthFacilityName] = useState('');
+  const [healthfacilityname, setHealthFacilityName] = useState('David');
 
 
 
@@ -16,17 +16,25 @@ function UserProfileData() {
       // Replace the URL with your actual API endpoint
       const response = await fetch('your-api-endpoint');
       // const data = await response.json();
+      // const sampleUser = { "id": 2, "name": "Samantha", "CreatedDate": "2024-03-06T09:30:00Z", "email": "samantha@example.com", "status": "Verified", "role": "Doctor", "qualification": "MD", "specialization": "Neurology", "licensenumber": "456ghy67" };
       const sampleUser = {
+        "id": 2,
         email: 'example@gmail.com',
         firstname: 'David',
         lastname: 'John',
+        qualification: "MD", 
+        dateofbirth:"11/02/2000",
+        specialization: "Neurology", 
+        licensenumber: "456ghy67",
         phoneNumber: '+1 4084805932',
         emergencycontactnumber: '+1 4084805456',
-        dateofbirth: "11/02/2000",
         gender: "male",
-        primarycareprovider:"Dr Jon Alert"
+        healthfacilityname:"David",
+        about: "Dr. David John is a board-certified neurologist with extensive experience in diagnosing and treating neurological disorders. He is dedicated to providing compassionate care and personalized treatment plans to his patients."
       };
       const data=sampleUser;
+      console.log(data.healthfacilityname)
+      setHealthFacilityName(data.healthfacilityname);
       setUserProfile(data);
       seteditedUserProfile(data); // Set initial values for editable fields
     } catch (error) {
@@ -210,7 +218,7 @@ function UserProfileData() {
             value={editMode ? editedUserProfile.about : UserProfile.about}
             onChange={handleInputChange}
             disabled={!editMode}
-            rows={8} 
+            rows={6} 
           />
           </div>
 
@@ -222,8 +230,7 @@ function UserProfileData() {
             value={healthfacilityname}
             onChange={handleHealthFacilityChange}
             options={healthfacilitynameoptions}
-            placeholder="Search or select Health Facility"
-            style={{ "height": "1px"}}
+            style={{ "height": "0px"}}
             isSearchable
           />
         </div>

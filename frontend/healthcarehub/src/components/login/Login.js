@@ -4,7 +4,7 @@ import Navbar from './../navbar/Navbar'
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import { useHistory, useNavigate } from 'react-router-dom';
-
+import LoginNotification from './../LoginNotification'
 
 
 function LoginPage() {
@@ -22,7 +22,7 @@ function LoginPage() {
     }
     console.log(data)
 
-    if (email === 'doctor' && password === 'doctor'){
+    if (email === 'doctor@gmail.com' && password === 'doctor@123'){
       setError(null);
       setSuccessMessage('Logged in successfully as doctor');
       localStorage.setItem('token', '123');
@@ -34,7 +34,7 @@ function LoginPage() {
         }, 1000); 
     }
 
-    else if (email=='patient' && password=='patient'){
+    else if (email=='patient@gmail.com' && password=='patient@123'){
       setError(null);
       setSuccessMessage('Logged in successfully as patient');
       localStorage.setItem('token', '123');
@@ -45,9 +45,9 @@ function LoginPage() {
         }, 1000); 
     }
 
-    else if (email=='healthadmin' && password=='healthadmin'){
+    else if (email=='healthadmin@gmail.com' && password=='healthadmin'){
       setError(null);
-      setSuccessMessage('Logged in successfully as healthadmin');
+      setSuccessMessage('Logged in successfully as healthadmin@123');
       localStorage.setItem('token', '123');
       localStorage.setItem('role', 'healthadmin');
        setTimeout(() => {
@@ -56,7 +56,7 @@ function LoginPage() {
         }, 1000); 
     }
 
-    else if (email=='pharmacist' && password=='pharmacist'){
+    else if (email=='pharmacist@gmail.com' && password=='pharmacist@123'){
       setError(null);
       setSuccessMessage('Logged in successfully as pharmacist');
       localStorage.setItem('token', '123');
@@ -94,6 +94,7 @@ function LoginPage() {
   return (
     <div className="container">
     <Navbar />
+    <LoginNotification />
       <div className="login-form">
         <h1>Login</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>

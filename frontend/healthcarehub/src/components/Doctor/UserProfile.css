@@ -23,6 +23,9 @@ textarea  {
     border-radius: 10px;
     border: 1.5px solid black;
     resize: none;
+    color: black;
+    font-weight: bold;
+
 }
 
 .user-profile form {
