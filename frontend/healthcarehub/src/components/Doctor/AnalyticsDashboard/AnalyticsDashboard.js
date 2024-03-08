@@ -97,9 +97,9 @@ function AnalyticsDashboard() {
           <Line type="monotone" dataKey="revenue" stroke="#ffc658" />
         </LineChart>
 
-        <h2>Las Week Symptoms Analytics</h2>
-          <div className="symptoms-analytics">
-          <table className="symptoms-table">
+        <h2>Last Week Symptoms Analytics</h2>
+          <div className="symptoms-analytics"   style={{"margin-bottom": "10%"}}>
+          <table className="symptoms-table" >
             <thead>
               <tr>
                 <th>Symptom</th>

@@ -2,7 +2,29 @@ import React, { useState } from 'react';
 import './Surgeries.css'
 
 function Surgeries() {
-  const [surgeries, setsurgeries] = useState([{"name":"fever","index":1, "date": "25-11-200" , "description" : "Description" },{"name":"fever","index":2,"date": "25-11-200" , "description" : "Description"},{"name":"fever","index":3,"date": "25-11-200" , "description" : "Description"}]);
+const [surgeries, setsurgeries] = useState([
+  {
+    "name": "Appendectomy",
+    "index": 1,
+    "date": "2020-05-10",
+    "description": "Surgical removal of the appendix due to appendicitis.",
+    "Patient": "Charlie"
+  },
+  {
+    "name": "Knee Surgery",
+    "index": 2,
+    "date": "2021-02-28",
+    "description": "Arthroscopic knee surgery to repair torn ligaments.",
+    "Patient": "Johnson"
+  },
+  {
+    "name": "Gallbladder Removal",
+    "index": 3,
+    "date": "2019-08-15",
+    "description": "Laparoscopic surgery to remove the gallbladder due to gallstones.",
+    "Patient": "Smith"
+  }
+]);
 
   const [editMode, setEditMode] = useState(false);
 
@@ -37,6 +59,18 @@ function Surgeries() {
         <ul>
           {surgeries.map((surgery, index) => (
             <li key={index}>
+
+            <label htmlFor={`Patient-${index}`}>Patient:</label>
+              <input
+                id={`Patient-${index}`}
+                type="text"
+                value={surgery.Patient}
+                onChange={(e) => handleInputChange(e, index, 'Patient')}
+                disabled={!surgery.editable}
+                className={surgery.editable ? "editable" : ""}
+              />
+
+
               <label htmlFor={`name-${index}`}>Name:</label>
               <input
                 id={`name-${index}`}
@@ -66,12 +100,9 @@ function Surgeries() {
                 disabled={!surgery.editable}
                 className={surgery.editable ? "editable" : ""}
               />
-              <button type="button" onClick={() => handleRemoveSurgeries(index)}>Remove</button>
-              <button type="button" onClick={() => handleRemoveSurgeries(index)}>Save</button>
             </li>
           ))}
         </ul>
-        <button type="button" style={{"width":"100%"}} onClick={handleAddSurgeries}>Add</button>
       </form>
     </div>
   );

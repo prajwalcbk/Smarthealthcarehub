@@ -2,8 +2,20 @@ import React, { useState } from 'react';
 import './FamilyHistory.css'
 
 function FamilyHistory() {
-  const [familyhistory, setfamilyhistory] = useState([{"title":"fever","index":1, "description": "my father used to get regular fever"},{"title":"headache","index":2, "description": "my mother used to get regular symptoms"}]);
-
+  const [familyhistory, setfamilyhistory]  = useState([
+  {
+    "title": "Diabetes",
+    "index": 1,
+    "description": "My father has a history of diabetes and requires insulin medication.",
+    "Patient": "John"
+  },
+  {
+    "title": "Hypertension",
+    "index": 2,
+    "description": "My mother has a history of hypertension and takes blood pressure medication.",
+    "Patient": "Charlie"
+  }
+]);
   const [editMode, setEditMode] = useState(false);
 
   const handleAddfamilyhistory = () => {
@@ -61,7 +73,7 @@ function FamilyHistory() {
             </li>
           ))}
         </ul>
-        <button type="button" style={{"width":"100%"}} onClick={handleAddfamilyhistory}>Add</button>
+        <button type="button"  style={{"width":"100%" , "margin-bottom": "5%"}}  onClick={handleAddfamilyhistory}>Add</button>
       </form>
     </div>
   );

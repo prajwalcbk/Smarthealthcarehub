@@ -2,8 +2,29 @@ import React, { useState } from 'react';
 import './VitalSigns.css'
 
 function VitalSigns() {
-  const [vitalsigns, setvitalsigns] = useState([{"bloodpressure":"fever","index":1, "date": "25-11-200" , "heartrate" : "Description"  , "bloodsugar": "10 minutes"},{"workout":"fever","index":2,"date": "25-11-200" , "heartrate" : "Description", "bloodsugar": "10 minutes"},{"workout":"fever","index":3,"date": "25-11-200" , "heartrate" : "Description", "bloodsugar": "10 minutes"}]);
-
+  const [vitalsigns, setvitalsigns] = useState([
+  {
+    "bloodpressure": "120/80 mmHg",
+    "index": 1,
+    "date": "2020-08-20",
+    "heartrate": "70 bpm",
+    "bloodsugar": "100 mg/dL"
+  },
+  {
+    "bloodpressure": "130/85 mmHg",
+    "index": 2,
+    "date": "2021-01-10",
+    "heartrate": "75 bpm",
+    "bloodsugar": "110 mg/dL"
+  },
+  {
+    "bloodpressure": "115/75 mmHg",
+    "index": 3,
+    "date": "2019-12-05",
+    "heartrate": "65 bpm",
+    "bloodsugar": "90 mg/dL"
+  }
+]);
   const [editMode, setEditMode] = useState(false);
 
   const handleAddVitalSigns = () => {
@@ -87,7 +108,7 @@ function VitalSigns() {
             </li>
           ))}
         </ul>
-        <button type="button" style={{"width":"100%"}} onClick={handleAddVitalSigns}>Add</button>
+        <button type="button"  style={{"width":"100%" , "margin-bottom": "5%"}}  onClick={handleAddVitalSigns}>Add</button>
       </form>
     </div>
   );

@@ -305,7 +305,7 @@ const SystemConfiguration = () => {
           <label htmlFor="enableMedicationHistory">  MedicationHistory</label>
         </div>
 
-        <button onClick={handleSubmit} style={{"width" : "100%" }} >Save</button>
+        <button onClick={handleSubmit} style={{"width" : "100%" , "margin-bottom": "8%"}}>  Save</button>
 
       </div>
     </div>

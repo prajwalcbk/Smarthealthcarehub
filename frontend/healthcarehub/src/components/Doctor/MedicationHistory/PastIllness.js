@@ -2,8 +2,29 @@ import React, { useState } from 'react';
 import './PastIllness.css'
 
 function PastIllness() {
-  const [pastIllnesses, setPastIllnesses] = useState([{"name":"fever","index":1, "date": "25-11-200" , "description" : "Description"},{"name":"fever","index":2,"date": "25-11-200" , "description" : "Description"},{"name":"fever","index":3,"date": "25-11-200" ,"description" : "Description"}]);
-
+  const [pastIllnesses, setPastIllnesses] = useState([
+  {
+    "name": "Fever",
+    "index": 1,
+    "date": "2020-11-25",
+    "description": "Had a high fever with chills and body aches.",
+    "Patient": "Charlie"
+  },
+  {
+    "name": "Asthma",
+    "index": 2,
+    "date": "2021-03-15",
+    "description": "Experienced shortness of breath and wheezing.",
+    "Patient": "Johnson"
+  },
+  {
+    "name": "Migraine",
+    "index": 3,
+    "date": "2019-09-20",
+    "description": "Frequent headaches with sensitivity to light and sound.",
+    "Patient": "Smith"
+  }
+]);
   const [editMode, setEditMode] = useState(false);
 
   const handleAddPastIllness = () => {
@@ -37,6 +58,18 @@ function PastIllness() {
         <ul>
           {pastIllnesses.map((illness, index) => (
             <li key={index}>
+
+            <label htmlFor={`Patient-${index}`}>Patient:</label>
+              <input
+                id={`Patient-${index}`}
+                type="text"
+                value={illness.Patient}
+                onChange={(e) => handleInputChange(e, index, 'Patient')}
+                disabled={!illness.editable}
+                className={illness.editable ? "editable" : ""}
+              />
+
+              
               <label htmlFor={`name-${index}`}>Name:</label>
               <input
                 id={`name-${index}`}
@@ -70,7 +103,7 @@ function PastIllness() {
             </li>
           ))}
         </ul>
-        <button type="button" style={{"width":"100%"}} onClick={handleAddPastIllness}>Add</button>
+        <button type="button"  style={{"width":"100%" , "margin-bottom": "5%"}} onClick={handleAddPastIllness}>Add</button>
       </form>
     </div>
   );

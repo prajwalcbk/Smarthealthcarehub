@@ -2,7 +2,22 @@ import React, { useState } from 'react';
 import './Surgeries.css'
 
 function Surgeries() {
-  const [surgeries, setsurgeries] = useState([{"name":"fever","index":1, "date": "25-11-200" , "description" : "Description" },{"name":"fever","index":2,"date": "25-11-200" , "description" : "Description"},{"name":"fever","index":3,"date": "25-11-200" , "description" : "Description"}]);
+  const [surgeries, setsurgeries] = useState([
+  {
+    "name": "Appendectomy",
+    "index": 1,
+    "date": "2020-05-10",
+    "description": "Surgical removal of the appendix due to appendicitis.",
+    "Patient": "Charlie"
+  },
+  {
+    "name": "Knee Surgery",
+    "index": 2,
+    "date": "2021-02-28",
+    "description": "Arthroscopic knee surgery to repair torn ligaments.",
+    "Patient": "Johnson"
+  }
+]);
 
   const [editMode, setEditMode] = useState(false);
 
@@ -71,7 +86,7 @@ function Surgeries() {
             </li>
           ))}
         </ul>
-        <button type="button" style={{"width":"100%"}} onClick={handleAddSurgeries}>Add</button>
+        <button type="button"  style={{"width":"100%" , "margin-bottom": "5%"}}  onClick={handleAddSurgeries}>Add</button>
       </form>
     </div>
   );

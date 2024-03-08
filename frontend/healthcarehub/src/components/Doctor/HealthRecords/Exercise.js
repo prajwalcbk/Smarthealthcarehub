@@ -2,8 +2,32 @@ import React, { useState } from 'react';
 import './Exercise.css'
 
 function Exercise() {
-  const [exercises, setexercises] = useState([{"workout":"fever","index":1, "date": "25-11-200" , "intensity" : "Description"  , "duration": "10 minutes"},{"workout":"fever","index":2,"date": "25-11-200" , "intensity" : "Description", "duration": "10 minutes"},{"workout":"fever","index":3,"date": "25-11-200" , "intensity" : "Description", "duration": "10 minutes"}]);
-
+  const [exercises, setexercises] = useState([
+  {
+    "workout": "Running",
+    "index": 1,
+    "date": "2020-08-20",
+    "intensity": "Moderate",
+    "duration": "30 minutes",
+    "Patient" : "John"
+  },
+  {
+    "workout": "Yoga",
+    "index": 2,
+    "date": "2021-01-10",
+    "intensity": "Low",
+    "duration": "45 minutes",
+    "Patient" : "John"
+  },
+  {
+    "workout": "Weightlifting",
+    "index": 3,
+    "date": "2019-12-05",
+    "intensity": "High",
+    "duration": "60 minutes",
+    "Patient" : "Carlie"
+  }
+]);
   const [editMode, setEditMode] = useState(false);
 
   const handleAddExercise = () => {
@@ -37,6 +61,18 @@ function Exercise() {
         <ul>
           {exercises.map((exercise, index) => (
             <li key={index}>
+
+            <label htmlFor={`Patient-${index}`}>Patient:</label>
+              <input
+                id={`Patient-${index}`}
+                type="text"
+                value={exercise.Patient}
+                onChange={(e) => handleInputChange(e, index, 'Patient')}
+                disabled={!exercise.editable}
+                className={exercise.editable ? "editable" : ""}
+              />
+
+              
               <label htmlFor={`workout-${index}`}>WorkOut:</label>
               <input
                 id={`workout-${index}`}
@@ -83,7 +119,7 @@ function Exercise() {
             </li>
           ))}
         </ul>
-        <button type="button" style={{"width":"100%"}} onClick={handleAddExercise}>Add</button>
+        <button type="button" style={{"width":"100%" , "margin-bottom": "5%"}} onClick={handleAddExercise}>Add</button>
       </form>
     </div>
   );

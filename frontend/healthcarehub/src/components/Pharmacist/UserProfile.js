@@ -17,14 +17,18 @@ function UserProfileData() {
       const response = await fetch('your-api-endpoint');
       // const data = await response.json();
       const sampleUser = {
-        email: 'example@gmail.com',
-        firstname: 'David',
-        lastname: 'Miller',
+        email: "jane.doe@example.com",
+        firstname: "Jane",
+        lastname: "Doe",
+        qualification: "MBBS",
         phoneNumber: '+1 4084805932',
         emergencycontactnumber: '+1 4084805456',
         dateofbirth: "11/02/2000",
         gender: "male",
-        primarycareprovider:"Dr Jon Alert"
+        licensenumber: "789abc12",
+        primarycareprovider:"Dr Jon Alert",
+        about: "Dr. Jane Doe is a highly skilled cardiologist specializing in the diagnosis and treatment of heart conditions. She is committed to providing comprehensive cardiac care and improving the heart health of her patients."
+
       };
       const data=sampleUser;
       setUserProfile(data);
@@ -210,7 +214,7 @@ function UserProfileData() {
             {editMode && <button type="submit" onClick={handleSubmit}>Save</button>}
           </form>
           
-          {!editMode && <button onClick={handleEdit}>Edit</button>}
+          {!editMode && <button onClick={handleEdit}   style={{"margin-bottom": "5%"}}>Edit</button>}
         </div>
       ) : (
         <p>Loading  UserProfile Data...</p>

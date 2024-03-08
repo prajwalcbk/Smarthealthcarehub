@@ -68,6 +68,8 @@ function User() {
   const handleCreateClick = () => {
     navigate('/messenger');
   };
+            // <button onClick={() => setActiveComponent('BasicHealthRecord')}>  Basic </button>
+            //button onClick={() => setActiveComponent('Exercise')}> Exercise </button>
 
 
   return (
@@ -81,6 +83,8 @@ function User() {
             <img src={medicalrecord} alt="MedicationHistory Icon" style={{ width: '40px', height: '40px' }} />
             Medication History 
             {isDropDownOpen && <img src={close} alt="menu bar" style={{ width: '40px', height: '40px' }} />}
+
+
           </button>
 
           {(
@@ -103,8 +107,6 @@ function User() {
           ) && (          
           <div className="medical-record-drop-down" >
           
-            <button onClick={() => setActiveComponent('BasicHealthRecord')}>  Basic </button>
-            <button onClick={() => setActiveComponent('Exercise')}> Exercise </button>
             <button onClick={() => setActiveComponent('VitalSigns')}> Vital Signs </button>
           </div>
           )}

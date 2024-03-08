@@ -2,8 +2,26 @@ import React, { useState } from 'react';
 import './FamilyHistory.css'
 
 function FamilyHistory() {
-  const [familyhistory, setfamilyhistory] = useState([{"title":"fever","index":1, "description": "my father used to get regular fever"},{"title":"headache","index":2, "description": "my mother used to get regular symptoms"}]);
-
+  const [familyhistory, setfamilyhistory] = useState([
+  {
+    "title": "Diabetes",
+    "index": 1,
+    "description": "My father has a history of diabetes and requires insulin medication.",
+    "Patient": "John"
+  },
+  {
+    "title": "Hypertension",
+    "index": 2,
+    "description": "My mother has a history of hypertension and takes blood pressure medication.",
+    "Patient": "Charlie"
+  },
+  {
+    "title": "Cancer",
+    "index": 3,
+    "description": "There is a family history of breast cancer on my maternal side.",
+    "Patient": "Smith"
+  }
+]);
   const [editMode, setEditMode] = useState(false);
 
   const handleAddfamilyhistory = () => {
@@ -37,6 +55,18 @@ function FamilyHistory() {
         <ul>
           {familyhistory.map((history, index) => (
             <li key={index}>
+
+            <label htmlFor={`patient-${index}`}>Patient:</label>
+              <input
+                id={`patient-${index}`}
+                type="text"
+                value={history.Patient}
+                onChange={(e) => handleInputChange(e, index, 'Patient')}
+                disabled={!history.editable}
+                className={history.editable ? "editable" : ""}
+              />
+
+              
               <label htmlFor={`name-${index}`}>Title:</label>
               <input
                 id={`name-${index}`}
@@ -61,7 +91,7 @@ function FamilyHistory() {
             </li>
           ))}
         </ul>
-        <button type="button" style={{"width":"100%"}} onClick={handleAddfamilyhistory}>Add</button>
+        <button type="button"  style={{"width":"100%" , "margin-bottom": "5%"}}  onClick={handleAddfamilyhistory}>Add</button>
       </form>
     </div>
   );

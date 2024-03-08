@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Allergies.css'
 
 function Allergies() {
-  const [allergies, setallergies] = useState([{"name":"fever","index":1},{"name":"headache","index":2}]);
+  const [allergies, setallergies] = useState([{"name":"fever","index":1, "Patient":"Charlie"},{"name":"headache","index":2, "Patient":"Johnson"}]);
 
   const [editMode, setEditMode] = useState(false);
 
@@ -37,6 +37,7 @@ function Allergies() {
         <ul>
           {allergies.map((allergy, index) => (
             <li key={index}>
+            <h3> Patient Name: {allergy.Patient} </h3>
               <label htmlFor={`name-${index}`}></label>
               <input
                 id={`name-${index}`}
@@ -50,8 +51,6 @@ function Allergies() {
             </li>
           ))}
         </ul>
-        <button type="button" style={{"width":"100%"}} onClick={handleAddallergies}>Add</button>
-        <button type="submit">Submit</button>
       </form>
     </div>
   );
