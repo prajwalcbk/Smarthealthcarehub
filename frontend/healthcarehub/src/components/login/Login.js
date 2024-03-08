@@ -45,9 +45,9 @@ function LoginPage() {
         }, 1000); 
     }
 
-    else if (email=='healthadmin@gmail.com' && password=='healthadmin'){
+    else if (email=='healthadmin@gmail.com' && password=='healthadmin@123'){
       setError(null);
-      setSuccessMessage('Logged in successfully as healthadmin@123');
+      setSuccessMessage('Logged in successfully as healthadmin');
       localStorage.setItem('token', '123');
       localStorage.setItem('role', 'healthadmin');
        setTimeout(() => {

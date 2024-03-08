@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import UserManagement from './UserManagement/UserManagement'
 import HealthcareProviderManagement from './HealthcareProviderManagement/HealthcareProviderManagement'
 import SystemConfiguration from './SystemConfiguration/SystemConfiguration'
-import DataOversight from './DataOversight/DataOversight'
 import ReportGeneration from './ReportGeneration/ReportGeneration'
 import PrivacyIssuesComponent from './DataOversight/PrivacyIssuesComponent'
 import DataBreachesComponent from './DataOversight/DataBreachesComponent'
@@ -80,7 +79,7 @@ function Admin() {
           <button onClick={() => setActiveComponent('UserManagement')}> <img src={patient} alt="UserManagement Icon" style={{ width: '40px', height: '40px' }} /> </button>
           <button onClick={() => setActiveComponent('HealthcareProviderManagement')}> <img src={doctor} alt="HealthcareProviderManagement Icon" style={{ width: '40px', height: '40px' }} /></button>
           <button onClick={() => setActiveComponent('SystemConfiguration')}> <img src={configuration} alt="SystemConfiguration Icon" style={{ width: '40px', height: '40px' }} /></button>
-          <button onClick={() => setActiveComponent('DataOversight')}> <img src={oversights} alt="DataOversight Icon" style={{ width: '40px', height: '40px' }} /></button>
+          <button> <img src={oversights} alt="DataOversight Icon" style={{ width: '40px', height: '40px' }} /></button>
           <button onClick={() => setActiveComponent('ReportGeneration')}> <img src={report} alt="ReportGeneration Icon" style={{ width: '40px', height: '40px' }} /></button>
           
       </div>
@@ -90,7 +89,6 @@ function Admin() {
           {activeComponent === 'UserManagement' && <UserManagement />}
           {activeComponent === 'HealthcareProviderManagement' && <HealthcareProviderManagement />}
           {activeComponent === 'SystemConfiguration' && <SystemConfiguration />}
-          {activeComponent === 'DataOversight' && <DataOversight />}
           {activeComponent === 'ReportGeneration' && <ReportGeneration />}
 
           {activeComponent === 'PrivacyIssuesComponent' && <PrivacyIssuesComponent />}
