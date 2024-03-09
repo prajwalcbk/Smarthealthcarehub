@@ -10,21 +10,28 @@
   overflow-y: auto;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   background-image: url("../../../public/3734225.jpg");
   height: 100%;
   position: fixed;
   width: 100%;
   display: flex;
-
 }
+
+
 
 
 /* Styles for mobile */
 @media (max-width: 600px) {
+  .user-container {
+    background-size: 100% 100%;
+    background-position: center;
+  }
 .user-data {
   flex: 1; /* Take remaining space */
   padding-top: 10%;
   margin-right: 5%;
+
   /*padding-left: 25%;*/
 }
 
@@ -36,9 +43,7 @@
 .sidebar button {
     font-size: small;
 }
-.user-container {
-  background-size: initial;
-}
+
 
 }
 

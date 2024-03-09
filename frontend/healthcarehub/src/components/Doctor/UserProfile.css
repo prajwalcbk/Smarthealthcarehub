@@ -6,6 +6,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 30%;
   margin-left: 30%;
+  margin-bottom: 30%;
 }
 
 
@@ -14,7 +15,8 @@
 
   .user-profile {
   width: fit-content;
-    margin-left: 0%;
+  margin-left: 0%;
+
 }
 
   input[type="text"] {
@@ -90,7 +92,7 @@ textarea  {
 
 .user-profile .input-row {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 5px
 }
 
 .user-profile .input-row > div {

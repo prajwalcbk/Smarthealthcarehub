@@ -69,8 +69,10 @@ function Home() {
           </div>
 
           <div className='box'>
+          <Link to='pharmacist'>
             <img src={prescription} alt="Stethoscope Icon" />
             <h2>Order Prescriptions</h2>
+          </Link>
             <p>{isMobile ? ' ' : 'Conveniently request prescription refills and have them delivered to your preferred Loaction.' }</p>
           </div>
           

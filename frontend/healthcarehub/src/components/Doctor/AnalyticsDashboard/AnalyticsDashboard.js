@@ -67,7 +67,7 @@ function AnalyticsDashboard() {
       </div>
       <div className="analytics-charts">
         <h2>Patients Over Time</h2>
-        <LineChart width={isMobile ? 400 : 600} height={isMobile ? 200 : 300} data={analyticsData} className="recharts-wrapper">
+        <LineChart width={isMobile ? 350 : 600} height={isMobile ? 200 : 300} data={analyticsData} className="recharts-wrapper">
           {/* X-axis */}
           <XAxis dataKey="date" />
           {/* Y-axis */}
@@ -82,7 +82,7 @@ function AnalyticsDashboard() {
         </LineChart>
 
         <h2>Appointments Over Time</h2>
-        <BarChart width={isMobile ? 400 : 600} height={isMobile ? 200 : 300}  data={analyticsData} className="recharts-wrapper">
+        <BarChart width={isMobile ? 350 : 600} height={isMobile ? 200 : 300}  data={analyticsData} className="recharts-wrapper">
           {/* X-axis */}
           <XAxis dataKey="date" />
           {/* Y-axis */}
@@ -97,7 +97,7 @@ function AnalyticsDashboard() {
         </BarChart>
 
         <h2>Revenue Over Time</h2>
-        <LineChart width={isMobile ? 400 : 600} height={isMobile ? 200 : 300} data={analyticsData} className="recharts-wrapper">
+        <LineChart width={isMobile ? 350 : 600} height={isMobile ? 200 : 300} data={analyticsData} className="recharts-wrapper">
           {/* X-axis */}
           <XAxis dataKey="date" />
           {/* Y-axis */}
