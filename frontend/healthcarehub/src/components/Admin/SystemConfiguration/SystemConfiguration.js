@@ -5,6 +5,7 @@ const SystemConfiguration = () => {
   const [loginEnabled, setLoginEnabled] = useState(false);
   const [signUpEnabled, setSignUpEnabled] = useState(false);
   const [expirationTime, setExpirationTime] = useState(60);
+  const [successMessage, setSuccessMessage] = useState(null);
   const [roles, setRoles] = useState([
     { name: 'Patient', enabled: true },
     { name: 'Doctor', enabled: true },
@@ -81,6 +82,10 @@ const SystemConfiguration = () => {
   };
 
   const handleSubmit = () => {
+    setSuccessMessage("SystemConfiguration settings saved successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
 
   }
 
@@ -304,8 +309,9 @@ const SystemConfiguration = () => {
           </div>
           <label htmlFor="enableMedicationHistory">  MedicationHistory</label>
         </div>
-
+        <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
         <button onClick={handleSubmit} style={{"width" : "100%" , "margin-bottom": "8%"}}>  Save</button>
+        
 
       </div>
     </div>

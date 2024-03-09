@@ -49,6 +49,16 @@ function VitalSigns() {
     console.log('vitalsigns history:', vitalsigns);
   };
 
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const handleSave = (event) => {
+    setSuccessMessage("Added successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
+  };
+
   return (
     <div className="vitalsigns">
       <h2>VitalSigns Tracking</h2>
@@ -103,9 +113,11 @@ function VitalSigns() {
 
               
               <button type="button" onClick={() => handleRemoveVitalSigns(index)}>Remove</button>
+              <button type="button" onClick={handleSave}>Save</button>
             </li>
           ))}
         </ul>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
         <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddVitalSigns}>Add</button>
       </form>
     </div>

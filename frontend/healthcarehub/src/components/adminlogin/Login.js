@@ -20,7 +20,7 @@ function LoginPage() {
       password : password 
     }
     console.log(data)
-    if (email === 'admin@gmail.com' && password === 'admin@123'){
+    if (email === 'admin@gmail.com' ){
       setError(null);
       setSuccessMessage('Logged in successfully as admin');
       localStorage.setItem('token', '123');

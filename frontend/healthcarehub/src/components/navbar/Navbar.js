@@ -68,6 +68,9 @@ return (
       <Link to='/forums'> 
         <i className="fas fa-comments"></i> {isMobile ? ' ' : 'Forums'} 
       </Link>
+      <Link to='https://blog.sxl9752.uta.cloud'> 
+        <i className="fas fa-blog"></i> {isMobile ? ' ' : 'Blog'} 
+      </Link>
       <CompanyDropdown />
       {!isLoggedIn && 
         <div>

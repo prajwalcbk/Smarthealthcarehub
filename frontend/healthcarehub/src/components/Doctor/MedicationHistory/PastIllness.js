@@ -27,6 +27,15 @@ function PastIllness() {
   }
 ]);
   const [editMode, setEditMode] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const handleSave = (event) => {
+    setSuccessMessage("Added successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
+  };
 
   const handleAddPastIllness = () => {
     const newIllness = { name: '', date: '', editable: true };
@@ -101,9 +110,11 @@ function PastIllness() {
                 className={illness.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemovePastIllness(index)}>Remove</button>
+              <button type="button" onClick={handleSave}>Save</button>
             </li>
           ))}
         </ul>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
         <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}} onClick={handleAddPastIllness}>Add</button>
       </form>
     </div>

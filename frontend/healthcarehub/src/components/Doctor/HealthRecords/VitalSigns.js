@@ -29,6 +29,15 @@ function VitalSigns() {
   }
 ]);
   const [editMode, setEditMode] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+    const handleSave = (event) => {
+    setSuccessMessage("Added successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
+  };
 
   const handleAddVitalSigns = () => {
     const vitalsign = { name: '', date: '', editable: true };
@@ -120,10 +129,13 @@ function VitalSigns() {
 
               
               <button type="button" onClick={() => handleRemoveVitalSigns(index)}>Remove</button>
+              <button type="button" onClick={handleSave}>Save</button>
+
               
             </li>
           ))}
         </ul>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
         <button type="button" style={{"width":"100%" , "margin-bottom": "30%"}} onClick={handleAddVitalSigns}>Add</button>
       </form>
     </div>

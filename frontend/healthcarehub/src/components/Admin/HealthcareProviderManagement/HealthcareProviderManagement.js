@@ -8,10 +8,10 @@ function HealthcareProviderManagement() {
     const fetchUsers = async () => {
       // Simulated response from API
       const usersResponse = [
-  { "id": 2, "name": "Samantha", "CreatedDate": "2024-03-06T09:30:00Z", "email": "samantha@example.com", "status": "Verified", "role": "Doctor", "qualification": "MD", "specialization": "Neurology", "licensenumber": "456ghy67" },
-  { "id": 3, "name": "Michael", "CreatedDate": "2024-03-05T15:45:00Z", "email": "michael@example.com", "status": "Pending", "role": "Nurse", "qualification": "RN", "specialization": "Pediatrics", "licensenumber": "789zxc12" },
-  { "id": 4, "name": "Emily", "CreatedDate": "2024-03-04T14:20:00Z", "email": "emily@example.com", "status": "Verified", "role": "Doctor", "qualification": "MBBS", "specialization": "Dermatology", "licensenumber": "abc456d" },
-  { "id": 5, "name": "David", "CreatedDate": "2024-03-03T10:00:00Z", "email": "david@example.com", "status": "Pending", "role": "Doctor", "qualification": "MD", "specialization": "Orthopedics", "licensenumber": "xyz789e" }
+  { "id": 2, "name": "Samantha", "CreatedDate": "2024-03-06T09:30:00Z", "email": "samantha@example.com", "isVerified": true, "role": "Doctor", "qualification": "MD", "specialization": "Neurology", "licensenumber": "456ghy67" },
+  { "id": 3, "name": "Michael", "CreatedDate": "2024-03-05T15:45:00Z", "email": "michael@example.com", "isVerified": false, "role": "Nurse", "qualification": "RN", "specialization": "Pediatrics", "licensenumber": "789zxc12" },
+  { "id": 4, "name": "Emily", "CreatedDate": "2024-03-04T14:20:00Z", "email": "emily@example.com", "isVerified": false, "role": "Doctor", "qualification": "MBBS", "specialization": "Dermatology", "licensenumber": "abc456d" },
+  { "id": 5, "name": "David", "CreatedDate": "2024-03-03T10:00:00Z", "email": "david@example.com", "isVerified": false, "role": "Doctor", "qualification": "MD", "specialization": "Orthopedics", "licensenumber": "xyz789e" }
 ]
 ;
       setUsersList(usersResponse);
@@ -26,7 +26,7 @@ const handleVerifyUser = (userId) => {
     if (user.id === userId) {
       // Return a new object with isActive toggled
       
-      return { ...user, isActive: !user.isActive };
+      return { ...user, isVerified: !user.isVerified };
     }
     return user; // Return other users as they are
   });
@@ -34,6 +34,8 @@ const handleVerifyUser = (userId) => {
   // Update state with the new array
   setUsersList(updatedUsersList);
 };
+
+
 
 
   return (
@@ -62,9 +64,10 @@ const handleVerifyUser = (userId) => {
                 <td>{user.qualification}</td>
                 <td>{user.specialization}</td>
                 <td>{user.licensenumber}</td>
-                <td>{user.status}</td>
+                <td>{user.isVerified ? 'Verified' : 'Pending'}</td>
                 <td>
-                {( user.status!="Verified")  && <button onClick={() => handleVerifyUser(user.id)}> Verify </button>}
+                {( ! user.isVerified )  && <button onClick={() => handleVerifyUser(user.id)}> Verify </button>}
+                {(  user.isVerified )  && <button onClick={() => handleVerifyUser(user.id)}> ReVerify </button>}
                    
                 </td>
               </tr>

@@ -27,6 +27,15 @@ function Allergies() {
     event.preventDefault();
     console.log('allergies :', allergies);
   };
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const handleSave = (event) => {
+    setSuccessMessage("Added successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
+  };
 
   return (
     <div className="allergies">
@@ -50,7 +59,8 @@ function Allergies() {
           ))}
         </ul>
         <button type="button" style={{"width":"100%"}} onClick={handleAddallergies}>Add</button>
-        <button type="submit">Submit</button>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
+        <button type="submit" onClick={handleSave}>Submit</button>
       </form>
     </div>
   );

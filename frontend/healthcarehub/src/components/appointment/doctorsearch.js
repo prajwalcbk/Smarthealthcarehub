@@ -137,8 +137,7 @@ const DoctorSearchPage = () => {
               {!bookAppointmentClicked[doctor.id] && !viewprofileClicked[doctor.id] && <button onClick={() => handleBookAppointmentClick(doctor.id)}>Book Appointment</button>}
               {!bookAppointmentClicked[doctor.id] && !viewprofileClicked[doctor.id] && <button onClick={() => handleviewprofileClickedClick(doctor.id)}>View Profile</button>}
 
-              {bookAppointmentClicked[doctor.id] && <AppointmentManagement />}
-
+              {bookAppointmentClicked[doctor.id] && <AppointmentManagement doctorid={doctor.id} updateParentState={handleBookAppointmentClick} />}
 
               {bookAppointmentClicked[doctor.id] && <button onClick={() => handleBookAppointmentClick(doctor.id)}>Cancel</button>}
               {viewprofileClicked[doctor.id] && <button onClick={() => handleviewprofileClickedClick(doctor.id)}>Close</button>}

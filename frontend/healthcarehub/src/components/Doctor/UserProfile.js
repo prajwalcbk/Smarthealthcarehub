@@ -8,6 +8,8 @@ function UserProfileData() {
   const [editedUserProfile, seteditedUserProfile] = useState({});
   const [healthfacilitynameoptions, setHealthFacilityNameOptions] = useState([]);
   const [healthfacilityname, setHealthFacilityName] = useState('David');
+  const [successMessage, setSuccessMessage] = useState('');
+
 
 
 
@@ -82,6 +84,13 @@ function UserProfileData() {
   };
 
   const handleSubmit = (event) => {
+    setUserProfile(editedUserProfile);
+    setSuccessMessage("User Details saved successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
+
     event.preventDefault();
     // Process the form data or make API call to update health records
     // After successful update, setEditMode to false
@@ -100,6 +109,7 @@ function UserProfileData() {
 
   return (
     <div className="user-profile">
+    <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
       <h2>User Details</h2>
       {UserProfile ? (
         <div>

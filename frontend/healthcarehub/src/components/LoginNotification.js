@@ -44,7 +44,6 @@ const LoginNotification = () => {
 
           <h3> For Admin   </h3>
           <p>email : admin@gmail.com </p>    
-          <p>password: admin@123 </p>
 
           </div>
 
@@ -52,21 +51,18 @@ const LoginNotification = () => {
           <div className="email-password">
           <h3> For Health Admin  </h3>
           <p>email : healthadmin@gmail.com  </p>
-            <p>password : healthadmin@123</p>
           </div>
 
 
           <div className="email-password">
           <h3> For Doctor  </h3>
           <p>email : doctor@gmail.com  </p>
-            <p>password : doctor@123</p>
           </div>
 
 
           <div className="email-password">
           <h3> For Patient  </h3>
           <p>email : patient@gmail.com  </p>
-            <p>password : patient@123</p>
           </div>
 
 
@@ -74,7 +70,12 @@ const LoginNotification = () => {
           <div className="email-password">
           <h3> For Pharamcist  </h3>
           <p>email : pharamcist@gmail.com  </p>
-            <p>password : pharamcist@123</p>
+          </div>
+
+
+          <div className="email-password">
+          <h3> Password </h3>
+          <p>password : type any password  </p>
           </div>
 
 

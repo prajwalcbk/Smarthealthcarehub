@@ -22,7 +22,7 @@ function LoginPage() {
     }
     console.log(data)
 
-    if (email === 'doctor@gmail.com' && password === 'doctor@123'){
+    if (email === 'doctor@gmail.com' ){
       setError(null);
       setSuccessMessage('Logged in successfully as doctor');
       localStorage.setItem('token', '123');
@@ -34,7 +34,7 @@ function LoginPage() {
         }, 1000); 
     }
 
-    else if (email=='patient@gmail.com' && password=='patient@123'){
+    else if (email=='patient@gmail.com'){
       setError(null);
       setSuccessMessage('Logged in successfully as patient');
       localStorage.setItem('token', '123');
@@ -45,7 +45,7 @@ function LoginPage() {
         }, 1000); 
     }
 
-    else if (email=='healthadmin@gmail.com' && password=='healthadmin@123'){
+    else if (email=='healthadmin@gmail.com'){
       setError(null);
       setSuccessMessage('Logged in successfully as healthadmin');
       localStorage.setItem('token', '123');
@@ -56,7 +56,7 @@ function LoginPage() {
         }, 1000); 
     }
 
-    else if (email=='pharmacist@gmail.com' && password=='pharmacist@123'){
+    else if (email=='pharmacist@gmail.com'){
       setError(null);
       setSuccessMessage('Logged in successfully as pharmacist');
       localStorage.setItem('token', '123');

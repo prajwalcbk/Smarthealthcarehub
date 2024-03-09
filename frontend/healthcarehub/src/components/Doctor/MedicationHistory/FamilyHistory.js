@@ -24,6 +24,15 @@ function FamilyHistory() {
   }
 ]);
   const [editMode, setEditMode] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const handleSave = (event) => {
+    setSuccessMessage("Added successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
+  };
 
   const handleAddfamilyhistory = () => {
     const newfamilyhistory = { name: '', date: '', editable: true };
@@ -89,9 +98,11 @@ function FamilyHistory() {
                 className={history.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemovefamilyhistory(index)}>Remove</button>
+              <button type="button" onClick={handleSave}>Save</button>
             </li>
           ))}
         </ul>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
         <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddfamilyhistory}>Add</button>
       </form>
     </div>
