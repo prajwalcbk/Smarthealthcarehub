@@ -30,7 +30,7 @@ function UserProfileData() {
         emergencycontactnumber: '+1 4084805456',
         gender: "male",
         healthfacilityname:"David",
-        about: "Dr. David John is a board-certified neurologist with extensive experience in diagnosing and treating neurological disorders. He is dedicated to providing compassionate care and personalized treatment plans to his patients."
+        about: "Dr. David John is a board-certified neurologist with extensive experience in diagnosing and treating neurological disorders."
       };
       const data=sampleUser;
       console.log(data.healthfacilityname)

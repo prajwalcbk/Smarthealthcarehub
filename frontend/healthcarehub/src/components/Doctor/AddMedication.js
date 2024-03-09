@@ -121,7 +121,7 @@ return (
                 </select>
 
 
-              <button type="button" style={{"width":"20%"}} onClick={() => handleRemoveMedications(index)}>Remove</button>
+              <button type="button" style={{"width":"30%"}} onClick={() => handleRemoveMedications(index)}>Remove</button>
             </li>
           ))}
         </ul>

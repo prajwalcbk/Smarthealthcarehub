@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-
+import profile from './../../../assets/profile.png'
 import './ConversationList.css';
 
 export default function ConversationList(props) {
@@ -13,16 +13,9 @@ export default function ConversationList(props) {
 
 
  const getConversations = () => {
-    axios.get('https://randomuser.me/api/?results=7').then(response => {
-        let newConversations = response.data.results.map(result => {
-          return {
-            photo: result.picture.large,
-            name: `${result.name.first} ${result.name.last}`,
-            text: 'Hello world! This is a long message that needs to be truncated.'
-          };
-        });
-        setConversations([...conversations, ...newConversations])
-    });
+
+    const newConversations =   [ {"name": "John"} , {"name": "Charle"} ];
+    setConversations([...conversations, ...newConversations]);
   }
 
     return (
@@ -43,7 +36,7 @@ export default function ConversationList(props) {
       </div>
         {conversations.map(conversation =>
               <div className="conversation-list-item">
-                <img className="conversation-photo" src={conversation.photo} alt="conversation" />
+                <img className="conversation-photo" src={profile} alt="conversation" />
                 <div className="conversation-info">
                 <h1 className="conversation-title">{ conversation.name }</h1>
                 </div>

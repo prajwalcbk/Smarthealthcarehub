@@ -12,7 +12,7 @@
 @media (max-width: 767px) {
 .prescription-list {
   margin: 0;
-  width: max-content;
+  width:  min-content;
   }
     .prescription-list input[type="text"] {
   margin-bottom: 5px;

@@ -43,17 +43,31 @@ function AnalyticsDashboard() {
     { symptom: 'Muscle pain', count: 10 },
   ];
 
+  const [isMobile, setIsMobile] = useState(false);
+
+
+   useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth <= 600; // You can adjust the threshold as needed
+      console.log(isMobile ? 'Mobile view' : 'Desktop view');
+      setIsMobile(isMobile);
+    };
+
+    // Initial check
+    handleResize();
+  }, []);
+
   return (
-    <div className='analytics-container1'>
+    <div className='analytics-container'>
     <div className="analytics-dashboard-container">
       <h1>Analytics Dashboard</h1>
       <div className="analytics-summary">
-        <div>Total Appointments: {totalAppointments}</div>
-        <div>Total Patients: {totalPatients}</div>
+        <div> <h3> Total Appointments: {totalAppointments} </h3> </div>
+        <div> <h3> Total Patients: {totalPatients} </h3> </div>
       </div>
       <div className="analytics-charts">
         <h2>Patients Over Time</h2>
-        <LineChart width={600} height={300} data={analyticsData} className="recharts-wrapper">
+        <LineChart width={isMobile ? 400 : 600} height={isMobile ? 200 : 300} data={analyticsData} className="recharts-wrapper">
           {/* X-axis */}
           <XAxis dataKey="date" />
           {/* Y-axis */}
@@ -68,7 +82,7 @@ function AnalyticsDashboard() {
         </LineChart>
 
         <h2>Appointments Over Time</h2>
-        <BarChart width={600} height={300} data={analyticsData} className="recharts-wrapper">
+        <BarChart width={isMobile ? 400 : 600} height={isMobile ? 200 : 300}  data={analyticsData} className="recharts-wrapper">
           {/* X-axis */}
           <XAxis dataKey="date" />
           {/* Y-axis */}
@@ -83,7 +97,7 @@ function AnalyticsDashboard() {
         </BarChart>
 
         <h2>Revenue Over Time</h2>
-        <LineChart width={600} height={300} data={analyticsData} className="recharts-wrapper">
+        <LineChart width={isMobile ? 400 : 600} height={isMobile ? 200 : 300} data={analyticsData} className="recharts-wrapper">
           {/* X-axis */}
           <XAxis dataKey="date" />
           {/* Y-axis */}

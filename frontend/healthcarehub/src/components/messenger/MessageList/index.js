@@ -139,6 +139,7 @@ export default function MessageList(props) {
     return tempMessages;
   }
 
+  
   const renderMessages = () => {
   return messages.map((message, index) => (
     <Message
@@ -169,6 +170,7 @@ export default function MessageList(props) {
           className="compose-input"
           placeholder="Type a message, @name"
         />
+
         </div>
 
       </div>

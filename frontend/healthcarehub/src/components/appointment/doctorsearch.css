@@ -13,6 +13,11 @@
 
 }
 
+
+
+
+
+
 .pagination-container label{
   width: 30%;
   padding: 10px;
@@ -70,6 +75,21 @@
     }
 }
 
+
+
+
+/* Styles for mobile */
+@media (max-width: 767px) {
+  .doctor-list {
+    width: max-content;
+  }
+  strong { 
+    font-size: 13px;
+  }
+  .DoctorProfile label { 
+    font-size: 18px
+  }
+}
 
 
 

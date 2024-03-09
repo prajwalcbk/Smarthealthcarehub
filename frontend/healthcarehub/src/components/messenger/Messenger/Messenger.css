@@ -11,6 +11,20 @@
   grid-row-gap: 1px;
 }
 
+
+/* Styles for mobile */
+@media (max-width: 767px) {
+  .messenger {
+    grid-template-columns: 170px auto;
+  }
+  .bubble {
+    font-size: 10px;
+  }
+  .message .timestamp {
+  font-size: 8px;
+  }
+}
+
 .scrollable {
   position: relative;
   overflow-y: scroll;

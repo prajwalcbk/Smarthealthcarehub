@@ -24,6 +24,7 @@
 .user-data {
   flex: 1; /* Take remaining space */
   padding-top: 10%;
+  margin-right: 5%;
   /*padding-left: 25%;*/
 }
 

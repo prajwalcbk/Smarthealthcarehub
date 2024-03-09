@@ -69,7 +69,7 @@ function PrescriptionList() {
           style={{"width":"60%"}}
         />
         <button style={{"margin":"2%"}} onClick={SearchPrescriptions}> Search </button>
-        <button style={{"margin":"2%"}} onClick={CreateNewPrescription}>  New </button>
+        <button style={{"margin":"2%"}} onClick={CreateNewPrescription}> Create</button>
       </div>
       <table>
         <thead>

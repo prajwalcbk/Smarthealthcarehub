@@ -158,7 +158,7 @@ function PatientSignup(props) {
             value={primarycareprovider}
             onChange={handlePrimaryCareProviderChange}
             options={careprovideroptions}
-            placeholder="Search or select primary care provider"
+            placeholder="select primary care provider"
             isSearchable
           />
         </div>

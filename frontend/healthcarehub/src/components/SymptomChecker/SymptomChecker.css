@@ -10,14 +10,21 @@
   width: 100%;
 }
 
+/* Styles for mobile */
+@media (max-width: 767px) {
+.symptomchecker-container select  {
+    font-size: 12px;
+  }
 
-.symptomchecker-container select
-{
+}
+
+
+.symptomchecker-container select{
     width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    font-size: 15px;
+    /*font-size: 15px;*/
     height: 50px;
 }
 .symptomchecker-container button{
@@ -45,7 +52,7 @@ h1 {
 }
 
 .symptomchecker-container select {
-  font-size: 16px;
+  /*font-size: 16px;*/
   padding: 5px;
   margin-right: 10px;
 }

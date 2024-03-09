@@ -18,9 +18,7 @@
     .appointment-list input[type="text"] {
   margin-bottom: 5px;
 }
-  .appointment-list .appointment-heading {
-    text-align: center;
-  }
+
   .user-duration-select {
     width: 50%;
   }
@@ -35,6 +33,10 @@
   }
 }
 
+
+  .appointment-list .appointment-heading {
+    text-align: center;
+  }
 
 
 .appointment-list h2 {

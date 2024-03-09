@@ -100,7 +100,7 @@ function LoginPage() {
         <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email :</label>
           <input
             type="text"
             id="email"
@@ -110,7 +110,7 @@ function LoginPage() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Password :</label>
           <div className="password-input">
             <input
               type="password"

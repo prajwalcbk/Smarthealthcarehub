@@ -14,7 +14,7 @@
 @media (max-width: 767px) {
 .prescription {
   margin: 0;
-  width: max-content;
+  width: fit-content;
   }
     .prescription input[type="text"] {
   height: auto;
