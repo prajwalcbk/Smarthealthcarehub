@@ -62,7 +62,7 @@ return (
       <span className="logo-text">{isMobile ? '' : 'SmartHealthCare Hub'}</span>
     </a> 
     <div className="nav-links">
-      <Link to='/forums'> 
+      <Link to='/'> 
         <i className="fas fa-home"></i> {isMobile ? ' ' : 'Home'}  
       </Link>
       <Link to='/forums'> 
