@@ -33,7 +33,7 @@ const LoginNotification = () => {
   return (
     <div>
     {ShowNotification && (
-    <div className="notification-container" style={{"margin-top":"5%"}}>
+    <div className="notification-container" style={{"margin-top":"3%"}}>
         <div className="notification">
         <h2> Login Credentials for Demo </h2>
         <div className="notification-content">

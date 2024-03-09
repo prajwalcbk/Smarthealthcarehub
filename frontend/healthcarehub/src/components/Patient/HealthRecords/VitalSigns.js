@@ -106,7 +106,7 @@ function VitalSigns() {
             </li>
           ))}
         </ul>
-        <button type="button"  style={{"width":"100%" , "margin-bottom": "5%"}}  onClick={handleAddVitalSigns}>Add</button>
+        <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddVitalSigns}>Add</button>
       </form>
     </div>
   );

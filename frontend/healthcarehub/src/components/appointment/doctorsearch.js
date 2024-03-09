@@ -96,7 +96,7 @@ const DoctorSearchPage = () => {
           value={specializationFilter}
           onChange={e => setSpecializationFilter(e.target.value)}
         >
-          <option value="">Select specialization</option>
+          <option value=""> specialization</option>
           <option value="Cardiologist">Cardiologist</option>
           <option value="Pediatrician">Pediatrician</option>
           <option value="Dentist">Dentist</option>

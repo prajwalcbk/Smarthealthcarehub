@@ -38,9 +38,9 @@
 .doctor-heading {
   text-align: center;
   margin-bottom: 20px;
-  padding-top: 3%;
+  padding-top: 4%;
   color: black;
-  font-size: 40px;
+  font-size: 30px;
 }
 
 .filter-container {
@@ -71,7 +71,7 @@
 
     }
     .filter-container select{
-      height: 40px;
+      height: 50px;
     }
 }
 
@@ -84,7 +84,7 @@
     width: max-content;
   }
   strong { 
-    font-size: 13px;
+    font-size: 10px;
   }
   .DoctorProfile label { 
     font-size: 18px
@@ -118,7 +118,8 @@
 @media (max-width: 767px) {
 
   .doctor-card{
-    width: 90%;
+    width: 80%;
+    font-size: small;
   }
 }
 

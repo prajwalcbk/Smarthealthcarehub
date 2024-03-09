@@ -104,7 +104,7 @@ function Surgeries() {
             </li>
           ))}
         </ul>
-        <button type="button"  style={{"width":"100%" , "margin-bottom": "5%"}}  onClick={handleAddSurgeries}>Add</button>
+        <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddSurgeries}>Add</button>
       </form>
     </div>
   );
