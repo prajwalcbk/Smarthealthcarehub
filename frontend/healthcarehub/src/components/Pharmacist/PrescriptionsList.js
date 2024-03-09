@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './prescriptionlist.css';
 import Prescription from './PrescriptionDetails';
 
 function PrescriptionList() {
@@ -72,9 +71,9 @@ function PrescriptionList() {
       <table>
         <thead>
           <tr>
-            <th>Issued to</th>
+            <th>Patient</th>
             <th>Description</th>
-            <th>Issued On</th>
+            <th>Date</th>
             <th>Status</th>
             <th></th>
           </tr>

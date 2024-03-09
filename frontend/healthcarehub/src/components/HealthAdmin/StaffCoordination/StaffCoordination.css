@@ -9,9 +9,23 @@
     background-position: center;
     border-collapse: collapse;
     background-color: rgb(3 15 39 / 96%); /* Transparent black background */
-    width: 50%;
+    width: 60%;
     margin-left: 20%;
     color: white;
+}
+
+/* Styles for mobile */
+@media (max-width: 767px) {
+.staff-container{
+  width: 90%;
+    margin-left: 0%;
+  }
+}
+
+.staff-list select {
+    width: max-content;
+    height: 30px;
+    border-radius: 10px;
 }
 
 .staff-coordination-container {
@@ -26,7 +40,7 @@
     margin-bottom: 20px;
     padding-top: 3%;
     color: white;
-    font-size: 40px;
+    font-size: 30px;
 }
   
   .staff-list table {

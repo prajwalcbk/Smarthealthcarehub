@@ -105,7 +105,7 @@ function UserProfileData() {
         <div>
           <form method="POST">
             <div>
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email">User Email:</label>
               <input
                 type="text"
                 id="email"
@@ -218,7 +218,7 @@ function UserProfileData() {
             value={editMode ? editedUserProfile.about : UserProfile.about}
             onChange={handleInputChange}
             disabled={!editMode}
-            rows={6} 
+            rows={4} 
           />
           </div>
 

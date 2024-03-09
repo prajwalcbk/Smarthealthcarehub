@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './HealthcareProviderManagement.css';
 
 function HealthcareProviderManagement() {
   const [UsersList, setUsersList] = useState([]);

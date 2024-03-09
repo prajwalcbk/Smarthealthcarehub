@@ -9,9 +9,27 @@
 }
 
 
+/* Styles for mobile */
+@media (max-width: 767px) {
+.health-records {
+  margin-left: 0%;
+  width: 80%;
+  } 
+.health-records  h2{
+  font-size: 20px;
+}
+
+    .health-records input[type="text"] {
+    height: auto;
+    margin-bottom: 5px;
+  }
+}
+
+
+
 .health-records h2 {
   margin-bottom: 20px;
-  font-size: 30px;
+  /*font-size: 30px;*/
   color: white;
   text-align: center;
 
@@ -26,7 +44,7 @@
   margin-bottom: 5px;
   font-weight: bold;
   color: white;
-  font-size: 105%;
+  /*font-size: 105%;*/
 }
 
 .health-records input[type="text"] {

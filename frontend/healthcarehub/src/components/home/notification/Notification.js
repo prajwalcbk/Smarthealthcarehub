@@ -43,7 +43,7 @@ const MedicationReminders = () => {
           <h3> It's time to take your medication </h3>
 
           <p>Name : {medicationReminder.name}  </p>
-          Dosage : {medicationReminder.dosage}
+          <p> Dosage : {medicationReminder.dosage} </p>
           <button onClick={handleNotificationClose}>Close</button>
           </div>
         </div>

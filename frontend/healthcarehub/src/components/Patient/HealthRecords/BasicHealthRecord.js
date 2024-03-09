@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './BasicHealthRecord.css'; //
 import Navbar from '../../navbar/Navbar';
 
 function HealthRecords() {

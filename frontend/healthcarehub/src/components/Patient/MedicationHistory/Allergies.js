@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './Allergies.css'
 
 function Allergies() {
   const [allergies, setallergies] = useState([{"name":"fever","index":1},{"name":"headache","index":2}]);
@@ -37,7 +36,7 @@ function Allergies() {
         <ul>
           {allergies.map((allergy, index) => (
             <li key={index}>
-              <label htmlFor={`name-${index}`}></label>
+              
               <input
                 id={`name-${index}`}
                 type="text"

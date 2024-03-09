@@ -66,6 +66,7 @@ function AppointmentManagement(props) {
             onChange={handleReasonChange}
             placeholder=" "
           ></textarea>
+          <br />
                   <button className="user-confirm-appointment" onClick={handleSubmit} style={{"margin" : "2%" }} >Save</button>
         <button className="user-confirm-appointment" onClick={handleSubmit} style={{"margin" : "2%" }} >Cancel Appointment</button>
         </div>

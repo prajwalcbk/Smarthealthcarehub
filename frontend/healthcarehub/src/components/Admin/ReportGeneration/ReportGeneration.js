@@ -110,7 +110,8 @@ return (
       <ul>
         <li>
           <label>List of Users</label>
-          <button onClick={() => handleGenerateReport('users-list')}>Generate Report</button>
+          <br/>
+          <button onClick={() => handleGenerateReport('users-list')}>Generate</button>
         <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && reportType === 'users-list' &&  <p className="success-message">{successMessage}</p>}</div>
           {showDownloadCSV && reportType === 'users-list' && (
@@ -121,7 +122,8 @@ return (
         </li>
         <li>
           <label>List of Doctors</label>
-          <button onClick={() => handleGenerateReport('doctors-list')}>Generate Report</button>
+          <br/>
+          <button onClick={() => handleGenerateReport('doctors-list')}>Generate</button>
         <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && reportType === 'doctors-list' && <p className="success-message">{successMessage}</p>}</div>
           {showDownloadCSV && reportType === 'doctors-list' && (
@@ -132,7 +134,8 @@ return (
         </li>
         <li>
           <label>Appointments</label>
-          <button onClick={() => handleGenerateReport('appointments')}>Generate Report</button>
+          <br/>
+          <button onClick={() => handleGenerateReport('appointments')}>Generate</button>
         <div>{error && reportType === 'appointments' &&  <p className="error-message">{error}</p>}</div>
         <div>{successMessage && reportType === 'appointments' &&  <p className="success-message">{successMessage}</p>}</div>
           {showDownloadCSV && reportType === 'appointments' && (
@@ -143,7 +146,8 @@ return (
         </li>
         <li>
           <label>System Performance</label>
-          <button onClick={() => handleGenerateReport('system-performance')}>Generate Report</button>
+          <br/>
+          <button onClick={() => handleGenerateReport('system-performance')}>Generate</button>
         <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && reportType === 'system-performance' && <p className="success-message">{successMessage}</p>}</div>
           {showDownloadCSV && reportType === 'system-performance' && (

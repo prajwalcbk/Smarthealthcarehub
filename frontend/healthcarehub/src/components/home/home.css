@@ -9,8 +9,32 @@
   background-size: cover;
   padding: 20px;
   background-position: center;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
+
+@media only screen and (max-width: 600px) {
+  .home-container {
+    background-size:  90%;
+    background-position: top;
+    background-size: contain; /* Adjust background size for mobile */
+    padding: 10px; /* Adjust padding for mobile */
+  }
+
+  .content-wrapper img {
+  width: 40px ; 
+  height: 40px ;
+}
+}
+
+@media only screen and (min-width: 601px) {
+
+.content-wrapper img {
+  width: 50px ; 
+  height: 50px ;
+}
+}
 
 .quote-container {
   background-color: #fff;
@@ -18,6 +42,13 @@
   padding: 20px;
   margin-top: 1300px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+@media only screen and (max-width: 600px) {
+  .quote-container {
+  margin-top: 400px;
+  }
 }
 
 .heading {
@@ -43,24 +74,31 @@
 }
 
 
-@media (min-width: 768px) {
+@media only screen and (max-width: 600px) {
   .box {
     width: 50%;
     float: left;
     box-sizing: border-box;
   }
+
+  .box p {
+    font-size: 13px;
+  }
 }
 
 .box h2 {
   color: #333;
-  font-size: 20px;
+  /*font-size: 20px;*/
   margin-bottom: 10px;
 }
 
 .box p {
   color: #504f4f;
-  font-size: 16px;
+  /*font-size: 16px;*/
 }
+
+
+
 
 
 /* IconsRow.css */

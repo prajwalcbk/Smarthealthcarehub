@@ -1,8 +1,8 @@
 import React from 'react';
 import './AboutUsPage.css'; // Import CSS file for styling
-import Navbar from '../navbar/Navbar';
-import profile from './../../assets/profile.png'
-import woman from './../../assets/woman.png'
+import Navbar from '../../navbar/Navbar';
+import profile from './../../../assets/profile.png'
+import woman from './../../../assets/woman.png'
 
 function AboutUsPage() {
   return (

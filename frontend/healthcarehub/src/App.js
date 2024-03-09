@@ -19,8 +19,8 @@ import Doctor from './components/Doctor/User'
 import Pharmacist from './components/Pharmacist/User'
 import HealthAdmin from './components/HealthAdmin/HealthAdmin'
 import Admin from './components/Admin/Admin'
-import AboutUsPage from './components/AboutUs/AboutUsPage';
-import Services from './components/Services/ServicePage';
+import AboutUsPage from './components/CompanyDropdown/AboutUs/AboutUsPage';
+import Services from './components/CompanyDropdown/ServicePage';
 import ContactUs from './components/CompanyDropdown/ContactUs';
 
 import SymptomChecker from './components/SymptomChecker/SymptomChecker'
@@ -30,7 +30,7 @@ import useAuthContext from './useAuthContext';
 import { Navigate , Link} from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/navbar/Navbar'
-
+import './mobile.css'
 
 
 function App() {

@@ -274,7 +274,7 @@ const SystemConfiguration = () => {
 
             <div className="slider round" onClick={() => handleToggleSetting('enablePrescription')}></div>
           </div>
-          <label htmlFor="enablePrescription">  Messenger</label>
+          <label htmlFor="enablePrescription">  Prescriptions</label>
         </div>
 
         <div className="form-group">
@@ -288,7 +288,7 @@ const SystemConfiguration = () => {
 
             <div className="slider round" onClick={() => handleToggleSetting('enableHealthRecords')}></div>
           </div>
-          <label htmlFor="enableHealthRecords">  Messenger</label>
+          <label htmlFor="enableHealthRecords">  HealthRecords</label>
         </div>
 
         <div className="form-group">

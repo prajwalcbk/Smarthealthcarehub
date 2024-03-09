@@ -7,6 +7,19 @@ import { useNavigate , Link} from 'react-router-dom';
 
 
 function Navbar() {
+  const [isMobile, setIsMobile] = useState(false);
+
+
+   useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth <= 600; // You can adjust the threshold as needed
+      console.log(isMobile ? 'Mobile view' : 'Desktop view');
+      setIsMobile(isMobile);
+    };
+
+    // Initial check
+    handleResize();
+  }, []);
 
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [isLoggedIn , setIsloggedIn]= useState(false);
@@ -46,20 +59,20 @@ return (
   <div className="navbar">
     <a href='/' className="logo-container">
       <img src={Logo} width="40" height="40" alt="Logo" />
-      <span className="logo-text">SmartHealthCare Hub</span>
+      <span className="logo-text">{isMobile ? '' : 'SmartHealthCare Hub'}</span>
     </a> 
     <div className="nav-links">
       <Link to='/forums'>  
-        <i className="fas fa-comments"></i> Forums 
+        <i className="fas fa-comments"></i> {isMobile ? '' : 'Forums'} 
       </Link>
       <CompanyDropdown />
       {!isLoggedIn && 
         <div>
           <Link to='/login'>  
-            <i className="fas fa-sign-in-alt"></i> Login 
+            <i className="fas fa-sign-in-alt"></i> {isMobile ? '' : 'Login'} 
           </Link>
           <Link to='/signup'>  
-            <i className="fas fa-user-plus"></i> Sign Up
+            <i className="fas fa-user-plus"></i>{isMobile ? '' : 'Sign Up'} 
           </Link>
         </div>
       }
@@ -73,7 +86,7 @@ return (
       {isLoggedIn && 
         <div onClick={handleLogout}>
           <i className="fas fa-sign-out-alt" style={{ marginRight: '5px' }}></i>
-          Logout
+          {isMobile ? '' : 'Logout'}
         </div>
       }
     </div>

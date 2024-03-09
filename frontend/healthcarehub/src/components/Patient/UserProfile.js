@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './UserProfile.css'
+// import './UserProfile.css'
 
 function UserProfileData() {
   const [UserProfile, setUserProfile] = useState(null);
@@ -65,7 +65,7 @@ function UserProfileData() {
         <div>
           <form method="POST">
             <div>
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email">User Email:</label>
               <input
                 type="text"
                 id="email"

@@ -1,15 +1,7 @@
-.notification {
-  background-color: rgb(3 15 39 / 96%);
-  color: white;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 30%;
-  margin-left: 30%;
-}
 
-.notification-container {
-    display: flex;
+
+.notification-container{
+     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
@@ -20,13 +12,25 @@
     right: 0;
     font-weight: bold;
     margin-top: 10%;
-
+flex-direction: column;
 }
+
+
+.notification {
+  background-color: rgb(3 15 39 / 96%);
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+  width: -webkit-fill-available;
+}
+
 
 
 .notification h2 {
   margin-bottom: 20px;
-  font-size: 30px;
+  /*font-size: 30px;*/
   color: white;
   text-align: center;
 
@@ -55,7 +59,7 @@
 }
 
 .notification div {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .notification p {
@@ -63,7 +67,17 @@
 }
 
 
+.email-password {
+  border: 1.5px solid #ccc;
+  border-radius: 20px;
+}
 
-.email-password p {
-  text-align: center;
+.email-password h3{
+text-align: left;
+margin-left: 5%;
+}
+
+.email-password p{
+text-align: left;
+margin-left: 5%;
 }

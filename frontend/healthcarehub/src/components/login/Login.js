@@ -94,8 +94,8 @@ function LoginPage() {
   return (
     <div className="container">
     <Navbar />
-    <LoginNotification />
       <div className="login-form">
+      <LoginNotification />
         <h1>Login</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>

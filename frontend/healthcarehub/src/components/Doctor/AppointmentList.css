@@ -9,9 +9,38 @@
 }
 
 
+/* Styles for mobile */
+@media (max-width: 767px) {
+.appointment-list {
+  margin: 0;
+  width: max-content;
+  }
+    .appointment-list input[type="text"] {
+  margin-bottom: 5px;
+}
+  .appointment-list .appointment-heading {
+    text-align: center;
+  }
+  .user-duration-select {
+    width: 50%;
+  }
+  .user-reason-container input[type="time"] {
+    width: 45%;
+  }
+  .user-reason-container textarea {
+    width: 50%;
+  }
+  .user-calendar-container {
+    width: 60%;
+  }
+}
+
+
+
 .appointment-list h2 {
   text-align: center;
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .appointment-list button {

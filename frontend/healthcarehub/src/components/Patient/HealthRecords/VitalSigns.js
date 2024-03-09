@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './VitalSigns.css'
 
 function VitalSigns() {
   const [vitalsigns, setvitalsigns] = useState([

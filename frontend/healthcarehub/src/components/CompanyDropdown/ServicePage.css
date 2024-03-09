@@ -2,7 +2,7 @@
 
 .maincontainer {
   margin: 0 auto;
-  padding: 20px;
+  padding-top: 20px;
   overflow-x: auto;
   overflow-y: auto;
   background-size: cover;
@@ -11,6 +11,7 @@
   height: 100vh; /* Changed to viewport height */
   width: 100%;
   position: fixed;
+  align-items: center;
 }
 
 .service-container {
@@ -22,6 +23,11 @@
   color: white;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.service-container p{
+  font-size: 12px;
 }
 
 .service-list {
@@ -75,6 +81,6 @@
 /* Media query for smaller screens */
 @media (max-width: 768px) {
   .service-category {
-    width: calc(70% - 10px); /* Adjusted width for smaller screens */
+    width: auto;
   }
 }

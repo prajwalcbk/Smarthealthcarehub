@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './PastIllness.css'
 
 function PastIllness() {
   const [pastIllnesses, setPastIllnesses]  = useState([

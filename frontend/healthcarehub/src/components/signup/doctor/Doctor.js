@@ -160,7 +160,7 @@ function Doctor(props) {
             value={about}
             onChange={e => setAbout(e.target.value)}
             placeholder="Explain YourSelf in few sentences..."
-            rows={4} // Set the number of visible rows
+            rows={3} // Set the number of visible rows
           />
         </div>
 

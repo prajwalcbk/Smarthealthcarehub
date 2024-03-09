@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './FamilyHistory.css'
 
 function FamilyHistory() {
   const [familyhistory, setfamilyhistory]  = useState([

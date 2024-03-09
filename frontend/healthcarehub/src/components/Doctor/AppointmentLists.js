@@ -32,7 +32,7 @@ function AppointmentList() {
 
   return (
     <div className="appointment-list">
-      <h2>Your Upcoming Appointments</h2>
+      <h2 className="appointment-heading">Your Upcoming Appointments</h2>
       <table>
         <thead>
           <tr>
@@ -59,7 +59,7 @@ function AppointmentList() {
 
                 <td>{appointment.status}</td>
                 <td>
-                  <button onClick={() => handleCancelAppointmentClick(appointment.id)}>Cancel Appointment</button>
+                  <button onClick={() => handleCancelAppointmentClick(appointment.id)}>Cancel</button>
                 </td>
               </tr>
 

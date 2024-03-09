@@ -9,6 +9,18 @@
 }
 
 
+/* Styles for mobile */
+@media (max-width: 767px) {
+.appointment-list {
+  margin: 0;
+  width: max-content;
+  }
+    .appointment-list input[type="text"] {
+  margin-bottom: 5px;
+}
+}
+
+
 .appointment-list h2 {
   text-align: center;
   margin-bottom: 20px;

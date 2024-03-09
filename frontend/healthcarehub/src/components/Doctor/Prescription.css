@@ -10,6 +10,20 @@
   align-items: center;
 }
 
+/* Styles for mobile */
+@media (max-width: 767px) {
+.prescription {
+  margin: 0;
+  width: max-content;
+  }
+    .prescription input[type="text"] {
+  height: auto;
+  margin-bottom: 5px;
+  padding: 6px
+}
+}
+
+
 .prescription h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -27,18 +41,17 @@
 .prescription input[type="text"]{
     width: 80%;
     height: 25px;
-
-    padding: 10px;
+    /*padding: 10px;*/
     border-radius: 10px;
     border: 1.5px solid black;
     color: black;
   }
 
 .prescription select {
-  width: 110%;
+  width: 130%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  font-size: 18px;
+  /*font-size: 18px;*/
   height: 40px;
 }
