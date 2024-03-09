@@ -62,8 +62,10 @@ return (
       <span className="logo-text">{isMobile ? '' : 'SmartHealthCare Hub'}</span>
     </a> 
     <div className="nav-links">
-      <Link to='/forums'>  
-        <i className="fas fa-comments"></i> {isMobile ? '' : 'Forums'} 
+      <Link to='/forums'> 
+        <i className="fas fa-home"></i> {isMobile ? ' ' : 'Home'}  
+        <i className="fas fa-comments"></i> {isMobile ? ' ' : 'Forums'} 
+
       </Link>
       <CompanyDropdown />
       {!isLoggedIn && 

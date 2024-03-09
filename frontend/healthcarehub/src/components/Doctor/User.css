@@ -36,7 +36,9 @@
 .sidebar button {
     font-size: small;
 }
-
+.user-container {
+  background-size: initial;
+}
 
 }
 
