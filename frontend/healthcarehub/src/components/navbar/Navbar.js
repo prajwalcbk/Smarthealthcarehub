@@ -64,8 +64,9 @@ return (
     <div className="nav-links">
       <Link to='/forums'> 
         <i className="fas fa-home"></i> {isMobile ? ' ' : 'Home'}  
+      </Link>
+      <Link to='/forums'> 
         <i className="fas fa-comments"></i> {isMobile ? ' ' : 'Forums'} 
-
       </Link>
       <CompanyDropdown />
       {!isLoggedIn && 
