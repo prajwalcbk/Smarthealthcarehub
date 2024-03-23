@@ -29,7 +29,7 @@ function LoginPage() {
       localStorage.setItem('role', 'doctor');
        setTimeout(() => {
             console.log("navigating to / page")
-            navigate('/');
+            navigate('/doctor');
             window.location.reload();
         }, 1000); 
     }
@@ -40,7 +40,7 @@ function LoginPage() {
       localStorage.setItem('token', '123');
       localStorage.setItem('role', 'patient');
        setTimeout(() => {
-            navigate('/');
+            navigate('/patient');
             window.location.reload();
         }, 1000); 
     }
@@ -51,7 +51,7 @@ function LoginPage() {
       localStorage.setItem('token', '123');
       localStorage.setItem('role', 'healthadmin');
        setTimeout(() => {
-            navigate('/');
+            navigate('/healthadmin');
             window.location.reload();
         }, 1000); 
     }
@@ -62,7 +62,7 @@ function LoginPage() {
       localStorage.setItem('token', '123');
       localStorage.setItem('role', 'pharmacist');
        setTimeout(() => {
-            navigate('/');
+            navigate('/pharmacist');
             window.location.reload();
 
         }, 1000); 
