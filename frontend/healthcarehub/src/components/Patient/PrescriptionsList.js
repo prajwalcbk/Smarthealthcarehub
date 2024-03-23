@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './prescriptionlist.css';
 import Prescription from './PrescriptionDetails';
 
 function PrescriptionList() {

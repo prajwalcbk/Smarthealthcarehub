@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './IncidentResponse.css'; // Import CSS file for styling
 
 function IncidentResponse() {
   const [viewincidentClicked, setviewpincidentClicked] = useState([]);
     const [ reply , setReply] = useState('');
     const [ comments , setComments] = useState([]);
+    const [successMessages, setSuccessMessages] = useState({});
 
-  const [incidents] = useState([
-    {
+
+  const [incidents , setIncidents] = useState([]);
+    
+    const tempincidents = [ {
       id: 1,
       type: "Data Breach",
       severity: "High",
@@ -50,11 +53,44 @@ function IncidentResponse() {
       timestamp: "2024-02-07T11:10:00"
     },
     // Add more incidents as needed
-  ]);
+  ];
 
+   useEffect(() => {
+  setIncidents(tempincidents);
+}, []);
 
+  const Onsubmit =() => {
+    if (reply!='') {
+    const user= localStorage.getItem('role');
+    const newComment = { id: comments.length + 1, user: user, message: reply };
+    const updatedComments = [...comments, newComment];
+    setComments(updatedComments);
+    setReply('');
+  }
+  };
 
+  const handleresolveincidentClicked =(Id) => { 
+    const newSuccessMessages = { ...successMessages };
+    newSuccessMessages[Id] = "Resolved Successfully";
+    setSuccessMessages(newSuccessMessages);
 
+    setTimeout(() => {
+        const newSuccessMessages = { ...successMessages };
+        delete newSuccessMessages[Id];
+        setSuccessMessages(newSuccessMessages);
+    }, 2000); 
+
+  
+  const updatedIncidents = incidents.map(incident => {
+    if (incident.id === Id) {
+      return { ...incident, status: 'Closed' }; // Create a new object with updated status
+    }
+    return incident; // Return other compliances as they are
+  });
+
+  // Update the state with the updated compliances
+  setIncidents(updatedIncidents);
+};
 
 
 
@@ -65,21 +101,18 @@ function IncidentResponse() {
       // Toggle the clicked state for the clicked doctor
       newClicked[incidentId] = !newClicked[incidentId];
 
-        const dummyCommentsData = [
-  { id: 1, user: 'Alice', message: 'Great facility, I had a wonderful experience!' },
-  { id: 2, user: 'Bob', message: 'The services offered here are excellent.' },
-  { id: 3, user: 'Alice', message: 'I highly recommend this place.' },
-  { id: 4, user: 'Bob', message: 'Friendly staff and clean environment.' },
-  { id: 5, user: 'Eva', message: 'Very satisfied with the treatment received.' },
-];
+  const dummyCommentsData = [
+    { id: 1, user: 'Alice', message: 'Great facility, I had a wonderful experience!' },
+    { id: 2, user: 'Bob', message: 'The services offered here are excellent.' },
+    { id: 3, user: 'Alice', message: 'I highly recommend this place.' },
+    { id: 4, user: 'Bob', message: 'Friendly staff and clean environment.' },
+    { id: 5, user: 'Eva', message: 'Very satisfied with the treatment received.' },
+  ];
 
   setComments(dummyCommentsData);
       return newClicked;
     });
   };
-  const handleresolveincidentClicked =(incidentId) => { 
-
-  }
 
 return (
   <div className="incident-response-container">
@@ -111,14 +144,18 @@ return (
                       onChange={e => setReply(e.target.value)}
                       rows={3} 
                     />
-                    <button>Submit</button>
+                    <button onClick={Onsubmit}>Submit</button>
                   </div>
                 </div>
               )}
               {!viewincidentClicked[incident.id] && (
                 <div>
                 <button onClick={() => handleviewincidentClicked(incident.id)}>View</button>
-                <button onClick={() => handleresolveincidentClicked(incident.id)}>Mark as Resolved</button>
+                <div>{successMessages[incident.id] && <p className="success-message">{successMessages[incident.id]}</p>} </div>
+
+                {incident.status === "Open" && (
+                    <button onClick={() => handleresolveincidentClicked(incident.id)}>Mark as Resolved</button>
+                )}
                 
                 </div>
               )} 

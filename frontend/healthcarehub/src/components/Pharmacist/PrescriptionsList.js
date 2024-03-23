@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './prescriptionlist.css';
 import Prescription from './PrescriptionDetails';
 
 function PrescriptionList() {
@@ -7,6 +6,7 @@ function PrescriptionList() {
   const [viewClicked, setViewClicked] = useState([]);
   const [filterpatient , setFilterpatient] = useState('');
   const [iscreatenewprescription , setiscreatenewprescription]= useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   // Fetch prescription history data from an external source (e.g., API)
   useEffect(() => {
@@ -45,6 +45,15 @@ function PrescriptionList() {
 
     }
 
+  const handleDispenseclick = (id) => {
+    setSuccessMessage("Prescription Dispense in progess");
+       setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+    const updatedPrescriptionList = prescriptionList.filter(prescription => prescription.id !== id);
+    setPrescriptionList(updatedPrescriptionList);
+  };
+
   const handleViewClick = (id) => {
     setViewClicked(prevClicked => ({
       ...prevClicked,
@@ -56,6 +65,7 @@ function PrescriptionList() {
     <div>
     {!iscreatenewprescription ? (
     <div className="prescription-list">
+
       <h2>Prescriptions</h2>
       <div className="prescription-filter-container">
 
@@ -69,16 +79,18 @@ function PrescriptionList() {
         />
         <button style={{"margin":"2%"}} onClick={SearchPrescriptions}> Search </button>
       </div>
+      <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
       <table>
         <thead>
           <tr>
-            <th>Issued to</th>
+            <th>Patient</th>
             <th>Description</th>
-            <th>Issued On</th>
+            <th>Date</th>
             <th>Status</th>
             <th></th>
           </tr>
         </thead>
+
         <tbody>
           {prescriptionList.map((prescription) => (
             <React.Fragment key={prescription.id}>
@@ -90,7 +102,7 @@ function PrescriptionList() {
                 <td>
                   
                   {viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>Close</button>}
-                  {viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>Dispense</button>}
+                  {viewClicked[prescription.id] && <button onClick={() => handleDispenseclick(prescription.id)}>Dispense</button>}
                   {!viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>View</button>}
                 </td>
               </tr>
@@ -104,6 +116,7 @@ function PrescriptionList() {
             </React.Fragment>
           ))}
         </tbody>
+
       </table>
     </div>
     ) : ( 

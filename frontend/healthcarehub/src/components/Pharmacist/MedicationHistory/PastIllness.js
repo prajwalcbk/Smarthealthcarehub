@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './PastIllness.css'
 import SearchPatient from './../../SearchPatient'
 
 function PastIllness() {

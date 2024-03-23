@@ -3,7 +3,7 @@
 
 
 .healthforum-form {
-  background-color: rgb(28 27 27 / 70%);
+  background-color: rgb(28 27 27 / 80%);
   color: white;
   padding: 20px;
   border-radius: 20px;
@@ -20,10 +20,6 @@
     resize: none;
 }
 
-
-.form-group {
-  margin-bottom: 20px;
-}
 
 
 .separator {

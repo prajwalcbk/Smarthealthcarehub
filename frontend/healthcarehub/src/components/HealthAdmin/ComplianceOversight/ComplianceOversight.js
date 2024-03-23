@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ComplianceOversight.css'; // Import CSS file for styling
 
 function ComplianceOversight() {
@@ -6,8 +6,12 @@ function ComplianceOversight() {
   const [viewcomplianceClicked, setviewpcomplianceClicked] = useState([]);
     const [ reply , setReply] = useState('');
     const [ comments , setComments] = useState([]);
+    const [successMessages, setSuccessMessages] = useState({});
 
-  const [Compliances] = useState([
+  const [Compliances, setCompliances] = useState([]);
+    
+
+    const tempCompliances = [
     {
       id: 1,
       title: "HIPAA Violation",
@@ -34,11 +38,14 @@ function ComplianceOversight() {
       title: "Expired SSL Certificate",
       description: "Security risk due to an expired SSL certificate.",
       severity: "Medium",
-      status: "Open"
+      status: "Closed"
     },
     // Add more compliance issues as needed
-  ]);
+  ];
 
+ useEffect(() => {
+  setCompliances(tempCompliances);
+}, []);
 
 
 
@@ -62,9 +69,40 @@ function ComplianceOversight() {
       return newClicked;
     });
   };
-  const handleresolvecomplianceClicked =(complianceId) => { 
 
+  const Onsubmit =() => {
+    const user= localStorage.getItem('role');
+    const newComment = { id: comments.length + 1, user: user, message: reply };
+    const updatedComments = [...comments, newComment];
+    setComments(updatedComments);
+    setReply('');
   }
+  
+const handleresolvecomplianceClicked =(complianceId) => { 
+    const newSuccessMessages = { ...successMessages };
+    newSuccessMessages[complianceId] = "Resolved Successfully";
+    setSuccessMessages(newSuccessMessages);
+
+    setTimeout(() => {
+        const newSuccessMessages = { ...successMessages };
+        delete newSuccessMessages[complianceId];
+        setSuccessMessages(newSuccessMessages);
+    }, 2000); 
+
+  
+  const updatedCompliances = Compliances.map(compliance => {
+    if (compliance.id === complianceId) {
+      return { ...compliance, status: 'Closed' }; // Create a new object with updated status
+    }
+    return compliance; // Return other compliances as they are
+  });
+
+  // Update the state with the updated compliances
+  setCompliances(updatedCompliances);
+};
+
+
+
 
 return (
   <div className="compliance-response-container">
@@ -89,23 +127,27 @@ return (
                       <span className="comment-message">{comment.message}</span>
                     </div>
                   ))}
-                  <div className="form-group">
-                    <h2>Reply</h2>
-                    <textarea
-                      id="reply"
-                      value={reply}
-                      onChange={e => setReply(e.target.value)}
-                      rows={3} 
-                    />
-                    <button>Submit</button>
-                  </div>
+                  {compliance.status === "Open" && (
+                    <div className="form-group">
+                      <h2>Reply</h2>
+                      <textarea
+                        id="reply"
+                        value={reply}
+                        onChange={e => setReply(e.target.value)}
+                        rows={3} 
+                      />
+                      <button onClick={Onsubmit}>Submit</button>
+                    </div>
+                  )}
                 </div>
               )}
               {!viewcomplianceClicked[compliance.id] && (
                 <div>
                 <button onClick={() => handleviewcomplianceClicked(compliance.id)}>View</button>
-                <button onClick={() => handleresolvecomplianceClicked(compliance.id)}>Mark as Resolved</button>
-                
+                <div>{successMessages[compliance.id] && <p className="success-message">{successMessages[compliance.id]}</p>} </div>
+                {compliance.status === "Open" && (
+                    <button onClick={() => handleresolvecomplianceClicked(compliance.id)}>Mark as Resolved</button>
+                )}                
                 </div>
               )} 
               {viewcomplianceClicked[compliance.id] && (

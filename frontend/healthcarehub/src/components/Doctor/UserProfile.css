@@ -4,10 +4,33 @@
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 40%;
+  width: 30%;
   margin-left: 30%;
+  margin-bottom: 30%;
 }
 
+
+/* Styles for mobile */
+@media (max-width: 767px) {
+
+  .user-profile {
+  width: fit-content;
+  margin-left: 0%;
+  padding-bottom: 15%;
+
+}
+
+  input[type="text"] {
+    padding: 3px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: black;
+   height: 40px;
+   font-weight: bold;
+  }
+
+}
 
 .user-profile h2 {
   margin-bottom: 20px;
@@ -24,7 +47,7 @@ textarea  {
     border: 1.5px solid black;
     resize: none;
     color: black;
-    font-weight: bold;
+    font-size: smaller;
 
 }
 
@@ -32,14 +55,9 @@ textarea  {
   margin-bottom: 20px;
 }
 
-.user-profile label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: white;
-  font-size: 105%;
-}
 
+/* Styles for mobile */
+@media (min-width: 767px) {
 .user-profile input[type="text"] {
   padding: 8px;
   margin-bottom: 15px;
@@ -49,7 +67,7 @@ textarea  {
  height: 30px;
  font-weight: bold;
 }
-
+}
 
 .user-profile button {
   padding: 10px 20px;
@@ -75,7 +93,7 @@ textarea  {
 
 .user-profile .input-row {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 5px
 }
 
 .user-profile .input-row > div {

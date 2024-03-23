@@ -4,6 +4,7 @@ import MessageList from '../MessageList';
 import './Messenger.css';
 import Navbar from './../../navbar/Navbar'
 
+
 export default function Messenger(props) {
     return (
       <div className="messenger">

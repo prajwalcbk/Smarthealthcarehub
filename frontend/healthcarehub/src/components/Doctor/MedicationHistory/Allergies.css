@@ -6,6 +6,18 @@
   border-radius: 5px;
 }
 
+/* Styles for mobile */
+@media (max-width: 767px) {
+.allergies {
+  margin: 0;
+  }
+  .allergies input[type="text"] {
+  height: auto;
+  margin-bottom: 5px;
+}
+}
+
+
 .allergies{
   background-color: rgb(3 15 39 / 96%);
   /*background-color: white;*/
@@ -13,7 +25,7 @@
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  width: 80%;
   align-items: center;
 }
 
@@ -43,7 +55,7 @@
   padding: 8px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   /*background-color: rgba(59, 59, 59, 0.3);*/
   color: white;
   width: 30%;
@@ -55,7 +67,7 @@
 }
 
 .allergies button {
-  width: 20%;
+  width: 30%;
   padding: 8px 15px;
   margin-top: 10px;
   background-color: #007bff;

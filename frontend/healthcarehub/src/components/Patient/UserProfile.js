@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './UserProfile.css'
+// import './UserProfile.css'
 
 function UserProfileData() {
   const [UserProfile, setUserProfile] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [editedUserProfile, seteditedUserProfile] = useState({});
+  const [successMessage, setSuccessMessage] = useState('');
+
 
   const fetchUserProfile = async () => {
     try {
@@ -42,6 +44,13 @@ function UserProfileData() {
   };
 
   const handleSubmit = (event) => {
+    setUserProfile(editedUserProfile);
+    setSuccessMessage("User Details saved successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
+
     event.preventDefault();
     // Process the form data or make API call to update health records
     // After successful update, setEditMode to false
@@ -60,12 +69,13 @@ function UserProfileData() {
 
   return (
     <div className="user-profile">
+      <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
       <h2>User Details</h2>
       {UserProfile ? (
         <div>
           <form method="POST">
             <div>
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email">User Email:</label>
               <input
                 type="text"
                 id="email"

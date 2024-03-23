@@ -8,6 +8,7 @@ const MY_USER_ID = 'apple';
 
 export default function MessageList(props) {
   const [messages, setMessages] = useState([])
+  const [ message , setmessage] = useState('');
 
   useEffect(() => {
     getMessages();
@@ -45,37 +46,7 @@ export default function MessageList(props) {
           author: 'apple',
           message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
           timestamp: new Date().getTime()
-        },
-        {
-          id: 6,
-          author: 'apple',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 7,
-          author: 'orange',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 8,
-          author: 'orange',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 9,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 10,
-          author: 'orange',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
+        }
       ]
       setMessages([...messages, ...tempMessages])
   }
@@ -139,6 +110,13 @@ export default function MessageList(props) {
     return tempMessages;
   }
 
+  const Addmessage = () => {
+    const newmessage = { id: messages.length + 1, author: 'apple', message: message };
+    const updatedmessages = [...messages, newmessage];
+    setMessages(updatedmessages);
+    setmessage('');
+  }
+  
   const renderMessages = () => {
   return messages.map((message, index) => (
     <Message
@@ -166,9 +144,14 @@ export default function MessageList(props) {
         <div className="compose">
         <input
           type="text"
+          value={message}
+          onChange={e => setmessage(e.target.value)}
           className="compose-input"
           placeholder="Type a message, @name"
         />
+
+        <button onClick={Addmessage} style={{"width":"25%" }}> Send </button>
+
         </div>
 
       </div>

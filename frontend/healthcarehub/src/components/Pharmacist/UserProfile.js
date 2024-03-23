@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './UserProfile.css';
 import Select from 'react-select';
 
 function UserProfileData() {
@@ -8,6 +7,7 @@ function UserProfileData() {
   const [editedUserProfile, seteditedUserProfile] = useState({});
   const [healthfacilitynameoptions, setHealthFacilityNameOptions] = useState([]);
   const [healthfacilityname, setHealthFacilityName] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
 
 
@@ -45,7 +45,7 @@ function UserProfileData() {
       // Perform API call to fetch primary care providers based on inputValue
       //const response = await fetch(`YOUR_API_ENDPOINT?search=${inputValue}`);
       //const data = await response.json();
-      const data= [ {"name":"John","id":123},{"name":"David","id":123},{"name":"Joe","id":1243},{"name":"Miller","id":1243}]
+      const data= [ {"name":"John","id":1},{"name":"David","id":2},{"name":"Joe","id":3},{"name":"Miller","id":4}]
 
       // Transform API response data to the format expected by React Select
       const transformedOptions = data.map((provider) => ({
@@ -78,6 +78,13 @@ function UserProfileData() {
   };
 
   const handleSubmit = (event) => {
+    setUserProfile(editedUserProfile);
+    setSuccessMessage("User Details saved successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
+
     event.preventDefault();
     // Process the form data or make API call to update health records
     // After successful update, setEditMode to false
@@ -96,12 +103,13 @@ function UserProfileData() {
 
   return (
     <div className="user-profile">
+    <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
       <h2>User Details</h2>
       {UserProfile ? (
         <div>
           <form method="POST">
             <div>
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email">User Email:</label>
               <input
                 type="text"
                 id="email"
@@ -189,7 +197,7 @@ function UserProfileData() {
             value={editMode ? editedUserProfile.about : UserProfile.about}
             onChange={handleInputChange}
             disabled={!editMode}
-            rows={8} 
+            rows={5} 
           />
           </div>
 

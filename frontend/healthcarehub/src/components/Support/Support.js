@@ -37,17 +37,21 @@ function Support() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Perform action with form data, such as sending it to the server
-    console.log(formData);
-    // Reset form fields
-    setFormData({
+
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const handleSubmit = () => {
+    setSuccessMessage("Reported  successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+            setFormData({
       title: '',
       description: '',
       userEmail: '',
       reportType: 'General'
     });
+    }, 5000); 
+    
   };
 
   return (
@@ -57,6 +61,7 @@ function Support() {
       </div>
       {showChat && (
         <div className="chatbox">
+          <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
           <div className="chatbox-header">
             <div className="chatbox-header-title"><img src={Logo} width="20" height="20" alt="Logo" /> SmartHealthCare Support</div>
             <div className="chatbox-header-close" onClick={toggleChat}>×</div>

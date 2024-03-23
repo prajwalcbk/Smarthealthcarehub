@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './Exercise.css'
 
 function Exercise() {
   const [exercises, setexercises] = useState([
@@ -48,6 +47,16 @@ function Exercise() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('exercises history:', exercises);
+  };
+
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const handleSave = (event) => {
+    setSuccessMessage("Added successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
   };
 
   return (
@@ -100,10 +109,12 @@ function Exercise() {
                 className={exercise.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemoveExercise(index)}>Remove</button>
+              <button type="button" onClick={handleSave}>Save</button>
             </li>
           ))}
         </ul>
-        <button type="button"  style={{"width":"100%" , "margin-bottom": "5%"}}  onClick={handleAddExercise}>Add</button>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
+        <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddExercise}>Add</button>
       </form>
     </div>
   );

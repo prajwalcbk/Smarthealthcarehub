@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './BasicHealthRecord.css'; //
 import Navbar from '../../navbar/Navbar';
 
 function HealthRecords() {
@@ -43,14 +42,6 @@ function HealthRecords() {
     setEditMode(false);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Process the form data or make API call to update health records
-    // After successful update, setEditMode to false
-    setEditMode(false);
-    // Here, you can use editedHealthRecords to update the health records
-    console.log('Edited health records:', editedHealthRecords);
-  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -60,9 +51,23 @@ function HealthRecords() {
     }));
   };
 
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const handleSubmit = (event) => {
+    setHealthRecords(editedHealthRecords)
+    event.preventDefault();
+    setEditMode(false);
+    setSuccessMessage("Edited successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
+  };
+
   return (
     <div className="health-records">
       <h2>Health Records</h2>
+      <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
       {healthRecords ? (
         <div>
           <form method="POST">

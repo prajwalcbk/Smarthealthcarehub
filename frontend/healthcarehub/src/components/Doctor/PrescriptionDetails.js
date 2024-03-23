@@ -6,6 +6,8 @@ function Prescription() {
   const [editedprescription, setEditedprescription] = useState([{}]);
   const [editMode, setEditMode] = useState(false);
   const [viewEdit, setEditClicked] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
+  
 
   const handleEdit = () => {
     setEditMode(true);
@@ -23,6 +25,22 @@ const handleInputChange = (event) => {
     setEditMode(false);
   };
 
+
+  const handleSaveClick = (id) => {
+
+  // Update the prescription state
+    setSuccessMessage("Edited successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+    setEditMode(false);
+    setEditClicked(prevClicked => ({
+      ...prevClicked,
+      [id]: !prevClicked[id]
+    }));
+  };
+
+    
 
   useEffect(() => {
     // Fetch prescription history data from an external source
@@ -46,9 +64,12 @@ const handleInputChange = (event) => {
     }));
   };
 
+
+
   return (
     <div className="prescription">
       <h2>Prescription Details</h2>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
       <table>
         <thead>
           <tr>
@@ -57,6 +78,7 @@ const handleInputChange = (event) => {
             <th>Time</th>
             <th>
               {viewEdit[prescription.id] && <button onClick={() => handleEditClick(prescription.id)}>Cancel</button>}
+              {viewEdit[prescription.id] && <button onClick={() => handleSaveClick(prescription.id)}>Save</button>}
               {!viewEdit[prescription.id] && <button onClick={() => handleEditClick(prescription.id)}>Edit</button>}
               </th>
           </tr>

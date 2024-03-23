@@ -96,7 +96,7 @@ const DoctorSearchPage = () => {
           value={specializationFilter}
           onChange={e => setSpecializationFilter(e.target.value)}
         >
-          <option value="">Select specialization</option>
+          <option value=""> specialization</option>
           <option value="Cardiologist">Cardiologist</option>
           <option value="Pediatrician">Pediatrician</option>
           <option value="Dentist">Dentist</option>
@@ -137,8 +137,7 @@ const DoctorSearchPage = () => {
               {!bookAppointmentClicked[doctor.id] && !viewprofileClicked[doctor.id] && <button onClick={() => handleBookAppointmentClick(doctor.id)}>Book Appointment</button>}
               {!bookAppointmentClicked[doctor.id] && !viewprofileClicked[doctor.id] && <button onClick={() => handleviewprofileClickedClick(doctor.id)}>View Profile</button>}
 
-              {bookAppointmentClicked[doctor.id] && <AppointmentManagement />}
-
+              {bookAppointmentClicked[doctor.id] && <AppointmentManagement doctorid={doctor.id} updateParentState={handleBookAppointmentClick} />}
 
               {bookAppointmentClicked[doctor.id] && <button onClick={() => handleBookAppointmentClick(doctor.id)}>Cancel</button>}
               {viewprofileClicked[doctor.id] && <button onClick={() => handleviewprofileClickedClick(doctor.id)}>Close</button>}

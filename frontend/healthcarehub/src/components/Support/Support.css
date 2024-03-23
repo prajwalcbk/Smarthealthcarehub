@@ -31,9 +31,9 @@
   position: fixed;
   bottom: 100px; /* Adjusted position to prevent overlap */
   right: 3%;
-  width:400px;
-  background-color: rgb(28 27 27 / 70%);
-  border: 1px solid rgb(28 27 27 / 70%);
+  max-width:400px;
+  background-color: rgb(28 27 27 / 80%);
+  border: 1px solid rgb(28 27 27 / 80%);
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 9999;

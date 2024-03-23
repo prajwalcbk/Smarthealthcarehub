@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Prescription.css';
 
 function Prescription() {
   const [prescription, setPrescription] = useState([]);

@@ -1,7 +1,7 @@
 
 
 .symptomchecker-container {
-  background-color: rgb(28 27 27 / 70%);
+  background-color: rgb(28 27 27 / 80%);
   color: white;
   padding: 20px;
   border-radius: 20px;
@@ -10,14 +10,21 @@
   width: 100%;
 }
 
+/* Styles for mobile */
+@media (max-width: 767px) {
+.symptomchecker-container select  {
+    font-size: 12px;
+  }
 
-.symptomchecker-container select
-{
+}
+
+
+.symptomchecker-container select{
     width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    font-size: 15px;
+    /*font-size: 15px;*/
     height: 50px;
 }
 .symptomchecker-container button{
@@ -39,19 +46,18 @@ h1 {
   margin-bottom: 20px;
 }
 
-label {
+.symptomchecker-container label {
   font-size: 16px;
   margin-right: 10px;
 }
 
-select {
-  font-size: 16px;
+.symptomchecker-container select {
+  /*font-size: 16px;*/
   padding: 5px;
   margin-right: 10px;
 }
 
-button {
-  font-size: 16px;
+.symptomchecker-container button {
   padding: 8px 16px;
   background-color: #007bff;
   color: #fff;
@@ -59,24 +65,24 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.symptomchecker-container button:hover {
   background-color: #0056b3;
 }
 
-ul {
+.symptomchecker-container ul {
   list-style: none;
   padding: 0;
 }
 
-li {
+.symptomchecker-container li {
   margin-bottom: 5px;
 }
 
-li button {
+.symptomchecker-container li button {
   margin-left: 10px;
   background-color: #dc3545;
 }
 
-li button:hover {
+.symptomchecker-container li button:hover {
   background-color: #c82333;
 }

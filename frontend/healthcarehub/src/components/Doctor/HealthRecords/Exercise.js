@@ -118,7 +118,7 @@ function Exercise() {
             </li>
           ))}
         </ul>
-        <button type="button" style={{"width":"100%" , "margin-bottom": "5%"}} onClick={handleAddExercise}>Add</button>
+        <button type="button" style={{"width":"100%" , "margin-bottom": "30%"}} onClick={handleAddExercise}>Add</button>
       </form>
     </div>
   );

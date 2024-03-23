@@ -20,12 +20,36 @@ function User() {
   const [activeComponent, setActiveComponent] = useState('');
 
   const [isOpen, setIsopen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
+
+  useEffect(() => {
+      const handleResize = () => {
+        const isMobile = window.innerWidth <= 600; // You can adjust the threshold as needed
+        console.log(isMobile ? 'Mobile view' : 'Desktop view');
+        setIsMobile(isMobile);
+      };
+
+      // Initial check
+      handleResize();
+    }, []);
 
 
 
   const handleToggle = () => {
+    if(isMobile){
+    setActiveComponent('')
+  }
     setIsopen(!isOpen);
+
+  };
+
+
+    const setComponent = (component) => {
+    setActiveComponent(component);
+    if(isMobile){
+    setIsopen(!isOpen);
+  }
 
   };
 
@@ -35,23 +59,26 @@ function User() {
       <Navbar />
       {isOpen && (
       <div className="sidebar">
-          <button onClick={handleToggle}> <img src={bar} alt="menu bar" style={{ width: '40px', height: '40px' }} /> Menu Bar </button>
+          <button onClick={handleToggle}> <img src={bar} alt="menu bar"  /> Menu Bar </button>
 
-            <button onClick={() => setActiveComponent('FacilityManagement')}> <img src={facilitymanagement} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} />  FacilityManagement </button>
-            <button onClick={() => setActiveComponent('StaffCoordination')}> <img src={staffcoordination} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} />  StaffCoordination </button>
-            <button onClick={() => setActiveComponent('ComplianceOversight')}> <img src={complianceoversight} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} />  ComplianceOversight </button>
-            <button onClick={() => setActiveComponent('IncidentResponse')}> <img src={incidentresponse} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} />  IncidentResponse </button>
+            <button onClick={() => setComponent('FacilityManagement')}> <img src={facilitymanagement} alt="Stethoscope Icon"  />  FacilityManagement </button>
+            <button onClick={() => setComponent('StaffCoordination')}> <img src={staffcoordination} alt="Stethoscope Icon"  />  StaffCoordination </button>
+            <button onClick={() => setComponent('ComplianceOversight')}> <img src={complianceoversight} alt="Stethoscope Icon"  />  ComplianceOversight </button>
+            <button onClick={() => setComponent('IncidentResponse')}> <img src={incidentresponse} alt="Stethoscope Icon"  />  IncidentResponse </button>
 
       </div>
       )}
       {!isOpen && (
       <div className="sidebar">
-          <button onClick={handleToggle}> <img src={bar} alt="menu bar" style={{ width: '40px', height: '40px' }} /> </button>
-          <button onClick={() => setActiveComponent('FacilityManagement')}> <img src={facilitymanagement} alt="FacilityManagement Icon" style={{ width: '40px', height: '40px' }} /> </button>
-          <button onClick={() => setActiveComponent('StaffCoordination')}> <img src={staffcoordination} alt="StaffCoordination Icon" style={{ width: '40px', height: '40px' }} /></button>
-          <button onClick={() => setActiveComponent('ComplianceOversight')}> <img src={complianceoversight} alt="ComplianceOversight Icon" style={{ width: '40px', height: '40px' }} /></button>
-          <button onClick={() => setActiveComponent('IncidentResponse')}> <img src={incidentresponse} alt="IncidentResponse Icon" style={{ width: '40px', height: '40px' }} /></button>
-          
+          <button onClick={handleToggle}> <img src={bar} alt="menu bar"  /> </button>
+        {!isMobile && (
+            <div>
+          <button onClick={() => setComponent('FacilityManagement')}> <img src={facilitymanagement} alt="FacilityManagement Icon"  /> </button>
+          <button onClick={() => setComponent('StaffCoordination')}> <img src={staffcoordination} alt="StaffCoordination Icon"  /></button>
+          <button onClick={() => setComponent('ComplianceOversight')}> <img src={complianceoversight} alt="ComplianceOversight Icon"  /></button>
+          <button onClick={() => setComponent('IncidentResponse')}> <img src={incidentresponse} alt="IncidentResponse Icon"  /></button>
+          </div>
+          )}
       </div>
       )}
 

@@ -10,8 +10,49 @@
   height: 100%;
   position: fixed;
   width: 100%;
+}
+
+
+
+@media  (max-width: 600px){
+
+.healthforum-filter-container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+    padding: 2%;
+    margin-bottom: 20px;
+    padding: 2%;
+    flex-wrap: wrap;
+  }
+  .healthforum-pagination-container label{
+    font-size: 12px;
+  }
+
+
+.healthforum-filter-container select{
+  width: 30%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 18px;
+  height: 20px;
+}
+
+.healthforum-filter-container input{
+  width: 30%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 18px;
+  height: 20px;
+}
+
 
 }
+
+
 
 .healthforum-pagination-container label{
   width: 30%;
@@ -26,7 +67,6 @@
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 18px;
   height: 40px;
 }
 
@@ -62,28 +102,28 @@
 
 .healthforum-filter-container input{
   width: 400px;
-  height: 30px;
 }
 
 
 .healthforum-filter-container input,
 .healthforum-filter-container select{
-  width: 30%;
+  width: 40%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 15px;
   font-size: 18px;
-  height: 40px;
+  font-size: small;
 }
 
 .healthforum-filter-container select{
-  height: 60px;
+  height: 45px;
+  font-size: small;
 }
 
 
 
 .healthforum-filter-container button {
-      margin-top: 20px; 
+    margin-top: 20px; 
     padding: 10px 20px;
     background-color: 007bff;
     color: white;
@@ -91,8 +131,8 @@
     border-radius: 10px;
     cursor: pointer;
     width: 15rem;
-    height: 3rem;
-    font-size: 24px;
+    /*height: 3rem;*/
+    /*font-size: 24px;*/
 } 
 
 
@@ -106,7 +146,7 @@
 
 
 .healthforum-card {
-  background-color: rgb(28 27 27 / 70%);
+  background-color: rgb(28 27 27 / 80%);
   padding: 20px;
   border-radius: 10px;
   margin-right: 20px;
@@ -121,22 +161,7 @@
   align-items: center;
 }
 
-.right-section {
-  margin-left: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  justify-content: center;
-}
 
-.right-section button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
 
 
 
@@ -144,6 +169,7 @@
   display: flex;
   justify-content: center;
   padding: 3%;
+  margin-bottom: 10%;
 }
 
 .healthforum-pagination-buttons button {
@@ -163,3 +189,4 @@
   -webkit-box-orient: vertical;
   display: -webkit-box;
 }
+

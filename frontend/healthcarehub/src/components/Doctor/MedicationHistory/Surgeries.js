@@ -27,6 +27,15 @@ function Surgeries() {
   }
 ]);
   const [editMode, setEditMode] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const handleSave = (event) => {
+    setSuccessMessage("Added successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
+  };
 
   const handleAddSurgeries = () => {
     const surgery = { name: '', date: '', editable: true };
@@ -101,10 +110,12 @@ function Surgeries() {
                 className={surgery.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemoveSurgeries(index)}>Remove</button>
+              <button type="button" onClick={handleSave}>Save</button>
             </li>
           ))}
         </ul>
-        <button type="button"  style={{"width":"100%" , "margin-bottom": "5%"}}  onClick={handleAddSurgeries}>Add</button>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
+        <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddSurgeries}>Add</button>
       </form>
     </div>
   );

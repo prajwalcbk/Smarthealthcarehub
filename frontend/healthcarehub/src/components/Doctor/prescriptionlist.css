@@ -8,6 +8,18 @@
   margin-left: 20%;
 }
 
+/* Styles for mobile */
+@media (max-width: 767px) {
+.prescription-list {
+  margin: 0;
+  width:  min-content;
+  }
+    .prescription-list input[type="text"] {
+  margin-bottom: 5px;
+}
+}
+
+
 
 .prescription-list h2 {
   text-align: center;

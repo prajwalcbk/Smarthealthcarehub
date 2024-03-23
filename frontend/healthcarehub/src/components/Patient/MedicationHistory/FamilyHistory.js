@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './FamilyHistory.css'
 
 function FamilyHistory() {
   const [familyhistory, setfamilyhistory]  = useState([
@@ -40,6 +39,15 @@ function FamilyHistory() {
     event.preventDefault();
     console.log('familyhistory :', familyhistory);
   };
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const handleSave = (event) => {
+    setSuccessMessage("Added successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
+  };
 
   return (
     <div className="family-history">
@@ -69,10 +77,12 @@ function FamilyHistory() {
                 className={history.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemovefamilyhistory(index)}>Remove</button>
+              <button type="button" onClick={handleSave}>Save</button>
             </li>
           ))}
         </ul>
-        <button type="button"  style={{"width":"100%" , "margin-bottom": "5%"}}  onClick={handleAddfamilyhistory}>Add</button>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
+        <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddfamilyhistory}>Add</button>
       </form>
     </div>
   );

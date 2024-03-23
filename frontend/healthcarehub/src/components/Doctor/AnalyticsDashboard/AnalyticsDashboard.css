@@ -9,9 +9,19 @@
     background-position: center;
     /*background-image: url("../../../public/3734225.jpg");*/
     /*height: 100%;*/
-    position: fixed;
-    width: 100%;
+    /*width: 100%;*/
 }
+
+
+@media only screen and (max-width: 600px) {
+  .recharts-wrapper {
+    width: 50%; /* Set width to 100% for mobile view */
+    height: 200px; /* Set height for mobile view */
+  }
+}
+
+
+
 .analytics-dashboard-container {
 
     max-width: 800px;
@@ -33,7 +43,6 @@
   .analytics-charts {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    grid-gap: 20px;
   }
   
   .analytics-charts h2 {

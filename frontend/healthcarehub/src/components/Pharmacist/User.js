@@ -9,7 +9,6 @@ import PrescriptionsList from './PrescriptionsList';
 import UserProfile from './UserProfile';
 
 import Navbar from './../navbar/Navbar'
-import './User.css'
 import medicalrecord from'./../../assets/medical-record.png'
 import prescription from './../../assets/prescription.png'
 import user from './../../assets/examination.png'
@@ -30,22 +29,55 @@ function User() {
 
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [isDropDownOpen1, setDropDownOpen1] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+
+ useEffect(() => {
+  const handleResize = () => {
+    const isMobile = window.innerWidth <= 600; // You can adjust the threshold as needed
+    console.log(isMobile ? 'Mobile view' : 'Desktop view');
+    setIsMobile(isMobile);
+  };
+
+  // Initial check
+  handleResize();
+}, []);
+
+
+  const setComponent = (component) => {
+  setActiveComponent(component);
+  if(isMobile){
+  setIsopen(!isOpen);
+  }
+
+}
+
 
   const handleDropDown = () => {
+    if(isMobile){
+    setActiveComponent('')
+  }
     setDropDownOpen(!isDropDownOpen);
     setDropDownOpen1(false);
   };
 
   const handleDropDown1 = () => {
+    if(isMobile){
+    setActiveComponent('')
+  }
     setDropDownOpen1(!isDropDownOpen1);
     setDropDownOpen(false);
   };
 
 
   const handleToggle = () => {
+    if(isMobile){
+    setActiveComponent('')
+  }
     setIsopen(!isOpen);
 
   };
+
 
     const navigate = useNavigate();
 
@@ -60,12 +92,12 @@ function User() {
       <Navbar />
       {isOpen && (
       <div className="sidebar">
-          <button onClick={handleToggle}> <img src={bar} alt="menu bar" style={{ width: '40px', height: '40px' }} /> Menu Bar </button>
-          <button onClick={() => setActiveComponent('UserProfile')}> <img src={user} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} /> User Details</button>
+          <button onClick={handleToggle}> <img src={bar} alt="menu bar"  /> Menu Bar </button>
+          <button onClick={() => setComponent('UserProfile')}> <img src={user} alt="Stethoscope Icon"  /> User Details</button>
           <button onClick={handleDropDown}>
-            <img src={medicalrecord} alt="MedicationHistory Icon" style={{ width: '40px', height: '40px' }} />
+            <img src={medicalrecord} alt="MedicationHistory Icon"  />
             Medication History 
-            {isDropDownOpen && <img src={close} alt="menu bar" style={{ width: '40px', height: '40px' }} />}
+            {isDropDownOpen && <img src={close} alt="menu bar"  />}
           </button>
 
           {(
@@ -73,18 +105,18 @@ function User() {
           ) && (          
           <div className="medical-history-drop-down" >
           
-            <button onClick={() => setActiveComponent('PastIllness')}> Pasts illness </button>
-            <button onClick={() => setActiveComponent('Allergies')}> Allergies </button>
-            <button onClick={() => setActiveComponent('Surgeries')}> Surgeries </button>
-             <button onClick={() => setActiveComponent('FamilyHistory')}> Family History </button>
+            <button onClick={() => setComponent('PastIllness')}> Pasts illness </button>
+            <button onClick={() => setComponent('Allergies')}> Allergies </button>
+            <button onClick={() => setComponent('Surgeries')}> Surgeries </button>
+             <button onClick={() => setComponent('FamilyHistory')}> Family History </button>
 
           </div>
           )}
 
           <button onClick={handleDropDown1}>
-            <img src={prescription} alt="Prescriptions Icon" style={{ width: '40px', height: '40px' }} />
+            <img src={prescription} alt="Prescriptions Icon"  />
             Prescriptions
-            {isDropDownOpen1 && <img src={close} alt="menu bar" style={{ width: '40px', height: '40px' }} />}
+            {isDropDownOpen1 && <img src={close} alt="menu bar"  />}
           </button>
 
           {(
@@ -92,26 +124,32 @@ function User() {
           ) && (          
           <div className="medical-history-drop-down" >
           
-            <button onClick={() => setActiveComponent('PrescriptionsList')}> Shared  </button>
-            <button onClick={() => setActiveComponent('DispensedPrescription')}> Dispensed </button>
+            <button onClick={() => setComponent('PrescriptionsList')}> Shared  </button>
+            <button onClick={() => setComponent('DispensedPrescription')}> Dispensed </button>
 
           </div>
           )}
 
           
-          <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> Messenger</button>
+          <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon"  /> Messenger</button>
       </div>
       )}
       {!isOpen && (
       <div className="sidebar">
-          <button onClick={handleToggle}> <img src={bar} alt="menu bar" style={{ width: '40px', height: '40px' }} /> </button>
-          <button onClick={() => setActiveComponent('UserProfile')}> <img src={user} alt="Stethoscope Icon" style={{ width: '40px', height: '40px' }} /> </button>
-          <button onClick={() => setActiveComponent('MedicationHistory')}> <img src={medicalrecord} alt="MedicationHistory Icon" style={{ width: '40px', height: '40px' }} /></button>
-          
-          
-          <button onClick={() => setActiveComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon" style={{ width: '40px', height: '40px' }} /> </button>
-          <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon" style={{ width: '40px', height: '40px' }} /> </button>
+          <button onClick={handleToggle}> <img src={bar} alt="menu bar"  /> </button>
 
+
+        {!isMobile && (
+            <div>
+          <button onClick={() => setComponent('UserProfile')}> <img src={user} alt="Stethoscope Icon"  /> </button>
+          <button onClick={() => setComponent('MedicationHistory')}> <img src={medicalrecord} alt="MedicationHistory Icon"  /></button>
+          
+          
+          <button onClick={() => setComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon"  /> </button>
+          <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon"  /> </button>
+        </div>
+      )}
+      
       </div>
       )}
 

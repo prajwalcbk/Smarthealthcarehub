@@ -4,30 +4,39 @@
 
 .signup-form {
   width: 500px;
-  background-color: rgb(28 27 27 / 70%);
+  margin-top: 10px;
+  background-color: rgb(28 27 27 / 80%);
   color: white;
   padding: 20px;
   border-radius: 25px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-container {
+    width: -webkit-fill-available;
+  }
+
+.pharmacist-container{
+    width: -webkit-fill-available;
+}
+
+.details-form {
+    /* width: 500px; */
+    background-color: rgb(28 27 27 / 80%);
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    margin-top: 1%;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .signup-form h1 {
   text-align: center;
   margin-bottom: 20px;
   color: white;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.details-form {
-  width: 500px;
-  background-color: rgb(28 27 27 / 70%);
-  color: white;
-  padding: 20px;
-  border-radius: 25px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 input[type="checkbox"] {
@@ -99,7 +108,7 @@ input:checked + .slider:before {
 /* Style the login button */
 .details-form button , 
 .signup-form button {
-    height: 50px;
+  height: 50px;
   font-weight: bold;
   width: 95%;
   padding: 10px;

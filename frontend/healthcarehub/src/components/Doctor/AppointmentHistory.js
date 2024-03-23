@@ -27,7 +27,7 @@ function AppointmentList() {
 
   return (
     <div className="appointment-list">
-      <h2>Your Older Appointments</h2>
+      <h2 className="appointment-heading">Your Older Appointments</h2>
       <table>
         <thead>
           <tr>

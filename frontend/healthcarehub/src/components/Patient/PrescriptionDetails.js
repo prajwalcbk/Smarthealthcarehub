@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Prescription.css';
 
 function Prescription() {
   const [prescription, setPrescription] = useState([]);
@@ -92,8 +91,8 @@ const handleInputChange = (event) => {
                 </select>
               </td>
               <td>
-              {viewReminder[prescription.id] && <button onClick={() => handleReminderClick(prescription.id)}>Delete Reminder</button>}
-              {!viewReminder[prescription.id] && <button onClick={() => handleReminderClick(prescription.id)}>Create Reminder</button>}
+              {viewReminder[prescription.id] && <button onClick={() => handleReminderClick(prescription.id)}>Delete </button>}
+              {!viewReminder[prescription.id] && <button onClick={() => handleReminderClick(prescription.id)}>Create </button>}
               </td>
             </tr>
           ))}

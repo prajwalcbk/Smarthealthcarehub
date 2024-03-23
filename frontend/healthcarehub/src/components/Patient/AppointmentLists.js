@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './AppointmentList.css';
 import AppointmentManagement from './AppointmentManagement'
 //import appointment from './appointmentDetails';
 
@@ -36,7 +35,7 @@ function AppointmentList() {
 
   return (
     <div className="appointment-list">
-      <h2>Your Appointments</h2>
+      <h2 className="appointment-heading">Your Appointments</h2>
       <table>
         <thead>
           <tr>

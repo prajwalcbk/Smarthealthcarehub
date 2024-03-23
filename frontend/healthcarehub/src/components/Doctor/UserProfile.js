@@ -8,6 +8,8 @@ function UserProfileData() {
   const [editedUserProfile, seteditedUserProfile] = useState({});
   const [healthfacilitynameoptions, setHealthFacilityNameOptions] = useState([]);
   const [healthfacilityname, setHealthFacilityName] = useState('David');
+  const [successMessage, setSuccessMessage] = useState('');
+
 
 
 
@@ -30,7 +32,7 @@ function UserProfileData() {
         emergencycontactnumber: '+1 4084805456',
         gender: "male",
         healthfacilityname:"David",
-        about: "Dr. David John is a board-certified neurologist with extensive experience in diagnosing and treating neurological disorders. He is dedicated to providing compassionate care and personalized treatment plans to his patients."
+        about: "Dr. David John is a board-certified neurologist with extensive experience in diagnosing and treating neurological disorders."
       };
       const data=sampleUser;
       console.log(data.healthfacilityname)
@@ -82,6 +84,13 @@ function UserProfileData() {
   };
 
   const handleSubmit = (event) => {
+    setUserProfile(editedUserProfile);
+    setSuccessMessage("User Details saved successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
+
+
     event.preventDefault();
     // Process the form data or make API call to update health records
     // After successful update, setEditMode to false
@@ -100,12 +109,13 @@ function UserProfileData() {
 
   return (
     <div className="user-profile">
+    <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
       <h2>User Details</h2>
       {UserProfile ? (
         <div>
           <form method="POST">
             <div>
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email">User Email:</label>
               <input
                 type="text"
                 id="email"
@@ -218,7 +228,7 @@ function UserProfileData() {
             value={editMode ? editedUserProfile.about : UserProfile.about}
             onChange={handleInputChange}
             disabled={!editMode}
-            rows={6} 
+            rows={4} 
           />
           </div>
 

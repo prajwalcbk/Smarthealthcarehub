@@ -24,12 +24,16 @@ function AppointmentManagement(props) {
     setReason(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSave = () => {
     // Your logic to handle the appointment submission
     console.log('Appointment Date:', selectedDate);
     console.log('Reason for Visit:', reason);
     // Add logic to submit appointment to the backend or perform other actions
   };
+
+    const handleCancel = () => {
+  };
+
 
   return (
     <div className="user-appointment-management">
@@ -66,8 +70,9 @@ function AppointmentManagement(props) {
             onChange={handleReasonChange}
             placeholder=" "
           ></textarea>
-                  <button className="user-confirm-appointment" onClick={handleSubmit} style={{"margin" : "2%" }} >Save</button>
-        <button className="user-confirm-appointment" onClick={handleSubmit} style={{"margin" : "2%" }} >Cancel Appointment</button>
+          <br />
+                  <button className="user-confirm-appointment" onClick={handleSave} style={{"margin" : "2%" }} >Save</button>
+        <button className="user-confirm-appointment" onClick={handleCancel} style={{"margin" : "2%" }} >Cancel Appointment</button>
         </div>
       </div>
     </div>

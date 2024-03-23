@@ -4,7 +4,7 @@ import './Footer.css'; // Import the CSS file
 function Footer() {
   return (
     <footer>
-      <div>Contact Us:</div>
+      <div style={{'width': '100px' }}><h3>Contact us </h3></div>
       <ul>
         <li>Email: example@example.com</li>
         <li>Phone: 123-456-7890</li>
@@ -14,7 +14,6 @@ function Footer() {
         <a href="#"><i className="fab fa-facebook-f"></i></a>
         <a href="#"><i className="fab fa-twitter"></i></a>
         <a href="#"><i className="fab fa-instagram"></i></a>
-        {/* Add more social media icons as needed */}
       </div>
     </footer>
   );

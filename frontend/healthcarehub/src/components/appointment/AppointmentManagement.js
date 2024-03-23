@@ -4,7 +4,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './AppointmentManagement.css';
 
-function AppointmentManagement() {
+function AppointmentManagement( { doctorid , updateParentState}  ) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [reason, setReason] = useState('');
   const [selectedTime, setSelectedTime] = useState('12:00');
@@ -23,6 +23,7 @@ function AppointmentManagement() {
   };
 
   const handleSubmit = () => {
+    handleSave();
     // Your logic to handle the appointment submission
     console.log('Appointment Date:', selectedDate);
     console.log('Appointment Time:', selectedTime);
@@ -30,8 +31,22 @@ function AppointmentManagement() {
     // Add logic to submit appointment to the backend or perform other actions
   };
 
+  const [successMessage, setSuccessMessage] = useState('');
+
+    const handleSave = (event) => {
+    setSuccessMessage("Appointment Booked Successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+            updateParentState(doctorid);
+        }, 3000); 
+
+    
+
+  };
+
   return (
     <div className="appointment-management">
+    <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
       <div className="appointment-management-container">
         <div className="calendar-container">
           <h2>Select Appointment Date:</h2>

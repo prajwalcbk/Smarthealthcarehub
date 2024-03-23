@@ -22,47 +22,47 @@ function LoginPage() {
     }
     console.log(data)
 
-    if (email === 'doctor@gmail.com' && password === 'doctor@123'){
+    if (email === 'doctor@gmail.com' ){
       setError(null);
       setSuccessMessage('Logged in successfully as doctor');
       localStorage.setItem('token', '123');
       localStorage.setItem('role', 'doctor');
        setTimeout(() => {
             console.log("navigating to / page")
-            navigate('/');
+            navigate('/doctor');
             window.location.reload();
         }, 1000); 
     }
 
-    else if (email=='patient@gmail.com' && password=='patient@123'){
+    else if (email=='patient@gmail.com'){
       setError(null);
       setSuccessMessage('Logged in successfully as patient');
       localStorage.setItem('token', '123');
       localStorage.setItem('role', 'patient');
        setTimeout(() => {
-            navigate('/');
+            navigate('/patient');
             window.location.reload();
         }, 1000); 
     }
 
-    else if (email=='healthadmin@gmail.com' && password=='healthadmin@123'){
+    else if (email=='healthadmin@gmail.com'){
       setError(null);
       setSuccessMessage('Logged in successfully as healthadmin');
       localStorage.setItem('token', '123');
       localStorage.setItem('role', 'healthadmin');
        setTimeout(() => {
-            navigate('/');
+            navigate('/healthadmin');
             window.location.reload();
         }, 1000); 
     }
 
-    else if (email=='pharmacist@gmail.com' && password=='pharmacist@123'){
+    else if (email=='pharmacist@gmail.com'){
       setError(null);
       setSuccessMessage('Logged in successfully as pharmacist');
       localStorage.setItem('token', '123');
       localStorage.setItem('role', 'pharmacist');
        setTimeout(() => {
-            navigate('/');
+            navigate('/pharmacist');
             window.location.reload();
 
         }, 1000); 
@@ -94,13 +94,13 @@ function LoginPage() {
   return (
     <div className="container">
     <Navbar />
-    <LoginNotification />
       <div className="login-form">
+      <LoginNotification />
         <h1>Login</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email :</label>
           <input
             type="text"
             id="email"
@@ -110,7 +110,7 @@ function LoginPage() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Password :</label>
           <div className="password-input">
             <input
               type="password"
