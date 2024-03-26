@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import './DataOversight.css'
 
 const SystemMalfunctionsComponent = () => {
-  const systemMalfunctions = [
-    { id: 1, description: 'Server outage', date: '2023-05-15', status: 'Resolved' },
-    { id: 2, description: 'Database corruption', date: '2023-06-20', status: 'Ongoing' },
-    { id: 3, description: 'Network connectivity issues', date: '2023-07-10', status: 'Resolved' },
-    { id: 4, description: 'Software bug causing crashes', date: '2023-08-05', status: 'Ongoing' }
-  ];
+
+
+  const [ systemMalfunctions ,setsystemMalfunctions ]  = useState([]);
+
+  useEffect(() => {
+
+
+    const fetchdata = async () => {
+
+
+      const response = await axios.get('/api/get/support/issue/systemMalfunctions', { withCredentials: true });
+      console.log(response);
+      setsystemMalfunctions(response.data)
+
+    }
+    fetchdata();
+  }, []);
+
+
 
   return (
     <div className="dataoversight">
@@ -26,7 +41,7 @@ const SystemMalfunctionsComponent = () => {
             <tr key={index}>
               <td>{malfunction.id}</td>
               <td>{malfunction.description}</td>
-              <td>{malfunction.date}</td>
+              <td>{malfunction.created_at ? new Date(malfunction.created_at).toISOString().split('T')[0] : "Invalid Date"}</td>
               <td>{malfunction.status}</td>
             </tr>
           ))}

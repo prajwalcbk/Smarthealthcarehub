@@ -3,6 +3,7 @@ import './Login.css'; // Import your custom CSS for styling
 import Navbar from './../navbar/Navbar'
 import { Link } from "react-router-dom";
 import { useHistory, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
@@ -13,32 +14,52 @@ function LoginPage() {
   const [successMessage, setSuccessMessage] = useState(null);
   const navigate = useNavigate();
 
-    const handleLogin = () => {
-    // Implement login functionality here
-    const data= {
-      email : email ,
-      password : password 
-    }
-    console.log(data)
-    if (email === 'admin@gmail.com' ){
+  const handleLogin = async () => {
+    try {
+      const data= {
+        email: email,
+        password: password
+      };
+
+      const response = await axios.post('/api/auth/admin/user/login', data, { withCredentials: true });
+      console.log(response)
+
       setError(null);
-      setSuccessMessage('Logged in successfully as admin');
-      localStorage.setItem('token', '123');
-      localStorage.setItem('role', 'admin');
+      setSuccessMessage('Loggedin successfully');
+      localStorage.setItem('token', response.data.token);
+      //localStorage.setItem('name', response.data.name); 
+      //localStorage.setItem('role', response.data.role); 
        setTimeout(() => {
             console.log("navigating to / page")
 
             navigate('/');
-            console.log("refreshing page")
+            //console.log("refreshing page")
             window.location.reload();
 
-        }, 1000); 
+          }, 1000); 
+  
+
+
+    } catch (error) {
+      
+      console.log(error)
+      if (error.response.status==403 && error.response) {
+        setSuccessMessage(null);
+        setError(error.response.data.error);
+      }
+      else if (error.response) {
+        setSuccessMessage(null);
+        setError("wrong username and password");
+      }
+       else if (error.request) {
+        setSuccessMessage(null);
+        setError('ERROR: Somethig went wrong');
+      } else {
+        setSuccessMessage(null);
+        setError('ERROR: Somethig went wrong');
+      }
     }
-    else{
-      setSuccessMessage(null);
-      setError('Invalid credentials');
-    } 
-  };
+};
 
 
   return (

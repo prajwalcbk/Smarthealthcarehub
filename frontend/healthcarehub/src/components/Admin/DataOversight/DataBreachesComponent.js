@@ -1,13 +1,26 @@
-import React from 'react';
 import './DataOversight.css'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const DataBreachesComponent = () => {
-  const dataBreaches = [
-    { id: 1, description: 'Customer information leaked', date: '2023-05-15', severity: 'High' },
-    { id: 2, description: 'Payment data exposed', date: '2023-06-20', severity: 'Medium' },
-    { id: 3, description: 'Login credentials compromised', date: '2023-07-10', severity: 'High' },
-    { id: 4, description: 'Sensitive documents leaked', date: '2023-08-05', severity: 'Low' }
-  ];
+
+
+  const [dataBreaches, setdataBreaches ]= useState([]);
+
+
+  useEffect(() => {
+
+
+    const fetchdataBreaches = async () => {
+
+
+      const response = await axios.get('/api/get/support/issue/databreaches', { withCredentials: true });
+      console.log(response);
+      setdataBreaches(response.data)
+
+    }
+    fetchdataBreaches();
+  }, []);
 
   return (
     <div className="dataoversight">
@@ -26,7 +39,7 @@ const DataBreachesComponent = () => {
             <tr key={index}>
               <td>{breach.id}</td>
               <td>{breach.description}</td>
-              <td>{breach.date}</td>
+              <td>{breach.created_at ? new Date(breach.created_at).toISOString().split('T')[0] : "Invalid Date"}</td>
               <td>{breach.severity}</td>
             </tr>
           ))}

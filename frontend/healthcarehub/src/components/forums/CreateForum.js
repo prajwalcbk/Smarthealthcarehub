@@ -1,24 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import './CreateForum.css'; // Import your CSS file for HealthForums styling
 import Navbar from '../navbar/Navbar';
+import axios from 'axios';
 //import { useHistory } from 'react-router-dom';
-
+import { useHistory, useNavigate } from 'react-router-dom';
 
 const CreateForum = () => {
 
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
+    const navigate = useNavigate();
   
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      // Here you can send the title and description to your backend or perform any other action
-      console.log('Title:', title);
-      console.log('Description:', description);
-      // Clear input fields after submission
-      setTitle('');
-      setDescription('');
-    };
+  const handleSubmit = async () => {
+
+        const data= {
+          'title': title,
+          'category': category,
+          'description' : description,
+          'user_id' : '1'
+        }
+        const response = await axios.post(`/api/create/forum` , data);
+
+        navigate('/forums')
+  };
+
 
   return (
     <div className="container">

@@ -36,11 +36,11 @@ import './mobile.css'
 function App() {
 
 
-    const { authIsReady, user } = useAuthContext();
+  const { authIsReady, user } = useAuthContext();
   const [loading, setLoading] = useState(true);
 
-  console.log(authIsReady,user)
   useEffect(() => {
+    console.log(authIsReady)
     // Once authIsReady becomes true, set loading to false
     if (authIsReady!== null) {
       setLoading(false);
@@ -67,14 +67,14 @@ function App() {
           <Route path="/adminlogin" element={<AdminLogin /> } />
           <Route path="/signup" element={authIsReady ?  <Navigate to="/" /> : <SignUp /> } />
           <Route path="/forgotpassword" element={authIsReady ?  <Navigate to="/" /> : <ForgotPassword /> } />
-          <Route path="/doctors" element={authIsReady && user.role == 'patient' ? <DoctorSearchPage /> : <Navigate to="/login" />} />
+          <Route path="/doctors" element={authIsReady && user.role == 'PATIENT' ? <DoctorSearchPage /> : <Navigate to="/login" />} />
           
           
-          <Route path="/patient" element={authIsReady && user.role == 'patient' ?   <Patient />   :  <Navigate to="/login" />} />
-          <Route path="/doctor" element={authIsReady && user.role == 'doctor' ? <Doctor /> : <Navigate to="/login" />} />
-          <Route path="/pharmacist" element={authIsReady && user.role == 'pharmacist' ? <Pharmacist /> : <Navigate to="/login" />} />
-          <Route path="/admin" element={authIsReady && user.role == 'admin' ? <Admin /> : <Navigate to="/adminlogin" />} />
-          <Route path="/healthadmin" element={authIsReady && user.role == 'healthadmin' ? <HealthAdmin /> : <Navigate to="/login" />} />
+          <Route path="/patient" element={authIsReady && user.role == 'PATIENT' ?   <Patient />   :  <Navigate to="/login" />} />
+          <Route path="/doctor" element={authIsReady && user.role == 'DOCTOR' ? <Doctor /> : <Navigate to="/login" />} />
+          <Route path="/pharmacist" element={authIsReady && user.role == 'PHARMACIST' ? <Pharmacist /> : <Navigate to="/login" />} />
+          <Route path="/admin" element={authIsReady && user.role == 'ADMIN' ? <Admin /> : <Navigate to="/adminlogin" />} />
+          <Route path="/healthadmin" element={authIsReady && user.role == 'HEALTHADMIN' ? <HealthAdmin /> : <Navigate to="/login" />} />
 
           
 

@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import './DataOversight.css'
 
 const PrivacyIssuesComponent = () => {
-  const privacyIssues = [
-    { id: 1, description: 'Data collection without consent', date: '2023-05-25', type: 'Personal data' },
-    { id: 2, description: 'Data shared with third-party without permission', date: '2023-06-30', type: 'Financial data' },
-    { id: 3, description: 'Inadequate security measures for sensitive information', date: '2023-07-20', type: 'Health records' },
-    { id: 4, description: 'Violation of user privacy policy', date: '2023-08-15', type: 'Location data' }
-  ];
+
+    const [privacyIssues, setprivacyIssues ]= useState([]);
+    useEffect(() => {
+
+
+    const fetchdata = async () => {
+
+
+      const response = await axios.get('/api/get/support/issue/privacy', { withCredentials: true });
+      console.log(response);
+      setprivacyIssues(response.data)
+
+    }
+    fetchdata();
+  }, []);
+
+
+
 
   return (
     <div className="dataoversight">
@@ -26,8 +40,8 @@ const PrivacyIssuesComponent = () => {
             <tr key={index}>
               <td>{issue.id}</td>
               <td>{issue.description}</td>
-              <td>{issue.date}</td>
-              <td>{issue.type}</td>
+              <td>{issue.created_at ? new Date(issue.created_at).toISOString().split('T')[0] : "Invalid Date"}</td>
+              <td>{issue.title}</td>
             </tr>
           ))}
         </tbody>

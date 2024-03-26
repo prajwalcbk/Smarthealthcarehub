@@ -3,14 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import './Pharmacist.css';
+import axios from 'axios';
 import { Link } from "react-router-dom";
 
 
 function Pharmacist(props) {
 
-  const [starteddate, setStartedDate] = useState('');
   const [qualification, setQualification]= useState('');
   const [licensenumber, setLicenseNumber] = useState();
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [location, setlocation] = useState();
+
 
   const [healthfacilityname, setHealthFacilityName] = useState('');
   const [healthfacilitynameoptions, setHealthFacilityNameOptions] = useState([]);
@@ -19,26 +22,7 @@ function Pharmacist(props) {
   
   const [error, setError] = useState(null);
 
-  function isValidDate(dateString) {
-  // Check if the input string matches the expected date format (MM/DD/YYYY)
-  const regex = /^\d{2}\/\d{2}\/\d{4}$/;
-  if (!regex.test(dateString)) {
-    return false;
-  }
 
-  // Check if the date is a valid date
-  const dateParts = dateString.split('/');
-  const day = parseInt(dateParts[1], 10);
-  const month = parseInt(dateParts[0], 10) - 1; // Month is 0-based in JavaScript Date object
-  const year = parseInt(dateParts[2], 10);
-  const date = new Date(year, month, day);
-
-  return (
-    date.getFullYear() === year &&
-    date.getMonth() === month &&
-    date.getDate() === day
-  );
-}
 
 
   // Function to fetch primary care provider options from API
@@ -65,22 +49,42 @@ function Pharmacist(props) {
   }, []);
 
 
-    // Function to handle primary care provider selection
   const handleHealthFacilityChange = (selectedOption) => {
     setHealthFacilityName(selectedOption);
   };
 
-  const handleSubmit = () => {
-    if (!isValidDate(starteddate)) {
-      setError('Please enter a valid date (MM/DD/YYYY).');
-      return;
-    }
-    if (!starteddate || !qualification || !licensenumber || !about || !healthfacilityname) {
+  const handleSubmit = async () => {
+
+    if (!qualification || !licensenumber || !about || !healthfacilityname || !location ||!phoneNumber ) {
       setError('Please fill out the required fields.');
       return;
     }
+    const data= {
+      email : props.email ,
+      password : props.password ,
+      firstname: props.firstname ,
+      lastname : props.lastname ,
+      phoneNumber : phoneNumber,
+      qualification:qualification,
+      licensenumber:licensenumber,
+      facility_id: healthfacilityname.value,
+      about: about,
+      address: location
+      }
+      console.log(data)
+    
+    try {
+      const response = await axios.post('/api/create/user/pharmacist' , data);
+    }
 
-  };
+
+    catch (error) {
+      
+        console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
+
+};
 
 
   return (
@@ -89,18 +93,30 @@ function Pharmacist(props) {
         <h1>Pharmacist Details</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
         
+
         <div className="form-group">
-          <label htmlFor="starteddate">Started Date *</label>
-          <input
-            type="text"
-            id="starteddate"
-            placeholder="MM/DD/YYYY"
-            value={starteddate}
-            onChange={(e) => setStartedDate(e.target.value)}
-            className={!isValidDate(starteddate) ? 'invalid' : ''}
-          />
-          
-        </div>
+            <label htmlFor="phoneNumber">Phone Number *</label>
+            <input
+              type="text"
+              id="phoneNumber"
+              placeholder="+1 408480XXXX"
+              value={phoneNumber}
+              onChange={e => setPhoneNumber(e.target.value)}
+              required
+            />
+          </div>
+
+        <div className="form-group">
+            <label htmlFor="location">Address *</label>
+            <input
+              type="text"
+              id="location"
+              placeholder="Dallas US "
+              value={location}
+              onChange={e => setlocation(e.target.value)}
+              required
+            />
+          </div>
 
         
         <div className="form-group">

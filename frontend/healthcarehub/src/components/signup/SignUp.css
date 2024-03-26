@@ -14,14 +14,18 @@
 
 .doctor-container {
     width: -webkit-fill-available;
+    max-width: 600px;
+    justify-content: center;
   }
 
 .pharmacist-container{
     width: -webkit-fill-available;
+    max-width: 600px;
+    justify-content: center;
 }
 
 .details-form {
-    /* width: 500px; */
+     width: 500px; 
     background-color: rgb(28 27 27 / 80%);
     color: white;
     padding-left: 20px;

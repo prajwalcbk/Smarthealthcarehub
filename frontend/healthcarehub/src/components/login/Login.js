@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
 import './Login.css'; // Import your custom CSS for styling
 import Navbar from './../navbar/Navbar'
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import { useHistory, useNavigate } from 'react-router-dom';
 import LoginNotification from './../LoginNotification'
+import { api, getCsrfToken } from './../api';
+import React, { useState, useEffect } from 'react';
 
 
 function LoginPage() {
@@ -13,89 +14,63 @@ function LoginPage() {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
+  
 
-  const handleLogin = () => {
-    // Implement login functionality here
-    const data= {
-      email : email ,
-      password : password 
-    }
-    console.log(data)
 
-    if (email === 'doctor@gmail.com' ){
+  const handleLogin = async () => {
+    try {
+      const data= {
+        email: email,
+        password: password
+      };
+
+      const response = await axios.post('/api/auth/user/login', data, { withCredentials: true });
+      console.log(response)
+
       setError(null);
-      setSuccessMessage('Logged in successfully as doctor');
-      localStorage.setItem('token', '123');
-      localStorage.setItem('role', 'doctor');
+      setSuccessMessage('Loggedin successfully');
+      localStorage.setItem('token', response.data.token);
+      //localStorage.setItem('name', response.data.name); 
+      //localStorage.setItem('role', response.data.role); 
        setTimeout(() => {
             console.log("navigating to / page")
-            navigate('/doctor');
-            window.location.reload();
-        }, 1000); 
-    }
 
-    else if (email=='patient@gmail.com'){
-      setError(null);
-      setSuccessMessage('Logged in successfully as patient');
-      localStorage.setItem('token', '123');
-      localStorage.setItem('role', 'patient');
-       setTimeout(() => {
-            navigate('/patient');
-            window.location.reload();
-        }, 1000); 
-    }
-
-    else if (email=='healthadmin@gmail.com'){
-      setError(null);
-      setSuccessMessage('Logged in successfully as healthadmin');
-      localStorage.setItem('token', '123');
-      localStorage.setItem('role', 'healthadmin');
-       setTimeout(() => {
-            navigate('/healthadmin');
-            window.location.reload();
-        }, 1000); 
-    }
-
-    else if (email=='pharmacist@gmail.com'){
-      setError(null);
-      setSuccessMessage('Logged in successfully as pharmacist');
-      localStorage.setItem('token', '123');
-      localStorage.setItem('role', 'pharmacist');
-       setTimeout(() => {
-            navigate('/pharmacist');
+            navigate('/');
+            //console.log("refreshing page")
             window.location.reload();
 
-        }, 1000); 
+          }, 1000); 
+  
+
+
+
+    } catch (error) {
+      
+      console.log(error)
+      if (error.response.status==403 && error.response) {
+        setSuccessMessage(null);
+        setError(error.response.data.error);
+      }
+      else if (error.response) {
+        setSuccessMessage(null);
+        setError("wrong username and password");
+      }
+       else if (error.request) {
+        setSuccessMessage(null);
+        setError('ERROR: Somethig went wrong');
+      } else {
+        setSuccessMessage(null);
+        setError('ERROR: Somethig went wrong');
+      }
     }
+};
 
-    else{
-      setSuccessMessage(null);
-      setError('Invalid credentials');
-    }
-
-
-
-
-
-
-      // axios.post('http://localhost/login', data)
-      // .then(response => {
-      //   console.log('Loggedin Successfully:', response.data);
-      //   // Optionally, reset form fields or perform other actions upon successful submission
-      // })
-      // .catch(error => {
-      //   console.error('Failed to login', error);
-      //   // Handle error appropriately, e.g., display error message to user
-      // });
-    console.log('Logging in with email:', email, 'and password:', password);
-  };
 
 
   return (
     <div className="container">
     <Navbar />
       <div className="login-form">
-      <LoginNotification />
         <h1>Login</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>

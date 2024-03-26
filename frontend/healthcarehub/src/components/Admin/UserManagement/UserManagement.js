@@ -1,35 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './UserManagement.css';
 
 function UserManagement() {
   const [UsersList, setUsersList] = useState([]);
   const [viewClicked, setViewClicked] = useState([]);
 
-  // Fetch user  data from an external source (e.g., API)
-  useEffect(() => {
-    const fetchUSers = async () => {
-      // Simulated response from API
-      const usersResponse = [
-         { "id": 1, "name": "John Doe", "CreatedDate": "2024-03-07T10:00:00", "email": "johndoe@example.com", "isActive": true },
-        { "id": 2, "name": "Jane Smith", "CreatedDate": "2024-03-07T11:30:00", "email": "janesmith@example.com", "isActive": true },
-        { "id": 3, "name": "Alice Johnson", "CreatedDate": "2024-03-07T09:15:00", "email": "alicejohnson@example.com", "isActive": true },
-        { "id": 4, "name": "Bob Brown", "CreatedDate": "2024-03-07T13:45:00", "email": "bobbrown@example.com", "isActive": false },
-        { "id": 5, "name": "Emily Davis", "CreatedDate": "2024-03-07T08:00:00", "email": "emilydavis@example.com", "isActive": false },
-        { "id": 6, "name": "Michael Wilson", "CreatedDate": "2024-03-07T14:20:00", "email": "michaelwilson@example.com", "isActive": false },
-        { "id": 7, "name": "Sarah Lee", "CreatedDate": "2024-03-07T12:10:00", "email": "sarahlee@example.com", "isActive": true }
-    ];
-      setUsersList(usersResponse);
-    };
 
-    fetchUSers();
+    useEffect(() => {
+    const fetchdata = async () => {
+    const response = await axios.get('/api/get/users', { withCredentials: true });
+    setUsersList(response.data)
+  }
+  fetchdata();
   }, []);
 
-const handleDeactivateUser = (userId) => {
+
+const handleDeactivateUser = async (userId) => {
   // Update UsersList immutably
+  const response = await axios.get(`/api/activate/user/${userId}`, { withCredentials: true });
   const updatedUsersList = UsersList.map(user => {
     if (user.id === userId) {
       // Return a new object with isActive toggled
-      return { ...user, isActive: !user.isActive };
+      return { ...user, is_active: !user.is_active };
     }
     return user; // Return other users as they are
   });
@@ -46,6 +39,7 @@ const handleDeactivateUser = (userId) => {
           <tr>
             <th>Name</th>
             <th>Email</th>
+            <th>Role</th>
             <th>Status</th>
             <th>CreatedDate</th>
             <th></th>
@@ -55,14 +49,15 @@ const handleDeactivateUser = (userId) => {
           {UsersList.map((user) => (
             <React.Fragment key={user.id}>
               <tr>
-                <td>{user.name}</td>
+                <td>{user.firstname} {user.lastname}</td>
                 <td>{user.email}</td>
-                <td>{user.isActive ? 'Active' : 'Inactive'}</td>
-                <td>{user.CreatedDate}</td>
+                <td>{user.role}</td>
+                <td>{user.is_active ? 'Active' : 'Inactive'}</td>
+                <td>{user.created_at ? new Date(user.created_at).toISOString().split('T')[0] : "Invalid Date"}</td>
                 <td>
                   
                   <button onClick={() => handleDeactivateUser(user.id)}>
-                  {user.isActive ? 'Deactivate' : 'Activate'}
+                  {user.is_active ? 'Deactivate' : 'Activate'}
                 </button>
                 </td>
               </tr>

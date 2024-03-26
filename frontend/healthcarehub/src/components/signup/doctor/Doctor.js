@@ -3,16 +3,19 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 import './Doctor.css';
 
 function Doctor(props) {
 
-  const [dateofbirth, setDateOfBirth] = useState('');
   const [gender, setGender] = useState('');
   const [qualification, setQualification]= useState('');
   const [specialization, setSpecialization] = useState('');
   const [licensenumber, setLicenseNumber] = useState();
+  const [location, setlocation] = useState();
+  const [phoneNumber, setPhoneNumber] = useState('');
+
 
   const [healthfacilityname, setHealthFacilityName] = useState('');
   const [healthfacilitynameoptions, setHealthFacilityNameOptions] = useState([]);
@@ -22,33 +25,12 @@ function Doctor(props) {
 
   const [error, setError] = useState(null);
 
-  function isValidDate(dateString) {
-  // Check if the input string matches the expected date format (MM/DD/YYYY)
-  const regex = /^\d{2}\/\d{2}\/\d{4}$/;
-  if (!regex.test(dateString)) {
-    return false;
-  }
-
-  // Check if the date is a valid date
-  const dateParts = dateString.split('/');
-  const day = parseInt(dateParts[1], 10);
-  const month = parseInt(dateParts[0], 10) - 1; // Month is 0-based in JavaScript Date object
-  const year = parseInt(dateParts[2], 10);
-  const date = new Date(year, month, day);
-
-  return (
-    date.getFullYear() === year &&
-    date.getMonth() === month &&
-    date.getDate() === day
-  );
-}
 
 
   // Function to fetch primary care provider options from API
   const fetchHealthFacilityName = async (inputValue) => {
     try {
       // Perform API call to fetch primary care providers based on inputValue
-      //const response = await fetch(`YOUR_API_ENDPOINT?search=${inputValue}`);
       //const data = await response.json();
       const data= [ {"name":"John","id":123},{"name":"David","id":123},{"name":"Joe","id":1243},{"name":"Miller","id":1243}]
 
@@ -68,19 +50,42 @@ function Doctor(props) {
   }, []);
 
 
-    // Function to handle primary care provider selection
   const handleHealthFacilityChange = (selectedOption) => {
     setHealthFacilityName(selectedOption);
   };
 
-  const handleSubmit = () => {
-    if (!isValidDate(dateofbirth)) {
-      setError('Please enter a valid date (MM/DD/YYYY).');
-      return;
-    }
-    if (!dateofbirth || !gender || !qualification || !specialization || !licensenumber || !about || !healthfacilityname) {
+  const handleSubmit = async () => {
+
+    if (!gender || !qualification || !specialization || !licensenumber || !about || !healthfacilityname || !location ||!phoneNumber ) {
       setError('Please fill out the required fields.');
       return;
+    }
+
+    const data= {
+      email : props.email ,
+      password : props.password ,
+      firstname: props.firstname ,
+      lastname : props.lastname ,
+      phoneNumber : phoneNumber,
+      gender: gender,
+      qualification:qualification,
+      specialization:specialization,
+      licensenumber:licensenumber,
+      facility_id: healthfacilityname.value,
+      about: about,
+      address: location
+      }
+      console.log(data)
+    
+    try {
+      const response = await axios.post('/api/create/user/doctor' , data);
+    }
+
+
+    catch (error) {
+      
+        console.log(error)
+        setError('ERROR: Somethig went wrong');
     }
 
   };
@@ -92,18 +97,6 @@ function Doctor(props) {
         <h1>Doctor Details</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
         
-        <div className="form-group">
-          <label htmlFor="dateofbirth">Date of Birth *</label>
-          <input
-            type="text"
-            id="dateofbirth"
-            placeholder="MM/DD/YYYY"
-            value={dateofbirth}
-            onChange={(e) => setDateOfBirth(e.target.value)}
-            className={!isValidDate(dateofbirth) ? 'invalid' : ''}
-          />
-          
-        </div>
 
         <div className="form-group">
           <label htmlFor="gender">Gender *</label>
@@ -118,6 +111,32 @@ function Doctor(props) {
             <option value="other">Other</option>
           </select>
         </div>
+
+        <div className="form-group">
+            <label htmlFor="phoneNumber">Phone Number *</label>
+            <input
+              type="text"
+              id="phoneNumber"
+              placeholder="+1 408480XXXX"
+              value={phoneNumber}
+              onChange={e => setPhoneNumber(e.target.value)}
+              required
+            />
+          </div>
+
+
+        <div className="form-group">
+            <label htmlFor="location">Address *</label>
+            <input
+              type="text"
+              id="location"
+              placeholder="Dallas US "
+              value={location}
+              onChange={e => setlocation(e.target.value)}
+              required
+            />
+          </div>
+
 
         
         <div className="form-group">

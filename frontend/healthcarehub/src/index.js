@@ -5,12 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { AuthProvider } from './AuthContext';
+import axios from 'axios';
+
+axios.defaults.baseURL = process.env.REACT_APP_BACKEND_APP_URL;
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
   <AuthProvider>
+
     <App />
   </AuthProvider>
   </React.StrictMode>

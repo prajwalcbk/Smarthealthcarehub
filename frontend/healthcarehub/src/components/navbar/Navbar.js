@@ -13,7 +13,6 @@ function Navbar() {
    useEffect(() => {
     const handleResize = () => {
       const isMobile = window.innerWidth <= 600; // You can adjust the threshold as needed
-      console.log(isMobile ? 'Mobile view' : 'Desktop view');
       setIsMobile(isMobile);
     };
 
@@ -84,8 +83,8 @@ return (
       }
       {isLoggedIn && 
         <div> 
-          <Link to={'/' + localStorage.getItem('role')}>
-            <i className="fas fa-user"></i> {localStorage.getItem('role')} 
+          <Link to={'/' + localStorage.getItem('role').toLowerCase()}>
+            <i className="fas fa-user"></i> {localStorage.getItem('name')} 
           </Link>
         </div>
       }

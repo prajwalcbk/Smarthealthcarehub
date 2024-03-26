@@ -12,8 +12,9 @@ function PatientSignup(props) {
   const [dateofbirth, setDateOfBirth] = useState('');
   const [gender, setGender] = useState('');
   const [emergencycontactnumber, setEmergencyContactNumber] = useState('');
-  const [primarycareprovider, setPrimaryCareProvider] = useState('');
-  const [careprovideroptions, setCareProviderOptions] = useState([]);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [location, setlocation] = useState();
+
 
 
   const [error, setError] = useState(null);
@@ -40,68 +41,40 @@ function PatientSignup(props) {
 }
 
 
-  // Function to fetch primary care provider options from API
-  const fetchPrimaryCareProviders = async (inputValue) => {
-    try {
-      // Perform API call to fetch primary care providers based on inputValue
-      //const response = await fetch(`YOUR_API_ENDPOINT?search=${inputValue}`);
-      //const data = await response.json();
-      const data= [ {"name":"John","id":123},{"name":"David","id":123},{"name":"Joe","id":1243},{"name":"Miller","id":1243}]
 
-      // Transform API response data to the format expected by React Select
-      const transformedOptions = data.map((provider) => ({
-        value: provider.id,
-        label: provider.name,
-      }));
-      setCareProviderOptions(transformedOptions);
-    } catch (error) {
-      console.error('Error fetching primary care providers:', error);
-    }
-  };
-  useEffect(() => {
-    // Fetch doctors from API when the component mounts
-    fetchPrimaryCareProviders();
-  }, []);
 
-  
-
-    // Function to handle primary care provider selection
-  const handlePrimaryCareProviderChange = (selectedOption) => {
-    setPrimaryCareProvider(selectedOption.id);
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isValidDate(dateofbirth)) {
       setError('Please enter a valid date (MM/DD/YYYY).');
       return;
     }
-    if (!dateofbirth || !gender ) {
+    if (!dateofbirth || !gender || !location ||!phoneNumber ) {
       setError('Please fill out the required fields.');
       return;
     }
+
     const data= {
     email : props.email ,
     password : props.password ,
     firstname: props.firstname ,
     lastname : props.lastname ,
-    phoneNumber : props.phoneNumber,
+    phoneNumber : phoneNumber,
     dateofbirth: dateofbirth,
     gender: gender,
     emergencycontactnumber: emergencycontactnumber,
-    primarycareprovider: primarycareprovider // Replace primaryCareProviderId with the actual provider ID
-      }
+    address: location
+    }
     console.log(data)
     
+    try {
+      const response = await axios.post('/api/create/user/patient' , data);
+    }
 
-      axios.post('http://localhost/register/patient', data)
-      .then(response => {
-        console.log('Patient data submitted successfully:', response.data);
-        // Optionally, reset form fields or perform other actions upon successful submission
-      })
-      .catch(error => {
-        console.error('Error submitting patient data:', error);
-        // Handle error appropriately, e.g., display error message to user
-      });
+    catch (error) {
+      
+        console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
 
   };
 
@@ -139,6 +112,30 @@ function PatientSignup(props) {
           </select>
         </div>
 
+        <div className="form-group">
+            <label htmlFor="location">Address *</label>
+            <input
+              type="text"
+              id="location"
+              placeholder="Dallas US "
+              value={location}
+              onChange={e => setlocation(e.target.value)}
+              required
+            />
+          </div>
+
+        <div className="form-group">
+            <label htmlFor="phoneNumber">Phone Number *</label>
+            <input
+              type="text"
+              id="phoneNumber"
+              placeholder="+1 408480XXXX"
+              value={phoneNumber}
+              onChange={e => setPhoneNumber(e.target.value)}
+              required
+            />
+          </div>
+
         
         <div className="form-group">
           <label htmlFor="Emergency Contact Number">Emergency Contact Number</label>
@@ -151,17 +148,6 @@ function PatientSignup(props) {
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="primarycareprovider">Primary Health Care Provider</label>
-          <Select
-            id="primarycareprovider"
-            value={primarycareprovider}
-            onChange={handlePrimaryCareProviderChange}
-            options={careprovideroptions}
-            placeholder="select primary care provider"
-            isSearchable
-          />
-        </div>
 
 
 

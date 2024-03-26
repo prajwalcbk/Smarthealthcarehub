@@ -11,7 +11,6 @@ function SignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const [isDoctor, setIsDoctor] = useState(false);
@@ -40,10 +39,7 @@ function SignUpPage() {
 
 
   const handleSignupNext = () => {
-    if (!email || !firstname  || !password || !confirmPassword || !phoneNumber) {
-    setError('Please fill out the required fields.');
-    return;
-  }
+    
     setNextClicked(true);
     
   };
@@ -116,17 +112,7 @@ function SignUpPage() {
             {!passwordsMatch && <p className="error-message">Passwords do not match</p>}
           </div>
           
-          <div className="form-group">
-            <label htmlFor="phoneNumber">Phone Number *</label>
-            <input
-              type="text"
-              id="phoneNumber"
-              placeholder="+1 408480XXXX"
-              value={phoneNumber}
-              onChange={e => setPhoneNumber(e.target.value)}
-              required
-            />
-          </div>
+
           
           <div className="form-group">
             
@@ -168,7 +154,6 @@ function SignUpPage() {
         confirmPassword={confirmPassword} 
         firstname={firstname} 
         lastname={lastname} 
-        phoneNumber={phoneNumber}
         />}
 
         {nextClicked && isDoctor && !isPharmacist && <Doctor 
@@ -177,7 +162,6 @@ function SignUpPage() {
         confirmPassword={confirmPassword} 
         firstname={firstname} 
         lastname={lastname}
-        phoneNumber={phoneNumber}
         />}
 
         {nextClicked && !isDoctor && isPharmacist && <Pharmacist 
@@ -186,7 +170,6 @@ function SignUpPage() {
         confirmPassword={confirmPassword} 
         firstname={firstname} 
         lastname={lastname}
-        phoneNumber={phoneNumber}
         />}
 
     </div>

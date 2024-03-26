@@ -1,32 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function HealthcareProviderManagement() {
   const [UsersList, setUsersList] = useState([]);
 
-  // Fetch user  data from an external source (e.g., API)
-  useEffect(() => {
-    const fetchUsers = async () => {
-      // Simulated response from API
-      const usersResponse = [
-  { "id": 2, "name": "Samantha", "CreatedDate": "2024-03-06T09:30:00Z", "email": "samantha@example.com", "isVerified": true, "role": "Doctor", "qualification": "MD", "specialization": "Neurology", "licensenumber": "456ghy67" },
-  { "id": 3, "name": "Michael", "CreatedDate": "2024-03-05T15:45:00Z", "email": "michael@example.com", "isVerified": false, "role": "Nurse", "qualification": "RN", "specialization": "Pediatrics", "licensenumber": "789zxc12" },
-  { "id": 4, "name": "Emily", "CreatedDate": "2024-03-04T14:20:00Z", "email": "emily@example.com", "isVerified": false, "role": "Doctor", "qualification": "MBBS", "specialization": "Dermatology", "licensenumber": "abc456d" },
-  { "id": 5, "name": "David", "CreatedDate": "2024-03-03T10:00:00Z", "email": "david@example.com", "isVerified": false, "role": "Doctor", "qualification": "MD", "specialization": "Orthopedics", "licensenumber": "xyz789e" }
-]
-;
-      setUsersList(usersResponse);
-    };
 
-    fetchUsers();
+
+
+  useEffect(() => {
+    const fetchdata = async () => {
+    const response = await axios.get('/api/get/doctors', { withCredentials: true });
+    setUsersList(response.data)
+  }
+  fetchdata();
   }, []);
 
-const handleVerifyUser = (userId) => {
+
+
+const handleVerifyUser = async (userId) => {
   // Update UsersList immutably
+  const response = await axios.get(`/api/verify/user/${userId}`, { withCredentials: true });
   const updatedUsersList = UsersList.map(user => {
-    if (user.id === userId) {
-      // Return a new object with isActive toggled
+    if (user.user_id  === userId) {
       
-      return { ...user, isVerified: !user.isVerified };
+      return { ...user, is_verified: !user.is_verified };
     }
     return user; // Return other users as they are
   });
@@ -47,10 +44,10 @@ const handleVerifyUser = (userId) => {
           <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Role</th>
             <th>Qualification</th>
             <th>Specialization</th>
             <th>License Number </th>
+            <th>FacilityName</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -58,18 +55,24 @@ const handleVerifyUser = (userId) => {
           {UsersList.map((user) => (
             <React.Fragment key={user.id}>
               <tr>
-                <td>{user.name}</td>
+                <td>{user.firstname} {user.lastname}</td>
                 <td>{user.email}</td>
-                <td>{user.role}</td>
                 <td>{user.qualification}</td>
                 <td>{user.specialization}</td>
                 <td>{user.licensenumber}</td>
-                <td>{user.isVerified ? 'Verified' : 'Pending'}</td>
+                <td>{user.healthfacilityname}</td>
+
+                <td>{user.is_verified ? 'Verified' : 'Pending'} </td>
                 <td>
-                {( ! user.isVerified )  && <button onClick={() => handleVerifyUser(user.id)}> Verify </button>}
-                {(  user.isVerified )  && <button onClick={() => handleVerifyUser(user.id)}> ReVerify </button>}
+                <button onClick={() => handleVerifyUser(user.user_id)}>
+                  {user.is_active ? 'ReVerify' : 'Verify'}
+                </button>
                    
                 </td>
+
+      
+                  
+                  
               </tr>
             </React.Fragment>
           ))}
