@@ -9,16 +9,23 @@ class ExerciseController extends Controller
 {
     public function store(Request $request)
     {
+        $user=$request->user;
         $request->validate([
-            'user_id' => 'required|exists:users,id',
             'workout' => 'required|string',
-            'index' => 'required|integer',
-            'date' => 'required|date',
+            'date' => 'required|string',
             'intensity' => 'required|string',
             'duration' => 'required|string',
         ]);
 
-        $exercise = Exercise::create($request->all());
+        $exercise = Exercise::create([
+            'workout' => $request->workout,
+            'date' =>  $request->date,
+            'intensity' => $request->intensity,
+            'duration' =>  $request->duration,
+            'user_id' => $user->id
+        ]);
+
+
         return response()->json($exercise, 201);
     }
 
@@ -26,7 +33,6 @@ class ExerciseController extends Controller
     {
         $request->validate([
             'workout' => 'required|string',
-            'index' => 'required|integer',
             'date' => 'required|date',
             'intensity' => 'required|string',
             'duration' => 'required|string',
@@ -40,9 +46,10 @@ class ExerciseController extends Controller
     }
 
 
-    public function getByUser($UserId)
+    public function getByUser(Request $request)
     {
-        $exercise = Exercise::where('user_id', $id)
+        $user=$request->user;
+        $exercise = Exercise::where('user_id', $user->id)
             ->join('users', 'exercises.user_id', '=', 'users.id')
             ->select(
                 'exercises.*',

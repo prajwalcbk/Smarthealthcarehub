@@ -1,36 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../navbar/Navbar';
+import axios from 'axios';
 
 function HealthRecords() {
   const [healthRecords, setHealthRecords] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [editedHealthRecords, setEditedHealthRecords] = useState({});
+  const token = localStorage.getItem('token');
 
-  // Sample function to fetch health records from an API
   const fetchHealthRecords = async () => {
     try {
-      // Make API call to fetch health records
-      // Replace the URL with your actual API endpoint
-      // const response = await fetch('your-api-endpoint');
-      // const data = await response.json();
-      // Update state with fetched health records
-      const sampleHealthRecords = {
-        height: '175 cm',
-        weight: '70 kg',
-        age: '30 years',
-        bloodGroup: 'A+',
-        // Add more health records as needed
-      };
-      const data=sampleHealthRecords;
-      setHealthRecords(data);
-      setEditedHealthRecords(data); // Set initial values for editable fields
+
+
+      const response = await axios.get('/api/get/basic/healthrecord',  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      console.log(response.data[0]);
+      setHealthRecords(response.data[0]);
+      setEditedHealthRecords(response.data[0]);
+
+
     } catch (error) {
       console.error('Error fetching health records:', error);
     }
   };
 
   useEffect(() => {
-    // Fetch health records when the component mounts
     fetchHealthRecords();
   }, []);
 
@@ -53,9 +52,17 @@ function HealthRecords() {
 
     const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSubmit = (event) => {
-    setHealthRecords(editedHealthRecords)
-    event.preventDefault();
+    const handleSubmit = async () => {
+
+
+    const response = await axios.post('/api/update/basic/healthrecord', editedHealthRecords,  {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+      });;
+      setHealthRecords(response.data);
+      setEditedHealthRecords(response.data);
     setEditMode(false);
     setSuccessMessage("Edited successfully");
     setTimeout(() => {
@@ -70,7 +77,6 @@ function HealthRecords() {
       <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
       {healthRecords ? (
         <div>
-          <form method="POST">
 
 
           <div className="input-row"> 
@@ -122,8 +128,8 @@ function HealthRecords() {
               <input
                 type="text"
                 id="bloodGroup"
-                name="bloodGroup"
-                value={editMode ? editedHealthRecords.bloodGroup : healthRecords.bloodGroup}
+                name="blood_group"
+                value={editMode ? editedHealthRecords.blood_group : healthRecords.blood_group}
                 onChange={handleInputChange}
                 disabled={!editMode}
               />
@@ -134,7 +140,6 @@ function HealthRecords() {
 
             {editMode && <button onClick={handleCancel}>Cancel</button>}
             {editMode && <button type="submit" onClick={handleSubmit}>Save</button>}
-          </form>
           
           {!editMode && <button onClick={handleEdit}>Edit</button>}
         </div>

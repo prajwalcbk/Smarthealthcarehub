@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 import UserManagement from './UserManagement/UserManagement'
-import HealthcareProviderManagement from './HealthcareProviderManagement/HealthcareProviderManagement'
+import DoctorManagement from './HealthcareProviderManagement/DoctorManagement'
+import PharmacistManagement from './HealthcareProviderManagement/PharmacistManagement'
 import SystemConfiguration from './SystemConfiguration/SystemConfiguration'
 import ReportGeneration from './ReportGeneration/ReportGeneration'
 import PrivacyIssuesComponent from './DataOversight/PrivacyIssuesComponent'
@@ -27,6 +28,7 @@ function Admin() {
 
   const [isOpen, setIsopen] = useState(true);
   const [isDropDownOpen, setDropDownOpen] = useState(false);
+  const [isDropDownOpen1, setDropDownOpen1] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
 
@@ -52,9 +54,23 @@ function Admin() {
 
   };
 
-    const handleDropDown = () => {
+
+  const handleDropDown = () => {
+    if(isMobile){
+    setActiveComponent('')
+  }
     setDropDownOpen(!isDropDownOpen);
+    setDropDownOpen1(false);
   };
+
+  const handleDropDown1 = () => {
+    if(isMobile){
+    setActiveComponent('')
+  }
+    setDropDownOpen1(!isDropDownOpen1);
+    setDropDownOpen(false);
+  };
+
 
   const setComponent = (component) => {
     setActiveComponent(component);
@@ -73,8 +89,18 @@ function Admin() {
           <button onClick={handleToggle}> <img src={bar} alt="menu bar"  /> Menu Bar </button>
 
           
-            <button onClick={() => setComponent('UserManagement')}> <img src={patient} alt="Stethoscope Icon"  />  Users </button>
-            <button onClick={() => setComponent('HealthcareProviderManagement')}> <img src={doctor} alt="Stethoscope Icon"  />  HealthcareProviders </button>
+            <button onClick={() => setComponent('UserManagement')}> <img src={patient} alt="Stethoscope Icon"  />  Users  </button>
+            <button onClick={handleDropDown1}> <img src={doctor} alt="Stethoscope Icon"  />  
+            HealthcareProviders </button>
+            {(
+            isDropDownOpen1
+          ) && (          
+          <div className="medical-record-drop-down" >
+          
+            <button onClick={() => setComponent('Doctors')}>  Doctors </button>
+            <button onClick={() => setComponent('Pharmacists')}> Pharmacists </button>
+          </div>
+          )}
             <button onClick={() => setComponent('SystemConfiguration')}> <img src={configuration} alt="Stethoscope Icon"  />  SystemConfiguration </button>
             <button onClick={handleDropDown}>
               <img src={oversights} alt="DataOversight Icon"  />
@@ -114,7 +140,8 @@ function Admin() {
 
         <div className="user-data">
           {activeComponent === 'UserManagement' && <UserManagement />}
-          {activeComponent === 'HealthcareProviderManagement' && <HealthcareProviderManagement />}
+          {activeComponent === 'Doctors' && <DoctorManagement />}
+          {activeComponent === 'Pharmacists' && <PharmacistManagement />}
           {activeComponent === 'SystemConfiguration' && <SystemConfiguration />}
           {activeComponent === 'ReportGeneration' && <ReportGeneration />}
 

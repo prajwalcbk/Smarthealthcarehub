@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import AppointmentManagement from './AppointmentManagement'
-//import appointment from './appointmentDetails';
+import axios from 'axios';
 
 function AppointmentList() {
   const [appointmentList, setappointmentList] = useState([]);
   const [viewClicked, setViewClicked] = useState([]);
+  const token = localStorage.getItem('token');
 
   // Fetch appointment history data from an external source (e.g., API)
   useEffect(() => {
     const fetchappointments = async () => {
-      // Simulated response from API
-      const appointmentResponse = [
-       { "id": 1, "Reason": "Flu Symptoms", "Date": "27-01-2024" , "Time": "10:00" , "Duration" : "45 minutes" ,  "Patient": "John" ,  "Doctor":"Smith" , "status": "Active" },
-        { "id": 3, "Reason": "Migraine", "Date": "27-01-2024" , "Time": "11:00" , "Duration" : "60 minutes" ,  "Patient": "Alice" ,  "Doctor":"Jones" , "status": "Active" },
-        { "id": 2, "Reason": "Common Cold", "Date": "27-01-2024" , "Time": "12:00" , "Duration" : "30 minutes" ,  "Patient": "Bob" ,  "Doctor":"Davis" , "status": "Active" },
-        { "id": 4, "Reason": "Stomach Flu", "Date": "27-01-2024" , "Time": "13:00" , "Duration" : "45 minutes" ,  "Patient": "Emma" ,  "Doctor":"Wilson" , "status": "Active" },
-        { "id": 5, "Reason": "Tension Headache", "Date": "27-01-2024" , "Time": "14:00" , "Duration" : "60 minutes" ,  "Patient": "Michael" ,  "Doctor":"Brown" , "status": "Active" },
-        { "id": 6, "Reason": "Seasonal Allergies", "Date": "27-01-2024" , "Time": "15:00" , "Duration" : "30 minutes" ,  "Patient": "Sophia" ,  "Doctor":"Miller" , "status": "Active" },
-        { "id": 7, "Reason": "Sinus Infection", "Date": "27-01-2024" , "Time": "16:00" , "Duration" : "45 minutes" ,  "Patient": "Ethan" ,  "Doctor":"Taylor" , "status": "Active" },
-        { "id": 8, "Reason": "Food Poisoning", "Date": "27-01-2024" , "Time": "17:00" , "Duration" : "60 minutes" ,  "Patient": "Olivia" ,  "Doctor":"Clark" , "status": "Active" }
-    ];
-      setappointmentList(appointmentResponse);
+      
+      const response = await axios.get(`/api/get/user/appointments`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          }); 
+
+      setappointmentList(response.data);
     };
 
     fetchappointments();
@@ -52,14 +50,11 @@ function AppointmentList() {
             <React.Fragment key={appointment.id}>
               <tr>
                 
-                <td>{appointment.Date}</td>
-                <td>{appointment.Time}</td>
-                <td>{appointment.Duration}</td>
-                <td>{appointment.Doctor}</td>
-                 <td>{appointment.Reason}</td>
-                
-
-
+                <td>{appointment.date}</td>
+                <td>{appointment.time}</td>
+                <td>{appointment.duration}</td>
+                <td>{appointment.doctor_firstname} {appointment.doctor_lastname} </td>
+                 <td>{appointment.reason} </td>
                 <td>{appointment.status}</td>
                 <td>
                   {viewClicked[appointment.id] && <button onClick={() => handleViewClick(appointment.id)}>Close</button>}
@@ -70,9 +65,9 @@ function AppointmentList() {
                 <tr>
                   <td colSpan="7">
                     <AppointmentManagement 
-                    reason={appointment.Reason}
-                    duration={appointment.Duration}
-                    Time={appointment.Time}
+                    reason={appointment.reason}
+                    duration={appointment.duration}
+                    Time={appointment.time}
                     Date='Fri Mar 08 2024 00:00:00 GMT+0530 (India Standard Time)'
                     id={appointment.id}
 

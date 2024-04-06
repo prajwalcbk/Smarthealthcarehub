@@ -13,7 +13,7 @@ class FacilityController extends Controller
             'name' => 'required|string',
             'location' => 'required|string',
             'services' => 'required|string',
-            'status' => 'nullable|in:Active,Inactive',
+            'status' => 'nullable|in:Active,InActive',
             'description' => 'required|string',
         ]);
 
@@ -25,5 +25,26 @@ class FacilityController extends Controller
     {
         $facilities = Facility::all();
         return response()->json($facilities);
+    }
+
+
+    public function searchFacility(Request $request)
+    {
+
+        $name = $request->input('name');
+
+        $facility = Facility::query();
+
+        if ($name) {
+            $facility->where('name', 'like', '%' . $name . '%');
+        }
+
+
+
+        // Execute the query and retrieve the results
+        $results = $facility->get();
+
+        // Return the results as JSON response
+        return response()->json($results);
     }
 }

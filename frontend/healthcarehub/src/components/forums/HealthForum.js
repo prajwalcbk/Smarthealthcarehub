@@ -14,11 +14,17 @@ const HealthForum = () => {
   const [titleFilter, setTitleFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages , setTotalPages ] = useState(1);
+  const token = localStorage.getItem('token');
 
 
 
     const fetchDataFromApi = async (page) => {
-      const response = await axios.get(`/api/get/forums?page=${page}`);
+      const response = await axios.get(`/api/get/forums?page=${page}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
       return response.data;
   };
 

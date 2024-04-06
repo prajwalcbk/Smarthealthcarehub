@@ -1,75 +1,101 @@
 import React, { useState, useEffect } from 'react';
 import './IncidentResponse.css'; // Import CSS file for styling
+import axios from 'axios';
 
 function IncidentResponse() {
   const [viewincidentClicked, setviewpincidentClicked] = useState([]);
     const [ reply , setReply] = useState('');
     const [ comments , setComments] = useState([]);
     const [successMessages, setSuccessMessages] = useState({});
+    const [incidents , setIncidents] = useState([]);
+    const token = localStorage.getItem('token');
+    const [error, setError] = useState(null);
 
 
-  const [incidents , setIncidents] = useState([]);
-    
-    const tempincidents = [ {
-      id: 1,
-      type: "Data Breach",
-      severity: "High",
-      status: "Open",
-      timestamp: "2024-02-12T14:30:00"
-    },
-    {
-      id: 2,
-      type: "Server Outage",
-      severity: "Critical",
-      status: "Open",
-      timestamp: "2024-02-11T10:15:00"
-    },
-    {
-      id: 3,
-      type: "Medical Device Failure",
-      severity: "Medium",
-      status: "Open",
-      timestamp: "2024-02-10T08:45:00"
-    },
-    {
-      id: 4,
-      type: "Network Security Breach",
-      severity: "Critical",
-      status: "Open",
-      timestamp: "2024-02-09T16:20:00"
-    },
-    {
-      id: 5,
-      type: "Phishing Attack",
-      severity: "High",
-      status: "Open",
-      timestamp: "2024-02-08T09:55:00"
-    },
-    {
-      id: 6,
-      type: "Software Bug",
-      severity: "Medium",
-      status: "Open",
-      timestamp: "2024-02-07T11:10:00"
-    },
-    // Add more incidents as needed
-  ];
 
-   useEffect(() => {
-  setIncidents(tempincidents);
-}, []);
 
-  const Onsubmit =() => {
-    if (reply!='') {
-    const user= localStorage.getItem('role');
-    const newComment = { id: comments.length + 1, user: user, message: reply };
+  useEffect(() => {
+    const fetchDataFromApi = async () => {
+      try {
+    const response = await axios.get('/api/get/support/incidentresponse',  {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+    setIncidents(response.data);
+  }
+  catch (error) { 
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
+  }
+  fetchDataFromApi();
+
+  }, []);
+
+const fetchCommentsFromApi = async (complianceId) => {
+try {
+      const response = await axios.get(`/api/get/support/comments/${complianceId}`,  {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              },
+              timeout: 2000 // Set timeout to 2 seconds
+            });
+      setComments(response.data);
+  }
+  catch (error) { 
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+  }
+}
+
+
+const storeComments = async (id , message) => {
+try {
+  const data={
+    support_id:id,
+    message:message
+  }
+      const response = await axios.post(`/api/create/support/comment`, data , {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              },
+              timeout: 2000 // Set timeout to 2 seconds
+            });
+      return response.data[0];
+  }
+  catch (error) { 
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+  }
+};
+
+
+const CloseSupport = async (Id) => {
+  // Update UsersList immutably
+  const response = await axios.get(`/api/close/support/issues/${Id}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+};
+
+
+
+  const Onsubmit = async (id) => {
+    if (reply!=''){
+    const newComment = await storeComments(id,reply);
     const updatedComments = [...comments, newComment];
     setComments(updatedComments);
+    console.log(comments)
     setReply('');
   }
-  };
+};
 
   const handleresolveincidentClicked =(Id) => { 
+    CloseSupport(Id);
     const newSuccessMessages = { ...successMessages };
     newSuccessMessages[Id] = "Resolved Successfully";
     setSuccessMessages(newSuccessMessages);
@@ -94,25 +120,27 @@ function IncidentResponse() {
 
 
 
-  const handleviewincidentClicked = (incidentId) => {
-    setviewpincidentClicked((prevClicked) => {
-      // Create a new array based on the previous state
-      const newClicked = [...prevClicked];
-      // Toggle the clicked state for the clicked doctor
-      newClicked[incidentId] = !newClicked[incidentId];
+const handleviewincidentClicked = (incidentId) => {
+  setviewpincidentClicked((prevClicked) => {
+    const newClicked = [...prevClicked];
 
-  const dummyCommentsData = [
-    { id: 1, user: 'Alice', message: 'Great facility, I had a wonderful experience!' },
-    { id: 2, user: 'Bob', message: 'The services offered here are excellent.' },
-    { id: 3, user: 'Alice', message: 'I highly recommend this place.' },
-    { id: 4, user: 'Bob', message: 'Friendly staff and clean environment.' },
-    { id: 5, user: 'Eva', message: 'Very satisfied with the treatment received.' },
-  ];
+    // Iterate through all compliance IDs
+    for (let i = 0; i < newClicked.length; i++) {
+      // Set the previously clicked compliance to false
+      if (i !== incidentId && newClicked[i] === true) {
+        newClicked[i] = false;
+      }
+    }
 
-  setComments(dummyCommentsData);
-      return newClicked;
-    });
-  };
+    // Toggle the clicked compliance
+    newClicked[incidentId] = !newClicked[incidentId];
+
+    // Fetch comments for the clicked compliance
+    fetchCommentsFromApi(incidentId);
+
+    return newClicked;
+  });
+};
 
 return (
   <div className="incident-response-container">
@@ -123,7 +151,7 @@ return (
         {incidents.map(incident => (
           <li key={incident.id}>
             <div className="incident-details">
-              <h3>{incident.type}</h3>
+              <h3>{incident.title}</h3>
               <p><strong>Severity:</strong> {incident.severity}</p>
               <p><strong>Status:</strong> {incident.status}</p>
               <p><strong>Timestamp:</strong> {incident.timestamp}</p>
@@ -132,10 +160,11 @@ return (
                   <h2>Comments</h2>
                   {comments.map(comment => (
                     <div key={comment.id} className="comment">
-                      <span className="comment-user">{comment.user}: </span>
+                      <span className="comment-user">{comment.user.firstname} {comment.user.lastname}: </span>
                       <span className="comment-message">{comment.message}</span>
                     </div>
                   ))}
+                  {incident.status === "Open" && (
                   <div className="form-group">
                     <h2>Reply</h2>
                     <textarea
@@ -144,13 +173,14 @@ return (
                       onChange={e => setReply(e.target.value)}
                       rows={3} 
                     />
-                    <button onClick={Onsubmit}>Submit</button>
+                    <button onClick={() => Onsubmit(incident.id)}>Submit</button>
                   </div>
+                  )}
                 </div>
               )}
               {!viewincidentClicked[incident.id] && (
                 <div>
-                <button onClick={() => handleviewincidentClicked(incident.id)}>View</button>
+                <button onClick={() => handleviewincidentClicked(incident.id)}>View Comments</button>
                 <div>{successMessages[incident.id] && <p className="success-message">{successMessages[incident.id]}</p>} </div>
 
                 {incident.status === "Open" && (

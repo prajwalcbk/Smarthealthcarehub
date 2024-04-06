@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import './Pharmacist.css';
+import { useHistory, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
@@ -13,6 +14,7 @@ function Pharmacist(props) {
   const [licensenumber, setLicenseNumber] = useState();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [location, setlocation] = useState();
+  const navigate = useNavigate();
 
 
   const [healthfacilityname, setHealthFacilityName] = useState('');
@@ -21,6 +23,7 @@ function Pharmacist(props) {
   const [about, setAbout] = useState('');
   
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
 
 
@@ -75,12 +78,23 @@ function Pharmacist(props) {
     
     try {
       const response = await axios.post('/api/create/user/pharmacist' , data);
+      setError(null);
+      setSuccessMessage('Account Created Successfully');
+      setTimeout(() => {
+            console.log("navigating to / page")
+
+            navigate('/');
+            //console.log("refreshing page")
+            window.location.reload();
+
+          }, 1000);
     }
 
 
     catch (error) {
       
         console.log(error)
+        setSuccessMessage(null);
         setError('ERROR: Somethig went wrong');
     }
 
@@ -92,6 +106,7 @@ function Pharmacist(props) {
       <div className="details-form">
         <h1>Pharmacist Details</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>
         
 
         <div className="form-group">

@@ -3,12 +3,15 @@ import Navbar from '../navbar/Navbar';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './AppointmentManagement.css';
+import axios from 'axios';
 
-function AppointmentManagement( { doctorid , updateParentState}  ) {
+function AppointmentManagement( { doctorid , updateParentState , userid }  ) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [reason, setReason] = useState('');
   const [selectedTime, setSelectedTime] = useState('12:00');
   const [duration , setDuration] = useState(15);
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleTimeChange = (event) => {
     setSelectedTime(event.target.value);
@@ -22,30 +25,53 @@ function AppointmentManagement( { doctorid , updateParentState}  ) {
     setReason(e.target.value);
   };
 
-  const handleSubmit = () => {
-    handleSave();
-    // Your logic to handle the appointment submission
-    console.log('Appointment Date:', selectedDate);
-    console.log('Appointment Time:', selectedTime);
-    console.log('Reason for Visit:', reason);
-    // Add logic to submit appointment to the backend or perform other actions
-  };
+  const handleSubmit = async () => {
 
-  const [successMessage, setSuccessMessage] = useState('');
+    if (!selectedDate || !reason || !selectedTime ||!duration ) {
+      setError('Please fill out the required fields.');
+      return;
+    }
 
-    const handleSave = (event) => {
+    const data= {
+      date : selectedDate.toISOString().split('T')[0] ,
+      reason : reason ,
+      time: selectedTime,
+      duration: duration ,
+      doctor_id : doctorid ,
+    }
+    console.log(data)
+    
+    try {
+       const token = localStorage.getItem('token');
+      const response = await axios.post('/api/create/appointment' , data , {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+    setError('');
     setSuccessMessage("Appointment Booked Successfully");
     setTimeout(() => {
             setSuccessMessage('');
-            updateParentState(doctorid);
-        }, 3000); 
-
+            updateParentState(userid);
+        }, 2000); 
+    }
     
 
+    catch (error) {
+      
+        console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
+
+
   };
+  
+
 
   return (
     <div className="appointment-management">
+    <div>{error && <p className="error-message">{error}</p>}</div>
     <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
       <div className="appointment-management-container">
         <div className="calendar-container">

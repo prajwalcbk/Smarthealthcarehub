@@ -5,7 +5,7 @@ import Select from 'react-select';
 import axios from 'axios';
 import './Patient.css';
 import { Link } from "react-router-dom";
-
+import { useHistory, useNavigate } from 'react-router-dom';
 
 function PatientSignup(props) {
 
@@ -14,6 +14,8 @@ function PatientSignup(props) {
   const [emergencycontactnumber, setEmergencyContactNumber] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [location, setlocation] = useState();
+  const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState('');
 
 
 
@@ -68,6 +70,14 @@ function PatientSignup(props) {
     
     try {
       const response = await axios.post('/api/create/user/patient' , data);
+      setTimeout(() => {
+            console.log("navigating to / page")
+
+            navigate('/');
+            //console.log("refreshing page")
+            window.location.reload();
+
+          }, 1000);
     }
 
     catch (error) {
@@ -84,7 +94,7 @@ function PatientSignup(props) {
       <div className="details-form">
         <h1>User Details</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
-        
+        <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>
         <div className="form-group">
           <label htmlFor="dateofbirth">Date of Birth *</label>
           <input

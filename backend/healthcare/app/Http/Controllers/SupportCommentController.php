@@ -10,14 +10,23 @@ class SupportCommentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
             'support_id' => 'required|exists:supports,id',
             'message' => 'required|string',
         ]);
+        $user = $request->user;
 
-        $supportComment = SupportComment::create($request->all());
 
-        return response()->json($supportComment, 201);
+        $supportComment = SupportComment::create([
+            'support_id' => $request->support_id,
+            'user_id' => $user->id,
+            'message' => $request->message,
+        ]);
+
+        $newsupportComment = SupportComment::where('id', $supportComment->id)
+            ->with('user:id,firstname,lastname,email') // Eager load user details
+            ->get();
+
+        return response()->json($newsupportComment, 201);
     }
 
     public function getBySupportId($id)

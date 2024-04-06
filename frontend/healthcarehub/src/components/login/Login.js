@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import { useHistory, useNavigate } from 'react-router-dom';
 import LoginNotification from './../LoginNotification'
-import { api, getCsrfToken } from './../api';
 import React, { useState, useEffect } from 'react';
 
 
@@ -29,9 +28,10 @@ function LoginPage() {
 
       setError(null);
       setSuccessMessage('Loggedin successfully');
+      localStorage.setItem('role', response.data.role); 
       localStorage.setItem('token', response.data.token);
       //localStorage.setItem('name', response.data.name); 
-      //localStorage.setItem('role', response.data.role); 
+      
        setTimeout(() => {
             console.log("navigating to / page")
 

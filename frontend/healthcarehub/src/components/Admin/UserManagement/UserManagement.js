@@ -5,11 +5,17 @@ import './UserManagement.css';
 function UserManagement() {
   const [UsersList, setUsersList] = useState([]);
   const [viewClicked, setViewClicked] = useState([]);
+  const token = localStorage.getItem('token');
 
 
     useEffect(() => {
     const fetchdata = async () => {
-    const response = await axios.get('/api/get/users', { withCredentials: true });
+    const response = await axios.get('/api/get/users',  {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
     setUsersList(response.data)
   }
   fetchdata();
@@ -18,7 +24,12 @@ function UserManagement() {
 
 const handleDeactivateUser = async (userId) => {
   // Update UsersList immutably
-  const response = await axios.get(`/api/activate/user/${userId}`, { withCredentials: true });
+  const response = await axios.get(`/api/activate/user/${userId}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
   const updatedUsersList = UsersList.map(user => {
     if (user.id === userId) {
       // Return a new object with isActive toggled

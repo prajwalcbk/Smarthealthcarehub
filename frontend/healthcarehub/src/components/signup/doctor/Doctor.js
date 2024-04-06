@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { useHistory, useNavigate } from 'react-router-dom';
 
 import './Doctor.css';
 
@@ -15,6 +16,7 @@ function Doctor(props) {
   const [licensenumber, setLicenseNumber] = useState();
   const [location, setlocation] = useState();
   const [phoneNumber, setPhoneNumber] = useState('');
+  const navigate = useNavigate();
 
 
   const [healthfacilityname, setHealthFacilityName] = useState('');
@@ -24,6 +26,7 @@ function Doctor(props) {
   
 
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
 
 
@@ -79,6 +82,13 @@ function Doctor(props) {
     
     try {
       const response = await axios.post('/api/create/user/doctor' , data);
+      setTimeout(() => {
+
+            navigate('/');
+            //console.log("refreshing page")
+            window.location.reload();
+
+          }, 1000);
     }
 
 
@@ -96,7 +106,7 @@ function Doctor(props) {
       <div className="details-form">
         <h1>Doctor Details</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
-        
+        <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>
 
         <div className="form-group">
           <label htmlFor="gender">Gender *</label>

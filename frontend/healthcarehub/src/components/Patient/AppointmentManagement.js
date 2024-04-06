@@ -50,9 +50,9 @@ function AppointmentManagement(props) {
             value={duration}
             onChange={e => setDuration(e.target.value)}
           >
-          <option value="15 minutes">15 minutes</option>
-          <option value="30 minutes">30 minutes</option>
-          <option value="60 minutes">60 minutes</option>
+          <option value="15">15 minutes</option>
+          <option value="30">30 minutes</option>
+          <option value="60">60 minutes</option>
         </select>
 
         <h2>Time:</h2>

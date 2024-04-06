@@ -1,46 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function VitalSigns() {
-  const [vitalsigns, setvitalsigns] = useState([
-  {
-    "bloodpressure": "120/80 mmHg",
-    "index": 1,
-    "date": "2020-08-20",
-    "heartrate": "70 bpm",
-    "bloodsugar": "100 mg/dL"
-  },
-  {
-    "bloodpressure": "130/85 mmHg",
-    "index": 2,
-    "date": "2021-01-10",
-    "heartrate": "75 bpm",
-    "bloodsugar": "110 mg/dL"
-  },
-  {
-    "bloodpressure": "115/75 mmHg",
-    "index": 3,
-    "date": "2019-12-05",
-    "heartrate": "65 bpm",
-    "bloodsugar": "90 mg/dL"
-  }
-]);
+  const [vitalsigns, setvitalsigns] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const token = localStorage.getItem('token');
+
+  const fetchVitalSigns = async () => {
+    try {
+
+
+      const response = await axios.get('/api/get/vitalsigns',  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setvitalsigns(response.data);
+
+
+    } catch (error) {
+      console.error('Error fetching health records:', error);
+    }
+  };
+
+
+useEffect(() => {
+    fetchVitalSigns();
+  }, []);
+
+
 
   const handleAddVitalSigns = () => {
-    const vitalsign = { name: '', date: '', editable: true };
+    const vitalsign = { bloodpressure: '', date: '', editable: true };
     setvitalsigns([...vitalsigns, vitalsign]);
     setEditMode(true); // Enable edit mode for the newly added illness
   };
 
-  const handleRemoveVitalSigns = (index) => {
+  const handleRemoveVitalSigns = async (id , vitalId) => {
+    try {
+      const response = await axios.delete(`/api/delete/vitalsign/${vitalId}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+    } catch (error) {
+      console.error('Error fetching health records:', error);
+    }
     const updatedvitalsign = [...vitalsigns];
-    updatedvitalsign.splice(index, 1);
+    updatedvitalsign.splice(id, 1);
     setvitalsigns(updatedvitalsign);
   };
 
-  const handleInputChange = (event, index, key) => {
+  const handleInputChange = (event, id, key) => {
     const updatedvitalsign = [...vitalsigns];
-    updatedvitalsign[index][key] = event.target.value;
+    updatedvitalsign[id][key] = event.target.value;
     setvitalsigns(updatedvitalsign);
   };
 
@@ -51,7 +69,21 @@ function VitalSigns() {
 
     const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSave = (event) => {
+    const handleSave = async (id) => {
+    try {
+      const data=vitalsigns[id];
+      const response = await axios.post('/api/create/vitalsign', data,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+    } catch (error) {
+      console.error('Error fetching health records:', error);
+    }
+
+
     setSuccessMessage("Added successfully");
     setTimeout(() => {
             setSuccessMessage('');
@@ -65,55 +97,55 @@ function VitalSigns() {
       <form onSubmit={handleSubmit}>
         <h3>Past VitalSigns records:</h3>
         <ul>
-          {vitalsigns.map((vitalsign, index) => (
-            <li key={index}>
-              <label htmlFor={`bloodpressure-${index}`}>BloodPressure:</label>
+          {vitalsigns.map((vitalsign, id) => (
+            <li key={id}>
+              <label htmlFor={`bloodpressure-${id}`}>BloodPressure:</label>
               <input
-                id={`bloodpressure-${index}`}
+                id={`bloodpressure-${id}`}
                 type="text"
                 value={vitalsign.bloodpressure}
-                onChange={(e) => handleInputChange(e, index, 'bloodpressure')}
+                onChange={(e) => handleInputChange(e, id, 'bloodpressure')}
                 disabled={!vitalsign.editable}
                 className={vitalsign.editable ? "editable" : ""}
               />
 
               <br />
-              <label htmlFor={`bloodsugar-${index}`}>BloodSugar:</label>
+              <label htmlFor={`bloodsugar-${id}`}>BloodSugar:</label>
               <input
-                id={`bloodsugar-${index}`}
+                id={`bloodsugar-${id}`}
                 type="text"
                 value={vitalsign.bloodsugar}
-                onChange={(e) => handleInputChange(e, index, 'bloodsugar')}
+                onChange={(e) => handleInputChange(e, id, 'bloodsugar')}
                 disabled={!vitalsign.editable}
                 className={vitalsign.editable ? "editable" : ""}
               />
 
               <br />
-              <label htmlFor={`heartrate-${index}`}>HeartRate:</label>
+              <label htmlFor={`heartrate-${id}`}>HeartRate:</label>
               <input
-                id={`heartrate-${index}`}
+                id={`heartrate-${id}`}
                 type="text"
                 value={vitalsign.heartrate}
-                onChange={(e) => handleInputChange(e, index, 'heartrate')}
+                onChange={(e) => handleInputChange(e, id, 'heartrate')}
                 disabled={!vitalsign.editable}
                 className={vitalsign.editable ? "editable" : ""}
               />
 
 
               <br />
-              <label htmlFor={`date-${index}`}>Date:</label>
+              <label htmlFor={`date-${id}`}>Date:</label>
               <input
-                id={`date-${index}`}
+                id={`date-${id}`}
                 type="text"
                 value={vitalsign.date}
-                onChange={(e) => handleInputChange(e, index, 'date')}
+                onChange={(e) => handleInputChange(e, id, 'date')}
                 disabled={!vitalsign.editable}
                 className={vitalsign.editable ? "editable" : ""}
               />
 
               
-              <button type="button" onClick={() => handleRemoveVitalSigns(index)}>Remove</button>
-              <button type="button" onClick={handleSave}>Save</button>
+              <button type="button" onClick={() => handleRemoveVitalSigns(id,vitalsign.id)}>Remove</button>
+              <button type="button" onClick={() => handleSave(id)} >Save</button>
             </li>
           ))}
         </ul>

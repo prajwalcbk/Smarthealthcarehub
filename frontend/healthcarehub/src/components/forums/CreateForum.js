@@ -11,6 +11,7 @@ const CreateForum = () => {
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
   
   const handleSubmit = async () => {
 
@@ -20,7 +21,12 @@ const CreateForum = () => {
           'description' : description,
           'user_id' : '1'
         }
-        const response = await axios.post(`/api/create/forum` , data);
+        const response = await axios.post(`/api/create/forum` , data , {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
 
         navigate('/forums')
   };

@@ -84,8 +84,8 @@ class MedicationHistoryController extends Controller
         $medicationHistory = MedicationHistory::create([
             'name' => 'Allergies',
             'patient_id' => $request->patient_id,
-            'description' => $commaSeparatedallegies
-            'type' => 'ALLERGIES', // Set the type directly here
+            'description' => $commaSeparatedallegies,
+            'type' => "ALLERGIES", // Set the type directly here
         ]);
 
         return response()->json($medicationHistory, 201);
@@ -106,9 +106,51 @@ class MedicationHistoryController extends Controller
         return response()->json($medicationhistory);
     }
 
+    public function getMedicationHistoryByAuthenticatedUserandType(Request $request)
+    {
+        $user=$request->user;
+        $medicationhistory = medicationhistory::where('user_id', $user->id )->where('type', $type)
+        ->join('users', 'medication_histories.user_id', '=', 'users.id')
+        ->select(
+            'medication_histories.*',
+            'users.firstname as user_firstname',
+            'users.lastname as user_lastname',
+            'users.email as user_email',
+        )
+        ->get();
+        return response()->json($medicationhistory);
+    }
+
+
+
     public function getAllergiesByUser($id)
     {
         $allergies = medicationhistory::where('user_id', $id )->where('type', 'ALLERGIES')->first();
+
+
+
+        $allergyNames = explode(',', $allergies->description);
+        $index = 0;
+        $allergiesArray = [];
+        foreach ($allergyNames as $allergyName) {
+            $allergiesArray[] = [
+                'name' => $allergyName,
+                'index' => $index
+            ];
+            $index++;
+        }
+
+
+
+        return response()->json($allergiesArray);
+    }
+
+
+    public function getAllergiesByAuthenticatedUser(Request $request)
+    {
+
+        $user=$request->user;
+        $allergies = medicationhistory::where('user_id', $user->id )->where('type', 'ALLERGIES')->first();
 
 
 

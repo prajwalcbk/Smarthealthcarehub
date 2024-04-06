@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\ForumPostAnswer;
 
 
+
+
 class ForumPostAnswerController extends Controller
 {
 
@@ -27,13 +29,21 @@ class ForumPostAnswerController extends Controller
 
     public function store(Request $request)
     {
+
+        $user = $request->user;
+
         $request->validate([
             'answer' => 'required|string',
-            'user_id' => 'required|exists:users,id',
             'forum_id' => 'required|exists:forum_posts,id' // Add validation for category field
         ]);
 
-        $forumAnswer = ForumPostAnswer::create($request->only(['answer', 'user_id', 'forum_id']));
+
+        // Create the forum answer with the user_id of the authenticated user
+        $forumAnswer = ForumPostAnswer::create([
+            'answer' => $request->answer,
+            'user_id' => $user->id,
+            'forum_id' => $request->forum_id,
+        ]);
 
         return response()->json(['message' => 'Forum post Answer created successfully', 'post' => $forumAnswer], 201);
     }

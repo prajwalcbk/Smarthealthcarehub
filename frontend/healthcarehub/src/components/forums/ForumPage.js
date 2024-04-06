@@ -13,12 +13,18 @@ const ForumPage = () => {
   const [answers, setAnswers] = useState([]);
   const [ answer , setAnswer] = useState('');
   const [ answer_section , setAnswer_section] = useState(false);
+  const token = localStorage.getItem('token');
 
   const { forumId } = useParams(); // Get the forumId from the URL parameter
 
 
     const fetchDataFromApi = async (url) => {
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
     return response.data;
   };
 
@@ -56,7 +62,13 @@ const ForumPage = () => {
           'user_id' : 1,
           'user_firstname' : 'Admin'
         }
-        const response = await axios.post(`/api/create/forum/answer` , data);
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`/api/create/forum/answer` , data, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
 
         const updatedAnswers = [data, ...answers];
         setAnswers(updatedAnswers);

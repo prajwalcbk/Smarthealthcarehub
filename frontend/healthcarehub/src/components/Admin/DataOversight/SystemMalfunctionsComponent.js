@@ -7,6 +7,7 @@ const SystemMalfunctionsComponent = () => {
 
 
   const [ systemMalfunctions ,setsystemMalfunctions ]  = useState([]);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
 
@@ -14,7 +15,12 @@ const SystemMalfunctionsComponent = () => {
     const fetchdata = async () => {
 
 
-      const response = await axios.get('/api/get/support/issue/systemMalfunctions', { withCredentials: true });
+      const response = await axios.get('/api/get/support/system_malfunctions', {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
       console.log(response);
       setsystemMalfunctions(response.data)
 

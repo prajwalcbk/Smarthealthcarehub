@@ -13,6 +13,7 @@ class JwtMiddleware
         try {
             // Attempt to parse and authenticate the JWT token
             $user = JWTAuth::parseToken()->authenticate();
+            $request->merge(['user' => $user]);
         } catch (JWTException $e) {
             // Handle token verification failure
             return response()->json(['error' => 'Unauthorized'], 401);

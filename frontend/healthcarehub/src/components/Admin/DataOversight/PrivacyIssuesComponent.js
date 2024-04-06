@@ -6,13 +6,19 @@ import './DataOversight.css'
 const PrivacyIssuesComponent = () => {
 
     const [privacyIssues, setprivacyIssues ]= useState([]);
+    const token = localStorage.getItem('token');
     useEffect(() => {
 
 
     const fetchdata = async () => {
 
 
-      const response = await axios.get('/api/get/support/issue/privacy', { withCredentials: true });
+      const response = await axios.get('/api/get/support/privacy_issues',  {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
       console.log(response);
       setprivacyIssues(response.data)
 

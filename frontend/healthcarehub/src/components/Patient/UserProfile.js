@@ -10,9 +10,8 @@ function UserProfileData() {
 
   const fetchUserProfile = async () => {
     try {
-      // Replace the URL with your actual API endpoint
-      // const response = await fetch('your-api-endpoint');
-      // const data = await response.json();
+
+
       const sampleUser = {
         email: 'example@gmail.com',
         firstname: 'John',
@@ -23,6 +22,8 @@ function UserProfileData() {
         gender: "male",
         primarycareprovider:"Dr Jon Alert"
       };
+
+      
       const data=sampleUser;
       setUserProfile(data);
       seteditedUserProfile(data); // Set initial values for editable fields

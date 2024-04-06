@@ -84,11 +84,31 @@ class UserController extends Controller
     }
 
 
+
+
+    public function getDoctor($id)
+    {
+        $doctor = User::where('doctors.id', $id)
+               ->join('doctors', 'users.id', '=', 'doctors.user_id')
+               ->select('users.firstname', 
+                'users.lastname' , 
+                'users.email' , 
+                'doctors.*', 
+                'users.firstname as doctor_firstname', 
+                'users.lastname as doctor_lastname',
+                'users.is_verified'
+            )
+               ->get();
+
+        return response()->json($doctor);
+    }
+
+
     public function getPharmacists()
     {
         $pharmacists = User::where('role', 'PHARMACIST')               
         ->join('pharmacists', 'users.id', '=', 'pharmacists.user_id')
-        ->select('users.firstname', 'users.lastname' , 'users.email' , 'pharmacists.*', 'users.firstname as pharmacist_firstname', 'users.lastname as pharmacist_lastname')
+        ->select('users.firstname', 'users.lastname' , 'users.email' , 'pharmacists.*', 'users.firstname as pharmacist_firstname', 'users.lastname as pharmacist_lastname' , 'users.is_verified')
         ->get();
         return response()->json($pharmacists);
     }
@@ -98,6 +118,8 @@ class UserController extends Controller
         $healthAdmins = User::where('role', 'HEALTHADMIN');
         return response()->json($healthAdmins);
     }
+
+
 
     public function searchDoctors(Request $request)
     {

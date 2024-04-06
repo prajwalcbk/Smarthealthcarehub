@@ -10,9 +10,15 @@ const ReportGeneration = () => {
   const [showDownloadCSV, setShowDownloadCSV] = useState(false);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
+  const token = localStorage.getItem('token');
 
   const fetchdata = async (url) => {
-  const response = await axios.get(url, { withCredentials: true });
+  const response = await axios.get(url, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
   return response.data;
 }
   
@@ -45,7 +51,7 @@ const ReportGeneration = () => {
       case 'patients-list':
         
           try {
-            const response = await fetchdata('/api/get/users/patients');
+            const response = await fetchdata('/api/get/patients');
             console.log(response); // Do something with the fetched data
             data = {
               'patients': response
@@ -63,7 +69,7 @@ const ReportGeneration = () => {
       case 'doctors-list':
         
           try {
-            const response = await fetchdata('/api/get/users/doctors');
+            const response = await fetchdata('/api/get/doctors');
             console.log(response); // Do something with the fetched data
             data = {
               'doctors': response
@@ -81,7 +87,7 @@ const ReportGeneration = () => {
       case 'pharmacists-list':
         
           try {
-            const response = await fetchdata('/api/get/users/pharmacists');
+            const response = await fetchdata('/api/get/pharmacists');
             console.log(response); // Do something with the fetched data
             data = {
               'pharmacists': response

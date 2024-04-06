@@ -34,8 +34,6 @@ class SignupController extends Controller
                 return response()->json(['errors' => $e->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        // Hash the password
-        $hashedPassword = Hash::make($validatedData['password']);
 
          try {
             DB::beginTransaction();
@@ -101,8 +99,6 @@ class SignupController extends Controller
                 return response()->json(['errors' => $e->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        // Hash the password
-        $hashedPassword = Hash::make($validatedData['password']);
 
          try {
             DB::beginTransaction();
@@ -170,8 +166,7 @@ class SignupController extends Controller
                 //return response()->json(['errors' => $e->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        // Hash the password
-        $hashedPassword = Hash::make($validatedData['password']);
+
 
          try {
             DB::beginTransaction();

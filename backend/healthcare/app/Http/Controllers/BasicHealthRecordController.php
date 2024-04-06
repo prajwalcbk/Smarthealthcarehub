@@ -10,19 +10,30 @@ class BasicHealthRecordController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
             'height' => 'required|string',
             'weight' => 'required|string',
             'age' => 'required|string',
             'blood_group' => 'required|string',
         ]);
 
-        $basicHealthRecord = BasicHealthRecord::create($request->all());
+        $user = $request->user;
+
+        $basicHealthRecord = basicHealthRecord::create([
+            'height' => $request->height,
+            'weight' => $request->weight,
+            'age' => $request->age,
+            'blood_group' => $request->blood_group,
+            'user_id' => $user->id
+        ]);
+
         return response()->json($basicHealthRecord, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $user = $request->user;
+        
+        // Validate the incoming request data
         $request->validate([
             'height' => 'required|string',
             'weight' => 'required|string',
@@ -30,17 +41,30 @@ class BasicHealthRecordController extends Controller
             'blood_group' => 'required|string',
         ]);
 
-        $basicHealthRecord = BasicHealthRecord::findOrFail($id);
+        // Retrieve the basic health record for the user
+        $basicHealthRecord = BasicHealthRecord::where('user_id', $user->id)->first();
 
+        // If the record doesn't exist, you may want to handle this case accordingly
+        if (!$basicHealthRecord) {
+            $this->store($request);
+            return response()->json(['message' => 'New basic health record created', 'data' => $request->all() ], 201);
+
+            //return response()->json(['error' => 'Basic health record not found'], 404);
+        }
+
+        // Update the record with the incoming request data
         $basicHealthRecord->update($request->all());
 
+        // Optionally, you can return a response with the updated record
         return response()->json($basicHealthRecord, 200);
     }
 
 
-    public function getByUser($UserId)
+
+    public function getByUser(Request $request)
     {
-        $basicHealthRecord = BasicHealthRecord::where('user_id', $id)
+        $user = $request->user;
+        $basicHealthRecord = BasicHealthRecord::where('user_id', $user->id)
             ->join('users', 'basic_health_records.user_id', '=', 'users.id')
             ->select(
                 'basic_health_records.*',

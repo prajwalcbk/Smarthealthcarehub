@@ -9,16 +9,23 @@ class VitalSignController extends Controller
 {
     public function store(Request $request)
     {
+        $user = $request->user;
+
         $request->validate([
             'bloodpressure' => 'required|string',
-            'index' => 'required|integer',
-            'date' => 'required|date',
+            'date' => 'required|string',
             'heartrate' => 'required|string',
             'bloodsugar' => 'required|string',
-            'user_id' => 'required|exists:users,id',
         ]);
 
-        $vitalSign = VitalSign::create($request->all());
+        $vitalSign = VitalSign::create([
+            'bloodpressure' => $request->bloodpressure,
+            'date' =>  $request->date,
+            'heartrate' => $request->heartrate,
+            'bloodsugar' =>  $request->bloodsugar,
+            'user_id' => $user->id
+        ]);
+
         return response()->json($vitalSign, 201);
     }
 
@@ -27,12 +34,13 @@ class VitalSignController extends Controller
         $vitalSign = VitalSign::findOrFail($id);
         $vitalSign->delete();
 
-        return response()->json(['message' => 'Exercise data deleted successfully']);
+        return response()->json(['message' => 'vitalSign data deleted successfully']);
     }
 
-    public function getByUser($UserId)
+    public function getByUser(Request $request)
     {
-        $vitalSigns = VitalSign::where('user_id', $id)
+        $user = $request->user;
+        $vitalSigns = VitalSign::where('user_id', $user->id)
             ->join('users', 'vital_signs.user_id', '=', 'users.id')
             ->select(
                 'vital_signs.*',

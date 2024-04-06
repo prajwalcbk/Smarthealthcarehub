@@ -1,38 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Exercise() {
-  const [exercises, setexercises] = useState([
-  {
-    "workout": "Running",
-    "index": 1,
-    "date": "2020-08-20",
-    "intensity": "Moderate",
-    "duration": "30 minutes"
-  },
-  {
-    "workout": "Yoga",
-    "index": 2,
-    "date": "2021-01-10",
-    "intensity": "Low",
-    "duration": "45 minutes"
-  },
-  {
-    "workout": "Weightlifting",
-    "index": 3,
-    "date": "2019-12-05",
-    "intensity": "High",
-    "duration": "60 minutes"
-  }
-]);
+  const [exercises, setexercises] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const token = localStorage.getItem('token');
 
-  const handleAddExercise = () => {
-    const exercise = { name: '', date: '', editable: true };
-    setexercises([...exercises, exercise]);
-    setEditMode(true); // Enable edit mode for the newly added illness
+
+  const fetchExercises = async () => {
+    try {
+
+
+      const response = await axios.get('/api/get/exercise/healthrecords/',  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setexercises(response.data);
+
+
+    } catch (error) {
+      console.error('Error fetching health records:', error);
+    }
   };
 
-  const handleRemoveExercise = (index) => {
+
+useEffect(() => {
+    fetchExercises();
+  }, []);
+
+
+
+  const handleRemoveExercise = async (index,id) => {
+  try {
+      const response = await axios.delete(`/api/delete/exercise/healthrecord/${id}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+    } catch (error) {
+      console.error('Error fetching health records:', error);
+    }
     const updatedexercise = [...exercises];
     updatedexercise.splice(index, 1);
     setexercises(updatedexercise);
@@ -51,7 +64,45 @@ function Exercise() {
 
     const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSave = (event) => {
+  const handleAddExercise = () => {
+    const exercise = { name: '', date: '', editable: true };
+    setexercises([...exercises, exercise]);
+    setEditMode(true); // Enable edit mode for the newly added illness
+  };
+
+
+  const handleSave = async (id) => {
+    try {
+      const data=exercises[id];
+      const response = await axios.post('/api/create/exercise/healthrecord', data,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000
+      });
+      
+      const newupdatedexercise = [...exercises , response.data];
+      setexercises(newupdatedexercise);
+
+
+      console.log(id);
+      const updatedexercise = [...exercises];
+      console.log("Before");
+      console.log(updatedexercise);
+      updatedexercise.splice(id, 1);
+      setexercises(updatedexercise);
+      console.log(updatedexercise);
+
+      console.log("After");
+      console.log(exercises);
+      
+
+    } 
+    catch (error) {
+      console.error('Error fetching health records:', error);
+    }
+
+
     setSuccessMessage("Added successfully");
     setTimeout(() => {
             setSuccessMessage('');
@@ -108,8 +159,8 @@ function Exercise() {
                 disabled={!exercise.editable}
                 className={exercise.editable ? "editable" : ""}
               />
-              <button type="button" onClick={() => handleRemoveExercise(index)}>Remove</button>
-              <button type="button" onClick={handleSave}>Save</button>
+              <button type="button" onClick={() => handleRemoveExercise(index,exercise.id)}>Remove</button>
+              <button type="button" onClick={() => handleSave(index)}>Save</button>
             </li>
           ))}
         </ul>

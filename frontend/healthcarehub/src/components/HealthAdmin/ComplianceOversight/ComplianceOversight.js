@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ComplianceOversight.css'; // Import CSS file for styling
+import axios from 'axios';
+
 
 function ComplianceOversight() {
 
@@ -7,78 +9,121 @@ function ComplianceOversight() {
     const [ reply , setReply] = useState('');
     const [ comments , setComments] = useState([]);
     const [successMessages, setSuccessMessages] = useState({});
-
-  const [Compliances, setCompliances] = useState([]);
+    const token = localStorage.getItem('token');
+    const [error, setError] = useState(null);
+    const [Compliances, setCompliances] = useState([]);
     
 
-    const tempCompliances = [
-    {
-      id: 1,
-      title: "HIPAA Violation",
-      description: "Sensitive patient information exposed in logs.",
-      severity: "High",
-      status: "Open"
-    },
-    {
-      id: 2,
-      title: "Data Breach",
-      description: "Unauthorized access to patient records.",
-      severity: "Critical",
-      status: "Open"
-    },
-    {
-      id: 3,
-      title: "Expired SSL Certificate",
-      description: "Security risk due to an expired SSL certificate.",
-      severity: "Medium",
-      status: "Open"
-    },
-    {
-      id: 4,
-      title: "Expired SSL Certificate",
-      description: "Security risk due to an expired SSL certificate.",
-      severity: "Medium",
-      status: "Closed"
-    },
-    // Add more compliance issues as needed
-  ];
 
- useEffect(() => {
-  setCompliances(tempCompliances);
-}, []);
+  useEffect(() => {
+    const fetchDataFromApi = async () => {
+      try {
+    const response = await axios.get('/api/get/support/complianceissues',  {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+    setCompliances(response.data);
+  }
+  catch (error) { 
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
+  }
+  fetchDataFromApi();
+
+  }, []);
+
+const fetchCommentsFromApi = async (complianceId) => {
+try {
+      const response = await axios.get(`/api/get/support/comments/${complianceId}`,  {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              },
+              timeout: 2000 // Set timeout to 2 seconds
+            });
+      setComments(response.data);
+  }
+  catch (error) { 
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+  }
+}
+
+
+
+const storeComments = async (id , message) => {
+try {
+  const data={
+    support_id:id,
+    message:message
+  }
+      const response = await axios.post(`/api/create/support/comment`, data , {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              },
+              timeout: 2000 // Set timeout to 2 seconds
+            });
+      return response.data[0];
+  }
+  catch (error) { 
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+  }
+};
+
+
+const CloseSupport = async (Id) => {
+  // Update UsersList immutably
+  const response = await axios.get(`/api/close/support/issues/${Id}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+};
+
+
+
+const handleviewcomplianceClicked = (complianceId) => {
+  setviewpcomplianceClicked((prevClicked) => {
+    const newClicked = [...prevClicked];
+
+    // Iterate through all compliance IDs
+    for (let i = 0; i < newClicked.length; i++) {
+      // Set the previously clicked compliance to false
+      if (i !== complianceId && newClicked[i] === true) {
+        newClicked[i] = false;
+      }
+    }
+
+    // Toggle the clicked compliance
+    newClicked[complianceId] = !newClicked[complianceId];
+
+    // Fetch comments for the clicked compliance
+    fetchCommentsFromApi(complianceId);
+
+    return newClicked;
+  });
+};
 
 
 
 
-  const handleviewcomplianceClicked = (complianceId) => {
-    setviewpcomplianceClicked((prevClicked) => {
-      // Create a new array based on the previous state
-      const newClicked = [...prevClicked];
-      // Toggle the clicked state for the clicked doctor
-      newClicked[complianceId] = !newClicked[complianceId];
-
-        const dummyCommentsData = [
-  { id: 1, user: 'Alice', message: 'Great facility, I had a wonderful experience!' },
-  { id: 2, user: 'Bob', message: 'The services offered here are excellent.' },
-  { id: 3, user: 'Alice', message: 'I highly recommend this place.' },
-  { id: 4, user: 'Bob', message: 'Friendly staff and clean environment.' },
-  { id: 5, user: 'Eva', message: 'Very satisfied with the treatment received.' },
-];
-
-  setComments(dummyCommentsData);
-      return newClicked;
-    });
-  };
-
-  const Onsubmit =() => {
-    const user= localStorage.getItem('role');
-    const newComment = { id: comments.length + 1, user: user, message: reply };
+  const Onsubmit = async (id) => {
+    if (reply!=''){
+    const newComment = await storeComments(id,reply);
     const updatedComments = [...comments, newComment];
     setComments(updatedComments);
     setReply('');
   }
+};
+
   
 const handleresolvecomplianceClicked =(complianceId) => { 
+
+    CloseSupport(complianceId);
     const newSuccessMessages = { ...successMessages };
     newSuccessMessages[complianceId] = "Resolved Successfully";
     setSuccessMessages(newSuccessMessages);
@@ -117,14 +162,15 @@ return (
               <p><strong>Severity:</strong> {compliance.severity}</p>
               <p><strong>Status:</strong> {compliance.status}</p>
               <p><strong>Description:</strong> {compliance.description}</p>
-              <p><strong>Timestamp:</strong> {compliance.timestamp}</p>
+              <p><strong>Timestamp:</strong> {compliance.created_at ? new Date(compliance.created_at).toISOString().split('T')[0] : "Invalid Date"}</p>
               {viewcomplianceClicked[compliance.id] && (
                 <div>
                   <h2>Comments</h2>
                   {comments.map(comment => (
                     <div key={comment.id} className="comment">
-                      <span className="comment-user">{comment.user}: </span>
+                      <span className="comment-user">{comment.user.firstname} {comment.user.lastname} : </span>
                       <span className="comment-message">{comment.message}</span>
+                      <br/>
                     </div>
                   ))}
                   {compliance.status === "Open" && (
@@ -136,14 +182,14 @@ return (
                         onChange={e => setReply(e.target.value)}
                         rows={3} 
                       />
-                      <button onClick={Onsubmit}>Submit</button>
+                      <button onClick={() => Onsubmit(compliance.id)}>Submit</button>
                     </div>
                   )}
                 </div>
               )}
               {!viewcomplianceClicked[compliance.id] && (
                 <div>
-                <button onClick={() => handleviewcomplianceClicked(compliance.id)}>View</button>
+                <button onClick={() => handleviewcomplianceClicked(compliance.id)}>View Comments</button>
                 <div>{successMessages[compliance.id] && <p className="success-message">{successMessages[compliance.id]}</p>} </div>
                 {compliance.status === "Open" && (
                     <button onClick={() => handleresolvecomplianceClicked(compliance.id)}>Mark as Resolved</button>

@@ -32,13 +32,26 @@ class AppointmentController extends Controller
             'reason' => 'required|string',
             'date' => 'required|date',
             'time' => 'required|date_format:H:i',
-            'duration' => 'required|string',
-            'patient_id' => 'required|exists:users,id',
+            'duration' => 'required|integer',
             'doctor_id' => 'required|exists:users,id',
-            'status' => 'string|in:Active,Cancelled,Completed'
         ]);
 
-        $appointment = Appointment::create($request->all());
+        $date = new \DateTime($request->date);
+        $formattedDate = $date->format('Y-m-d');
+        $user = $request->user;
+
+        $appointment = Appointment::create([
+            'date' => $formattedDate,
+            'reason' => $request->reason,
+            'time' => $request->time,
+            'duration' => $request->duration,
+            'doctor_id' => $request->doctor_id,
+            'patient_id' => $user->id,
+            'status' => "Active"
+        ]);
+
+        echo $appointment;
+
         return response()->json($appointment, 200);
     }
 
@@ -56,13 +69,17 @@ class AppointmentController extends Controller
             'status' => 'string|in:Active,Cancelled,Completed'
         ]);
 
+        $date = new \DateTime($request->date);
+        $formattedDate = $date->format('Y-m-d H:i:s');
+
         $appointment->update($request->all());
         return response()->json($appointment, 200);
     }
 
-    public function getAppointmentsByPatient($patient_id)
+    public function getAppointmentsByPatient(Request $request)
     {
-        $appointments = Appointment::where('patient_id', $patient_id)
+        $user = $request->user;
+        $appointments = Appointment::where('patient_id', $user->id)
             ->join('users as patients', 'appointments.patient_id', '=', 'patients.id')
             ->join('users as doctors', 'appointments.doctor_id', '=', 'doctors.id')
             ->select(
@@ -78,9 +95,10 @@ class AppointmentController extends Controller
         return response()->json($appointments, 200);
     }
 
-    public function getCompletedAppointmentsByDoctor($doctor_id)
+    public function getCompletedAppointmentsByDoctor(Request $request)
     {
-        $appointments = Appointment::where('doctor_id', $doctor_id)
+        $user = $request->user;
+        $appointments = Appointment::where('doctor_id', $user->id)
             ->where('status', '!=', 'Active')
             ->join('users as patients', 'appointments.patient_id', '=', 'patients.id')
             ->join('users as doctors', 'appointments.doctor_id', '=', 'doctors.id')
@@ -98,9 +116,10 @@ class AppointmentController extends Controller
         return response()->json($appointments, 200);
     }
 
-    public function getUpcomingAppointmentsByDoctor($doctor_id)
+    public function getUpcomingAppointmentsByDoctor(Request $request)
     {
-                $appointments = Appointment::where('doctor_id', $doctor_id)
+        $user = $request->user;
+        $appointments = Appointment::where('doctor_id', $user->id)
             ->where('status', 'Active')
             ->join('users as patients', 'appointments.patient_id', '=', 'patients.id')
             ->join('users as doctors', 'appointments.doctor_id', '=', 'doctors.id')

@@ -6,24 +6,37 @@ const DataBreachesComponent = () => {
 
 
   const [dataBreaches, setdataBreaches ]= useState([]);
-
+  const token = localStorage.getItem('token');
+  const [error, setError] = useState(null);
 
   useEffect(() => {
 
-
     const fetchdataBreaches = async () => {
-
-
-      const response = await axios.get('/api/get/support/issue/databreaches', { withCredentials: true });
+      try {
+      const response = await axios.get('/api/get/support/data_breaches',  {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
       console.log(response);
-      setdataBreaches(response.data)
-
+      setdataBreaches(response.data);
+    }
+    catch (error) {
+      
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
     }
     fetchdataBreaches();
+    
+
+    
   }, []);
 
   return (
     <div className="dataoversight">
+    <div>{error && <p className="error-message">{error}</p>}</div>
       <h2>Data Breaches</h2>
       <table>
         <thead>
