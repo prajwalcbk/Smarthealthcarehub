@@ -13,8 +13,10 @@ import user from './../../assets/examination.png'
 import bar from './../../assets/menu-bar-.png'
 import Navbar from './../navbar/Navbar'
 import IncidentResponse from './IncidentResponse/IncidentResponse'
+import messenger from './../../assets/online-chat.png'
+import { useHistory, useNavigate } from 'react-router-dom';
 
-function User() {
+function User({settings}) {
 
 
   const [activeComponent, setActiveComponent] = useState('');
@@ -53,19 +55,34 @@ function User() {
 
   };
 
+    const navigate = useNavigate();
+
+  const handleCreateClick = () => {
+    navigate('/messenger');
+  };
+
 
   return (
     <div className="user-container">
-      <Navbar />
+      <Navbar settings={settings} />
       {isOpen && (
       <div className="sidebar">
           <button onClick={handleToggle}> <img src={bar} alt="menu bar"  /> Menu Bar </button>
 
             <button onClick={() => setComponent('FacilityManagement')}> <img src={facilitymanagement} alt="Stethoscope Icon"  />  FacilityManagement </button>
             <button onClick={() => setComponent('StaffCoordination')}> <img src={staffcoordination} alt="Stethoscope Icon"  />  StaffCoordination </button>
+
+          {settings && settings.enableSupport === 1 && (
+            <div>
+
             <button onClick={() => setComponent('ComplianceOversight')}> <img src={complianceoversight} alt="Stethoscope Icon"  />  ComplianceOversight </button>
             <button onClick={() => setComponent('IncidentResponse')}> <img src={incidentresponse} alt="Stethoscope Icon"  />  IncidentResponse </button>
+          </div>
+          )}
 
+          {settings && settings.enableMessenger === 1 &&  
+          <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon"  /> Messenger</button>
+        }
       </div>
       )}
       {!isOpen && (

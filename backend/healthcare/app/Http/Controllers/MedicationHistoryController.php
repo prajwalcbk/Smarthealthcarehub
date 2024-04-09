@@ -9,17 +9,15 @@ class MedicationHistoryController extends Controller
 {
     public function storeFamilyHealthHistory(Request $request)
     {
+        $user = $request->user;
         $request->validate([
             'name' => 'required|string',
-            'patient_id' => 'required|exists:users,id',
-            'date' => 'required|date',
             'description' => 'required|string',
         ]);
 
         $medicationHistory = MedicationHistory::create([
             'name' => $request->name,
-            'patient_id' => $request->patient_id,
-            'date' => $request->date,
+            'patient_id' => $user->id,
             'description' => $request->description,
             'type' => 'FAMILYHEALTH', // Set the type directly here
         ]);
@@ -28,16 +26,16 @@ class MedicationHistoryController extends Controller
     }
     public function storeSurgeriesHistory(Request $request)
     {
+        $user = $request->user;
         $request->validate([
             'name' => 'required|string',
-            'patient_id' => 'required|exists:users,id',
             'date' => 'required|date',
             'description' => 'required|string',
         ]);
 
         $medicationHistory = MedicationHistory::create([
             'name' => $request->name,
-            'patient_id' => $request->patient_id,
+            'patient_id' => $user->id,
             'date' => $request->date,
             'description' => $request->description,
             'type' => 'SURGEY', // Set the type directly here
@@ -47,16 +45,16 @@ class MedicationHistoryController extends Controller
     }
     public function storePastIllnessHistory(Request $request)
     {
+        $user = $request->user;
         $request->validate([
             'name' => 'required|string',
-            'patient_id' => 'required|exists:users,id',
             'date' => 'required|date',
             'description' => 'required|string',
         ]);
 
         $medicationHistory = MedicationHistory::create([
             'name' => $request->name,
-            'patient_id' => $request->patient_id,
+            'patient_id' => $user->id,
             'date' => $request->date,
             'description' => $request->description,
             'type' => 'PASTILLNESS', // Set the type directly here
@@ -68,10 +66,14 @@ class MedicationHistoryController extends Controller
     public function storeAllergiesHistory(Request $request)
     {
 
+        $user = $request->user;
 
+
+        $medicationHistory = MedicationHistory::where('patient_id' , $user->id)->where('type' , 'ALLERGIES');
+        $medicationHistory->delete();
+        
         $request->validate([
-            'patient_id' => 'required|exists:users,id',
-            'description' => 'required|string',
+            'allergies' => 'required',
         ]);
 
         $allegies= $request->allergies;
@@ -79,11 +81,11 @@ class MedicationHistoryController extends Controller
             foreach ($allegies as $item) {
                 $allegies_array[] = $item['name'];
         }
-        $commaSeparatedallegies = implode(',', $names);
+        $commaSeparatedallegies = implode(',', $allegies_array);
 
         $medicationHistory = MedicationHistory::create([
             'name' => 'Allergies',
-            'patient_id' => $request->patient_id,
+            'patient_id' => $user->id,
             'description' => $commaSeparatedallegies,
             'type' => "ALLERGIES", // Set the type directly here
         ]);
@@ -92,10 +94,10 @@ class MedicationHistoryController extends Controller
     }
 
 
-    public function getMedicationHistoryByUserandType($id, $type)
+    public function getMedicationHistoryByUserandType(Request $request,$type,$id)
     {
-        $medicationhistory = medicationhistory::where('user_id', $id )->where('type', $type)
-        ->join('users', 'medication_histories.user_id', '=', 'users.id')
+        $medicationhistory = medicationhistory::where('patient_id', $id )->where('type', strtoupper($type))
+        ->join('users', 'medication_histories.patient_id', '=', 'users.id')
         ->select(
             'medication_histories.*',
             'users.firstname as user_firstname',
@@ -106,11 +108,11 @@ class MedicationHistoryController extends Controller
         return response()->json($medicationhistory);
     }
 
-    public function getMedicationHistoryByAuthenticatedUserandType(Request $request)
+    public function getMedicationHistoryByAuthenticatedUserandType(Request $request, $type)
     {
         $user=$request->user;
-        $medicationhistory = medicationhistory::where('user_id', $user->id )->where('type', $type)
-        ->join('users', 'medication_histories.user_id', '=', 'users.id')
+        $medicationhistory = medicationhistory::where('patient_id', $user->id )->where('type', strtoupper($type))
+        ->join('users', 'medication_histories.patient_id', '=', 'users.id')
         ->select(
             'medication_histories.*',
             'users.firstname as user_firstname',
@@ -123,9 +125,9 @@ class MedicationHistoryController extends Controller
 
 
 
-    public function getAllergiesByUser($id)
+    public function getAllergiesByUser(Request $request)
     {
-        $allergies = medicationhistory::where('user_id', $id )->where('type', 'ALLERGIES')->first();
+        $allergies = medicationhistory::where('patient_id', $id )->where('type', 'ALLERGIES')->first();
 
 
 
@@ -150,7 +152,7 @@ class MedicationHistoryController extends Controller
     {
 
         $user=$request->user;
-        $allergies = medicationhistory::where('user_id', $user->id )->where('type', 'ALLERGIES')->first();
+        $allergies = medicationhistory::where('patient_id', $user->id )->where('type', 'ALLERGIES')->first();
 
 
 

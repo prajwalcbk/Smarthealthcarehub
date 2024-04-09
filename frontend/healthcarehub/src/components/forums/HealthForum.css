@@ -107,7 +107,8 @@
 
 .healthforum-filter-container input,
 .healthforum-filter-container select{
-  width: 40%;
+  width: 20%;
+  height: 40px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 15px;
@@ -116,8 +117,9 @@
 }
 
 .healthforum-filter-container select{
-  height: 45px;
+  height: 60px;
   font-size: small;
+  width: 20%;
 }
 
 
@@ -130,7 +132,9 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    width: 15rem;
+    width: 20%;
+    height: 60px;
+    font-size: large;
     /*height: 3rem;*/
     /*font-size: 24px;*/
 } 

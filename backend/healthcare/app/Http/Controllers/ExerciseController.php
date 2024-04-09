@@ -12,7 +12,7 @@ class ExerciseController extends Controller
         $user=$request->user;
         $request->validate([
             'workout' => 'required|string',
-            'date' => 'required|string',
+            'date' => 'required|date',
             'intensity' => 'required|string',
             'duration' => 'required|string',
         ]);

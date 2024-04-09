@@ -4,6 +4,7 @@ import axios from 'axios';
 function DoctorManagement() {
   const [UsersList, setUsersList] = useState([]);
   const token = localStorage.getItem('token');
+  const [successMessage, setSuccessMessage] = useState('');
 
 
 
@@ -23,16 +24,26 @@ function DoctorManagement() {
 
 
 
-const handleVerifyUser = async (userId) => {
+const handleVerifyUser = async (updateuser) => {
   // Update UsersList immutably
-  const response = await axios.get(`/api/verify/user/${userId}`,  {
+  const response = await axios.get(`/api/verify/user/${updateuser.user_id}`,  {
             headers: {
               'Authorization': `Bearer ${token}`
             },
             timeout: 2000 // Set timeout to 2 seconds
           });
+  if(updateuser.is_verified){
+      setSuccessMessage("User Verification status Changed");
+    }
+    else{
+      setSuccessMessage("User Verified Successfully");
+    }
+      setTimeout(() => {
+            setSuccessMessage('')
+          }, 1000); 
+ 
   const updatedUsersList = UsersList.map(user => {
-    if (user.user_id  === userId) {
+    if (user.user_id  === updateuser.user_id) {
       
       return { ...user, is_verified: !user.is_verified };
     }
@@ -49,6 +60,7 @@ const handleVerifyUser = async (userId) => {
 
       <div className="users-list">
       <h2>Doctors Accounts </h2>
+      <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>
       <table>
         <thead>
           <tr>
@@ -58,7 +70,7 @@ const handleVerifyUser = async (userId) => {
             <th>Specialization</th>
             <th>License Number </th>
             <th>FacilityName</th>
-            <th>Status</th>
+            <th>User Status</th>
           </tr>
         </thead>
         <tbody>
@@ -70,12 +82,12 @@ const handleVerifyUser = async (userId) => {
                 <td>{user.qualification}</td>
                 <td>{user.specialization}</td>
                 <td>{user.licensenumber}</td>
-                <td>{user.healthfacilityname}</td>
+                <td>{user.facility_name}</td>
 
                 <td>{user.is_verified ? 'Verified' : 'Pending'} </td>
                 <td>
-                <button onClick={() => handleVerifyUser(user.user_id)}>
-                  {user.is_active ? 'ReVerify' : 'Verify'}
+                <button onClick={() => handleVerifyUser(user)}>
+                  {user.is_verified ? 'ReVerify' : 'Verify'}
                 </button>
                    
                 </td>

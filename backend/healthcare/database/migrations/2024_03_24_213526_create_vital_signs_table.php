@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vital_signs', function (Blueprint $table) {
             $table->id();
             $table->string('bloodpressure');
-            $table->string('date');
+            $table->date('date')->default(date('Y-m-d'));
             $table->string('heartrate');
             $table->string('bloodsugar');
             $table->unsignedBigInteger('user_id');

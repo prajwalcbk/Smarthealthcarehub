@@ -3,6 +3,7 @@ import Allergies from './MedicationHistory/Allergies'
 import FamilyHistory from './MedicationHistory/FamilyHistory'
 import Surgeries from './MedicationHistory/Surgeries'
 import PastIllness from './MedicationHistory/PastIllness'
+import ShareSettings from './ShareSettings'
 
 import Exercise from './HealthRecords/Exercise'
 import BasicHealthRecord from './HealthRecords/BasicHealthRecord'
@@ -24,10 +25,11 @@ import close from './../../assets/cross.png'
 import calender from './../../assets/calendar.png';
 import vitalsigns from './../../assets/vital-signs.png'
 import messenger from './../../assets/online-chat.png'
+import shareSettings from './../../assets/share.png'
 import { useHistory, useNavigate } from 'react-router-dom';
 
 
-function User() {
+function User({settings}) {
 
 
   const [activeComponent, setActiveComponent] = useState('');
@@ -92,16 +94,19 @@ function User() {
 
   return (
     <div className="user-container">
-      <Navbar />
+      <Navbar settings={settings}/>
       {isOpen && (
       <div className="sidebar">
           <button onClick={handleToggle}> <img src={bar} alt="menu bar"  /> Menu Bar </button>
           <button onClick={() => setComponent('UserProfile')}> <img src={user} alt="Stethoscope Icon"  /> User Details</button>
+          
+          { settings && settings.enableMedicationHistory === 1 &&  
           <button onClick={handleDropDown}>
             <img src={medicalrecord} alt="MedicationHistory Icon"  />
             Medication History 
             {isDropDownOpen && <img src={close} alt="menu bar"  />}
           </button>
+        }
 
           {(
             isDropDownOpen
@@ -114,9 +119,16 @@ function User() {
              <button onClick={() => setComponent('FamilyHistory')}> Family History </button>
           </div>
           )}
+
+          { settings && settings.enablePrescription === 1 && 
           <button onClick={() => setComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon"  /> Prescriptions</button>
-          <button onClick={handleDropDown1}> <img src={vitalsigns} alt="MedicationHistory Icon"  />  Health Records {isDropDownOpen1 && <img src={close} alt="menu bar"  />}
-          </button>
+        }
+
+          {settings && settings.enableHealthRecords === 1 &&  
+          <button onClick={handleDropDown1}> <img src={vitalsigns} alt="MedicationHistory Icon"  />  Health Records {isDropDownOpen1 && <img src={close} alt="menu bar"  />}  </button>
+        
+         
+        }
           {(
             isDropDownOpen1
           ) && (          
@@ -127,8 +139,16 @@ function User() {
             <button onClick={() => setComponent('VitalSigns')}> Vital Signs </button>
           </div>
           )}
+         
+
+          {settings && settings.enableAppointments === 1 &&  
           <button onClick={() => setComponent('AppointmentList')}> <img src={calender} alt="HealthRecords Icon"  /> Appointments</button>
+          }
+          <button onClick={() => setComponent('ShareSettings')}> <img src={shareSettings} alt="ShareSettings Icon"  /> Share Settings</button>
+
+          {settings && settings.enableMessenger === 1 &&  
           <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon"  /> Messenger</button>
+        }
       </div>
       )}
       {!isOpen && (
@@ -151,6 +171,7 @@ function User() {
       )}
 
         <div className="user-data">
+          {activeComponent === 'ShareSettings' && <ShareSettings />}
           {activeComponent === 'UserProfile' && <UserProfile />}
           {activeComponent === 'Allergies' && <Allergies />}
           {activeComponent === 'PastIllness' && <PastIllness />}

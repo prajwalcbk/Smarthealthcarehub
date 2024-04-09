@@ -16,15 +16,15 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('gender');
+            $table->enum('gender', ['male', 'female', 'others']);
             $table->string('phoneNumber');
-            $table->string('address');
+            $table->text('address');
             $table->string('qualification');
             $table->string('licensenumber');
             $table->string('specialization');
             $table->unsignedBigInteger('facility_id');
             $table->foreign('facility_id')->references('id')->on('facilities');
-            $table->string('about');
+            $table->text('about');
             $table->timestamps();
         });
     }

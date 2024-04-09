@@ -24,6 +24,14 @@ class AppointmentController extends Controller
         return response()->json($appointments);
     }
 
+    public function destroy($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $appointment->delete();
+
+        return response()->json(['message' => 'Appointment data deleted successfully']);
+    }
+
 
 
     public function store(Request $request)
@@ -50,7 +58,6 @@ class AppointmentController extends Controller
             'status' => "Active"
         ]);
 
-        echo $appointment;
 
         return response()->json($appointment, 200);
     }
@@ -64,13 +71,11 @@ class AppointmentController extends Controller
             'date' => 'required|date',
             'time' => 'required|date_format:H:i',
             'duration' => 'required|string',
-            'patient_id' => 'required|exists:users,id',
-            'doctor_id' => 'required|exists:users,id',
             'status' => 'string|in:Active,Cancelled,Completed'
         ]);
 
         $date = new \DateTime($request->date);
-        $formattedDate = $date->format('Y-m-d H:i:s');
+        $formattedDate = $date->format('Y-m-d');
 
         $appointment->update($request->all());
         return response()->json($appointment, 200);
@@ -91,7 +96,8 @@ class AppointmentController extends Controller
                 'doctors.lastname as doctor_lastname',
                 'doctors.email as doctor_email'
             )
-        ->get();
+            ->orderBy('appointments.status')
+            ->get();
         return response()->json($appointments, 200);
     }
 

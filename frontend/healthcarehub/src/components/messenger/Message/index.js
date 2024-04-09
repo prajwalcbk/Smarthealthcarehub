@@ -4,24 +4,23 @@ import './Message.css';
 
 export default function Message(props) {
     const {
-      data,
+      text,
       isMine,
       startsSequence,
       endsSequence,
-      showTimestamp
+      created_at
     } = props;
 
-    const friendlyTimestamp = moment(data.timestamp).format('LLLL');
     return (
       <div className={[
         'message',
         `${isMine ? 'mine' : ''}`,
       ].join(' ')}>
         <div className="bubble-container">
-          <div className="bubble" title={friendlyTimestamp}>
-            { data.message }
+          <div className="bubble" title={created_at}>
+            { text }
             <div className="timestamp">
-            {friendlyTimestamp}
+            {created_at}
             </div>
           </div>
         </div>

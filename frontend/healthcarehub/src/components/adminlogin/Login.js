@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 
-function LoginPage() {
+function LoginPage({settings}) {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -28,11 +28,11 @@ function LoginPage() {
       setSuccessMessage('Loggedin successfully');
       localStorage.setItem('token', response.data.token);
       //localStorage.setItem('name', response.data.name); 
-      //localStorage.setItem('role', response.data.role); 
+      localStorage.setItem('role', response.data.role); 
        setTimeout(() => {
             console.log("navigating to / page")
 
-            navigate('/');
+            navigate('/admin');
             //console.log("refreshing page")
             window.location.reload();
 
@@ -64,12 +64,13 @@ function LoginPage() {
 
   return (
     <div className="container">
-    <Navbar />
+    <Navbar settings={settings}/>
       <div className="admin-login-form">
         <h1>Admin Login</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>        <div className="form-group">
           <label htmlFor="email">Email</label>
+          <br/>
           <input
             type="text"
             id="email"

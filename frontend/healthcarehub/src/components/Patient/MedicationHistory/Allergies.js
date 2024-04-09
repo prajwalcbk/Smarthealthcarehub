@@ -1,9 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 
 function Allergies() {
-  const [allergies, setallergies] = useState([{"name":"fever","index":1},{"name":"headache","index":2}]);
-
+  const [allergies, setallergies] = useState([]);
+  const token = localStorage.getItem('token');
+  const [successMessage, setSuccessMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
+
+
+  const fetchDataFromApi = async () => {
+    try {
+
+      const response = await axios.get('/api/get/allergies/history',  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setallergies(response.data);
+
+
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
+    }
+  };
+
+
+useEffect(() => {
+    fetchDataFromApi();
+  }, []);
+
 
   const handleAddallergies = () => {
     const newallergies = { name: '', date: '', editable: true };
@@ -27,15 +56,34 @@ function Allergies() {
     event.preventDefault();
     console.log('allergies :', allergies);
   };
-    const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSave = (event) => {
+  const handleSave = async (id) => {
+    try {
+
+      const data={allergies: allergies}
+      const response = await axios.post('/api/create/history/allergies', data,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000
+      });
+      
+      
+
+    } 
+    catch (error) {
+      console.error('Error fetching health records:', error);
+    }
+
+
     setSuccessMessage("Added successfully");
     setTimeout(() => {
             setSuccessMessage('');
         }, 2000); 
 
-  };
+};
+
+
 
   return (
     <div className="allergies">

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->boolean('is_verified');
             $table->boolean('is_active');
-            $table->string('role');
+            $table->enum('role', ['PATIENT', 'DOCTOR', 'PHARMACIST' , 'ADMIN' , 'HEALTHADMIN']);
             $table->timestamp('verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

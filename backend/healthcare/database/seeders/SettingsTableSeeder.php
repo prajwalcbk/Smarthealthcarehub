@@ -28,7 +28,9 @@ class SettingsTableSeeder extends Seeder
                 'enableHealthRecords' => true,
                 'enableMedicationHistory' => true,
                 'enableMaintenance' => false,
+                'enableHealthForums' => true,
                 'tokenExpiration' => 60,
+                'enableSupport'  => true,
             ]);
         }
     }

@@ -5,7 +5,7 @@ import axios from 'axios';
 //import { useHistory } from 'react-router-dom';
 import { useHistory, useNavigate } from 'react-router-dom';
 
-const CreateForum = () => {
+const CreateForum = ({settings}) => {
 
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
@@ -34,7 +34,7 @@ const CreateForum = () => {
 
   return (
     <div className="container">
-    <Navbar />
+    <Navbar settings={settings}/>
       <div className="healthforum-form">
         <h1>Create New Forum</h1>
         <div className="form-group">

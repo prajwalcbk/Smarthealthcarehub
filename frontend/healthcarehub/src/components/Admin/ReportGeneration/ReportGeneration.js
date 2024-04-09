@@ -12,16 +12,16 @@ const ReportGeneration = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const token = localStorage.getItem('token');
 
+
   const fetchdata = async (url) => {
-  const response = await axios.get(url, {
+    const response = await axios.get(url,  {
             headers: {
               'Authorization': `Bearer ${token}`
             },
             timeout: 2000 // Set timeout to 2 seconds
           });
-  return response.data;
-}
-  
+    return response.data
+  }
 
   const handleGenerateReport = async (reportype) => {
     setReportType(reportype);

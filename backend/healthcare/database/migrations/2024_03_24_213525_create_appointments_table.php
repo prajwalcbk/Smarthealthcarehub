@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('patient_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('status')->default('Active');
+            $table->enum('status', ['Active', 'Cancelled' , 'Completed'])->default('Active');
             $table->timestamps();
         });
     }

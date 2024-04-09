@@ -70,14 +70,12 @@ function PatientSignup(props) {
     
     try {
       const response = await axios.post('/api/create/user/patient' , data);
-      setTimeout(() => {
-            console.log("navigating to / page")
+      setError(null);
+      setSuccessMessage('Account Created Successfully');
+      setTimeout(() => {        
+            navigate('/login');
 
-            navigate('/');
-            //console.log("refreshing page")
-            window.location.reload();
-
-          }, 1000);
+          }, 2000);
     }
 
     catch (error) {

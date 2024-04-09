@@ -1,24 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Surgeries() {
-  const [surgeries, setsurgeries] = useState([
-  {
-    "name": "Appendectomy",
-    "index": 1,
-    "date": "2020-05-10",
-    "description": "Surgical removal of the appendix due to appendicitis.",
-    "Patient": "Charlie"
-  },
-  {
-    "name": "Knee Surgery",
-    "index": 2,
-    "date": "2021-02-28",
-    "description": "Arthroscopic knee surgery to repair torn ligaments.",
-    "Patient": "Johnson"
-  }
-]);
-
+  const [surgeries, setsurgeries] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const token = localStorage.getItem('token');
+  const [error, setError] = useState(null);
+
+
+  const fetchDataFromApi = async () => {
+    try {
+
+      const response = await axios.get('/api/get/surgeries/history',  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setsurgeries(response.data);
+
+
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
+    }
+  };
+
+
+useEffect(() => {
+    fetchDataFromApi();
+  }, []);
+
 
   const handleAddSurgeries = () => {
     const surgery = { name: '', date: '', editable: true };
@@ -26,11 +40,23 @@ function Surgeries() {
     setEditMode(true); // Enable edit mode for the newly added illness
   };
 
-  const handleRemoveSurgeries = (index) => {
+  const handleRemoveSurgeries = async (index,id) => {
+  try {
+      const response = await axios.delete(`/api/delete/medicalhistory/${id}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+    } catch (error) {
+      console.error('Error fetching health records:', error);
+    }
     const updatedsurgery = [...surgeries];
     updatedsurgery.splice(index, 1);
     setsurgeries(updatedsurgery);
   };
+
 
   const handleInputChange = (event, index, key) => {
     const updatedsurgery = [...surgeries];
@@ -38,13 +64,33 @@ function Surgeries() {
     setsurgeries(updatedsurgery);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('surgeries history:', surgeries);
-  };
-    const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSave = (event) => {
+  const handleSave = async (id) => {
+    try {
+
+      const data=surgeries[id];
+      const response = await axios.post('/api/create/history/Surgeries', data,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000
+      });
+      
+
+    const updatedsurgeries = surgeries.filter((surgeriesdata, index) => index !== id);
+    // Add the response data (saved exercise) to the list
+    updatedsurgeries.push(response.data);
+
+    // Update the exercises state with the modified list
+    setsurgeries(updatedsurgeries);
+      
+
+    } 
+    catch (error) {
+      console.error('Error fetching health records:', error);
+    }
+
+
     setSuccessMessage("Added successfully");
     setTimeout(() => {
             setSuccessMessage('');
@@ -55,7 +101,7 @@ function Surgeries() {
   return (
     <div className="surgeries">
       <h2>Surgeries</h2>
-      <form onSubmit={handleSubmit}>
+      <form>
         <h3>Past Surgeries:</h3>
         <ul>
           {surgeries.map((surgery, index) => (
@@ -89,8 +135,8 @@ function Surgeries() {
                 disabled={!surgery.editable}
                 className={surgery.editable ? "editable" : ""}
               />
-              <button type="button" onClick={() => handleRemoveSurgeries(index)}>Remove</button>
-              <button type="button" onClick={handleSave}>Save</button>
+              <button type="button" onClick={() => handleRemoveSurgeries(index,surgery.id)}>Remove</button>
+              <button type="button" onClick={() => handleSave(index)}>Save</button>
             </li>
           ))}
         </ul>

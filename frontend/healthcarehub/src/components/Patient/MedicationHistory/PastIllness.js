@@ -1,30 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 
 function PastIllness() {
-  const [pastIllnesses, setPastIllnesses]  = useState([
-  {
-    "name": "Fever",
-    "index": 1,
-    "date": "2020-11-25",
-    "description": "Had a high fever with chills and body aches.",
-    "Patient": "Charlie"
-  },
-  {
-    "name": "Asthma",
-    "index": 2,
-    "date": "2021-03-15",
-    "description": "Experienced shortness of breath and wheezing.",
-    "Patient": "Johnson"
-  },
-  {
-    "name": "Migraine",
-    "index": 3,
-    "date": "2019-09-20",
-    "description": "Frequent headaches with sensitivity to light and sound.",
-    "Patient": "Smith"
-  }
-]);
+  const [pastIllnesses, setPastIllnesses]  = useState([]);
   const [editMode, setEditMode] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const token = localStorage.getItem('token');
+    const [error, setError] = useState(null);
+
+  const fetchDataFromApi = async () => {
+    try {
+
+      const response = await axios.get('/api/get/pastIllness/history',  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setPastIllnesses(response.data);
+
+
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
+    }
+  };
+
+
+useEffect(() => {
+    fetchDataFromApi();
+  }, []);
 
   const handleAddPastIllness = () => {
     const newIllness = { name: '', date: '', editable: true };
@@ -32,11 +39,24 @@ function PastIllness() {
     setEditMode(true); // Enable edit mode for the newly added illness
   };
 
-  const handleRemovePastIllness = (index) => {
+  const handleRemovePastIllness = async (index,id) => {
+
+    try {
+      const response = await axios.delete(`/api/delete/medicalhistory/${id}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+    } catch (error) {
+      console.error('Error fetching health records:', error);
+    }
     const updatedIllnesses = [...pastIllnesses];
     updatedIllnesses.splice(index, 1);
     setPastIllnesses(updatedIllnesses);
   };
+
 
   const handleInputChange = (event, index, key) => {
     const updatedIllnesses = [...pastIllnesses];
@@ -44,13 +64,34 @@ function PastIllness() {
     setPastIllnesses(updatedIllnesses);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('pastIllnesses history:', pastIllnesses);
-  };
-    const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSave = (event) => {
+
+  const handleSave = async (id) => {
+    try {
+
+      const data=pastIllnesses[id];
+      const response = await axios.post('/api/create/history/pastillness', data,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000
+      });
+      
+
+    const updatedpastIllnesses = pastIllnesses.filter((pastIllnessesdata, index) => index !== id);
+    // Add the response data (saved exercise) to the list
+    updatedpastIllnesses.push(response.data);
+
+    // Update the exercises state with the modified list
+    setPastIllnesses(updatedpastIllnesses);
+      
+
+    } 
+    catch (error) {
+      console.error('Error fetching health records:', error);
+    }
+
+
     setSuccessMessage("Added successfully");
     setTimeout(() => {
             setSuccessMessage('');
@@ -58,10 +99,11 @@ function PastIllness() {
 
   };
 
+
   return (
     <div className="pastIllnesses-history">
       <h2>Past illness History</h2>
-      <form onSubmit={handleSubmit}>
+      <form >
         <h3>Past illness:</h3>
         <ul>
           {pastIllnesses.map((illness, index) => (
@@ -94,13 +136,13 @@ function PastIllness() {
                 disabled={!illness.editable}
                 className={illness.editable ? "editable" : ""}
               />
-              <button type="button" onClick={() => handleRemovePastIllness(index)}>Remove</button>
-              <button type="button" onClick={handleSave}>Save</button>
+              <button type="button" onClick={() => handleRemovePastIllness(index,illness.id)}>Remove</button>
+              <button type="button" onClick={() => handleSave(index)}>Save</button>
             </li>
           ))}
         </ul>
         <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
-        <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddPastIllness}>Add</button>
+        <button type="button"  style={{"width":"100%" , "marginBottom": "30%"}}  onClick={handleAddPastIllness}>Add</button>
       </form>
     </div>
   );

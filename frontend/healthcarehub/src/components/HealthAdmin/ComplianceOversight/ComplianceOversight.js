@@ -18,7 +18,7 @@ function ComplianceOversight() {
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-    const response = await axios.get('/api/get/support/complianceissues',  {
+    const response = await axios.get('/api/get/support/compliance_issues',  {
             headers: {
               'Authorization': `Bearer ${token}`
             },

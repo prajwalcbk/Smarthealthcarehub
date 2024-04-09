@@ -3,7 +3,7 @@ import Navbar from '../../navbar/Navbar';
 import axios from 'axios';
 
 function HealthRecords() {
-  const [healthRecords, setHealthRecords] = useState(null);
+  const [healthRecords, setHealthRecords] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editedHealthRecords, setEditedHealthRecords] = useState({});
   const token = localStorage.getItem('token');
@@ -19,9 +19,23 @@ function HealthRecords() {
       timeout: 2000 // Set timeout to 2 seconds
     });
 
-      console.log(response.data[0]);
-      setHealthRecords(response.data[0]);
-      setEditedHealthRecords(response.data[0]);
+      console.log(response)
+      if(response.data.length==0){
+        const healthRecord={
+          "height":'',
+          'blood_group':'',
+          'age':'',
+          'weight':''
+
+        }
+        setHealthRecords(healthRecord);
+        setEditedHealthRecords(healthRecord);
+      }
+      else{
+        console.log(response.data[0]);
+        setHealthRecords(response.data[0]);
+        setEditedHealthRecords(response.data[0]);
+      }
 
 
     } catch (error) {

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('qualification'); 
             $table->string('licensenumber');
             $table->string('phoneNumber');
-            $table->string('address');
+            $table->text('address');
             $table->unsignedBigInteger('facility_id');
             $table->foreign('facility_id')->references('id')->on('facilities');
             $table->string('about');

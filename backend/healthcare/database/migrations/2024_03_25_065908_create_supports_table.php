@@ -15,11 +15,11 @@ return new class extends Migration
         $table->id();
         $table->string('title');
         $table->text('description');
-        $table->string('severity');
-        $table->string('status');
+        $table->enum('severity', ['Low', 'Medium', 'High' , 'Critical']);
+        $table->enum('status', ['Open', 'Inprogress' , 'Closed']);
         $table->unsignedBigInteger('user_id');
         $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        $table->string('type');
+        $table->enum('type', ['data_breaches', 'general' , 'incident_response' , 'system_malfunctions' , 'privacy_issues' , 'compliance_issues']);
         $table->timestamps();
         });
     }

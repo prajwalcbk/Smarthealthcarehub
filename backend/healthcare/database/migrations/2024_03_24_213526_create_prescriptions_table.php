@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->date('issued_date');
             $table->unsignedBigInteger('provider_id');
-            $table->string('status')->default('Active');
+            $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

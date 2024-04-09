@@ -1,78 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SystemConfiguration.css'
+import axios from 'axios';
 
 const SystemConfiguration = () => {
-  const [loginEnabled, setLoginEnabled] = useState(false);
-  const [signUpEnabled, setSignUpEnabled] = useState(false);
-  const [expirationTime, setExpirationTime] = useState(60);
   const [successMessage, setSuccessMessage] = useState(null);
-  const [roles, setRoles] = useState([
-    { name: 'Patient', enabled: true },
-    { name: 'Doctor', enabled: true },
-    { name: 'Pharmacist', enabled: true },
-  ]);
-  const [adminCredentials, setAdminCredentials] = useState({
-    confirmpassword: '',
-    password: '',
-  });
-  const [maintenanceMode, setMaintenanceMode] = useState(false);
-  const [features, setFeatures] = useState({
-    appointments: true,
-    messenger: true,
-    prescription: true,
-    healthRecords: true,
-    medicationHistory: true,
-  });
+  const [settings, setSettings] = useState({});
+  const token = localStorage.getItem('token');
 
-  const handleLoginToggle = () => {
-    setLoginEnabled(!loginEnabled);
-  };
 
-  const handleSignUpToggle = () => {
-    setSignUpEnabled(!signUpEnabled);
-  };
+
+useEffect(() => {
+
+  fetchSettings();
+  }, []);
+
+
 
   const handleExpirationTimeChange = (e) => {
-    setExpirationTime(parseInt(e.target.value));
+    setSettings({
+      ...settings,
+      ['tokenExpiration']: parseInt(e.target.value),
+    });
   };
 
-  const handleRoleToggle = (index) => {
-    const updatedRoles = [...roles];
-    updatedRoles[index].enabled = !updatedRoles[index].enabled;
-    setRoles(updatedRoles);
-  };
+  const fetchSettings = async () => {
+      try {
+       
+          const response = await axios.get('/api/get/domain/settings', {
+            timeout: 2000 // Set timeout to 2 seconds
+          });
 
-  const handlePasswordChange = (e) => {
-    setAdminCredentials({ ...adminCredentials, password: e.target.value });
-  };
-
-  const handlePasswordConfirmChange = (e) => {
-    setAdminCredentials({ ...adminCredentials, confirmpassword: e.target.value });
-  };
-
-  const handleMaintenanceToggle = () => {
-    setMaintenanceMode(!maintenanceMode);
-  };
-
-  const handleFeatureToggle = (feature) => {
-    setFeatures({ ...features, [feature]: !features[feature] });
-  };
+          if (response.status === 200) {
+            setSettings(response.data.data);
+          }
+        } 
+        
+       catch (error) {
+            setSettings(null);
+            console.error('Error while fetching domain Settings', error);
+      }
 
 
-  const [settings, setSettings] = useState({
-    enableLogin: false,
-    enableSignup: false,
-    enablePatient: true,
-    enableDoctor: true,
-    enablePharmacist: true,
-    enableAppointments: true,
-    enableMessenger: true,
-    enablePrescription:true,
-    enableHealthRecords:true,
-    enableMedicationHistory:true,
-    enableMaintenance:false
+    };
 
-  });
+
 
   const handleToggleSetting = (setting) => {
     setSettings({
@@ -81,7 +52,26 @@ const SystemConfiguration = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    try {
+          const data=settings;
+          const response = await axios.put('/api/update/domain/settings',data ,  {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+
+          if (response.status === 200) {
+            setSettings(response.data.data);
+            window.location.reload();
+          }
+        } 
+        
+       catch (error) {
+            setSettings(null);
+            console.error('Error while fetching domain Settings', error);
+      }
     setSuccessMessage("SystemConfiguration settings saved successfully");
     setTimeout(() => {
             setSuccessMessage('');
@@ -97,7 +87,7 @@ const SystemConfiguration = () => {
         <h3>Login and SignUp Settings</h3>
 
         <div className="form-group">
-        <label htmlFor="enablelogin">   Enable Login</label>
+       
           <div className="toggle">
             <input
               type="checkbox"
@@ -107,11 +97,12 @@ const SystemConfiguration = () => {
             />
             <div className="slider round" onClick={() => handleToggleSetting('enableLogin')}></div>
           </div>
+           <label htmlFor="enablelogin">   Enable Login</label>
         </div>
 
 
         <div className="form-group">
-        <label htmlFor="enablesignup"> Enable SignUp</label>
+        
           <div className="toggle">
             <input
               type="checkbox"
@@ -122,6 +113,7 @@ const SystemConfiguration = () => {
 
             <div className="slider round" onClick={() => handleToggleSetting('enableSignup')}></div>
           </div>
+          <label htmlFor="enablesignup"> Enable SignUp</label>
         </div>
 
         <div>
@@ -129,7 +121,7 @@ const SystemConfiguration = () => {
           Expiration Time (minutes):
           <input
             type="text"
-            value={expirationTime}
+            value={settings.tokenExpiration}
             onChange={handleExpirationTimeChange}
             style={{"width": "30%"}}
           />
@@ -191,28 +183,6 @@ const SystemConfiguration = () => {
 
       <hr />
 
-      <div>
-        <h3>Admin Credentials Settings</h3>
-        <label>
-          Password:
-          <input
-            type="password"
-            value={adminCredentials.password}
-            onChange={handlePasswordChange}
-          />
-        </label>
-        <br />
-        <label>
-          Confirm Password:
-          <input
-            type="password"
-            value={adminCredentials.confirmpassword}
-            onChange={handlePasswordConfirmChange}
-          />
-        </label>
-      </div>
-
-      <hr />
 
       <div>
         <h3>Maintenance Settings</h3>
@@ -238,7 +208,6 @@ const SystemConfiguration = () => {
         <h3>Enable Features</h3>
         
 
-        
 
         <div className="form-group">
           <div className="toggle">
@@ -272,6 +241,36 @@ const SystemConfiguration = () => {
           <div className="toggle">
             <input
               type="checkbox"
+              id="enableHealthForums"
+              checked={settings.enableHealthForums}
+              onChange={() => handleToggleSetting('enableHealthForums')}
+            />
+
+            <div className="slider round" onClick={() => handleToggleSetting('enableHealthForums')}></div>
+          </div>
+          <label htmlFor="enableHealthForums">  HealthForums</label>
+        </div>
+
+        <div className="form-group">
+          <div className="toggle">
+            <input
+              type="checkbox"
+              id="enableSupport"
+              checked={settings.enableSupport}
+              onChange={() => handleToggleSetting('enableSupport')}
+            />
+
+            <div className="slider round" onClick={() => handleToggleSetting('enableSupport')}></div>
+          </div>
+          <label htmlFor="enableSupport">  Support</label>
+        </div>
+
+
+
+        <div className="form-group">
+          <div className="toggle">
+            <input
+              type="checkbox"
               id="enablePrescription"
               checked={settings.enablePrescription}
               onChange={() => handleToggleSetting('enablePrescription')}
@@ -296,6 +295,7 @@ const SystemConfiguration = () => {
           <label htmlFor="enableHealthRecords">  HealthRecords</label>
         </div>
 
+
         <div className="form-group">
           <div className="toggle">
             <input
@@ -310,7 +310,7 @@ const SystemConfiguration = () => {
           <label htmlFor="enableMedicationHistory">  MedicationHistory</label>
         </div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
-        <button onClick={handleSubmit} style={{"width" : "100%" , "margin-bottom": "8%"}}>  Save</button>
+        <button onClick={handleSubmit} style={{"width" : "100%" , "marginBottom": "8%"}}>  Save</button>
         
 
       </div>

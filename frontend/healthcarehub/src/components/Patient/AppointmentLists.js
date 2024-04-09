@@ -24,6 +24,21 @@ function AppointmentList() {
     fetchappointments();
   }, []);
 
+const updateAppointment = (updatedAppointment) => {
+  console.log(updatedAppointment)
+  const updatedList = appointmentList.map((appointment) =>
+    appointment.id === updatedAppointment.id ? updatedAppointment : appointment
+  );
+  setappointmentList(updatedList);
+};
+
+const DeleteAppointment = (deletedAppointmentId) => {
+  const updatedList = appointmentList.filter((appointment) =>
+    appointment.id !== deletedAppointmentId
+  );
+  setappointmentList(updatedList);
+};
+
   const handleViewClick = (id) => {
     setViewClicked(prevClicked => ({
       ...prevClicked,
@@ -52,24 +67,19 @@ function AppointmentList() {
                 
                 <td>{appointment.date}</td>
                 <td>{appointment.time}</td>
-                <td>{appointment.duration}</td>
+                <td>{appointment.duration} minutes</td>
                 <td>{appointment.doctor_firstname} {appointment.doctor_lastname} </td>
                  <td>{appointment.reason} </td>
                 <td>{appointment.status}</td>
                 <td>
                   {viewClicked[appointment.id] && <button onClick={() => handleViewClick(appointment.id)}>Close</button>}
-                  {!viewClicked[appointment.id] && <button onClick={() => handleViewClick(appointment.id)}>Edit</button>}
+                  {!viewClicked[appointment.id] && appointment.status=='Active' && <button onClick={() => handleViewClick(appointment.id)}>Edit</button>}
                 </td>
               </tr>
               {viewClicked[appointment.id] && (
                 <tr>
                   <td colSpan="7">
-                    <AppointmentManagement 
-                    reason={appointment.reason}
-                    duration={appointment.duration}
-                    Time={appointment.time}
-                    Date='Fri Mar 08 2024 00:00:00 GMT+0530 (India Standard Time)'
-                    id={appointment.id}
+                    <AppointmentManagement appointment={appointment} handleViewClick={handleViewClick} updateAppointment={updateAppointment} DeleteAppointment={DeleteAppointment}
 
                     />
                   </td>

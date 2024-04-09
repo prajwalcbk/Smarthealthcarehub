@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ContactUs.css'; // Import CSS file for styling
 import Navbar from '../navbar/Navbar';
 
-function ContactUs() {
+function ContactUs({settings}) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -33,7 +33,7 @@ function ContactUs() {
 
   return (
     <div className='contact-container'>
-      <Navbar />
+      <Navbar settings={settings}/>
       <div className="contact-form-container">
         <h1>Contact Us</h1>
         <form onSubmit={handleSubmit} className="contact-form">

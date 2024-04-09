@@ -32,12 +32,13 @@ useEffect(() => {
   }, []);
 
 
-
   const handleAddVitalSigns = () => {
     const vitalsign = { bloodpressure: '', date: '', editable: true };
     setvitalsigns([...vitalsigns, vitalsign]);
     setEditMode(true); // Enable edit mode for the newly added illness
   };
+
+
 
   const handleRemoveVitalSigns = async (id , vitalId) => {
     try {
@@ -56,11 +57,15 @@ useEffect(() => {
     setvitalsigns(updatedvitalsign);
   };
 
+
+
   const handleInputChange = (event, id, key) => {
     const updatedvitalsign = [...vitalsigns];
     updatedvitalsign[id][key] = event.target.value;
     setvitalsigns(updatedvitalsign);
   };
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -78,6 +83,15 @@ useEffect(() => {
       },
       timeout: 2000 // Set timeout to 2 seconds
     });
+
+
+          // Remove the saved exercise from the list
+    const updatedvitalsign = vitalsigns.filter((vitalsign, index) => index !== id);
+    // Add the response data (saved exercise) to the list
+    updatedvitalsign.push(response.data);
+
+    // Update the exercises state with the modified list
+    setvitalsigns(updatedvitalsign);
 
     } catch (error) {
       console.error('Error fetching health records:', error);

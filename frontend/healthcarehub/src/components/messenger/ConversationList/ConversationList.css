@@ -42,6 +42,11 @@
   padding: 10px;
 }
 
+.selected {
+  background: #00000091;
+  cursor: pointer;
+}
+
 .conversation-list-item:hover {
   background: #00000091;
   cursor: pointer;

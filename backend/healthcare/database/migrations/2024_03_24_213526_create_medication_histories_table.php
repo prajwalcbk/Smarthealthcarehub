@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('patient_id');
-            $table->date('date');
+            $table->date('date')->default(date('Y-m-d'));
             $table->text('description');
-            $table->text('type');
+            $table->string('type');
             $table->timestamps();
 
             $table->foreign('patient_id')->references('id')->on('users')->onDelete('cascade');

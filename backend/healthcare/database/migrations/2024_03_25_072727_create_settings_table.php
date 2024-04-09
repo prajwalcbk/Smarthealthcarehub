@@ -19,10 +19,12 @@ return new class extends Migration
             $table->boolean('enableDoctor')->default(true);
             $table->boolean('enablePharmacist')->default(true);
             $table->boolean('enableAppointments')->default(true);
+            $table->boolean('enableHealthForums')->default(true);
             $table->boolean('enableMessenger')->default(true);
             $table->boolean('enablePrescription')->default(true);
             $table->boolean('enableHealthRecords')->default(true);
             $table->boolean('enableMedicationHistory')->default(true);
+            $table->boolean('enableSupport')->default(true);
             $table->boolean('enableMaintenance')->default(false);
             $table->integer('tokenExpiration')->default(60); // seconds
             $table->timestamps();

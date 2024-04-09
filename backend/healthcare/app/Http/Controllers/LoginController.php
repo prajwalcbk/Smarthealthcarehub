@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Cookie;
-
+use App\Models\Setting;
 
 class LoginController extends Controller
 {
@@ -26,9 +26,14 @@ class LoginController extends Controller
         $user = JWTAuth::user();
 
         // Check if the user is verified
-        if (!$user->is_verified) {
+        if (!$user->is_verified ) {
             // If the user is not verified, return a warning
             return response()->json(['error' => 'User is not verified'], 403);
+        }
+
+        if (!$user->is_active ) {
+            // If the user is not verified, return a warning
+            return response()->json(['error' => 'User Account is not Active'], 403);
         }
 
         if ($user->role == 'ADMIN' ) {
@@ -76,6 +81,8 @@ class LoginController extends Controller
         // Retrieve the authenticated user
         $user = JWTAuth::user();
 
+        $Settings = Setting::first();
+
         // Check if the user is verified
         if ($user->role != 'ADMIN' ) {
             // If the user is not verified, return a warning
@@ -90,7 +97,9 @@ class LoginController extends Controller
             // Add more custom claims as needed
         ];
 
-        $token = JWTAuth::claims($customClaims)->attempt($credentials);
+        $token = JWTAuth::claims($customClaims)->attempt($credentials, ['ttl' => $Settings->tokenExpiration]);
+
+        //$token = JWTAuth::claims($customClaims)->attempt($credentials);
 
 
         $response = response()->json([
@@ -101,7 +110,7 @@ class LoginController extends Controller
         ]);
 
         // Set the token as a cookie in the response
-        $cookie = Cookie::make('jwt_token', $token, 60); // Adjust the expiry time as needed
+        $cookie = Cookie::make('jwt_token', $token, $Settings->tokenExpiration); // Adjust the expiry time as needed
         $response->withCookie($cookie);
 
         return $response;

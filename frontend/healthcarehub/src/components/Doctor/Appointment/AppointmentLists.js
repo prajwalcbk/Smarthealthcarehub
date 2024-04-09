@@ -5,11 +5,14 @@ import axios from 'axios';
 function AppointmentList() {
   const [appointmentList, setappointmentList] = useState([]);
   const token = localStorage.getItem('token');
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
   // Fetch appointment history data from an external source (e.g., API)
   useEffect(() => {
     const fetchappointments = async () => {
-      // Simulated response from API
+
+      try{
       const response = await axios.get(`/api/get/doctor/upcoming/appointments`, {
             headers: {
               'Authorization': `Bearer ${token}`
@@ -17,14 +20,42 @@ function AppointmentList() {
             timeout: 2000 // Set timeout to 2 seconds
           });
       setappointmentList(response.data);
+    }
+    catch(error) {
+      console.log(error)
+    }
     };
 
     fetchappointments();
   }, []);
 
-  const handleCancelAppointmentClick = (id) => {
-    const updatedAppointments = appointmentList.filter(appointment => appointment.id !== id);
-    setappointmentList(updatedAppointments);
+  const handleCancelAppointmentClick = async (appointment) => {
+
+
+    appointment.status='Cancelled';
+    try {
+      const response = await axios.post(`/api/update/appointment/${appointment.id}` , appointment , {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+    setError('');
+    setSuccessMessage("Appointment Cancelled Successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+            const updatedAppointments = appointmentList.filter(Appointment => Appointment.id !== appointment.id);
+            setappointmentList(updatedAppointments);
+
+        }, 1000); 
+    }
+    
+    catch (error) {
+      
+        console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
+    
   };
 
   return (
@@ -48,7 +79,7 @@ function AppointmentList() {
                 
                 <td>{appointment.date}</td>
                 <td>{appointment.time}</td>
-                <td>{appointment.duration}</td>
+                <td>{appointment.duration} minutes</td>
                 <td>{appointment.patient_firstname} {appointment.patient_lastname}</td>
                  <td>{appointment.reason}</td>
                 
@@ -56,7 +87,7 @@ function AppointmentList() {
 
                 <td>{appointment.status}</td>
                 <td>
-                  <button onClick={() => handleCancelAppointmentClick(appointment.id)}>Cancel</button>
+                  <button onClick={() => handleCancelAppointmentClick(appointment)}>Cancel</button>
                 </td>
               </tr>
 

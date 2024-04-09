@@ -1,59 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import './UserProfile.css';
 import Select from 'react-select';
+import axios from 'axios';
+
 
 function UserProfileData() {
   const [UserProfile, setUserProfile] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [editedUserProfile, seteditedUserProfile] = useState({});
   const [healthfacilitynameoptions, setHealthFacilityNameOptions] = useState([]);
-  const [healthfacilityname, setHealthFacilityName] = useState('David');
   const [successMessage, setSuccessMessage] = useState('');
+  const token = localStorage.getItem('token');
+  const [error, setError] = useState(null);
 
 
 
 
-  const fetchUserProfile = async () => {
-    try {
-      // Replace the URL with your actual API endpoint
-      const response = await fetch('your-api-endpoint');
-      // const data = await response.json();
-      // const sampleUser = { "id": 2, "name": "Samantha", "CreatedDate": "2024-03-06T09:30:00Z", "email": "samantha@example.com", "status": "Verified", "role": "Doctor", "qualification": "MD", "specialization": "Neurology", "licensenumber": "456ghy67" };
-      const sampleUser = {
-        "id": 2,
-        email: 'example@gmail.com',
-        firstname: 'David',
-        lastname: 'John',
-        qualification: "MD", 
-        dateofbirth:"11/02/2000",
-        specialization: "Neurology", 
-        licensenumber: "456ghy67",
-        phoneNumber: '+1 4084805932',
-        emergencycontactnumber: '+1 4084805456',
-        gender: "male",
-        healthfacilityname:"David",
-        about: "Dr. David John is a board-certified neurologist with extensive experience in diagnosing and treating neurological disorders."
-      };
-      const data=sampleUser;
-      console.log(data.healthfacilityname)
-      setHealthFacilityName(data.healthfacilityname);
-      setUserProfile(data);
-      seteditedUserProfile(data); // Set initial values for editable fields
-    } catch (error) {
-      console.error('Error fetching UserProfile records:', error);
+    const fetchUserProfile = async () => {
+      try {
+    const response = await axios.get(`/api/get/doctor/profile`,  {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+    setUserProfile(response.data[0]);
+    seteditedUserProfile(response.data[0]);
+  }
+  catch (error) {
+      
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
     }
-  };
+  }
 
+
+  const fetchFacilitiesFromApi = async () => {
+      const response = await axios.get(`/api/get/facilities`)
+      return response.data;
+  };
 
   // Function to fetch primary care provider options from API
   const fetchHealthFacilityName = async (inputValue) => {
     try {
-      // Perform API call to fetch primary care providers based on inputValue
-      //const response = await fetch(`YOUR_API_ENDPOINT?search=${inputValue}`);
-      //const data = await response.json();
-      const data= [ {"name":"John","id":123},{"name":"David","id":1203},{"name":"Frank","id":1243},{"name":"Joe","id":12439}]
 
-      // Transform API response data to the format expected by React Select
+      const data= await fetchFacilitiesFromApi()
+
       const transformedOptions = data.map((provider) => ({
         value: provider.id,
         label: provider.name,
@@ -65,10 +57,16 @@ function UserProfileData() {
   };
 
 
+
   useEffect(() => {
     fetchHealthFacilityName();
     fetchUserProfile();
+    
   }, []);
+
+ useEffect(() => {
+  console.log(healthfacilitynameoptions);
+ },[healthfacilitynameoptions]);
 
   const handleEdit = () => {
     setEditMode(true);
@@ -78,13 +76,33 @@ function UserProfileData() {
     setEditMode(false);
   };
 
-      // Function to handle primary care provider selection
-  const handleHealthFacilityChange = (selectedOption) => {
-    setHealthFacilityName(selectedOption);
-  };
+const handleHealthFacilityChange = (selectedOption) => {
+  console.log(editedUserProfile);
+  console.log(UserProfile);
+  seteditedUserProfile((prevState) => ({
+    ...prevState,
+    facility_id: selectedOption.value ,
+    facility_name : selectedOption.label
+  }));
+};
 
-  const handleSubmit = (event) => {
-    setUserProfile(editedUserProfile);
+
+
+  const handleSubmit = async(event) => {
+
+    try {
+      const response = await axios.post(`/api/update/doctor/profile`, editedUserProfile , {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          }); 
+      setUserProfile(editedUserProfile);
+    }
+    catch (error) {
+      console.error('Error fetching UserProfile records:', error);
+    }
+    
     setSuccessMessage("User Details saved successfully");
     setTimeout(() => {
             setSuccessMessage('');
@@ -92,12 +110,9 @@ function UserProfileData() {
 
 
     event.preventDefault();
-    // Process the form data or make API call to update health records
-    // After successful update, setEditMode to false
     setEditMode(false);
-    // Here, you can use editedUserProfile to update the health records
-    console.log('Edited UserProfile records:', editedUserProfile);
   };
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -113,16 +128,15 @@ function UserProfileData() {
       <h2>User Details</h2>
       {UserProfile ? (
         <div>
-          <form method="POST">
             <div>
-              <label htmlFor="email">User Email:</label>
+              <label htmlFor="email">Email:</label>
               <input
                 type="text"
                 id="email"
                 name="email"
                 value={editMode ? editedUserProfile.email : UserProfile.email}
                 onChange={handleInputChange}
-                disabled={!editMode}
+                disabled={true}
               />
             </div>
 
@@ -156,17 +170,6 @@ function UserProfileData() {
 
           <div className="input-row">  
             
-            <div>
-              <label htmlFor="dateofbirth">Date of Birth: </label>
-              <input
-                type="text"
-                id="dateofbirth"
-                name="dateofbirth"
-                value={editMode ? editedUserProfile.dateofbirth : UserProfile.dateofbirth}
-                onChange={handleInputChange}
-                disabled={!editMode}
-              />
-            </div>
 
             <div>
               <label htmlFor="gender">Gender: </label>
@@ -175,6 +178,18 @@ function UserProfileData() {
                 id="gender"
                 name="gender"
                 value={editMode ? editedUserProfile.gender : UserProfile.gender}
+                onChange={handleInputChange}
+                disabled={!editMode}
+              />
+            </div>
+
+          <div>
+              <label htmlFor="phoneNumber">Phone Number :</label>
+              <input
+                type="text"
+                id="phoneNumber"
+                name="phoneNumber"
+                value={editMode ? editedUserProfile.phoneNumber : UserProfile.phoneNumber}
                 onChange={handleInputChange}
                 disabled={!editMode}
               />
@@ -208,6 +223,7 @@ function UserProfileData() {
             </div>
           </div>
 
+        <div className="input-row">  
           <div>
               <label htmlFor="licensenumber">License Number: </label>
               <input
@@ -219,6 +235,20 @@ function UserProfileData() {
                 disabled={!editMode}
               />
           </div>
+
+          <div>
+              <label htmlFor="address">Address:</label>
+              <input
+                type="text"
+                id="address"
+                name="address"
+                value={editMode ? editedUserProfile.address : UserProfile.address}
+                onChange={handleInputChange}
+                disabled={!editMode}
+              />
+            </div>
+
+        </div>
 
           <div>
           <label htmlFor="about">About *</label>
@@ -233,23 +263,44 @@ function UserProfileData() {
           </div>
 
 
+      {editMode ? 
         <div>
           <label htmlFor="healthfacilityname">Health Facility Name *</label>
           <Select
-            id="healthfacilityname"
-            value={healthfacilityname}
+            id="facility_id"
+            name='facility_id'
+            value={healthfacilitynameoptions.find(option => option.value === (editMode ? editedUserProfile.facility_id : UserProfile.facility_id))}
             onChange={handleHealthFacilityChange}
             options={healthfacilitynameoptions}
             style={{ "height": "0px"}}
             isSearchable
+            isDisabled={!editMode}
+              styles={{
+              option: (provided) => ({
+                ...provided,
+                color: 'black', // Set the color to black
+              }),
+            }}
           />
         </div>
+        :
+          <div>
+              <label htmlFor="address">Health Facility Name*</label>
+              <input
+                type="text"
+                id="facility_name"
+                name="facility_name"
+                value={editMode ? editedUserProfile.facility_name : UserProfile.facility_name}
+                onChange={handleInputChange}
+                disabled={!editMode}
+              />
+            </div>
+    }
 
 
 
             {editMode && <button onClick={handleCancel}>Cancel</button>}
             {editMode && <button type="submit" onClick={handleSubmit}>Save</button>}
-          </form>
           
           {!editMode && <button onClick={handleEdit}>Edit</button>}
         </div>

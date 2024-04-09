@@ -8,7 +8,7 @@ import female_doctor from './../../assets/female_doctor.png'
 import { useHistory, useNavigate } from 'react-router-dom';
 
 
-const ForumPage = () => {
+const ForumPage = ({settings}) => {
   const [Forum, setForum] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [ answer , setAnswer] = useState('');
@@ -56,6 +56,8 @@ const ForumPage = () => {
 
   const handleSubmitClick = async () => {
 
+    if(answer){
+
         const data= {
           'answer': answer,
           'forum_id': forumId,
@@ -63,6 +65,7 @@ const ForumPage = () => {
           'user_firstname' : 'Admin'
         }
         const token = localStorage.getItem('token');
+
         const response = await axios.post(`/api/create/forum/answer` , data, {
             headers: {
               'Authorization': `Bearer ${token}`
@@ -70,15 +73,16 @@ const ForumPage = () => {
             timeout: 2000 // Set timeout to 2 seconds
           });
 
-        const updatedAnswers = [data, ...answers];
+        const updatedAnswers = [response.data.post[0], ...answers];
         setAnswers(updatedAnswers);
         setAnswer('');
         setAnswer_section(false)  
-  };
+  }
+};
   
   return (
     <div className="forum-container">
-      <Navbar />      
+      <Navbar settings={settings}/>      
       <div className="forum-list">
         {Forum && (
           <div className="forum-card">

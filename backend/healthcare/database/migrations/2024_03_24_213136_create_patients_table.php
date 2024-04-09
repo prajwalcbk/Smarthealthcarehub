@@ -16,10 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
-            $table->string('dateofbirth');
+            $table->date('dateofbirth')->default(date('Y-m-d'));
             $table->string('phoneNumber');
-            $table->string('address');
-            $table->string('gender');
+            $table->text('address');
+            $table->enum('gender', ['male', 'female', 'others']);
             $table->string('emergencycontactnumber');
         });
     }

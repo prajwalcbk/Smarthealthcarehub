@@ -42,11 +42,11 @@ function AppointmentList() {
             <React.Fragment key={appointment.id}>
               <tr>
                 
-                <td style={{ "padding":"3%" }}>{appointment.date}</td>
-                <td style={{ "padding":"3%" }}>{appointment.time}</td>
-                <td style={{ "padding":"3%" }}>{appointment.duration}</td>
-                <td style={{ "padding":"3%" }}>{appointment.patient_firstname} {appointment.patient_lastname} </td>
-                 <td style={{ "padding":"3%" }}>{appointment.reason}</td>
+                <td>{appointment.date}</td>
+                <td>{appointment.time}</td>
+                <td>{appointment.duration} minutes</td>
+                <td>{appointment.patient_firstname} {appointment.patient_lastname} </td>
+                 <td>{appointment.reason}</td>
                 
                 <td>{appointment.status}</td>
                 <td>

@@ -7,9 +7,8 @@ import CreateForum from './CreateForum';
 
 
 
-const HealthForum = () => {
+const HealthForum = ({settings}) => {
   const [Forums, setForums] = useState([]);
-  const [specializationFilter, setSpecializationFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [titleFilter, setTitleFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,9 +19,6 @@ const HealthForum = () => {
 
     const fetchDataFromApi = async (page) => {
       const response = await axios.get(`/api/get/forums?page=${page}`, {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            },
             timeout: 2000 // Set timeout to 2 seconds
           });
       return response.data;
@@ -61,6 +57,15 @@ const HealthForum = () => {
 
 
 
+const handleSearch = async () => {
+      const response = await axios.get(`/api/search/forums?title=${titleFilter}&category=${categoryFilter}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+      setForums(response.data);
+};
 
 
 
@@ -78,16 +83,15 @@ const HealthForum = () => {
 
   return (
     <div className="healthforum-container">
-    <Navbar />
+    <Navbar settings={settings}/>
       <h1 className="healthforum-heading">Health Forums </h1>
       <div className="healthforum-filter-container">
 
         <select
-          value={specializationFilter}
-          onChange={e => setSpecializationFilter(e.target.value)}
+          value={categoryFilter}
+          onChange={e => setCategoryFilter(e.target.value)}
         >
           <option value="">Select Category</option>
-          <option value="All">All</option>
           <option value="Diet">Diet</option>
           <option value="Exercise">Exercise</option>
           <option value="Mental Health">Mental Health</option>
@@ -105,6 +109,7 @@ const HealthForum = () => {
           value={titleFilter}
           onChange={e => setTitleFilter(e.target.value)}
         />
+        <button onClick={handleSearch}> Search  </button>
         <button onClick={handleCreateClick}> Create New  </button>
         
       </div>

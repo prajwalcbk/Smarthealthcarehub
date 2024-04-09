@@ -10,8 +10,8 @@ import VitalSigns from './HealthRecords/VitalSigns'
 
 import PrescriptionsList from './PrescriptionsList';
 import UserProfile from './UserProfile';
-import UpcomingAppointments from './AppointmentLists';
-import OlderAppointments from './AppointmentHistory';
+import UpcomingAppointments from './Appointment/AppointmentLists';
+import OlderAppointments from './Appointment/AppointmentHistory';
 import AnalyticsDashboard from './AnalyticsDashboard/AnalyticsDashboard'
 
 import Navbar from './../navbar/Navbar'
@@ -30,7 +30,7 @@ import analytics from './../../assets/analytics.png'
 import { useHistory, useNavigate } from 'react-router-dom';
 
 
-function User() {
+function User({settings}) {
 
 
   const [activeComponent, setActiveComponent] = useState('');
@@ -109,18 +109,19 @@ function User() {
 
   return (
     <div className="user-container">
-      <Navbar />
+      <Navbar settings={settings}/>
       {isOpen && (
       <div className="sidebar">
           <button onClick={handleToggle}> <img src={bar} alt="menu bar"  /> Menu Bar </button>
           <button onClick={() => setComponent('UserProfile')}> <img src={user} alt="Stethoscope Icon"  /> Doctor Details</button>
+          
+          { settings && settings.enableMedicationHistory === 1 &&  
           <button onClick={handleDropDown}>
             <img src={medicalrecord} alt="MedicationHistory Icon"  />
             Medication History 
             {isDropDownOpen && <img src={close} alt="menu bar"  />}
-
-
           </button>
+        }
 
           {(
             isDropDownOpen
@@ -133,10 +134,16 @@ function User() {
              <button onClick={() => setComponent('FamilyHistory')}> Family History </button>
           </div>
           )}
-          <button onClick={() => setComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon"  /> Prescriptions</button>
-          
 
+          { settings && settings.enablePrescription === 1 && 
+          <button onClick={() => setComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon"  /> Prescriptions</button>
+          }
+
+
+          {settings && settings.enableHealthRecords === 1 &&  
           <button onClick={handleDropDown1}> <img src={vitalsigns} alt="MedicationHistory Icon"  />  Health Records {isDropDownOpen1 && <img src={close} alt="menu bar"  />} </button>
+        }
+
           {(
             isDropDownOpen1
           ) && (          
@@ -146,8 +153,10 @@ function User() {
           </div>
           )}
 
-          
+          {settings && settings.enableAppointments === 1 && 
           <button onClick={handleDropDown2}> <img src={calender} alt="Appointments Icon"  />  Appointments {isDropDownOpen2 && <img src={close} alt="menu bar"  />} </button>
+        }
+
           {(
             isDropDownOpen2
           ) && (          
@@ -158,7 +167,10 @@ function User() {
           </div>
           )}
           <button onClick={() => setComponent('AnalyticsDashboard')}> <img src={analytics} alt="HealthRecords Icon"  /> Analytics</button>
+
+          {settings && settings.enableMessenger === 1 &&  
           <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon"  /> Messenger</button>
+        }
       </div>
       )}
 

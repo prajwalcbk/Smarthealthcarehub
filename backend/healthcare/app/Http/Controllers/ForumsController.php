@@ -20,7 +20,7 @@ class ForumsController extends Controller
                 'users.lastname as user_lastname',
                 'users.email as user_email'
             )
-            ->paginate(10);;
+            ->paginate(10);
 
 
         return response()->json(['forumPosts' => $forumPosts]);
@@ -44,6 +44,35 @@ class ForumsController extends Controller
         }
 
         return response()->json($forumPost);
+    }
+
+    public function searchForums(Request $request)
+    {
+        $category = $request->input('category');
+        $title = $request->input('title');
+
+        $forumPosts = ForumPost::query();
+
+        if ($category) {
+            $forumPosts->where('category', 'like', '%' . $category . '%');
+        }
+
+        if ($title) {
+            $forumPosts->where('title', 'like', '%' . $title . '%');
+        }
+
+
+        $results = $forumPosts->join('users', 'forum_posts.user_id', '=', 'users.id')
+                          ->select(
+                              'forum_posts.*',
+                              'users.firstname as user_firstname',
+                              'users.lastname as user_lastname',
+                              'users.email as user_email'
+                          )
+                          ->get();
+
+        // Return the results as JSON response
+        return response()->json($results);
     }
 
     public function update(Request $request, $postId)

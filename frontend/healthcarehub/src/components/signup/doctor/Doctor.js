@@ -28,14 +28,19 @@ function Doctor(props) {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
 
-
+  
+  const fetchFacilitiesFromApi = async () => {
+      const response = await axios.get(`/api/get/facilities`)
+      return response.data;
+  };
 
   // Function to fetch primary care provider options from API
   const fetchHealthFacilityName = async (inputValue) => {
     try {
       // Perform API call to fetch primary care providers based on inputValue
       //const data = await response.json();
-      const data= [ {"name":"John","id":123},{"name":"David","id":123},{"name":"Joe","id":1243},{"name":"Miller","id":1243}]
+      const data= await fetchFacilitiesFromApi()
+      console.log(data)
 
       // Transform API response data to the format expected by React Select
       const transformedOptions = data.map((provider) => ({
@@ -82,13 +87,12 @@ function Doctor(props) {
     
     try {
       const response = await axios.post('/api/create/user/doctor' , data);
-      setTimeout(() => {
+      setError(null);
+      setSuccessMessage('Account Created Successfully');
+      setTimeout(() => {            
+            navigate('/login');
 
-            navigate('/');
-            //console.log("refreshing page")
-            window.location.reload();
-
-          }, 1000);
+          }, 2000);
     }
 
 

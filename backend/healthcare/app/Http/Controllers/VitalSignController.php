@@ -13,7 +13,7 @@ class VitalSignController extends Controller
 
         $request->validate([
             'bloodpressure' => 'required|string',
-            'date' => 'required|string',
+            'date' => 'required|date',
             'heartrate' => 'required|string',
             'bloodsugar' => 'required|string',
         ]);

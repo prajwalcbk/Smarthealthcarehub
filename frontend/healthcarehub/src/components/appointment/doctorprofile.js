@@ -6,8 +6,6 @@ import female_doctor from './../../assets/female_doctor.png'
 import medicalrecord from'./../../assets/medical-record.png'
 
 
-
-
 function DoctorProfile(props) {
   const [doctor, setDoctor] = useState([]);
   const token = localStorage.getItem('token');
@@ -39,25 +37,28 @@ function DoctorProfile(props) {
 
 
 
-function Profile({ name, specialization, location, about, licenseNumber, affiliatedFacility }) {
+function Profile({ doctor}) {
   return (
     <div className="doctor-profile">
     <div>{error && <p className="error-message">{error}</p>}</div>
       <div className="profile-info">
         <div>
-          <strong>  Specialization:</strong> {specialization}
+          <strong>Qualification:</strong> {doctor.qualification}
         </div>
         <div>
-          <strong>Location:</strong> {location}
+          <strong>  Specialization:</strong> {doctor.specialization}
         </div>
         <div>
-          <strong>License Number:</strong> {licenseNumber}
+          <strong>Location:</strong> {doctor.address}
         </div>
         <div>
-          <strong>Affiliated Facility:</strong> {affiliatedFacility}
+          <strong>License Number:</strong> {doctor.licensenumber}
         </div>
         <div>
-          <strong>About:</strong> {about}
+          <strong>Affiliated Facility:</strong> {doctor.facility_name}
+        </div>
+        <div>
+          <strong>About:</strong> {doctor.about}
         </div>
       </div>
     </div>
@@ -70,14 +71,8 @@ function Profile({ name, specialization, location, about, licenseNumber, affilia
     <div className="DoctorProfile">
 
       <img src={doctor.gender === 'male' ? male_doctor : female_doctor} alt="Doctor icon" className="profile-pic" style={{ width: '50px', height: '50px' }} />
-      <label> {doctor.name} </label>      
-      <Profile
-        name={doctor.name}
-        specialization={doctor.specialization}
-        location={doctor.address}
-        about={doctor.about}
-        licenseNumber={doctor.licensenumber}
-        affiliatedFacility={doctor.facility_id}
+      <h2>{doctor.firstname} {doctor.lastname} </h2>     
+      <Profile doctor={doctor}
       />
     </div>
   );

@@ -30,7 +30,7 @@ class SettingsController extends Controller
             $request->all()
         );
 
-        return response()->json(['message' => 'Settings updated successfully']);
+        return response()->json(['message' => 'Settings updated successfully', 'data' => $settings]);
     }
 
     public function get()

@@ -7,12 +7,13 @@ const PrivacyIssuesComponent = () => {
 
     const [privacyIssues, setprivacyIssues ]= useState([]);
     const token = localStorage.getItem('token');
+    const [error, setError] = useState(null);
     useEffect(() => {
 
 
     const fetchdata = async () => {
 
-
+    try {
       const response = await axios.get('/api/get/support/privacy_issues',  {
             headers: {
               'Authorization': `Bearer ${token}`
@@ -20,7 +21,13 @@ const PrivacyIssuesComponent = () => {
             timeout: 2000 // Set timeout to 2 seconds
           });
       console.log(response);
-      setprivacyIssues(response.data)
+      setprivacyIssues(response.data);
+    }
+    catch (error) {
+      
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
 
     }
     fetchdata();
@@ -32,22 +39,25 @@ const PrivacyIssuesComponent = () => {
   return (
     <div className="dataoversight">
       <h2>Privacy Issues</h2>
+      <div>{error && <p className="error-message">{error}</p>}</div>
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>Support ID</th>
+            <th>Title</th>
             <th>Description</th>
             <th>Date</th>
-            <th>Type</th>
+            <th>Severity</th>
           </tr>
         </thead>
         <tbody>
           {privacyIssues.map((issue, index) => (
             <tr key={index}>
               <td>{issue.id}</td>
+              <td>{issue.title}</td>
               <td>{issue.description}</td>
               <td>{issue.created_at ? new Date(issue.created_at).toISOString().split('T')[0] : "Invalid Date"}</td>
-              <td>{issue.title}</td>
+              <td>{issue.severity}</td>
             </tr>
           ))}
         </tbody>

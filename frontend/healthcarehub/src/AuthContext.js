@@ -9,6 +9,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [authIsReady, setAuthIsReady] = useState(null);
+  const [settings, setSettings] = useState(null);
   const [user, setUser] = useState(null);
 
 
@@ -18,7 +19,6 @@ export const AuthProvider = ({ children }) => {
     
     localStorage.removeItem('token');
     localStorage.removeItem('role');
-    //window.location.reload();
     
 
   };
@@ -52,13 +52,36 @@ export const AuthProvider = ({ children }) => {
             console.error('Error fetching user data:', error);
         // Handle errors here, e.g., set state accordingly
       }
+
+
+    };
+
+    const fetchSettings = async () => {
+      try {
+       
+          const response = await axios.get('/api/get/domain/settings', {
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+
+          if (response.status === 200) {
+            setSettings(response.data.data);
+          }
+        } 
+        
+       catch (error) {
+            setSettings(null);
+            console.error('Error while fetching domain Settings', error);
+      }
+
+
     };
 
     fetchData();
+    fetchSettings();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ authIsReady, user }}>
+    <AuthContext.Provider value={{ authIsReady, user , settings}}>
       {children}
     </AuthContext.Provider>
   );

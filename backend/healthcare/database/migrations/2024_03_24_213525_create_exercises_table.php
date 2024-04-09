@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('exercises', function (Blueprint $table) {
             $table->id();
             $table->string('workout');
-            $table->string('date');
+            $table->date('date')->default(date('Y-m-d'));
             $table->string('intensity');
             $table->string('duration');
             $table->unsignedBigInteger('user_id');

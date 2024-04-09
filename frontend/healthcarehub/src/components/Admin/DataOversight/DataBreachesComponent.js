@@ -41,7 +41,8 @@ const DataBreachesComponent = () => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>Support ID</th>
+            <th>Title</th>
             <th>Description</th>
             <th>Date</th>
             <th>Severity</th>
@@ -51,6 +52,7 @@ const DataBreachesComponent = () => {
           {dataBreaches.map((breach, index) => (
             <tr key={index}>
               <td>{breach.id}</td>
+              <td>{breach.title}</td>
               <td>{breach.description}</td>
               <td>{breach.created_at ? new Date(breach.created_at).toISOString().split('T')[0] : "Invalid Date"}</td>
               <td>{breach.severity}</td>

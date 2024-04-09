@@ -4,10 +4,10 @@ import Navbar from '../../navbar/Navbar';
 import profile from './../../../assets/profile.png'
 import woman from './../../../assets/woman.png'
 
-function AboutUsPage() {
+function AboutUsPage({settings}) {
   return (
     <div className='about-container'>
-        <Navbar />
+        <Navbar settings={settings}/>
         <div className="about-us-container">
       <div className="section">
         <h1>About SmartHealth Hub</h1>

@@ -5,11 +5,11 @@ function Exercise() {
   const [exercises, setexercises] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const token = localStorage.getItem('token');
+  const [successMessage, setSuccessMessage] = useState('');
 
 
   const fetchExercises = async () => {
     try {
-
 
       const response = await axios.get('/api/get/exercise/healthrecords/',  {
       headers: {
@@ -62,7 +62,7 @@ useEffect(() => {
     console.log('exercises history:', exercises);
   };
 
-    const [successMessage, setSuccessMessage] = useState('');
+   
 
   const handleAddExercise = () => {
     const exercise = { name: '', date: '', editable: true };
@@ -81,20 +81,15 @@ useEffect(() => {
       timeout: 2000
       });
       
-      const newupdatedexercise = [...exercises , response.data];
-      setexercises(newupdatedexercise);
 
 
-      console.log(id);
-      const updatedexercise = [...exercises];
-      console.log("Before");
-      console.log(updatedexercise);
-      updatedexercise.splice(id, 1);
-      setexercises(updatedexercise);
-      console.log(updatedexercise);
+    // Remove the saved exercise from the list
+    const updatedExercises = exercises.filter((exercise, index) => index !== id);
+    // Add the response data (saved exercise) to the list
+    updatedExercises.push(response.data);
 
-      console.log("After");
-      console.log(exercises);
+    // Update the exercises state with the modified list
+    setexercises(updatedExercises);
       
 
     } 

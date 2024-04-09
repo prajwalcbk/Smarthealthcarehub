@@ -32,6 +32,15 @@
 
 }
 
+
+.user-list li{
+  list-style: none;
+  border: 1px solid white;
+  border-radius: 40px;
+  padding: 2%;
+  margin-bottom: 5%;
+}
+
 .user-profile h2 {
   margin-bottom: 20px;
   font-size: 30px;

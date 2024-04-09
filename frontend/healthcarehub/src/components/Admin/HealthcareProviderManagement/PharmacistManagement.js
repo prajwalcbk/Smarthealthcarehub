@@ -4,6 +4,7 @@ import axios from 'axios';
 function PharmacistManagement() {
   const [UsersList, setUsersList] = useState([]);
   const token = localStorage.getItem('token');
+  const [successMessage, setSuccessMessage] = useState('');
 
 
 
@@ -49,6 +50,7 @@ const handleVerifyUser = async (userId) => {
 
       <div className="users-list">
       <h2>Pharmacist Accounts </h2>
+      <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>
       <table>
         <thead>
           <tr>
@@ -57,7 +59,7 @@ const handleVerifyUser = async (userId) => {
             <th>Qualification</th>
             <th>License Number </th>
             <th>FacilityName</th>
-            <th>Status</th>
+            <th>User Status</th>
           </tr>
         </thead>
         <tbody>
@@ -68,7 +70,7 @@ const handleVerifyUser = async (userId) => {
                 <td>{user.email}</td>
                 <td>{user.qualification}</td>
                 <td>{user.licensenumber}</td>
-                <td>{user.healthfacilityname}</td>
+                <td>{user.facility_name}</td>
 
                 <td>{user.is_verified ? 'Verified' : 'Pending'} </td>
                 <td>

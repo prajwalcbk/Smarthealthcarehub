@@ -11,7 +11,7 @@ import axios from 'axios';
 
 
 
-const DoctorSearchPage = () => {
+const DoctorSearchPage = ({settings}) => {
   const [doctors, setDoctors] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [specializationFilter, setSpecializationFilter] = useState('');
@@ -90,7 +90,7 @@ const DoctorSearchPage = () => {
 
   return (
     <div className="appointment-container">
-    <Navbar />
+    <Navbar settings={settings}/>
     <div>{error && <p className="error-message">{error}</p>}</div>
       <h1 className="doctor-heading">Book Your Doctor Online </h1>
       <div className="filter-container">
@@ -126,7 +126,10 @@ const DoctorSearchPage = () => {
       <div className="doctor-list">
         {currentDoctors.map(doctor => (
           <div key={doctor.id} className="doctor-card">
+          
           {viewprofileClicked[doctor.id] && <DoctorProfile id={doctor.id}  />}
+            
+
             <div className="left-section" style={{ display: viewprofileClicked[doctor.id] ? 'none' : 'flex' }}>
               <img src={doctor.gender === 'male' ? male_doctor : female_doctor} alt="Doctor icon" className="profile-pic" style={{ width: '50px', height: '50px' }} />
               <div style={{ paddingLeft: '20px' }}>
@@ -137,6 +140,7 @@ const DoctorSearchPage = () => {
               </div>
             </div>
             <div className="right-section">
+
 
               {!bookAppointmentClicked[doctor.id] && !viewprofileClicked[doctor.id] && <button onClick={() => handleBookAppointmentClick(doctor.id)}>Book Appointment</button>}
               {!bookAppointmentClicked[doctor.id] && !viewprofileClicked[doctor.id] && <button onClick={() => handleviewprofileClickedClick(doctor.id)}>View Profile</button>}

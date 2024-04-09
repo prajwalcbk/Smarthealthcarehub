@@ -7,7 +7,7 @@ import Navbar from './../navbar/Navbar'
 import { Link } from "react-router-dom";
 
 
-function SignUpPage() {
+function SignUpPage({settings}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -46,7 +46,7 @@ function SignUpPage() {
 
   return (
     <div className="container">
-    <Navbar />
+    <Navbar settings={settings}/>
       {!nextClicked && (
         <div className="signup-form">
           <h1>Sign Up</h1>

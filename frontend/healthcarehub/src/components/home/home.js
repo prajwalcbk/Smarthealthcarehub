@@ -15,14 +15,13 @@ import patient from './../../assets/patient.png'
 import pharmacist from './../../assets/pharmacist.png'
 import healthadmin from './../../assets/healthadmin.png'
 import admin from './../../assets/admin.png'
+import axios from 'axios';
 
 
 
-
-function Home() {
+function Home({settings}) {
   const [toShowAllRoles , setToShowAllRoles]=useState(true);
   const [isMobile, setIsMobile] = useState(false);
-
 
    useEffect(() => {
     const handleResize = () => {
@@ -32,12 +31,17 @@ function Home() {
       setToShowAllRoles(false);
     };
 
-    // Initial check
+
+
     handleResize();
   }, []);
+
+
+
+
   return (
     <div className="home-container">
-      <Navbar />
+      <Navbar settings={settings}/>
       <Notification />
       <div className='quote-container'>
         <div className='content-wrapper'>
@@ -127,7 +131,9 @@ function Home() {
 
         }
            <Footer />
+           {settings && settings.enableSupport==1 && 
                <Support />
+            }
       </div>
     </div>
   );

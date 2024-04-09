@@ -54,7 +54,7 @@ function AppointmentManagement( { doctorid , updateParentState , userid }  ) {
     setTimeout(() => {
             setSuccessMessage('');
             updateParentState(userid);
-        }, 2000); 
+        }, 1000); 
     }
     
 

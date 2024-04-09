@@ -7,7 +7,7 @@ import LoginNotification from './../LoginNotification'
 import React, { useState, useEffect } from 'react';
 
 
-function LoginPage() {
+function LoginPage({settings}) {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -30,7 +30,6 @@ function LoginPage() {
       setSuccessMessage('Loggedin successfully');
       localStorage.setItem('role', response.data.role); 
       localStorage.setItem('token', response.data.token);
-      //localStorage.setItem('name', response.data.name); 
       
        setTimeout(() => {
             console.log("navigating to / page")
@@ -69,7 +68,7 @@ function LoginPage() {
 
   return (
     <div className="container">
-    <Navbar />
+    <Navbar settings={settings}/>
       <div className="login-form">
         <h1>Login</h1>
         <div>{error && <p className="error-message">{error}</p>}</div>

@@ -3,19 +3,34 @@ import axios from 'axios';
 import profile from './../../../assets/profile.png'
 import './ConversationList.css';
 
-export default function ConversationList(props) {
+export default function ConversationList({ changeChat }) {
   const [conversations, setConversations] = useState([]);
+  const [currentSelected, setCurrentSelected] = useState(undefined);
+
   
+    const changeCurrentChat = (index, contact) => {
+    setCurrentSelected(index);
+    changeChat(contact);
+  };
+
+
   useEffect(() => {
-    getConversations()
+    getConversations();
+    console.log(conversations);
   },[])
 
 
 
- const getConversations = () => {
+ const getConversations = async () => {
 
-    const newConversations =   [ {"name": "John"} , {"name": "Charle"} ];
-    setConversations([...conversations, ...newConversations]);
+      try {
+            const response = await axios.get('/api/get/users',  {
+            timeout: 2000 // Set timeout to 2 seconds
+          })
+            setConversations(response.data)
+        }
+          catch (error) {
+          }
   }
 
     return (
@@ -34,11 +49,17 @@ export default function ConversationList(props) {
           placeholder="Search Messages"
         />
       </div>
-        {conversations.map(conversation =>
-              <div className="conversation-list-item">
+        {conversations.map((conversation , index)  =>
+              <div
+                  key={conversation.id}
+                  className={`conversation-list-item ${
+                    index === currentSelected ? "selected" : ""
+                  }`}
+                  onClick={() => changeCurrentChat(index, conversation)}
+                >
                 <img className="conversation-photo" src={profile} alt="conversation" />
                 <div className="conversation-info">
-                <h1 className="conversation-title">{ conversation.name }</h1>
+                <h1 className="conversation-title">{ conversation.firstname }</h1>
                 </div>
           </div>
           )}

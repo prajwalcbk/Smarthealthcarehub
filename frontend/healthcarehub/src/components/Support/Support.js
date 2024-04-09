@@ -20,7 +20,7 @@ function Support() {
     description: '',
     userEmail: '',
     severity:'Low',
-    type: 'General',
+    type: 'incident_response',
     status: 'Open'
   });
 
@@ -102,9 +102,11 @@ function Support() {
 
             <label>Report Type *</label>
             <select name="type" value={formData.type} onChange={handleInputChange}>
-              <option value="data_breaches">Data Breach</option>
-              <option value="general">General</option>
+
               <option value="incident_response">Incident Report</option>
+              <option value="data_breaches">Data Breach</option>
+      
+              
               <option value="system_malfunctions">System Malfunctions</option>
               <option value="privacy_issues">Privacy Issues</option>
               <option value="compliance_issues">Compliance Issues</option>

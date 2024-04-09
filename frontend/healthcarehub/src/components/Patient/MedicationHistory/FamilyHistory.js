@@ -1,21 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function FamilyHistory() {
-  const [familyhistory, setfamilyhistory]  = useState([
-  {
-    "title": "Diabetes",
-    "index": 1,
-    "description": "My father has a history of diabetes and requires insulin medication.",
-    "Patient": "John"
-  },
-  {
-    "title": "Hypertension",
-    "index": 2,
-    "description": "My mother has a history of hypertension and takes blood pressure medication.",
-    "Patient": "Charlie"
-  }
-]);
+  const [familyhistory, setfamilyhistory]  = useState([]);
+  const token = localStorage.getItem('token');
+  const [successMessage, setSuccessMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
+
+
+
+    const fetchFamilyHistory = async () => {
+    try {
+
+      const response = await axios.get('/api/get/familyhealth/history',  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setfamilyhistory(response.data);
+
+
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
+    }
+  };
+
+
+useEffect(() => {
+    fetchFamilyHistory();
+  }, []);
+
+
+
 
   const handleAddfamilyhistory = () => {
     const newfamilyhistory = { name: '', date: '', editable: true };
@@ -23,7 +42,20 @@ function FamilyHistory() {
     setEditMode(true); 
   };
 
-  const handleRemovefamilyhistory = (index) => {
+  const handleRemovefamilyhistory  = async (index,id) => {
+
+    try {
+      const response = await axios.delete(`/api/delete/medicalhistory/${id}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+    } catch (error) {
+      console.error('Error fetching health records:', error);
+    }
+
     const updatedfamilyhistory = [...familyhistory];
     updatedfamilyhistory.splice(index, 1);
     setfamilyhistory(updatedfamilyhistory);
@@ -39,15 +71,46 @@ function FamilyHistory() {
     event.preventDefault();
     console.log('familyhistory :', familyhistory);
   };
-    const [successMessage, setSuccessMessage] = useState('');
+    
 
-    const handleSave = (event) => {
+  const handleSave = async (id) => {
+    try {
+      console.log(id)
+      console.log(familyhistory)
+      const data=familyhistory[id];
+      console.log(data)
+      const response = await axios.post('/api/create/history/FamilyHealth', data,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000
+      });
+      
+
+
+    // Remove the saved exercise from the list
+    const updatedfamilyhistory = familyhistory.filter((familyhistorydata, index) => index !== id);
+    // Add the response data (saved exercise) to the list
+    updatedfamilyhistory.push(response.data);
+
+    // Update the exercises state with the modified list
+    setfamilyhistory(updatedfamilyhistory);
+      
+
+    } 
+    catch (error) {
+      console.error('Error fetching health records:', error);
+    }
+
+
     setSuccessMessage("Added successfully");
     setTimeout(() => {
             setSuccessMessage('');
         }, 2000); 
 
-  };
+};
+
+
 
   return (
     <div className="family-history">
@@ -61,8 +124,8 @@ function FamilyHistory() {
               <input
                 id={`name-${index}`}
                 type="text"
-                value={history.title}
-                onChange={(e) => handleInputChange(e, index, 'title')}
+                value={history.name}
+                onChange={(e) => handleInputChange(e, index, 'name')}
                 disabled={!history.editable}
                 className={history.editable ? "editable" : ""}
               />
@@ -76,8 +139,8 @@ function FamilyHistory() {
                 disabled={!history.editable}
                 className={history.editable ? "editable" : ""}
               />
-              <button type="button" onClick={() => handleRemovefamilyhistory(index)}>Remove</button>
-              <button type="button" onClick={handleSave}>Save</button>
+              <button type="button" onClick={() => handleRemovefamilyhistory(index,history.id)}>Remove</button>
+              <button type="button" onClick={() => handleSave(index)}>Save</button>
             </li>
           ))}
         </ul>

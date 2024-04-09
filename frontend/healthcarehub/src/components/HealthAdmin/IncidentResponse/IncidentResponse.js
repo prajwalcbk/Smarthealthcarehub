@@ -17,7 +17,7 @@ function IncidentResponse() {
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-    const response = await axios.get('/api/get/support/incidentresponse',  {
+    const response = await axios.get('/api/get/support/incident_response',  {
             headers: {
               'Authorization': `Bearer ${token}`
             },
@@ -154,7 +154,8 @@ return (
               <h3>{incident.title}</h3>
               <p><strong>Severity:</strong> {incident.severity}</p>
               <p><strong>Status:</strong> {incident.status}</p>
-              <p><strong>Timestamp:</strong> {incident.timestamp}</p>
+              <p><strong>Description:</strong> {incident.description}</p>
+              <p><strong>Timestamp:</strong> {incident.created_at ? new Date(incident.created_at).toISOString().split('T')[0] : "Invalid Date"}</p>
               {viewincidentClicked[incident.id] && (
                 <div>
                   <h2>Comments</h2>

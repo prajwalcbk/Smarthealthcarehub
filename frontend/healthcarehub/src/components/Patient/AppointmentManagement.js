@@ -3,13 +3,17 @@ import Navbar from '../navbar/Navbar';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './AppointmentManagement.css';
+import axios from 'axios';
 
-function AppointmentManagement(props) {
-  const [selectedDate, setSelectedDate] = useState(props.Date);
-  const [id, setId] = useState(props.id);
-  const [reason, setReason] = useState(props.reason);
-  const [selectedTime, setSelectedTime] = useState(props.Time);
-  const [duration , setDuration] = useState(props.duration);
+function AppointmentManagement({appointment,handleViewClick , updateAppointment , DeleteAppointment}) {
+  const [selectedDate, setSelectedDate] = useState(new Date(appointment.date));
+  const [id, setId] = useState(appointment.id);
+  const [reason, setReason] = useState(appointment.reason);
+  const [selectedTime, setSelectedTime] = useState(appointment.time);
+  const [duration , setDuration] = useState(appointment.duration);
+  const token = localStorage.getItem('token');
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
   console.log(selectedTime)
   const handleTimeChange = (event) => {
@@ -24,19 +28,88 @@ function AppointmentManagement(props) {
     setReason(e.target.value);
   };
 
-  const handleSave = () => {
-    // Your logic to handle the appointment submission
-    console.log('Appointment Date:', selectedDate);
-    console.log('Reason for Visit:', reason);
-    // Add logic to submit appointment to the backend or perform other actions
+
+  const handleSave = async () => {
+
+    if (!selectedDate || !reason || !selectedTime ||!duration ) {
+      setError('Please fill out the required fields.');
+      return;
+    }
+
+    const data = {
+      id:appointment.id,
+      status:appointment.status,
+      date : selectedDate.toISOString().split('T')[0] ,
+      reason : reason ,
+      time: selectedTime,
+      duration: duration ,
+      doctor_firstname: appointment.doctor_firstname,
+      doctor_lastname : appointment.doctor_lastname    
+    }
+    console.log(data)
+    
+    try {
+      const response = await axios.post(`/api/update/appointment/${id}` , data , {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+    setError('');
+    setSuccessMessage("Appointment Saved Successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+            updateAppointment(data);
+            handleViewClick(appointment.id);
+
+        }, 1000); 
+    }
+    
+
+    catch (error) {
+      
+        console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
+
+
   };
 
-    const handleCancel = () => {
+
+
+    const handleCancel = async () => {
+
+      try {
+      const response = await axios.delete(`/api/delete/appointment/${id}`  , {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+    setError('');
+    setSuccessMessage("Appointment Cancelled Successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+            DeleteAppointment(appointment.id);
+            handleViewClick(appointment.id);
+
+        }, 1000); 
+    }
+    
+
+    catch (error) {
+      
+        console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
+
   };
 
 
   return (
     <div className="user-appointment-management">
+    <div>{error && <p className="error-message">{error}</p>}</div>
+    <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
       <div className="user-appointment-management-container">
         <div className="user-calendar-container">
           <h2>Select Appointment Date:</h2>
@@ -71,8 +144,8 @@ function AppointmentManagement(props) {
             placeholder=" "
           ></textarea>
           <br />
-                  <button className="user-confirm-appointment" onClick={handleSave} style={{"margin" : "2%" }} >Save</button>
-        <button className="user-confirm-appointment" onClick={handleCancel} style={{"margin" : "2%" }} >Cancel Appointment</button>
+        <button className="user-confirm-appointment" onClick={handleSave} style={{"margin" : "2%" }} >Save</button>
+        <button className="user-confirm-appointment" onClick={handleCancel} style={{"margin" : "2%" }} >Delete Appointment</button>
         </div>
       </div>
     </div>

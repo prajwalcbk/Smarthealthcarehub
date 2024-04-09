@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
 
-function MedicationDispensation() {
+function MedicationDispensation({settings}) {
   // Static data for prescriptions
   const staticPrescriptions = [
     {
@@ -64,7 +64,7 @@ function MedicationDispensation() {
 
   return (
     <div className='medication-container'>
-        <Navbar />
+        <Navbar settings={settings}/>
     <div className="medication-dispensation-container">
       <h1 className='medication-heading'>Medication Dispensation</h1>
       <div className="prescription-list">

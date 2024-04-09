@@ -6,6 +6,8 @@ function UserManagement() {
   const [UsersList, setUsersList] = useState([]);
   const [viewClicked, setViewClicked] = useState([]);
   const token = localStorage.getItem('token');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState('');
 
 
     useEffect(() => {
@@ -22,7 +24,15 @@ function UserManagement() {
   }, []);
 
 
-const handleDeactivateUser = async (userId) => {
+const handleDeactivateUser = async (userId , IsActive) => {
+  if(userId==1){
+    setSuccessMessage('')
+    setError("Admin User Cannot be Deactivated")
+           setTimeout(() => {
+            setError('')
+          }, 1000); 
+    return
+  }
   // Update UsersList immutably
   const response = await axios.get(`/api/activate/user/${userId}`, {
             headers: {
@@ -30,6 +40,16 @@ const handleDeactivateUser = async (userId) => {
             },
             timeout: 2000 // Set timeout to 2 seconds
           });
+  setError('');
+  if(IsActive){
+  setSuccessMessage("Deactivated User successfully");
+  }
+  else{
+    setSuccessMessage("Activated User successfully");
+  }
+           setTimeout(() => {
+            setSuccessMessage('')
+          }, 1000); 
   const updatedUsersList = UsersList.map(user => {
     if (user.id === userId) {
       // Return a new object with isActive toggled
@@ -45,13 +65,15 @@ const handleDeactivateUser = async (userId) => {
   return (
     <div className="users-list">
       <h2>User Accounts </h2>
+        <div>{error && <p className="error-message">{error}</p>}</div>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>
       <table>
         <thead>
           <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
-            <th>Status</th>
+            <th>Account Status</th>
             <th>CreatedDate</th>
             <th></th>
           </tr>
@@ -67,7 +89,7 @@ const handleDeactivateUser = async (userId) => {
                 <td>{user.created_at ? new Date(user.created_at).toISOString().split('T')[0] : "Invalid Date"}</td>
                 <td>
                   
-                  <button onClick={() => handleDeactivateUser(user.id)}>
+                  <button onClick={() => handleDeactivateUser(user.id , user.is_active)}>
                   {user.is_active ? 'Deactivate' : 'Activate'}
                 </button>
                 </td>

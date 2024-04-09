@@ -22,6 +22,7 @@
     "react-select": "^5.8.0",
     "recharts": "^2.12.2",
     "shave": "^5.0.4",
+    "socket.io-client": "^4.7.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

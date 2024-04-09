@@ -3,7 +3,7 @@ import './SymptomChecker.css'
 import Navbar from '../navbar/Navbar';
 
 
-const SymptomChecker = () => {
+const SymptomChecker = ({settings}) => {
   const [symptoms, setSymptoms] = useState([]);
   const [selectedSymptom, setSelectedSymptom] = useState('');
   const [potentialIssues, setPotentialIssues] = useState([]);
@@ -95,7 +95,7 @@ const SymptomChecker = () => {
 
   return (
     <div className="container">
-    <Navbar />
+    <Navbar settings={settings}/>
     <div className="symptomchecker-container">
       <h1>Symptom Checker</h1>
       <div>

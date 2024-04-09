@@ -20,8 +20,11 @@ import oversights from './../../assets/oversights.png'
 import user from './../../assets/examination.png'
 import bar from './../../assets/menu-bar-.png'
 import Navbar from './../navbar/Navbar'
+import axios from 'axios';
+import messenger from './../../assets/online-chat.png'
+import { useHistory, useNavigate } from 'react-router-dom';
 
-function Admin() {
+function Admin({settings}) {
 
 
   const [activeComponent, setActiveComponent] = useState('');
@@ -32,14 +35,18 @@ function Admin() {
   const [isMobile, setIsMobile] = useState(false);
 
 
+
+
    useEffect(() => {
+
+
     const handleResize = () => {
       const isMobile = window.innerWidth <= 600; // You can adjust the threshold as needed
       console.log(isMobile ? 'Mobile view' : 'Desktop view');
       setIsMobile(isMobile);
     };
 
-    // Initial check
+
     handleResize();
   }, []);
 
@@ -71,6 +78,11 @@ function Admin() {
     setDropDownOpen(false);
   };
 
+  const navigate = useNavigate();
+
+  const handleCreateClick = () => {
+    navigate('/messenger');
+  };
 
   const setComponent = (component) => {
     setActiveComponent(component);
@@ -78,12 +90,14 @@ function Admin() {
     setIsopen(!isOpen);
   }
 
+
+
   }
 
 
   return (
     <div className="user-container">
-      <Navbar />
+      <Navbar settings={settings}/>
       {isOpen && (
       <div className="sidebar">
           <button onClick={handleToggle}> <img src={bar} alt="menu bar"  /> Menu Bar </button>
@@ -102,11 +116,16 @@ function Admin() {
           </div>
           )}
             <button onClick={() => setComponent('SystemConfiguration')}> <img src={configuration} alt="Stethoscope Icon"  />  SystemConfiguration </button>
+            
+        {
+          settings && settings.enableSupport === 1 && 
             <button onClick={handleDropDown}>
               <img src={oversights} alt="DataOversight Icon"  />
               Oversights
               {isDropDownOpen && <img src={close} alt="menu bar"  />}
             </button>
+        }
+            
             {(
             isDropDownOpen
           ) && (          
@@ -119,6 +138,9 @@ function Admin() {
           )}
 
             <button onClick={() => setComponent('ReportGeneration')}> <img src={report} alt="Stethoscope Icon"  />  Reports </button>
+            {settings && settings.enableMessenger === 1 &&  
+          <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon"  /> Messenger</button>
+        }
 
       </div>
       )}

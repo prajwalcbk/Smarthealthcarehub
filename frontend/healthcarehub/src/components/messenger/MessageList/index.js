@@ -1,131 +1,120 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import Message from '../Message';
 import moment from 'moment';
-
+import axios from "axios";
+import profile from './../../../assets/profile.png'
+import sound from './../../../assets/glass.mp3'
 import './MessageList.css';
 
 const MY_USER_ID = 'apple';
 
-export default function MessageList(props) {
-  const [messages, setMessages] = useState([])
+export default function MessageList({ currentChat, socket , currentUser}) {
+  const [messages, setMessages] = useState([]);
   const [ message , setmessage] = useState('');
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const scrollRef = useRef();
+  const token = localStorage.getItem('token');
+
+
 
   useEffect(() => {
+
+    const getMessages = async () => {
+      try {
+      const data = {
+      from: currentUser.id,
+      to: currentChat.id,
+    }
+      const response = await axios.post('/api/get/messages', data , {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+      console.log(response);
+      setMessages(response.data);
+    }
+    catch (error) { 
+      console.log(error)
+    }
+    }
     getMessages();
-  },[])
+    
+
+    
+  }, [currentChat]);
 
   
-  const getMessages = () => {
-     var tempMessages = [
-        {
-          id: 1,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 2,
-          author: 'orange',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 3,
-          author: 'orange',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 4,
-          author: 'apple',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 5,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        }
-      ]
-      setMessages([...messages, ...tempMessages])
-  }
 
-  const renderMessages1 = () => {
-    let i = 0;
-    let messageCount = messages.length;
-    let tempMessages = [];
+const handleSendMsg = async (msg) => {
 
-    while (i < messageCount) {
-      let previous = messages[i - 1];
-      let current = messages[i];
-      let next = messages[i + 1];
-      let isMine = current.author === MY_USER_ID;
-      let currentMoment = moment(current.timestamp);
-      let prevBySameAuthor = false;
-      let nextBySameAuthor = false;
-      let startsSequence = true;
-      let endsSequence = true;
-      let showTimestamp = true;
+    const response = await axios.post('/api/send/message', {
+      from: currentUser.id,
+      to: currentChat.id,
+      text: msg,
+    },{
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
 
-      if (previous) {
-        let previousMoment = moment(previous.timestamp);
-        let previousDuration = moment.duration(currentMoment.diff(previousMoment));
-        prevBySameAuthor = previous.author === current.author;
-        
-        if (prevBySameAuthor && previousDuration.as('hours') < 1) {
-          startsSequence = false;
-        }
+    console.log('Sending message');
+    console.log(response.data.message);
+    socket.current.emit("send-msg", response.data.message );
 
-        if (previousDuration.as('hours') < 1) {
-          showTimestamp = false;
-        }
-      }
+    const msgs = [...messages];
+    msgs.push(response.data.message);
+    setMessages(msgs);
+  };
 
-      if (next) {
-        let nextMoment = moment(next.timestamp);
-        let nextDuration = moment.duration(nextMoment.diff(currentMoment));
-        nextBySameAuthor = next.author === current.author;
-
-        if (nextBySameAuthor && nextDuration.as('hours') < 1) {
-          endsSequence = false;
-        }
-      }
-
-      tempMessages.push(
-        <Message
-          key={i}
-          isMine={isMine}
-          startsSequence={startsSequence}
-          endsSequence={endsSequence}
-          showTimestamp={showTimestamp}
-          data={current}
-        />
-      );
-
-      // Proceed to the next message.
-      i += 1;
-    }
-
-    return tempMessages;
-  }
 
   const Addmessage = () => {
-    const newmessage = { id: messages.length + 1, author: 'apple', message: message };
-    const updatedmessages = [...messages, newmessage];
-    setMessages(updatedmessages);
-    setmessage('');
+    if (message.length > 0) {
+      handleSendMsg(message);
+      setmessage("");
+    }
+  };
+
+
+  useEffect(() => {
+    if (socket.current) {
+      const defaultMessageSound = document.getElementById('defaultMessageSound');
+      
+      console.log('message recieved');
+      socket.current.on("msg-recieve", (msg) => {
+        if(msg){
+          defaultMessageSound.play();
+        }
+        setArrivalMessage(msg);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage]);
+
+useEffect(() => {
+  if (messages.length > 0) {
+    scrollRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
   }
-  
+}, [messages]);
+
+
+
+
+
+
   const renderMessages = () => {
   return messages.map((message, index) => (
     <Message
       key={index}
-      isMine={message.author === MY_USER_ID}
+      isMine={message.from === currentUser.id}
       startsSequence={index === 0 || messages[index - 1].author !== message.author}
       endsSequence={index === messages.length - 1 || messages[index + 1].author !== message.author}
-      showTimestamp={true} // Always show timestamp
-      data={message}
+      created_at={message.created_at} // Always show created_at
+      text={message.text}
     />
   ));
 }
@@ -133,27 +122,37 @@ export default function MessageList(props) {
     return(
       <div className="message-list">
       <div className="toolbar">
-        <div className="left-items"> </div>
-        <h1 className="toolbar-title"> Conversation   </h1>
+      
+        <div className="left-items" ><img className="conversation-photo" src={profile} alt="conversation" /> <h1 style={{'color':"white"}}>  {currentChat.firstname} </h1> </div>
         <div className="right-items">  </div>
       </div>
 
+        <audio id="defaultMessageSound" src={sound} preload="auto" style={{"display": "none"}}></audio>
 
-        <div className="message-list-container">{renderMessages()}</div>
 
-        <div className="compose">
+        <div className="message-list-container" ref={scrollRef}>{renderMessages()}</div>
+
+      <div className="compose" style={{'height': '6%'}}>
         <input
           type="text"
           value={message}
           onChange={e => setmessage(e.target.value)}
           className="compose-input"
           placeholder="Type a message, @name"
+          onKeyDown={e => {
+          if (e.key === 'Enter') {
+            Addmessage();
+          }
+        }}
+          
         />
-
-        <button onClick={Addmessage} style={{"width":"25%" }}> Send </button>
+        <button className='SendMessage' onClick={Addmessage} > Send  </button>
+        
 
         </div>
+      
 
       </div>
+
     );
 }

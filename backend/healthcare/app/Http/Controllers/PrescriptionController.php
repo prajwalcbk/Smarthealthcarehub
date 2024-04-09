@@ -15,7 +15,8 @@ class PrescriptionController extends Controller
 
     public function getByUser(Request $request, $id)
     {
-        $prescriptions = Prescription::where('user_id', $id)
+        $user = $request->user;
+        $prescriptions = Prescription::where('user_id', $user->id)
             ->join('users', 'patients.user_id', '=', 'users.id')
             ->select(
                 'patients.*',
@@ -43,7 +44,8 @@ class PrescriptionController extends Controller
 
     public function update(Request $request, $id)
     {
-        $prescription = Prescription::findOrFail($id);
+        $user = $request->user;
+        $prescription = Prescription::findOrFail($user->id);
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'description' => 'required|string',
@@ -59,7 +61,7 @@ class PrescriptionController extends Controller
 
     public function destroy($id)
     {
-        $prescription = Prescription::findOrFail($id);
+        $prescription = Prescription::findOrFail($user->id);
         $prescription->delete();
         return response()->json(['message' => 'Prescription deleted successfully']);
     }

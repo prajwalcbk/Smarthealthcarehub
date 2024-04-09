@@ -21,5 +21,7 @@ class Setting extends Model
         'enableMedicationHistory',
         'enableMaintenance',
         'tokenExpiration',
+        'enableHealthForums',
+        'enableSupport'
     ];
 }

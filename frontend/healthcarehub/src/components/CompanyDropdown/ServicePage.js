@@ -10,10 +10,10 @@ import PrescriptionManagementIcon from './../../assets/prescription-management.p
 import HealthcareProviderCoordinationIcon from './../../assets/healthcare-provider-coordination.png';
 import Navbar from '../navbar/Navbar';
 
-function ServicePage() {
+function ServicePage({settings}) {
   return (
     <div className='maincontainer'>
-      <Navbar />
+      <Navbar settings={settings}/>
       <div className="service-container">
         <h1>Our Services</h1>
         <div className="service-list">
