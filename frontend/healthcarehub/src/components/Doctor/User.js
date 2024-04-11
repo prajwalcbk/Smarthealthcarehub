@@ -39,6 +39,7 @@ function User({settings}) {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [isDropDownOpen1, setDropDownOpen1] = useState(false);
   const [isDropDownOpen2, setDropDownOpen2] = useState(false);
+  const [isDropDownOpen3, setDropDownOpen3] = useState(false);
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -70,6 +71,7 @@ function User({settings}) {
     setDropDownOpen(!isDropDownOpen);
     setDropDownOpen1(false);
     setDropDownOpen2(false);
+    setDropDownOpen3(false);
   };
 
   const handleDropDown1 = () => {
@@ -79,6 +81,7 @@ function User({settings}) {
     setDropDownOpen1(!isDropDownOpen1);
     setDropDownOpen(false);
     setDropDownOpen2(false);
+    setDropDownOpen3(false);
   };
 
   const handleDropDown2 = () => {
@@ -88,6 +91,18 @@ function User({settings}) {
     setDropDownOpen2(!isDropDownOpen2);
     setDropDownOpen(false);
     setDropDownOpen1(false);
+    setDropDownOpen3(false);
+  };
+
+
+const handleDropDown3 = () => {
+    if(isMobile){
+    setActiveComponent('')
+  }
+    setDropDownOpen3(!isDropDownOpen3);
+    setDropDownOpen(false);
+    setDropDownOpen1(false);
+    setDropDownOpen2(false);
   };
 
   const handleToggle = () => {
@@ -103,8 +118,7 @@ function User({settings}) {
   const handleCreateClick = () => {
     navigate('/messenger');
   };
-            // <button onClick={() => setActiveComponent('BasicHealthRecord')}>  Basic </button>
-            //button onClick={() => setActiveComponent('Exercise')}> Exercise </button>
+
 
 
   return (
@@ -135,10 +149,25 @@ function User({settings}) {
           </div>
           )}
 
-          { settings && settings.enablePrescription === 1 && 
-          <button onClick={() => setComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon"  /> Prescriptions</button>
-          }
 
+           { settings && settings.enablePrescription === 1 && 
+          <button onClick={handleDropDown3}>
+            <img src={prescription} alt="Prescriptions Icon"  />
+            Prescriptions
+            {isDropDownOpen3 && <img src={close} alt="menu bar"  />}
+          </button>
+        }
+
+          {(
+            isDropDownOpen3
+          ) && (          
+          <div className="medical-history-drop-down" >
+          
+            <button onClick={() => setComponent('PrescriptionsList')}> Owned  </button>
+            <button onClick={() => setComponent('DispensedPrescription')}> Shared </button>
+
+          </div>
+          )}
 
           {settings && settings.enableHealthRecords === 1 &&  
           <button onClick={handleDropDown1}> <img src={vitalsigns} alt="MedicationHistory Icon"  />  Health Records {isDropDownOpen1 && <img src={close} alt="menu bar"  />} </button>

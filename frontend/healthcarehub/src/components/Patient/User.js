@@ -164,6 +164,7 @@ function User({settings}) {
           <button onClick={() => setComponent('PrescriptionsList')}> <img src={prescription} alt="PrescriptionsList Icon"  /> </button>
           <button onClick={() => setComponent('HealthRecords')}> <img src={vitalsigns} alt="HealthRecords Icon"  /></button>
           <button onClick={() => setComponent('AppointmentList')}> <img src={calender} alt="Appointments Icon"  /> </button>
+          <button onClick={() => setComponent('ShareSettings')}> <img src={shareSettings} alt="ShareSettings Icon"  /> </button>
           <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon"  /> </button>
         </div>
           )}        

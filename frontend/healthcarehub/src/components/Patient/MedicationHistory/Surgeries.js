@@ -83,17 +83,20 @@ useEffect(() => {
 
     // Update the exercises state with the modified list
     setsurgeries(updatedsurgeries);
+    setSuccessMessage("Added successfully");
       
 
     } 
     catch (error) {
       console.error('Error fetching health records:', error);
+      setError("Failed to Add");
     }
 
 
-    setSuccessMessage("Added successfully");
+    
     setTimeout(() => {
             setSuccessMessage('');
+            setError('');
         }, 2000); 
 
   };
@@ -140,6 +143,7 @@ useEffect(() => {
             </li>
           ))}
         </ul>
+        <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
         <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddSurgeries}>Add</button>
       </form>

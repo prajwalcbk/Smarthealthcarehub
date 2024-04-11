@@ -1,69 +1,133 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './AddMedication.css'
 import Navbar from '../navbar/Navbar';
+import Select from 'react-select';
 
-function AddMedication() {
+function AddMedication({CreateNewPrescription}) {
 
 
-  const [medications, setMedication] = useState([]);
-
-  const [editMode, setEditMode] = useState(false);
-
+    const [medication, setMedication] = useState([]);
+    const [editMode, setEditMode] = useState(false);
     const [patientname, setPatientName] = useState('');
+    const [patientid, setPatientid] = useState('');
     const [status, setStatus] = useState('');
     const [description, setDescription] = useState('');
+    const token = localStorage.getItem('token');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [error, setError] = useState(null);
+    const [Useroptions, setUseroptions] = useState([]);
 
   const handleAddMedication = () => {
-    const medicine = { medicationname: '', dosage: '' , editable: true };
-    setMedication([...medications, medicine]);
+    const medicine = { name: '', dosage: '' , editable: true };
+    setMedication([...medication, medicine]);
     setEditMode(true); // Enable edit mode for the newly added illness
   };
 
   const handleRemoveMedications = (index) => {
-    const updatedmedicine = [...medications];
+    const updatedmedicine = [...medication];
     updatedmedicine.splice(index, 1);
     setMedication(updatedmedicine);
   };
 
   const handleInputChange = (event, index, key) => {
-    const updatedmedicine = [...medications];
+    const updatedmedicine = [...medication];
     updatedmedicine[index][key] = event.target.value;
     setMedication(updatedmedicine);
   };
 
-  const handleSubmit = (event) => {
-    handleSave();
-    event.preventDefault();
-    console.log('medications history:', medications);
-    console.log(patientname)
-    console.log(description)
-    console.log(status)
-  };
-  
-  const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSave = (event) => {
+    const handleSubmit = async () => {
+      const data = {
+        user_id: patientid, 
+        description: description,
+        status: status ,
+        medication
+      }
+
+    try {
+      const response = await axios.post('/api/create/prescription', data,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000
+      });
     setSuccessMessage("Added successfully");
-    setTimeout(() => {
-            setSuccessMessage('');
-        }, 2000); 
+    CreateNewPrescription();
+
+
+
+
+
+    }
+    catch (error) {
+      setError("Failed to Add");
+      console.error('Error fetching health records:', error);
+    }
+  }
+
+  const fetchUsers = async () => {
+    const response = await axios.get(`/api/get/share/patients/`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+    return response.data;
+  };
+
+  const fetchOptions = async (inputValue) => {
+    try {
+
+      const data= await fetchUsers()
+
+      const transformedOptions = data.map((provider) => ({
+        value: provider.user_id,
+        label: provider.firstname + ' ' + provider.lastname,
+      }));
+      setUseroptions(transformedOptions);
+    } catch (error) {
+      console.error('Error fetching primary care providers:', error);
+    }
+  };
+
+const handleOptionChange = (e) => {
+
+  setPatientid(e.value);
+  setPatientName(e.label);
 
   };
+
+  useEffect(() => {
+    fetchOptions();
+  }, []);
 
 
 
 return (
 	    <div className="prescription-form">
        	<h1>Create New Prescription</h1>
+
         <div className="form-group">
-          <label htmlFor="name">Patient Name *</label>
-          <input
-            type="text"
-            id="patientname"
-            value={patientname}
-            onChange={e => setPatientName(e.target.value)}
+        <label htmlFor="name">Patient Name *</label>
+          <Select
+            id="Patient"
+            name='patientname'
+            value={Useroptions.find(option => option.value === (editMode ? patientid : patientid))}
+            onChange={(e) => handleOptionChange(e)}
+            options={Useroptions}
+            style={{ "height": "0px"}}
+            isSearchable
+              styles={{
+              option: (provided) => ({
+                ...provided,
+                color: 'black', // Set the color to black
+              }),
+            }}
           />
         </div>
+
+
 
         <div className="form-group">
           <label htmlFor="description">Description *</label>
@@ -85,20 +149,20 @@ return (
 
           <option value="">Select Status</option>
           <option value="Active">Active</option>
-          <option value="Expired">Expired</option>
+          <option value="Inactive">Inactive</option>
         </select>
         </div>
 
       <h3>Medications:</h3>
         <ul className="addmedications">
-          {medications.map((medicine, index) => (
+          {medication.map((medicine, index) => (
             <li key={index}>
               <label htmlFor={`medicationname-${index}`}>Medication Name:</label>
               <input
                 id={`medicationname-${index}`}
                 type="text"
-                value={medicine.medicationname}
-                onChange={(e) => handleInputChange(e, index, 'medicationname')}
+                value={medicine.name}
+                onChange={(e) => handleInputChange(e, index, 'name')}
                 disabled={!medicine.editable}
                 className={medicine.editable ? "editable" : ""}
               />
@@ -139,6 +203,7 @@ return (
         <button type="button" style={{"width":"100%"}} onClick={handleAddMedication}>Add Medications</button>  
         <div className="form-group">
           <button onClick={handleSubmit}>Submit</button>
+          <button onClick={CreateNewPrescription}>Cancel</button>
         </div>      
       </div>
 

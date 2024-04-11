@@ -1,53 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Surgeries.css'
 import SearchPatient from './../../SearchPatient'
+import Select from 'react-select';
 
 function Surgeries() {
-  const [surgeries, setsurgeries] = useState([
-  {
-    "name": "Appendectomy",
-    "index": 1,
-    "date": "2020-05-10",
-    "description": "Surgical removal of the appendix due to appendicitis.",
-    "Patient": "Charlie"
-  },
-  {
-    "name": "Knee Surgery",
-    "index": 2,
-    "date": "2021-02-28",
-    "description": "Arthroscopic knee surgery to repair torn ligaments.",
-    "Patient": "Johnson"
-  },
-  {
-    "name": "Gallbladder Removal",
-    "index": 3,
-    "date": "2019-08-15",
-    "description": "Laparoscopic surgery to remove the gallbladder due to gallstones.",
-    "Patient": "Smith"
-  }
-]);
+  const [surgeries, setsurgeries] = useState([]);
   const [editMode, setEditMode] = useState(false);
-    const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const token = localStorage.getItem('token');
+  const [error, setError] = useState(null);
+  const [Useroptions, setUseroptions] = useState([]);
 
-    const handleSave = (event) => {
-    setSuccessMessage("Added successfully");
-    setTimeout(() => {
-            setSuccessMessage('');
-        }, 2000); 
+  const fetchDataFromApi = async (name) => {
+    try {
 
+      const response = await axios.get(`/api/get/shared/medical/history?type=SURGEY&name=${name}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setsurgeries(response.data);
+
+
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
+    }
   };
 
+
+useEffect(() => {
+    fetchDataFromApi('');
+  }, []);
+
   const handleAddSurgeries = () => {
+    fetchOptions();
     const surgery = { name: '', date: '', editable: true };
     setsurgeries([...surgeries, surgery]);
     setEditMode(true); // Enable edit mode for the newly added illness
   };
 
-  const handleRemoveSurgeries = (index) => {
+  const handleRemoveSurgeries = async (index,id) => {
+  try {
+      const response = await axios.delete(`/api/delete/medicalhistory/${id}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+    } catch (error) {
+      console.error('Error fetching health records:', error);
+    }
     const updatedsurgery = [...surgeries];
     updatedsurgery.splice(index, 1);
     setsurgeries(updatedsurgery);
   };
+
 
   const handleInputChange = (event, index, key) => {
     const updatedsurgery = [...surgeries];
@@ -55,30 +67,123 @@ function Surgeries() {
     setsurgeries(updatedsurgery);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('surgeries history:', surgeries);
+
+  const handleSave = async (id) => {
+    try {
+
+      const data=surgeries[id];
+      const response = await axios.post('/api/create/history/Surgeries', data,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000
+      });
+      setSuccessMessage("Added successfully");
+
+    const updatedsurgeries = surgeries.filter((surgeriesdata, index) => index !== id);
+    data['editable'] = false;
+    data['firstname'] = data['Patient'].split(' ')[0];
+    data['lastname'] = data['Patient'].split(' ').slice(1).join(' ');  
+    updatedsurgeries.push(data);
+
+    // Update the exercises state with the modified list
+    setsurgeries(updatedsurgeries);
+    setSuccessMessage("Added successfully");
+
+
+    }
+    catch (error) {
+        setError("Failed to Add");
+      console.error('Error fetching health records:', error);
+    }
+
+
+
+    setTimeout(() => {
+            setSuccessMessage('');
+            setError('');
+        }, 2000);
+
   };
+
+  const fetchUsers = async () => {
+    const response = await axios.get(`/api/get/share/patients/`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+    return response.data;
+  };
+
+  const fetchOptions = async (inputValue) => {
+    try {
+
+      const data= await fetchUsers()
+
+      const transformedOptions = data.map((provider) => ({
+        value: provider.user_id,
+        label: provider.firstname + ' ' + provider.lastname,
+      }));
+      setUseroptions(transformedOptions);
+    } catch (error) {
+      console.error('Error fetching primary care providers:', error);
+    }
+  };
+
+const handleOptionChange = (e,index) => {
+  const updatedsurgeries = [...surgeries];
+
+    updatedsurgeries[index]['user_id'] = e.value;
+    updatedsurgeries[index]['Patient'] = e.label;
+    setsurgeries(updatedsurgeries);
+  };
+
+
 
   return (
     <div className="surgeries">
-      <h2>Surgeries</h2>
-      <SearchPatient />
-      <form onSubmit={handleSubmit}>
+    <h2>Past Surgeries</h2>
+        <SearchPatient search={fetchDataFromApi}/>
         <h3>Past Surgeries:</h3>
+
         <ul>
           {surgeries.map((surgery, index) => (
             <li key={index}>
 
+        
             <label htmlFor={`Patient-${index}`}>Patient:</label>
-              <input
+
+            {surgery.editable ? 
+        <div>
+          <Select
+            id="Patient"
+            name='Patient'
+            value={Useroptions.find(option => option.value === (editMode ? surgery.Patient : surgery.Patient))}
+            onChange={(e) => handleOptionChange(e, index,)}
+            options={Useroptions}
+            style={{ "height": "0px"}}
+            isSearchable
+            isDisabled={!editMode}
+              styles={{
+              option: (provided) => ({
+                ...provided,
+                color: 'black', // Set the color to black
+              }),
+            }}
+          />
+        </div>
+        :
+          <input
                 id={`Patient-${index}`}
                 type="text"
-                value={surgery.Patient}
+                value={surgery.firstname + ' ' + surgery.lastname}
                 onChange={(e) => handleInputChange(e, index, 'Patient')}
                 disabled={!surgery.editable}
                 className={surgery.editable ? "editable" : ""}
               />
+    }
+
               
               <label htmlFor={`name-${index}`}>Name:</label>
               <input
@@ -109,14 +214,14 @@ function Surgeries() {
                 disabled={!surgery.editable}
                 className={surgery.editable ? "editable" : ""}
               />
-              <button type="button" onClick={() => handleRemoveSurgeries(index)}>Remove</button>
-              <button type="button" onClick={handleSave}>Save</button>
+              <button type="button" onClick={() => handleRemoveSurgeries(index,surgery.id)}>Remove</button>
+              <button type="button" onClick={() => handleSave(index)}>Save</button>
             </li>
           ))}
         </ul>
+        <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
         <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddSurgeries}>Add</button>
-      </form>
     </div>
   );
 }

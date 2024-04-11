@@ -7,6 +7,7 @@ function Allergies() {
   const token = localStorage.getItem('token');
   const [successMessage, setSuccessMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
+  const [error, setError] = useState(null);
 
 
   const fetchDataFromApi = async () => {
@@ -67,18 +68,21 @@ useEffect(() => {
       },
       timeout: 2000
       });
+      setSuccessMessage("Added successfully");
       
       
 
     } 
     catch (error) {
+      setError("Failed to Add");
       console.error('Error fetching health records:', error);
     }
 
 
-    setSuccessMessage("Added successfully");
+    
     setTimeout(() => {
             setSuccessMessage('');
+            setError('');
         }, 2000); 
 
 };
@@ -107,6 +111,7 @@ useEffect(() => {
           ))}
         </ul>
         <button type="button" style={{"width":"100%"}} onClick={handleAddallergies}>Add</button>
+        <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
         <button type="submit" onClick={handleSave}>Submit</button>
       </form>

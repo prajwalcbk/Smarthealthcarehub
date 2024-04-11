@@ -66,7 +66,7 @@ class UserRecordsShareSettingsController extends Controller
         // Retrieve the authenticated user from the request
         $user = $request->user();
 
-    $shareSettings = UserRecordsShareSettings::where('shared_user_id', $user->id)
+        $shareSettings = UserRecordsShareSettings::where('shared_user_id', $user->id)
                         ->join('users', 'user_records_share_settings.user_id', '=', 'users.id')
                         ->select('user_records_share_settings.*', 'users.firstname' , 'users.lastname' , 'users.email' , 'users.role')
                         ->get();

@@ -6,6 +6,7 @@ function FamilyHistory() {
   const token = localStorage.getItem('token');
   const [successMessage, setSuccessMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
+  const [error, setError] = useState(null);
 
 
 
@@ -95,17 +96,20 @@ useEffect(() => {
 
     // Update the exercises state with the modified list
     setfamilyhistory(updatedfamilyhistory);
+    setSuccessMessage("Added successfully");
       
 
     } 
     catch (error) {
+      setError("Failed to Add");
       console.error('Error fetching health records:', error);
     }
 
 
-    setSuccessMessage("Added successfully");
+    
     setTimeout(() => {
             setSuccessMessage('');
+            setError('');
         }, 2000); 
 
 };
@@ -144,6 +148,7 @@ useEffect(() => {
             </li>
           ))}
         </ul>
+        <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
         <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddfamilyhistory}>Add</button>
       </form>

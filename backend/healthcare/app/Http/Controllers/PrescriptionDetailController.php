@@ -17,53 +17,20 @@ class PrescriptionDetailController extends Controller
 
     
 
-    public function store(Request $request)
+    public function update(Request $request)
     {
         $request->validate([
-            'prescription_id' => 'required|exists:prescriptions,id',
-            '*.name' => 'required|string',
-            '*.dosage' => 'required|integer',
-            '*.time' => 'required|string'
+            'prescriptions.*.id' => 'required|exists:prescription_details,id',
+            'prescriptions.*.name' => 'required|string',
+            'prescriptions.*.dosage' => 'required|integer',
+            'prescriptions.*.time' => 'required|string'
         ]);
+
 
         try {
             DB::beginTransaction();
-
-            $prescriptionDetails = [];
-
-            foreach ($request->all() as $detailData) {
-                $prescriptionDetail = PrescriptionDetail::create([
-                    'prescription_id' => $request->prescription_id,
-                    'name' => $detailData['name'],
-                    'dosage' => $detailData['dosage'],
-                    'time' => $detailData['time']
-                ]);
-                
-                $prescriptionDetails[] = $prescriptionDetail;
-            }
-
-            DB::commit();
-
-            return response()->json($prescriptionDetails, 201);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(['message' => 'Failed to store prescription details.'], 500);
-        }
-    }
-
-    public function update(Request $request, $prescriptionId)
-    {
-        $request->validate([
-            '*.id' => 'required|exists:prescription_details,id',
-            '*.name' => 'required|string',
-            '*.dosage' => 'required|integer',
-            '*.time' => 'required|string'
-        ]);
-
-        try {
-            DB::beginTransaction();
-
-            foreach ($request->all() as $detailData) {
+            $prescriptionDetails = $request->prescriptionDetails;
+            foreach ($prescriptionDetails as $detailData) {
                 $prescriptionDetail = PrescriptionDetail::findOrFail($detailData['id']);
 
                 $prescriptionDetail->update([
@@ -78,8 +45,15 @@ class PrescriptionDetailController extends Controller
             return response()->json(['message' => 'Prescription details updated successfully.'], 200);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => 'Failed to update prescription details.'], 500);
+            return response()->json(['message' => 'Failed to update prescription details.' , 'error' => $e->getMessage()], 500);
         }
+    }
+
+    public function destroy($id)
+    {
+        $prescriptionDetail = PrescriptionDetail::findOrFail($id);
+        $prescriptionDetail->delete();
+        return response()->json(['message' => 'Medication deleted successfully']);
     }
 
 

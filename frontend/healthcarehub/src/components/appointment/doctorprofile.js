@@ -15,7 +15,7 @@ function DoctorProfile(props) {
 
     const fetchDoctor = async () => {
       try {
-    const response = await axios.get(`/api/get/doctor/${props.id}`,  {
+    const response = await axios.get(`/api/get/doctor/profile${props.id}`,  {
             headers: {
               'Authorization': `Bearer ${token}`
             },

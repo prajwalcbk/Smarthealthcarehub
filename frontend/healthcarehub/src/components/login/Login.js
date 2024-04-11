@@ -81,6 +81,11 @@ function LoginPage({settings}) {
             placeholder="example@gmail.com"
             value={email}
             onChange={e => setemail(e.target.value)}
+            onKeyDown={e => {
+            if (e.key === 'Enter') {
+              handleLogin();
+          }
+        }}
           />
         </div>
         <div className="form-group">
@@ -92,6 +97,11 @@ function LoginPage({settings}) {
               placeholder="Password"
               value={password}
               onChange={e => setPassword(e.target.value)}
+              onKeyDown={e => {
+            if (e.key === 'Enter') {
+              handleLogin();
+          }
+        }}
             />
           </div>
         </div>

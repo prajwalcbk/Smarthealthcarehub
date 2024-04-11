@@ -53,7 +53,6 @@ Route::get('/api/get/doctors', [UserController::class, 'getDoctors'])->name('use
 Route::middleware('auth.jwt')->get('/api/get/doctor/profile', [UserController::class, 'getDoctorsProfile'])->name('users.getDoctorProfile');
 Route::middleware('auth.jwt')->get('/api/get/pharmacist/profile', [UserController::class, 'getPharmacistsProfile'])->name('users.getPharmacistsProfile');
 
-Route::get('/api/get/doctor/{id}', [UserController::class, 'getDoctor'])->name('users.doctor');
 
 Route::middleware('auth.jwt')->get('/api/get/patient/profile', [UserController::class, 'getPatient'])->name('users.getPatient');
 
@@ -112,19 +111,31 @@ Route::middleware(['settings:enableAppointments', 'auth.jwt'])->get('/api/get/do
 Route::middleware(['settings:enableAppointments', 'auth.jwt'])->get('/api/get/doctor/upcoming/appointments', [AppointmentController::class, 'getUpcomingAppointmentsByDoctor']);
 
 
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/user/prescriptions', [PrescriptionController::class, 'getByUser'])->name('prescription.getByUser');
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/doctor/prescriptions', [PrescriptionController::class, 'getByDoctor'])->name('prescription.getByDoctor');
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/shared/prescriptions', [PrescriptionController::class, 'getShared'])->name('prescription.getShared');
+
+
 
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->post('/api/create/prescription', [PrescriptionController::class, 'store'])->name('prescription.create');
-Route::middleware(['settings:enablePrescription', 'auth.jwt'])->put('/api/update/prescription', [PrescriptionController::class, 'update'])->name('prescription.update');
-Route::middleware(['settings:enablePrescription', 'auth.jwt'])->delete('/api/delete/prescription', [PrescriptionController::class, 'destroy'])->name('prescription.delete');
-Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/prescription/{id}', [PrescriptionController::class, 'getByUser'])->name('prescription.getByUser');
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->put('/api/update/prescription', [PrescriptionController::class, 'updateStatus'])->name('prescription.update');
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->delete('/api/delete/prescription/{id}', [PrescriptionController::class, 'destroy'])->name('prescription.delete');
 
-Route::middleware(['settings:enablePrescription', 'auth.jwt'])->post('/api/create/prescription/details', [PrescriptionDetailController::class, 'store'])->name('prescriptiondetails.create');
+
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->put('/api/update/prescription/details', [PrescriptionDetailController::class, 'update'])->name('prescriptiondetails.update');
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/prescription/details/{id}', [PrescriptionDetailController::class, 'getByPrescriptionId'])->name('prescriptiondetails.getByPrescriptionId');
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->delete('/api/delete/prescription/details/{id}', [PrescriptionDetailController::class, 'destroy'])->name('prescriptiondetails.delete');
+
+
+
+
+Route::middleware(['settings:enableMedicationHistory', 'auth.jwt'])->get('/api/get/shared/medical/history', [MedicationHistoryController::class, 'getMedicalHistorysharewithpatients'])->name('getMedicalHistorysharewithpatients.get');
+Route::middleware(['settings:enableMedicationHistory', 'auth.jwt'])->get('/api/get/shared/medical/allergies', [MedicationHistoryController::class, 'getAllergiesharewithpatients'])->name('getAllergiesharewithpatients.get');
+Route::middleware(['settings:enableMedicationHistory', 'auth.jwt'])->get('/api/get/shared/vital/records', [VitalSignController::class, 'getVitalSignsShareWithPatients'])->name('getVitalSignsShareWithPatients.get');
 
 
 Route::middleware(['settings:enableMedicationHistory', 'auth.jwt'])->post('/api/create/history/FamilyHealth', [MedicationHistoryController::class, 'storeFamilyHealthHistory'])->name('FamilyHealth.store');
-Route::middleware(['settings:enableMedicationHistory', 'auth.jwt'])->post('/api/create/history/Surgeries', [MedicationHistoryController::class, 'storeFamilyHealthHistory'])->name('Surgeries.store');
+Route::middleware(['settings:enableMedicationHistory', 'auth.jwt'])->post('/api/create/history/Surgeries', [MedicationHistoryController::class, 'storeSurgeriesHistory'])->name('Surgeries.store');
 Route::middleware(['settings:enableMedicationHistory', 'auth.jwt'])->post('/api/create/history/pastillness', [MedicationHistoryController::class, 'storePastIllnessHistory'])->name('PastIllness.store');
 Route::middleware(['settings:enableMedicationHistory', 'auth.jwt'])->post('/api/create/history/allergies', [MedicationHistoryController::class, 'storeAllergiesHistory'])->name('Allergies.store');
 Route::middleware(['settings:enableMedicationHistory', 'auth.jwt'])->delete('/api/delete/medicalhistory/{id}', [MedicationHistoryController::class, 'destroy'])->name('medicalhistory.delete');
@@ -167,14 +178,13 @@ Route::middleware(['settings:enableSupport', 'auth.jwt'])->get('/api/get/support
 Route::middleware(['settings:enableSupport', 'auth.jwt'])->get('/api/get/support/issues/{id}', [SupportController::class, 'getByUser'])->name('support.getByUser');
 Route::middleware(['settings:enableSupport', 'auth.jwt'])->get('/api/close/support/issues/{id}', [SupportController::class, 'closeSupport'])->name('support.closeSupport');
 
-
 Route::middleware(['settings:enableSupport', 'auth.jwt'])->post('/api/create/support/comment', [SupportCommentController::class, 'store'])->name('supportcomment.create');
 Route::middleware(['settings:enableSupport', 'auth.jwt'])->get('/api/get/support/comments/{id}', [SupportCommentController::class, 'getBySupportId'])->name('supportcomment.getBySupportId');
 
 
+
 Route::middleware('auth.jwt')->put('/api/update/domain/settings', [SettingsController::class, 'update'])->name('settings.update');
 Route::get('/api/get/domain/settings', [SettingsController::class, 'get'])->name('settings.get');
-
 
 
 
@@ -183,11 +193,16 @@ Route::middleware(['settings:enableMessenger', 'auth.jwt'])->post('/api/send/mes
 
 
 
+
+
 Route::middleware('auth.jwt')->post('/api/create/share/records/', [UserRecordsShareSettingsController::class, 'createsharewithuser']);
 Route::middleware('auth.jwt')->post('/api/delete/share/records/', [UserRecordsShareSettingsController::class, 'deletesharewithuser']);
 Route::middleware('auth.jwt')->get('/api/get/share/users/', [UserRecordsShareSettingsController::class, 'getsharewithuser']);
 Route::middleware('auth.jwt')->get('/api/get/share/patients/', [UserRecordsShareSettingsController::class, 'getsharewithpatients']);
 
+
+
+Route::get('/api/get/doctor/{id}', [UserController::class, 'getDoctor'])->name('users.doctor');
 
 
 

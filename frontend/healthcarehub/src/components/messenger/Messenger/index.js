@@ -45,7 +45,7 @@ export default function Messenger({settings}) {
   useEffect(() => {
     if (currentUser) {
       // socket.current = io(process.env.SOCKET_APP_BACKEND_APP_URL);
-      socket.current = io('http://192.168.1.2:5000/');
+      socket.current = io('http://192.168.214.236:5000/');
       socket.current.emit("add-user", currentUser.id);
     }
   }, [currentUser]);

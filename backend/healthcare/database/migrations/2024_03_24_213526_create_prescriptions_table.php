@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('description');
-            $table->date('issued_date');
             $table->unsignedBigInteger('provider_id');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();

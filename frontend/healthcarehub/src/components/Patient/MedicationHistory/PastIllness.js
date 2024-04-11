@@ -76,7 +76,7 @@ useEffect(() => {
       },
       timeout: 2000
       });
-      
+      setSuccessMessage("Added successfully");
 
     const updatedpastIllnesses = pastIllnesses.filter((pastIllnessesdata, index) => index !== id);
     // Add the response data (saved exercise) to the list
@@ -88,13 +88,14 @@ useEffect(() => {
 
     } 
     catch (error) {
+      setError("Failed to Add");
       console.error('Error fetching health records:', error);
     }
 
 
-    setSuccessMessage("Added successfully");
     setTimeout(() => {
             setSuccessMessage('');
+            setError('');
         }, 2000); 
 
   };
@@ -141,6 +142,7 @@ useEffect(() => {
             </li>
           ))}
         </ul>
+        <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
         <button type="button"  style={{"width":"100%" , "marginBottom": "30%"}}  onClick={handleAddPastIllness}>Add</button>
       </form>

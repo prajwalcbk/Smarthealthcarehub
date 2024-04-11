@@ -1,51 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './VitalSigns.css'
 import SearchPatient from './../../SearchPatient'
+import Select from 'react-select';
+
+
 function VitalSigns() {
-  const [vitalsigns, setvitalsigns] = useState([
-  {
-    "bloodpressure": "120/80 mmHg",
-    "index": 1,
-    "date": "2020-08-20",
-    "heartrate": "70 bpm",
-    "bloodsugar": "100 mg/dL",
-    "Patient" : "Johnson"
-  },
-  {
-    "bloodpressure": "130/85 mmHg",
-    "index": 2,
-    "date": "2021-01-10",
-    "heartrate": "75 bpm",
-    "bloodsugar": "110 mg/dL",
-    "Patient" : "John"
-  },
-  {
-    "bloodpressure": "115/75 mmHg",
-    "index": 3,
-    "date": "2019-12-05",
-    "heartrate": "65 bpm",
-    "bloodsugar": "90 mg/dL",
-    "Patient" : "Carlie"
-  }
-]);
+  const [vitalsigns, setvitalsigns] = useState([]);
   const [editMode, setEditMode] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+  const token = localStorage.getItem('token');
+  const [error, setError] = useState(null);
+  const [Useroptions, setUseroptions] = useState([]);
 
-    const handleSave = (event) => {
-    setSuccessMessage("Added successfully");
-    setTimeout(() => {
-            setSuccessMessage('');
-        }, 2000); 
+  const fetchVitalSigns = async (name) => {
+    try {
 
+
+      const response = await axios.get(`/api/get/shared/vital/records?name=${name}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setvitalsigns(response.data);
+
+
+    } catch (error) {
+      console.error('Error fetching health records:', error);
+    }
   };
 
+
+useEffect(() => {
+    fetchVitalSigns('');
+  }, []);
+
+
   const handleAddVitalSigns = () => {
-    const vitalsign = { name: '', date: '', editable: true };
+  fetchOptions();
+    const vitalsign = { bloodpressure: '', date: '', editable: true };
     setvitalsigns([...vitalsigns, vitalsign]);
     setEditMode(true); // Enable edit mode for the newly added illness
   };
 
-  const handleRemoveVitalSigns = (index) => {
+  const handleRemoveVitalSigns = async (index , vitalId) => {
+
+    try {
+      const response = await axios.delete(`/api/delete/vitalsign/${vitalId}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+    } catch (error) {
+      console.error('Error fetching health records:', error);
+    }
     const updatedvitalsign = [...vitalsigns];
     updatedvitalsign.splice(index, 1);
     setvitalsigns(updatedvitalsign);
@@ -57,33 +70,121 @@ function VitalSigns() {
     setvitalsigns(updatedvitalsign);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('vitalsigns history:', vitalsigns);
+
+    const handleSave = async (id) => {
+    try {
+      const data=vitalsigns[id];
+      const response = await axios.post('/api/create/vitalsign', data,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+    setSuccessMessage("Added successfully");
+
+    const updatedvitalsign = vitalsigns.filter((vitalsign, index) => index !== id);
+    // Add the response data (saved exercise) to the list
+    data['editable'] = false;
+    data['firstname'] = data['Patient'].split(' ')[0];
+    data['lastname'] = data['Patient'].split(' ').slice(1).join(' ');
+    updatedvitalsign.push(data);
+
+    // Update the exercises state with the modified list
+    setvitalsigns(updatedvitalsign);
+
+
+    }
+    catch (error) {
+      setError("Failed to Add");
+      console.error('Error fetching health records:', error);
+    }
+
+
+
+    setTimeout(() => {
+            setSuccessMessage('');
+            setError('');
+        }, 2000);
+
   };
+
+  const fetchUsers = async () => {
+    const response = await axios.get(`/api/get/share/patients/`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: 2000 // Set timeout to 2 seconds
+          });
+    return response.data;
+  };
+
+  const fetchOptions = async (inputValue) => {
+    try {
+
+      const data= await fetchUsers()
+
+      const transformedOptions = data.map((provider) => ({
+        value: provider.user_id,
+        label: provider.firstname + ' ' + provider.lastname,
+      }));
+      setUseroptions(transformedOptions);
+    } catch (error) {
+      console.error('Error fetching primary care providers:', error);
+    }
+  };
+
+const handleOptionChange = (e,index) => {
+  const updatedvitalsigns = [...vitalsigns];
+
+    updatedvitalsigns[index]['user_id'] = e.value;
+    updatedvitalsigns[index]['Patient'] = e.label;
+    setvitalsigns(updatedvitalsigns);
+  };
+
+
 
   return (
     <div className="vitalsigns">
       <h2>VitalSigns Tracking</h2>
-      <form onSubmit={handleSubmit}>
+      <SearchPatient search={fetchVitalSigns}/>
         <h3>Past VitalSigns records:</h3>
-        <SearchPatient />
         <ul>
           {vitalsigns.map((vitalsign, index) => (
             <li key={index}>
 
+
             <label htmlFor={`Patient-${index}`}>Patient:</label>
-              <input
+
+            {vitalsign.editable ?
+        <div>
+          <Select
+            id="Patient"
+            name='Patient'
+            value={Useroptions.find(option => option.value === (editMode ? vitalsign.Patient : vitalsign.Patient))}
+            onChange={(e) => handleOptionChange(e, index,)}
+            options={Useroptions}
+            style={{ "height": "0px"}}
+            isSearchable
+            isDisabled={!editMode}
+              styles={{
+              option: (provided) => ({
+                ...provided,
+                color: 'black', // Set the color to black
+              }),
+            }}
+          />
+        </div>
+        :
+        <input
                 id={`Patient-${index}`}
                 type="text"
-                value={vitalsign.Patient}
+                value={vitalsign.firstname + ' ' + vitalsign.lastname}
                 onChange={(e) => handleInputChange(e, index, 'Patient')}
                 disabled={!vitalsign.editable}
                 className={vitalsign.editable ? "editable" : ""}
               />
-
-
-              <label htmlFor={`bloodpressure-${index}`}>BloodPressure:</label>
+    }
+    <label htmlFor={`bloodpressure-${index}`}>BloodPressure:</label>
               <input
                 id={`bloodpressure-${index}`}
                 type="text"
@@ -92,7 +193,6 @@ function VitalSigns() {
                 disabled={!vitalsign.editable}
                 className={vitalsign.editable ? "editable" : ""}
               />
-
               <br />
               <label htmlFor={`bloodsugar-${index}`}>BloodSugar:</label>
               <input
@@ -103,7 +203,6 @@ function VitalSigns() {
                 disabled={!vitalsign.editable}
                 className={vitalsign.editable ? "editable" : ""}
               />
-
               <br />
               <label htmlFor={`heartrate-${index}`}>HeartRate:</label>
               <input
@@ -127,17 +226,15 @@ function VitalSigns() {
                 className={vitalsign.editable ? "editable" : ""}
               />
 
-              
-              <button type="button" onClick={() => handleRemoveVitalSigns(index)}>Remove</button>
-              <button type="button" onClick={handleSave}>Save</button>
 
-              
+              <button type="button" onClick={() => handleRemoveVitalSigns(index,vitalsign.id)}>Remove</button>
+              <button type="button" onClick={() => handleSave(index)} >Save</button>
             </li>
           ))}
         </ul>
+        <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
-        <button type="button" style={{"width":"100%" , "margin-bottom": "30%"}} onClick={handleAddVitalSigns}>Add</button>
-      </form>
+        <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddVitalSigns}>Add</button>
     </div>
   );
 }

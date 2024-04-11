@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './prescriptionlist.css';
-import Prescription from './PrescriptionDetails';
+import PrescriptionDetails from './PrescriptionDetails';
 import AddMedication from './AddMedication'
 
 function PrescriptionList() {
@@ -8,38 +9,73 @@ function PrescriptionList() {
   const [viewClicked, setViewClicked] = useState([]);
   const [filterpatient , setFilterpatient] = useState('');
   const [iscreatenewprescription , setiscreatenewprescription]= useState(false);
+  const token = localStorage.getItem('token');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState(null);
 
-  // Fetch prescription history data from an external source (e.g., API)
-  useEffect(() => {
-    const fetchPrescriptions = async () => {
-      // Simulated response from API
-      const prescriptionResponse = [
-         { "id": 1, "description": "Due to Fever", "issuedDate": "25/01/2023", "provider": "Alice", "status": "Active" },
-        { "id": 2, "description": "Due to Headache", "issuedDate": "25/01/2024", "provider": "Bob", "status": "Active" },
-        { "id": 3, "description": "Typhoid", "issuedDate": "25/01/200", "provider": "Charlie", "status": "Active" },
-        { "id": 4, "description": "Due to Fever", "issuedDate": "11/01/2001", "provider": "David", "status": "Active" },
-        { "id": 5, "description": "Due to Headache", "issuedDate": "22/08/2024", "provider": "Emily", "status": "Active" },
-        { "id": 6, "description": "Due to Fever", "issuedDate": "22/08/2024", "provider": "Frank", "status": "InActive" },
-        { "id": 7, "description": "Due to Headache", "issuedDate": "11/02/200", "provider": "Grace", "status": "Active" }
-    ]; 
-      setPrescriptionList(prescriptionResponse);
-    };
+    const fetchPrescriptions = async (name) => {
+    try {
 
-    fetchPrescriptions();
+      const response = await axios.get(`/api/get/doctor/prescriptions`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setPrescriptionList(response.data);
+
+
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
+    }
+  };
+
+  const deletePrescription = async(id) => {
+    try {
+
+      const response = await axios.delete(`/api/delete/prescription/${id}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      const updatedprescriptionList = prescriptionList.filter(prescription => prescription.id !== id);
+      setPrescriptionList(updatedprescriptionList);
+
+
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
+    }
+  }
+
+
+useEffect(() => {
+    fetchPrescriptions('');
   }, []);
 
-    const SearchPrescriptions = () => {
-      // Simulated response from API
-      const prescriptionResponse = [
+    const SearchPrescriptions = async () => {
+    try {
+
+      const response = await axios.get(`/api/get/doctor/prescriptions?name=${filterpatient}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setPrescriptionList(response.data);
 
 
-        { "id": 5, "description": "Due to Headache", "issuedDate": "22/08/2024", "provider": "Emily", "status": "Active" },
-        { "id": 6, "description": "Due to Fever", "issuedDate": "22/08/2024", "provider": "Frank", "status": "InActive" },
-        { "id": 7, "description": "Due to Headache", "issuedDate": "11/02/200", "provider": "Grace", "status": "Active" }
-
-        ];
-      setPrescriptionList(prescriptionResponse);
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
     }
+  };
+
+
 
     const CreateNewPrescription = () => {
       setiscreatenewprescription(!iscreatenewprescription)
@@ -85,20 +121,24 @@ function PrescriptionList() {
           {prescriptionList.map((prescription) => (
             <React.Fragment key={prescription.id}>
               <tr>
-                <td>{prescription.provider}</td>
+                <td>{prescription.user_firstname} {prescription.user_lastname}</td>
                 <td>{prescription.description}</td>
-                <td>{prescription.issuedDate}</td>
+                <td>{prescription.created_at ? new Date(prescription.created_at).toISOString().split('T')[0] : "Invalid Date"}</td>
                 <td>{prescription.status}</td>
                 <td>
                   
                   {viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>Close</button>}
+                  
+                  
                   {!viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>View</button>}
+                  <b>   </b>
+                  {viewClicked[prescription.id] && <button onClick={() => deletePrescription(prescription.id)}>Delete</button>}
                 </td>
               </tr>
               {viewClicked[prescription.id] && (
                 <tr>
                   <td colSpan="5">
-                    <Prescription prescription={prescription} />
+                    <PrescriptionDetails PrescriptionId={prescription.id}  handleViewClick={handleViewClick}/>
                   </td>
                 </tr>
               )}
@@ -109,7 +149,7 @@ function PrescriptionList() {
     </div>
     ) : ( 
     <div>
-     <AddMedication />
+     <AddMedication CreateNewPrescription={CreateNewPrescription}/>
       </div>
     )}
     </div>

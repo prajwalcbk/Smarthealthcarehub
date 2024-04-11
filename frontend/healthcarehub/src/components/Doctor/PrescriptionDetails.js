@@ -1,34 +1,94 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Prescription.css';
 
-function Prescription() {
-  const [prescription, setPrescription] = useState([]);
-  const [editedprescription, setEditedprescription] = useState([{}]);
+function Prescription({PrescriptionId, handleViewClick}) {
+  const [prescriptionDetails, setPrescriptionDetails] = useState([]);
+  const [editedprescriptionDetails, setEditedprescriptionDetails] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [viewEdit, setEditClicked] = useState([]);
+  const token = localStorage.getItem('token');
   const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState(null);
   
 
-  const handleEdit = () => {
-    setEditMode(true);
+
+
+
+  useEffect(() => {
+    const fetchPrescriptionDetails = async () => {
+    try {
+
+      const response = await axios.get(`/api/get/prescription/details/${PrescriptionId}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setPrescriptionDetails(response.data);
+      setEditedprescriptionDetails(response.data);
+
+    } catch (error) {
+      console.error('Error: while fetching Data', error);
+    }
   };
 
-const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setEditedprescription((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+    fetchPrescriptionDetails();
+  }, []);
 
-  const handleCancel = () => {
-    setEditMode(false);
+
+  const deletePrescriptionDetail = async(id) => {
+    try {
+
+      const response = await axios.delete(`/api/delete/prescription/details/${id}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+      const updatedprescriptionDetails = prescriptionDetails.filter(prescriptionDetail => prescriptionDetail.id !== id);
+      setPrescriptionDetails(updatedprescriptionDetails);
+      setEditedprescriptionDetails(updatedprescriptionDetails);
+
+
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
+    }
+  }
+
+
+
+const UpdatePrescriptionDetails = async () => {
+    try {
+      const data =  { prescriptionDetails };
+      const response = await axios.put(`/api/update/prescription/details`, data , {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 2000 // Set timeout to 2 seconds
+    });
+
+
+      console.log(response.data);
+      handleViewClick(PrescriptionId);
+
+      
+
+    } catch (error) {
+      console.error('Error: while fetching Data', error);
+    }
   };
+    
 
 
   const handleSaveClick = (id) => {
 
-  // Update the prescription state
+setEditedprescriptionDetails((prevState) => ({
+    ...prevState,
+  }));
     setSuccessMessage("Edited successfully");
     setTimeout(() => {
             setSuccessMessage('');
@@ -40,30 +100,27 @@ const handleInputChange = (event) => {
     }));
   };
 
-    
-
-  useEffect(() => {
-    // Fetch prescription history data from an external source
-    const fetchPrescription = async () => {
-      // Fetch prescription data from API or any other source
-      const prescriptionResponse = [
-        { "id": 1, "name": "Paracitomol", "dosage": 1, "time": "1-0-1" },
-         { "id": 2, "name": "Paracitomol", "dosage": 1, "time": "1-1-1" },
-      ];
-      setPrescription(prescriptionResponse);
-    };
-
-    fetchPrescription();
-  }, []);
 
   const handleEditClick = (id) => {
-    setEditMode(!editMode)
+    setEditMode(!editMode);
     setEditClicked(prevClicked => ({
       ...prevClicked,
       [id]: !prevClicked[id]
     }));
   };
 
+
+const handleInputChange = (event, medicationId) => {
+  const { name, value } = event.target;
+
+  setEditedprescriptionDetails(prevState => ({
+    ...prevState,
+    [medicationId]: {
+      ...prevState[medicationId],
+      [name]: value
+    }
+  }));
+};
 
 
   return (
@@ -77,20 +134,20 @@ const handleInputChange = (event) => {
             <th>Dosage</th>
             <th>Time</th>
             <th>
-              {viewEdit[prescription.id] && <button onClick={() => handleEditClick(prescription.id)}>Cancel</button>}
-              {viewEdit[prescription.id] && <button onClick={() => handleSaveClick(prescription.id)}>Save</button>}
-              {!viewEdit[prescription.id] && <button onClick={() => handleEditClick(prescription.id)}>Edit</button>}
-              </th>
+              {viewEdit[prescriptionDetails.id] && <button onClick={() => handleEditClick(prescriptionDetails.id)}>Cancel</button>}
+              {viewEdit[prescriptionDetails.id] && <button onClick={() => UpdatePrescriptionDetails(prescriptionDetails.id)}>Save</button>}
+              {!viewEdit[prescriptionDetails.id] && <button onClick={() => handleEditClick(prescriptionDetails.id)}>Edit</button>}
+            </th>
           </tr>
         </thead>
         <tbody>
-          {prescription.map((prescription) => (
-            <tr key={prescription.id}>
+          {prescriptionDetails.map((medication,index) => (
+            <tr key={medication.id}>
               <td>
                 <input
                   type="text"
-                  value={editMode ? editedprescription.name : prescription.name}
-                  onChange={handleInputChange}
+                  value={editMode ? editedprescriptionDetails[index].name : medication.name}
+                  // onChange=onClick={() => handleInputChange(e,medication.id)}
                   disabled={!editMode}
                 />
               </td>
@@ -98,13 +155,13 @@ const handleInputChange = (event) => {
               <td>
                 <input
                   type="text"
-                  value={editMode ? editedprescription.dosage : prescription.dosage}
-                  onChange={handleInputChange}
+                  value={editMode ? editedprescriptionDetails[index].dosage : medication.dosage}
+                  
                   disabled={!editMode}
                 />
               </td>
               <td>
-                <select value={editMode ? editedprescription.time : prescription.time}
+                <select value={editMode ? editedprescriptionDetails[index].time : medication.time}
                     onChange={handleInputChange}
                     disabled={!editMode}
                   >
@@ -116,6 +173,9 @@ const handleInputChange = (event) => {
                   <option value="0-1-1">0-1-1</option>
                   <option value="1-1-0">1-1-0</option>     
                 </select>
+              </td>
+              <td>
+              {viewEdit[prescriptionDetails.id] && <button onClick={() => deletePrescriptionDetail(medication.id)}>Delete</button>}
               </td>
               
             </tr>

@@ -94,6 +94,7 @@ function User({settings}) {
           <button onClick={() => setComponent('StaffCoordination')}> <img src={staffcoordination} alt="StaffCoordination Icon"  /></button>
           <button onClick={() => setComponent('ComplianceOversight')}> <img src={complianceoversight} alt="ComplianceOversight Icon"  /></button>
           <button onClick={() => setComponent('IncidentResponse')}> <img src={incidentresponse} alt="IncidentResponse Icon"  /></button>
+          <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon"  /> </button>
           </div>
           )}
       </div>

@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MedicationHistory;
+use App\Models\UserRecordsShareSettings;
 
 class MedicationHistoryController extends Controller
 {
     public function storeFamilyHealthHistory(Request $request)
     {
         $user = $request->user;
+        $patientId = $request->has('user_id') ? $request->input('user_id') : $user->id;
         $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
@@ -17,7 +19,7 @@ class MedicationHistoryController extends Controller
 
         $medicationHistory = MedicationHistory::create([
             'name' => $request->name,
-            'patient_id' => $user->id,
+            'patient_id' => $patientId,
             'description' => $request->description,
             'type' => 'FAMILYHEALTH', // Set the type directly here
         ]);
@@ -27,6 +29,7 @@ class MedicationHistoryController extends Controller
     public function storeSurgeriesHistory(Request $request)
     {
         $user = $request->user;
+        $patientId = $request->has('user_id') ? $request->input('user_id') : $user->id;
         $request->validate([
             'name' => 'required|string',
             'date' => 'required|date',
@@ -35,7 +38,7 @@ class MedicationHistoryController extends Controller
 
         $medicationHistory = MedicationHistory::create([
             'name' => $request->name,
-            'patient_id' => $user->id,
+            'patient_id' => $patientId,
             'date' => $request->date,
             'description' => $request->description,
             'type' => 'SURGEY', // Set the type directly here
@@ -46,6 +49,7 @@ class MedicationHistoryController extends Controller
     public function storePastIllnessHistory(Request $request)
     {
         $user = $request->user;
+        $patientId = $request->has('user_id') ? $request->input('user_id') : $user->id;
         $request->validate([
             'name' => 'required|string',
             'date' => 'required|date',
@@ -54,7 +58,7 @@ class MedicationHistoryController extends Controller
 
         $medicationHistory = MedicationHistory::create([
             'name' => $request->name,
-            'patient_id' => $user->id,
+            'patient_id' => $patientId,
             'date' => $request->date,
             'description' => $request->description,
             'type' => 'PASTILLNESS', // Set the type directly here
@@ -67,9 +71,10 @@ class MedicationHistoryController extends Controller
     {
 
         $user = $request->user;
+        $patientId = $request->has('user_id') ? $request->input('user_id') : $user->id;
 
 
-        $medicationHistory = MedicationHistory::where('patient_id' , $user->id)->where('type' , 'ALLERGIES');
+        $medicationHistory = MedicationHistory::where('patient_id' , $patientId)->where('type' , 'ALLERGIES');
         $medicationHistory->delete();
         
         $request->validate([
@@ -85,7 +90,7 @@ class MedicationHistoryController extends Controller
 
         $medicationHistory = MedicationHistory::create([
             'name' => 'Allergies',
-            'patient_id' => $user->id,
+            'patient_id' => $patientId,
             'description' => $commaSeparatedallegies,
             'type' => "ALLERGIES", // Set the type directly here
         ]);
@@ -178,4 +183,58 @@ class MedicationHistoryController extends Controller
         $medicationHistory->delete();
         return response()->json(['message' => 'Deleted successfully']);
     }
+
+
+public function getMedicalHistoryShareWithPatients(Request $request)
+{
+    $user = $request->user();
+    $type = $request->input('type');
+    $searchName = $request->input('name');
+
+    // Retrieve share settings and medication history using a join operation
+    $combinedData = UserRecordsShareSettings::where('user_records_share_settings.shared_user_id', $user->id)
+                        ->join('users', 'user_records_share_settings.user_id', '=', 'users.id')
+                        ->leftJoin('medication_histories', function ($join) use ($type) {
+                            $join->on('medication_histories.patient_id', '=', 'users.id')
+                                ->where('medication_histories.type', '=', $type);
+                        })
+                        ->when($searchName, function ($query) use ($searchName) {
+                            $query->where(function ($subquery) use ($searchName) {
+                                $subquery->where('users.firstname', 'like', '%' . $searchName . '%')
+                                    ->orWhere('users.lastname', 'like', '%' . $searchName . '%');
+                            });
+                        })
+                        ->select(
+                            'user_records_share_settings.*',
+                            'users.firstname',
+                            'users.lastname',
+                            'users.email',
+                            'users.role',
+                            'medication_histories.*'
+                        )
+                        ->get();
+
+        if ($combinedData->isEmpty() || $combinedData->pluck('id')->contains(null)) {
+        return response()->json([], 200);
+    }
+
+    return response()->json($combinedData, 200);
+}
+
+
+
+        public function getsharewithpatients(Request $request)
+        {
+        // Retrieve the authenticated user from the request
+        $user = $request->user();
+
+        $shareSettings = UserRecordsShareSettings::where('shared_user_id', $user->id)
+                        ->join('users', 'user_records_share_settings.user_id', '=', 'users.id')
+                        ->select('user_records_share_settings.*', 'users.firstname' , 'users.lastname' , 'users.email' , 'users.role')
+                        ->get();
+
+        // Return the share settings as a JSON response
+        return response()->json($shareSettings, 200);
+    }
+
 }

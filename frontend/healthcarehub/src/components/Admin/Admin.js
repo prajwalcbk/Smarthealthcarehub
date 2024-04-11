@@ -154,6 +154,7 @@ function Admin({settings}) {
           <button onClick={() => setActiveComponent('SystemConfiguration')}> <img src={configuration} alt="SystemConfiguration Icon"  /></button>
           <button> <img src={oversights} alt="DataOversight Icon"  /></button>
           <button onClick={() => setActiveComponent('ReportGeneration')}> <img src={report} alt="ReportGeneration Icon"  /></button>
+          <button onClick={handleCreateClick}> <img src={messenger} alt="Messenger Icon"  /> </button>
           </div>
           )}
           
