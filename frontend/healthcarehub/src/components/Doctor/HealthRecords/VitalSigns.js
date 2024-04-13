@@ -265,8 +265,8 @@ const handleOptionChange = (e,index) => {
 
 
               <button type="button" onClick={() => handleRemoveVitalSigns(index,vitalsign.id)}>Remove</button>
-              <button type="button" onClick={() => handleSave(index)} >Save</button>
-            </li>
+              {vitalsign.editable  && <button type="button" onClick={() => handleSave(index)} >Save</button> }
+            </li> 
           ))}
         </ul>
         <div>{error && <p className="error-message">{error}</p>}</div>

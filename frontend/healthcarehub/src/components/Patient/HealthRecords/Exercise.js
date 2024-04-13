@@ -157,7 +157,8 @@ useEffect(() => {
                 className={exercise.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemoveExercise(index,exercise.id)}>Remove</button>
-              <button type="button" onClick={() => handleSave(index)}>Save</button>
+              {exercise.editable &&  <button type="button" onClick={() => handleSave(index)}>Save</button>}
+              
             </li>
           ))}
         </ul>

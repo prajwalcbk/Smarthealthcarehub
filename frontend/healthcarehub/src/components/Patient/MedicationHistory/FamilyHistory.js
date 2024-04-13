@@ -144,7 +144,7 @@ useEffect(() => {
                 className={history.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemovefamilyhistory(index,history.id)}>Remove</button>
-              <button type="button" onClick={() => handleSave(index)}>Save</button>
+              {history.editable &&  <button type="button" onClick={() => handleSave(index)}>Save</button>}
             </li>
           ))}
         </ul>

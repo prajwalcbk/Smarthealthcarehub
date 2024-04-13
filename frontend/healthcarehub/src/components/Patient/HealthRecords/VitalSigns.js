@@ -192,7 +192,7 @@ useEffect(() => {
 
               
               <button type="button" onClick={() => handleRemoveVitalSigns(id,vitalsign.id)}>Remove</button>
-              <button type="button" onClick={() => handleSave(id)} >Save</button>
+              {vitalsign.editable &&  <button type="button" onClick={() => handleSave(id)}>Save</button>}
             </li>
           ))}
         </ul>

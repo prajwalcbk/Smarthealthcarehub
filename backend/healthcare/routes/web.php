@@ -55,7 +55,6 @@ Route::middleware('auth.jwt')->get('/api/get/pharmacists', [UserController::clas
 Route::get('/api/get/doctors', [UserController::class, 'getDoctors'])->name('users.doctors');
 
 
-
 Route::middleware('auth.jwt')->get('/api/get/doctor/profile', [UserController::class, 'getDoctorsProfile'])->name('users.getDoctorProfile');
 Route::middleware('auth.jwt')->get('/api/get/pharmacist/profile', [UserController::class, 'getPharmacistsProfile'])->name('users.getPharmacistsProfile');
 
@@ -106,7 +105,7 @@ Route::middleware(['settings:enableHealthForums', 'auth.jwt'])->get('/api/get/fo
 
 
 
-
+Route::middleware(['settings:enableAppointments', 'auth.jwt'])->get('/api/get/doctor/appointments/analytics', [AppointmentController::class, 'getAnalyticsData'])->name('users.getAnalyticsData');
 Route::middleware(['settings:enableAppointments', 'auth.jwt'])->post('/api/create/appointment', [AppointmentController::class, 'store']);
 Route::middleware(['settings:enableAppointments', 'auth.jwt'])->post('/api/update/appointment/{id}', [AppointmentController::class, 'update']);
 Route::middleware(['settings:enableAppointments', 'auth.jwt'])->delete('/api/delete/appointment/{id}', [AppointmentController::class, 'destroy']);

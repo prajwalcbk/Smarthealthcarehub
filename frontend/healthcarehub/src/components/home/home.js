@@ -19,7 +19,7 @@ import axios from 'axios';
 
 
 
-function Home({settings}) {
+function Home({settings , authIsReady , user}) {
   const [toShowAllRoles , setToShowAllRoles]=useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -42,7 +42,8 @@ function Home({settings}) {
   return (
     <div className="home-container">
       <Navbar settings={settings}/>
-      <Notification />
+      {authIsReady && <Notification user={user} /> }
+      
       <div className='quote-container'>
         <div className='content-wrapper'>
 

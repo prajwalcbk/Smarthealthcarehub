@@ -37,7 +37,7 @@ export default function ConversationList({ changeChat }) {
  const searchConversations = async () => {
 
       try {
-            const response = await axios.get('/api/get/users',  {
+            const response = await axios.get(`/api/get/search/users?name=${filtername}`,  {
             timeout: process.env.timeout  // Set timeout to 2 seconds
           })
             setConversations(response.data)

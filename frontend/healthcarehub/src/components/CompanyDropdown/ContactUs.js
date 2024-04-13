@@ -3,7 +3,9 @@ import './ContactUs.css'; // Import CSS file for styling
 import Navbar from '../navbar/Navbar';
 
 function ContactUs({settings}) {
+  const [successMessage, setSuccessMessage] = useState('');
   const [formData, setFormData] = useState({
+    
     name: '',
     email: '',
     subject: '',
@@ -19,6 +21,11 @@ function ContactUs({settings}) {
   };
 
   const handleSubmit = (e) => {
+
+    setSuccessMessage("Submitted Successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
     e.preventDefault();
     // Send form data to backend or email service
     console.log(formData);
@@ -36,6 +43,7 @@ function ContactUs({settings}) {
       <Navbar settings={settings}/>
       <div className="contact-form-container">
         <h1>Contact Us</h1>
+        <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
         <form onSubmit={handleSubmit} className="contact-form">
           <input
             type="text"

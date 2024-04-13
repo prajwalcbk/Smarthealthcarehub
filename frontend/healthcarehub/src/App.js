@@ -81,7 +81,7 @@ if (showMaintenancePage) {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home settings={settings}/>} />
+          <Route path="/" element={<Home settings={settings} authIsReady={authIsReady} user={user}/>} />
 
           <Route path="/login"element={ settings.enableLogin === 1 ?  <Login settings={settings}/> : <DisablePage name='Login Feature' settings={settings}/> } />
           <Route path="/adminlogin" element={<AdminLogin settings={settings}/> } />

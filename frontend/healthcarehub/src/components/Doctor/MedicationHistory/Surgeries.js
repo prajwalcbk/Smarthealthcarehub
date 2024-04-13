@@ -252,7 +252,7 @@ const handleOptionChange = (e,index) => {
                 className={surgery.editable ? "editable" : ""}
               />
               <button type="button" onClick={() => handleRemoveSurgeries(index,surgery.id)}>Remove</button>
-              <button type="button" onClick={() => handleSave(index)}>Save</button>
+              {surgery.editable && <button type="button" onClick={() => handleSave(index)}>Save</button> }
             </li>
           ))}
         </ul>

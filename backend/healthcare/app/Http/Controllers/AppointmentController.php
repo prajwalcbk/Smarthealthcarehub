@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Appointment;
+use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -138,4 +139,29 @@ class AppointmentController extends Controller
         ->get();
         return response()->json($appointments, 200);
     }
+
+    public function getAnalyticsData(Request $request)
+    {   
+        $user= $request->user;
+        $startDate = Carbon::now()->subDays(6)->startOfDay();
+        $endDate = Carbon::now()->addDays(6)->endOfDay();
+
+        $appointments = Appointment::where('doctor_id', $user->id)
+                                    ->whereBetween('date', [$startDate, $endDate])
+                                    ->selectRaw('DATE(date) as date')
+                                    ->selectRaw('COUNT(*) as appointmentCount')
+                                    ->groupByRaw('DATE(date)')
+                                    ->get();
+
+        // Format the data for setAnalyticsData function
+        $analyticsData = $appointments->map(function ($appointment) {
+            return [
+                'date' => $appointment->date,
+                'appointmentCount' => $appointment->appointmentCount,
+            ];
+        });
+
+        return response()->json($analyticsData, 200);
+    }
+
 }
