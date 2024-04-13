@@ -1,6 +1,20 @@
+.symptoms-container{
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url(http://localhost:3000/static/media/3734225.dc33febef54d18e6f33d.jpg);
+    background-size: cover;
+    background-position: center;
+    overflow-x: auto;
+    overflow-y: auto;
+
+}
 
 .symptomchecker-container {
+
+  margin-top: 7%;
   background-color: rgb(28 27 27 / 80%);
   color: white;
   padding: 20px;
@@ -17,6 +31,12 @@
   }
 
 }
+.scrollable-container {
+  max-height: 300px; /* Set the maximum height of the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 10px; /* Optional: Add padding for spacing */
+}
+
 
 
 .symptomchecker-container select{

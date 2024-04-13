@@ -1,146 +1,131 @@
-import React, { useState } from 'react';
-import './SymptomChecker.css'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './SymptomChecker.css';
 import Navbar from '../navbar/Navbar';
+import Select from 'react-select';
 
 
-const SymptomChecker = ({settings}) => {
+const SymptomChecker = ({ settings }) => {
   const [symptoms, setSymptoms] = useState([]);
-  const [selectedSymptom, setSelectedSymptom] = useState('');
+  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [potentialIssues, setPotentialIssues] = useState([]);
 
-  // Dummy data for symptoms and potential issues (replace with actual data source)
- const symptomData = [
-  'Headache',
-  'Fever',
-  'Cough',
-  'Fatigue',
-  'Sore throat',
-  'Runny or stuffy nose',
-  'Muscle or body aches',
-  'Shortness of breath',
-  'Loss of taste or smell',
-  'Nausea',
-  'Vomiting',
-  'Diarrhea',
-  'Abdominal pain',
-  'Chest pain',
-  'Joint pain',
-  'Rash',
-  'Swollen glands',
-  'Dizziness',
-  'Difficulty swallowing',
-  'Blurred vision',
-  'Increased thirst',
-  'Frequent hunger',
-  'Weakness',
-  'Fainting',
-  'Confusion',
-];
-
-  const issueData = {
-  Headache: ['Migraine', 'Tension Headache'],
-  Fever: ['Cold', 'Flu'],
-  Cough: ['Common Cold', 'Bronchitis'],
-  Fatigue: ['Anemia', 'Chronic Fatigue Syndrome'],
-  'Sore throat': ['Strep throat', 'Common Cold'],
-  'Runny or stuffy nose': ['Common Cold', 'Allergies'],
-  'Muscle or body aches': ['Flu', 'COVID-19'],
-  'Shortness of breath': ['Asthma', 'Pneumonia'],
-  'Loss of taste or smell': ['COVID-19', 'Sinusitis'],
-  Nausea: ['Food poisoning', 'Stomach flu'],
-  Vomiting: ['Gastroenteritis', 'Food poisoning'],
-  Diarrhea: ['Gastroenteritis', 'Food poisoning'],
-  'Abdominal pain': ['Appendicitis', 'Gastroenteritis'],
-  'Chest pain': ['Heart attack', 'Angina'],
-  'Joint pain': ['Arthritis', 'Lupus'],
-  Rash: ['Contact dermatitis', 'Eczema'],
-  'Swollen glands': ['Mononucleosis', 'HIV/AIDS'],
-  Dizziness: ['Vertigo', 'Inner ear infection'],
-  'Difficulty swallowing': ['GERD', 'Throat infection'],
-  'Blurred vision': ['Myopia', 'Diabetes'],
-  'Increased thirst': ['Diabetes', 'Dehydration'],
-  'Frequent hunger': ['Diabetes', 'Hyperthyroidism'],
-  Weakness: ['Anemia', 'Hypothyroidism'],
-  Fainting: ['Vasovagal syncope', 'Hypoglycemia'],
-  Confusion: ['Heatstroke', 'Urinary tract infection']
-};
-
-
-  const handleSymptomChange = (e) => {
-    setSelectedSymptom(e.target.value);
-  };
-
-  const handleAddSymptom = () => {
-    if (selectedSymptom && !symptoms.includes(selectedSymptom)) {
-      setSymptoms([...symptoms, selectedSymptom]);
-      setSelectedSymptom('');
+  const fetchDataFromApi = async (url) => {
+    try {
+      const response = await axios.get(url, {
+        timeout: process.env.timeout
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const handleRemoveSymptom = (symptom) => {
-    setSymptoms(symptoms.filter((s) => s !== symptom));
+  const fetchDisease = async (url, data) => {
+    try {
+      const response = await axios.post(url, data, {
+        timeout: process.env.timeout
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const checkSymptoms = () => {
-    if (!selectedSymptom) {
-    // Handle case when no symptom is selected
-    console.error('No symptom selected');
-    return;
-  }
-    // Dummy logic to simulate fetching potential issues based on symptoms
-    console.log(selectedSymptom)
-    setPotentialIssues(issueData[selectedSymptom]);
-    console.log(selectedSymptom)
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchDataFromApi('/api/get/symptoms');
+      const transformedOptions = data.map((provider) => ({
+        value: provider.id,
+        label: provider.name,
+      }));
+      setSymptoms(transformedOptions);
+    };
+    fetchData();
+  }, []);
+
+  const handleSymptomChange = (selectedOption) => {
+  setPotentialIssues([])
+  const updatedSymptoms = symptoms.filter(option => option !== selectedOption);
+  setSymptoms(updatedSymptoms);
+  setSelectedSymptoms([...selectedSymptoms, selectedOption]);
+}
+
+
+  const handleRemoveSymptom = (symptom) => {
+    setSelectedSymptoms(selectedSymptoms.filter((s) => s !== symptom));
+    setPotentialIssues([])
+  };
+
+  const checkSymptoms = async () => {
+    const selectedLabels = selectedSymptoms.map(symptom => symptom.label);
+    const data = await fetchDisease('/api/get/diseases', { 'symptoms' : selectedLabels });
+    setPotentialIssues(data);
   };
 
   return (
-    <div className="container">
-    <Navbar settings={settings}/>
-    <div className="symptomchecker-container">
-      <h1>Symptom Checker</h1>
-      <div>
-        <label htmlFor="symptom">Select a symptom:</label>
-        <select id="symptom" value={selectedSymptom} onChange={handleSymptomChange}>
-          <option value="">Select...</option>
-          {symptomData.map((symptom, index) => (
-            <option key={index} value={symptom}>
-              {symptom}
-            </option>
-          ))}
-        </select>
-        <button onClick={handleAddSymptom}>Add Symptom</button>
-      </div>
-      <div className="added-symptoms-list">
-        <h2>Symptoms Added:</h2> 
-        <ul>
-          {symptoms.map((symptom, index) => (
-            <li key={index}>
-              <button onClick={() => handleRemoveSymptom(symptom)} style={{ "width":"20%"}}>Remove </button>
-                 {           } {symptom}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <button onClick={checkSymptoms}>Check Symptoms</button>
-      {potentialIssues.length > 0 && (
+    <div className="symptoms-container">
+      <Navbar settings={settings} />
+      <div className="symptomchecker-container">
+        <h1>Symptom Checker</h1>
         <div>
-          <h2>Potential Issues:</h2>
+          <label htmlFor="symptom">Select a symptom:</label>
+          <Select
+            id="symptoms"
+            name="symptoms"
+            value=''
+            onChange={handleSymptomChange}
+            options={symptoms}
+            style={{ height: '0px' }}
+            isSearchable
+            styles={{
+              option: (provided) => ({
+                ...provided,
+                color: 'black', // Set the color to black
+              }),
+            }}
+          />
+        </div>
+        <div className="added-symptoms-list">
+          <h2>Symptoms Added:</h2>
           <ul>
-            {potentialIssues.map((issue, index) => (
-              <li key={index}>{issue}</li>
+            {selectedSymptoms.map((symptom, index) => (
+              <li key={index}>
+                <button onClick={() => handleRemoveSymptom(symptom)} style={{ "width":"20%"}}>Remove</button>
+                {symptom.label}
+              </li>
             ))}
           </ul>
         </div>
-      )}
-      <div className="disclaimer">
-        **Disclaimer:** 
-        <p>
-        This is a tool for informational purposes only and should
-        not be a substitute for professional medical advice. Always consult with
-        a healthcare provider if you have any concerns about your health.
-      </p>
+        <button onClick={checkSymptoms}>Check Symptoms</button>
+        {potentialIssues.length > 0 && (
+          <div className="scrollable-container">
+            <h2>Potential Issues:</h2>
+            <form>
+              <ul>
+              <hr />
+
+          {potentialIssues.map((issue, index) => (
+            <div key={index} className="scrollable-container">
+              <h3 className="issue-name">Name: {issue.name}</h3>
+              <p className="issue-description"><b>Description:</b> {issue.description}</p>
+              <p className="issue-precautions"><b>Precautions:</b> {issue.precautions}</p>
+              {index < potentialIssues.length - 1 && <hr className="issue-divider" />}
+            </div>
+          ))}
+          <hr />
+              </ul>
+            </form>
+          </div>
+        )}
+        <div className="disclaimer">
+          **Disclaimer:**
+          <p>
+            This is a tool for informational purposes only and should not be a substitute for professional medical
+            advice. Always consult with a healthcare provider if you have any concerns about your health.
+          </p>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

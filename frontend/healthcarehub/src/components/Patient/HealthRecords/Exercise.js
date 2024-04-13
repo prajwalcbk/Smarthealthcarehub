@@ -35,13 +35,16 @@ useEffect(() => {
 
 
   const handleRemoveExercise = async (index,id) => {
+
   try {
+    if(id){
       const response = await axios.delete(`/api/delete/exercise/healthrecord/${id}`,  {
       headers: {
         'Authorization': `Bearer ${token}`
       },
       timeout: process.env.timeout  // Set timeout to 2 seconds
     });
+    }
     const updatedexercise = [...exercises];
     updatedexercise.splice(index, 1);
     setexercises(updatedexercise);
