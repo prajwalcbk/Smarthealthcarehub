@@ -42,7 +42,7 @@ function Home({settings , authIsReady , user}) {
   return (
     <div className="home-container">
       <Navbar settings={settings}/>
-      {authIsReady && <Notification user={user} /> }
+      {authIsReady &&  user.role==='PATIENT' && <Notification user={user} /> }
       
       <div className='quote-container'>
         <div className='content-wrapper'>

@@ -25,6 +25,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserRecordsShareSettingsController;
 
 use App\Http\Controllers\PrescriptionDispensationController;
+use App\Http\Controllers\MedicationRemindersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,9 +138,17 @@ Route::middleware(['settings:enablePrescription', 'auth.jwt'])->delete('/api/del
 
 
 
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/user/medication_reminders', [MedicationRemindersController::class, 'getMedicationReminderByAuthenticatedUser'])->name('medication_reminders.getMedicationReminderByAuthenticatedUser');
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->post('/api/create/medication_reminders', [MedicationRemindersController::class, 'store'])->name('medication_reminders.create');
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->delete('/api/delete/medication_reminder/{id}', [MedicationRemindersController::class, 'destroy'])->name('medication_reminders.delete');
+
+
+
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->put('/api/update/prescription/details', [PrescriptionDetailController::class, 'update'])->name('prescriptiondetails.update');
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/prescription/details/{id}', [PrescriptionDetailController::class, 'getByPrescriptionId'])->name('prescriptiondetails.getByPrescriptionId');
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->delete('/api/delete/prescription/details/{id}', [PrescriptionDetailController::class, 'destroy'])->name('prescriptiondetails.delete');
+
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/patient_prescription/details/{id}', [PrescriptionDetailController::class, 'getByPrescriptionIdforPatient'])->name('prescriptiondetails.getByPrescriptionIdforPatient');
 
 
 

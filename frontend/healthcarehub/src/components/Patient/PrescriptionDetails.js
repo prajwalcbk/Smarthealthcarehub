@@ -18,7 +18,7 @@ function Prescription({PrescriptionId, handleViewClick}) {
     const fetchPrescriptionDetails = async () => {
     try {
 
-      const response = await axios.get(`/api/get/prescription/details/${PrescriptionId}`,  {
+      const response = await axios.get(`/api/get/patient_prescription/details/${PrescriptionId}`,  {
       headers: {
         'Authorization': `Bearer ${token}`
       },
@@ -38,7 +38,53 @@ function Prescription({PrescriptionId, handleViewClick}) {
   }, []);
 
 
+const handleDeleteClick = async (medication) => {
+  try {
 
+      const response = await axios.delete(`/api/delete/medication_reminder/${medication.id}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: process.env.timeout  // Set timeout to 2 seconds
+    });
+      setSuccessMessage('Reminder Deleted Successfully');
+          setTimeout(() => {
+            setSuccessMessage('');
+            setError('');
+            handleViewClick(medication.prescription_id);
+        }, 2000); 
+    
+    }
+    catch (error) {
+      console.error('Error: while fetching Data', error);
+  }
+}
+
+
+const handleCreateClick = async (medication) => {
+  try {
+      const data = {
+        'time' : medication.time , 
+        'prescription_details_id' : medication.id
+      }
+      const response = await axios.post(`/api/create/medication_reminders`, data ,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: process.env.timeout  // Set timeout to 2 seconds
+    });
+      setSuccessMessage('Reminder Added Successfully');
+      setTimeout(() => {
+            setSuccessMessage('');
+            setError('');
+            handleViewClick(medication.prescription_id);
+        }, 2000); 
+    
+    }
+    catch (error) {
+      console.error('Error: while fetching Data', error);
+  }
+}
 
 
   const handleReminderClick = (id) => {
@@ -51,6 +97,7 @@ function Prescription({PrescriptionId, handleViewClick}) {
   return (
     <div className="prescription">
       <h2>Prescription Details</h2>
+      <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
       <table>
         <thead>
           <tr>
@@ -60,7 +107,9 @@ function Prescription({PrescriptionId, handleViewClick}) {
             <th>Reminder  </th>
           </tr>
         </thead>
+
         <tbody>
+        
           {prescriptionDetails.map((medication , index) => (
             <tr key={medication.id}>
               <td>
@@ -92,8 +141,8 @@ function Prescription({PrescriptionId, handleViewClick}) {
                 </select>
               </td>
               <td>
-              {viewReminder[medication.id] && <button onClick={() => handleReminderClick(medication.id)}>Delete </button>}
-              {!viewReminder[medication.id] && <button onClick={() => handleReminderClick(medication.id)}>Create </button>}
+              {medication.medication_reminders_id && <button onClick={() => handleDeleteClick(medication)}>Delete </button>}
+              {!medication.medication_reminders_id && <button onClick={() => handleCreateClick(medication)}>Create </button>}
               </td>
             </tr>
           ))}

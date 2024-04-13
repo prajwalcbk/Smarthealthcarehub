@@ -15,7 +15,20 @@ class PrescriptionDetailController extends Controller
         return response()->json($prescriptionDetails);
     }
 
-    
+    public function getByPrescriptionIdforPatient($prescriptionId)
+    {
+$prescriptionDetails = PrescriptionDetail::where('prescription_id', $prescriptionId)
+        ->leftJoin('medication_reminders', function ($join) {
+            $join->on('prescription_details.id', '=', 'medication_reminders.prescription_details_id');
+        })
+        ->select(
+            'prescription_details.*',
+            'medication_reminders.id as medication_reminders_id',
+        )
+        ->get();
+
+    return response()->json($prescriptionDetails);
+}
 
     public function update(Request $request)
     {
