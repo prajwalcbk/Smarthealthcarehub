@@ -15,11 +15,11 @@ function Surgeries() {
   const fetchDataFromApi = async (name) => {
     try {
 
-      const response = await axios.get(`/api/get/shared/medical/history?type=SURGEY&name=${name}`,  {
+      const response = await axios.get(`/api/get/shared/medical/history?type=SURGERY&name=${name}`,  {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
       console.log(response.data);
@@ -31,6 +31,26 @@ function Surgeries() {
     }
   };
 
+ function isValidDate(dateString) {
+  // Check if the input string matches the expected date format (YYYY-MM-DD)
+  const regex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!regex.test(dateString)) {
+    return false;
+  }
+
+  // Parse the date components
+  const dateParts = dateString.split('-');
+  const year = parseInt(dateParts[0], 10);
+  const month = parseInt(dateParts[1], 10);
+  const day = parseInt(dateParts[2], 10);
+
+  // Validate year, month, and day ranges
+  const isValidYear = year >= 1 && year <= 9999;
+  const isValidMonth = month >= 1 && month <= 12;
+  const isValidDay = day >= 1 && day <= 31;
+
+  return isValidYear && isValidMonth && isValidDay;
+}
 
 useEffect(() => {
     fetchDataFromApi('');
@@ -49,7 +69,7 @@ useEffect(() => {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
     } catch (error) {
@@ -72,11 +92,21 @@ useEffect(() => {
     try {
 
       const data=surgeries[id];
+
+            if (!isValidDate(data['date'])) {
+      setError('Please enter a valid date (YYYY-MM-DD).');
+                setTimeout(() => {
+            setSuccessMessage('');
+            setError('');
+        }, 2000); 
+      return;
+    }
+
       const response = await axios.post('/api/create/history/Surgeries', data,  {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000
+      timeout: process.env.timeout 
       });
       setSuccessMessage("Added successfully");
 
@@ -107,14 +137,21 @@ useEffect(() => {
   };
 
   const fetchUsers = async () => {
-    const response = await axios.get(`/api/get/share/patients/`, {
+    try {
+    const response = await axios.get(`/api/get/share/patients`, {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     return response.data;
-  };
+  }
+  catch (error) {
+      
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
+};
 
   const fetchOptions = async (inputValue) => {
     try {

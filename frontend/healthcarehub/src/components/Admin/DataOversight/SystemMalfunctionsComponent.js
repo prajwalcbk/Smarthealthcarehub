@@ -20,15 +20,14 @@ const SystemMalfunctionsComponent = () => {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
       console.log(response);
       setsystemMalfunctions(response.data);
     }
     catch (error) {
-      
       console.log(error)
-        setError('ERROR: Somethig went wrong');
+      setError('ERROR: Somethig went wrong');
     }
 
     }

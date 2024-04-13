@@ -21,7 +21,7 @@ function IncidentResponse() {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     setIncidents(response.data);
   }
@@ -40,7 +40,7 @@ try {
               headers: {
                 'Authorization': `Bearer ${token}`
               },
-              timeout: 2000 // Set timeout to 2 seconds
+              timeout: process.env.timeout  // Set timeout to 2 seconds
             });
       setComments(response.data);
   }
@@ -61,7 +61,7 @@ try {
               headers: {
                 'Authorization': `Bearer ${token}`
               },
-              timeout: 2000 // Set timeout to 2 seconds
+              timeout: process.env.timeout  // Set timeout to 2 seconds
             });
       return response.data[0];
   }
@@ -72,16 +72,22 @@ try {
 };
 
 
+
 const CloseSupport = async (Id) => {
-  // Update UsersList immutably
+  try {
   const response = await axios.get(`/api/close/support/issues/${Id}`, {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
-};
+}
+catch (error) { 
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+  }
 
+};
 
 
   const Onsubmit = async (id) => {
@@ -147,6 +153,7 @@ return (
     <h1>Incident Response</h1>
     <div className="incident-list">
       <h2>Incident List</h2>
+      <div>{error && <p className="error-message">{error}</p>}</div>
       <ul>
         {incidents.map(incident => (
           <li key={incident.id}>

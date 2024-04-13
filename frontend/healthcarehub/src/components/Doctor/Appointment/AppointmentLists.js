@@ -10,35 +10,35 @@ function AppointmentList() {
 
   // Fetch appointment history data from an external source (e.g., API)
   useEffect(() => {
+    
     const fetchappointments = async () => {
-
       try{
       const response = await axios.get(`/api/get/doctor/upcoming/appointments`, {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
       setappointmentList(response.data);
     }
     catch(error) {
       console.log(error)
     }
-    };
+  };
 
     fetchappointments();
   }, []);
 
   const handleCancelAppointmentClick = async (appointment) => {
 
-
+    appointment.time = appointment.time.split(':').slice(0, 2).join(':');
     appointment.status='Cancelled';
     try {
       const response = await axios.post(`/api/update/appointment/${appointment.id}` , appointment , {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     setError('');
     setSuccessMessage("Appointment Cancelled Successfully");

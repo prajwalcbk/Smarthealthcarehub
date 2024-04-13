@@ -16,7 +16,7 @@ function HealthRecords() {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
       console.log(response)
@@ -68,12 +68,12 @@ function HealthRecords() {
 
     const handleSubmit = async () => {
 
-
+    try {
     const response = await axios.post('/api/update/basic/healthrecord', editedHealthRecords,  {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
       });;
       setHealthRecords(response.data);
       setEditedHealthRecords(response.data);
@@ -82,6 +82,10 @@ function HealthRecords() {
     setTimeout(() => {
             setSuccessMessage('');
         }, 2000); 
+  }catch (error) {
+      console.error('Error fetching health records:', error);
+    }
+  
 
   };
 

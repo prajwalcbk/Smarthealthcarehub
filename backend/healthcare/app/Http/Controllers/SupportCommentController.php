@@ -26,7 +26,7 @@ class SupportCommentController extends Controller
             ->with('user:id,firstname,lastname,email') // Eager load user details
             ->get();
 
-        return response()->json($newsupportComment, 201);
+        return response()->json($newsupportComment, 200);
     }
 
     public function getBySupportId($id)

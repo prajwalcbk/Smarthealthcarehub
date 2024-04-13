@@ -50,7 +50,7 @@ function AddMedication({CreateNewPrescription}) {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000
+      timeout: process.env.timeout 
       });
     setSuccessMessage("Added successfully");
     CreateNewPrescription();
@@ -67,13 +67,18 @@ function AddMedication({CreateNewPrescription}) {
   }
 
   const fetchUsers = async () => {
-    const response = await axios.get(`/api/get/share/patients/`, {
+    try {
+    const response = await axios.get(`/api/get/share/patients`, {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     return response.data;
+  }
+  catch (error) {
+      console.error('Error Something went wrong', error);
+    }
   };
 
   const fetchOptions = async (inputValue) => {

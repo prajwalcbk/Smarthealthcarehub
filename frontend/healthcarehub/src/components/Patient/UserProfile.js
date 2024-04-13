@@ -19,7 +19,7 @@ function UserProfileData() {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           }); 
 
       setUserProfile(response.data[0]);
@@ -51,7 +51,7 @@ function UserProfileData() {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           }); 
     }
     catch (error) {

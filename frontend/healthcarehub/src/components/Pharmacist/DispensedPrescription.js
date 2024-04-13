@@ -1,50 +1,116 @@
 import React, { useState, useEffect } from 'react';
-import Prescription from './PrescriptionDetails';
+import axios from 'axios';
+import PrescriptionDetails from './PrescriptionDetails';
+import SearchPatient from './../SearchPatient'
 
 function PrescriptionList() {
   const [prescriptionList, setPrescriptionList] = useState([]);
   const [viewClicked, setViewClicked] = useState([]);
-  const [filterpatient , setFilterpatient] = useState('');
   const [iscreatenewprescription , setiscreatenewprescription]= useState(false);
+  const token = localStorage.getItem('token');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState(null);
 
-  // Fetch prescription history data from an external source (e.g., API)
-  useEffect(() => {
-    const fetchPrescriptions = async () => {
-      // Simulated response from API
-      const prescriptionResponse = [
- { "id": 1, "description": "Common Cold", "issuedDate": "25/01/2023", "DispensedDate" : "25/01/2023" ,  "provider": "John", "status": "Delivered" },
-        { "id": 3, "description": "Sinusitis", "issuedDate": "25/01/2024","DispensedDate" : "25/01/2023" ,  "provider": "Alice", "status": "Delivered" },
-        { "id": 2, "description": "Flu", "issuedDate": "25/01/200", "DispensedDate" : "25/01/2023" , "provider": "Bob", "status": "Cancelled" },
-        { "id": 4, "description": "Stomach Flu", "issuedDate": "11/01/2001", "DispensedDate" : "25/01/2023" , "provider": "Alice", "status": "InTransit" },
-        { "id": 5, "description": "Migraine", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "John", "status": "Delivered" },
-        { "id": 6, "description": "Food Poisoning", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "Bob", "status": "Cancelled" },
-        { "id": 7, "description": "Allergic Rhinitis", "issuedDate": "11/02/200", "DispensedDate" : "25/01/2023" , "provider": "Alice", "status": "Delivered" }
-    ]; 
+    const fetchPrescriptions = async (name) => {
+    try {
+
+      const response = await axios.get(`/api/get/pharmacist/prescription/dispensations`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: process.env.timeout  // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setPrescriptionList(response.data);
 
 
-      setPrescriptionList(prescriptionResponse);
-    };
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
+    }
+  };
 
-    fetchPrescriptions();
+  const dispensePrescription = async(id) => {
+    try {
+
+      const data = {
+        prescription_id : id
+      }
+      const response = await axios.post(`/api/create/prescription/dispensation`, data ,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: process.env.timeout  // Set timeout to 2 seconds
+
+    });
+      setSuccessMessage('Dispense prescription successfully');
+
+
+
+    } catch (error) {
+      console.error('Error fetching  records:', error);
+    }
+  }
+
+
+
+
+useEffect(() => {
+    fetchPrescriptions('');
   }, []);
 
-    const SearchPrescriptions = () => {
-      // Simulated response from API
-      const prescriptionResponse = [
-        { "id": 5, "description": "Migraine", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "John", "status": "Delivered" },
-        { "id": 6, "description": "Food Poisoning", "issuedDate": "22/08/2024","DispensedDate" : "25/01/2023" ,  "provider": "Bob", "status": "Cancelled" },
-        { "id": 7, "description": "Allergic Rhinitis", "issuedDate": "11/02/200", "DispensedDate" : "25/01/2023" , "provider": "Alice", "status": "Delivered" }
+    const SearchPrescriptions = async (filterpatient) => {
+    try {
+
+      const response = await axios.get(`/api/get/pharmacist/prescription/dispensations?name=${filterpatient}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: process.env.timeout  // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setPrescriptionList(response.data);
 
 
-
-      ];
-      setPrescriptionList(prescriptionResponse);
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
     }
+  };
 
-    const CreateNewPrescription = () => {
-      setiscreatenewprescription(!iscreatenewprescription)
 
+  const updateDispensation = async(order_id , id, status) => {
+    try {
+
+      const response = await axios.put(`/api/update/prescription/dispensation/${order_id}`, {
+        'status' : status
+      },{
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: process.env.timeout  // Set timeout to 2 seconds
+    })// Update the prescription list state
+
+
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
     }
+      
+
+const updatedprescriptionList = prescriptionList.map(prescription => {
+    if (prescription.id === id) {
+        // If the prescription ID matches the provided ID, toggle the status
+        return { ...prescription, status: status };
+    } else {
+        // For other prescriptions, return them unchanged
+        return prescription;
+    }
+});
+setPrescriptionList(updatedprescriptionList);
+}
+
+
+
 
   const handleViewClick = (id) => {
     setViewClicked(prevClicked => ({
@@ -54,29 +120,19 @@ function PrescriptionList() {
   };
 
   return (
-    <div>
-    {!iscreatenewprescription ? (
     <div className="prescription-list">
-      <h2> Dispensed  Prescriptions</h2>
-      <div className="prescription-filter-container">
+      <h2>Dispensed Prescriptions</h2>
 
-
-        <input
-          type="text"
-          placeholder="Search Patient"
-          value={filterpatient}
-          onChange={e => setFilterpatient(e.target.value)}
-          style={{"width":"60%"}}
-        />
-        <button style={{"margin":"2%"}} onClick={SearchPrescriptions}> Search </button>
-      </div>
+      
+      <SearchPatient search={SearchPrescriptions}/>
       <table>
         <thead>
           <tr>
-            <th>Issued to</th>
+            <th>Order id </th>
+            <th>Patient</th>
+            
             <th>Description</th>
-            <th>Issued On</th>
-            <th>Dispensed On</th>
+            <th>Date</th>
             <th>Status</th>
             <th></th>
           </tr>
@@ -85,21 +141,28 @@ function PrescriptionList() {
           {prescriptionList.map((prescription) => (
             <React.Fragment key={prescription.id}>
               <tr>
-                <td>{prescription.provider}</td>
+              <td>{prescription.order_id}</td>
+                <td>{prescription.firstname} {prescription.lastname}</td>
+                
                 <td>{prescription.description}</td>
-                <td>{prescription.issuedDate}</td>
-                <td>{prescription.DispensedDate}</td>
+                <td>{prescription.created_at ? new Date(prescription.created_at).toISOString().split('T')[0] : "Invalid Date"}</td>
                 <td>{prescription.status}</td>
                 <td>
                   
                   {viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>Close</button>}
+                  
+                  
                   {!viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>View</button>}
+                  <b>   </b>
+                  {viewClicked[prescription.id] && prescription.status==='InTransit' && <button onClick={() => updateDispensation(prescription.order_id, prescription.id , 'Cancelled' )}>Cancel</button>}
+                   <b>   </b>
+                  {viewClicked[prescription.id] && prescription.status==='InTransit' && <button onClick={() => updateDispensation(prescription.order_id , prescription.id , 'Delivered' )}>Delivered</button>}
                 </td>
               </tr>
               {viewClicked[prescription.id] && (
                 <tr>
                   <td colSpan="5">
-                    <Prescription prescription={prescription} />
+                    <PrescriptionDetails PrescriptionId={prescription.id}  />
                   </td>
                 </tr>
               )}
@@ -108,12 +171,9 @@ function PrescriptionList() {
         </tbody>
       </table>
     </div>
-    ) : ( 
-    <div>
-      </div>
-    )}
-    </div>
-  );
+);
 }
 
 export default PrescriptionList;
+
+

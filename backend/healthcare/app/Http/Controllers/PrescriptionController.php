@@ -48,6 +48,41 @@ class PrescriptionController extends Controller
         return response()->json($prescriptions);
     }
 
+    public function getPharmacistShared(Request $request)
+    {
+        $user = $request->user;
+        $searchName = $request->input('name');
+
+        $combinedData = UserRecordsShareSettings::where('user_records_share_settings.shared_user_id', $user->id)
+        ->join('users', 'user_records_share_settings.user_id', '=', 'users.id')
+        ->join('prescriptions', 'prescriptions.user_id', '=', 'users.id')
+        ->leftJoin('users as providers', 'prescriptions.provider_id', '=', 'providers.id') // Join with users table again for provider details
+        ->when($searchName, function ($query) use ($searchName) {
+            $query->where(function ($subquery) use ($searchName) {
+                $subquery->where('users.firstname', 'like', '%' . $searchName . '%')
+                    ->orWhere('users.lastname', 'like', '%' . $searchName . '%');
+            });
+        })
+        ->select(
+            'users.firstname as user_firstname',
+            'users.lastname as user_lastname',
+            'users.email as user_email',
+            'users.role as user_role',
+            'providers.firstname as provider_firstname', // Select provider's firstname
+            'providers.lastname as provider_lastname', // Select provider's lastname
+            'prescriptions.*'
+        )
+        ->get();
+
+
+
+        if ($combinedData->isEmpty() || $combinedData->pluck('id')->contains(null)) {
+        return response()->json([], 200);
+        }
+
+        return response()->json($combinedData, 200);
+    }
+
     public function getShared(Request $request)
     {
         $user = $request->user;
@@ -121,7 +156,7 @@ class PrescriptionController extends Controller
 
             DB::commit();
 
-            return response()->json($prescriptionDetails, 201);
+            return response()->json($prescriptionDetails, 200);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['message' => 'Failed to store prescription details.'], 500);
@@ -133,12 +168,14 @@ class PrescriptionController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $user = $request->user;
-        $prescription = Prescription::findOrFail($user->id);
+        $prescription = Prescription::where('user_id',$user->id)->where('id',$id);
         $request->validate([
             'status' => 'string|in:Active,Inactive'
         ]);
 
-        $prescription->update($request->all());
+        $prescription->update([
+    'status' => $request->status // Update only the 'status' field
+]);
         return response()->json($prescription, 200);
     }
 

@@ -26,7 +26,7 @@ class BasicHealthRecordController extends Controller
             'user_id' => $user->id
         ]);
 
-        return response()->json($basicHealthRecord, 201);
+        return response()->json($basicHealthRecord, 200);
     }
 
     public function update(Request $request)
@@ -47,7 +47,7 @@ class BasicHealthRecordController extends Controller
         // If the record doesn't exist, you may want to handle this case accordingly
         if (!$basicHealthRecord) {
             $this->store($request);
-            return response()->json(['message' => 'New basic health record created', 'data' => $request->all() ], 201);
+            return response()->json(['message' => 'New basic health record created', 'data' => $request->all() ], 200);
 
             //return response()->json(['error' => 'Basic health record not found'], 404);
         }

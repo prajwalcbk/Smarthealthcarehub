@@ -9,6 +9,7 @@ import BasicHealthRecord from './HealthRecords/BasicHealthRecord'
 import VitalSigns from './HealthRecords/VitalSigns'
 
 import PrescriptionsList from './PrescriptionsList';
+import PrescriptionShared from './PrescriptionShared';
 import UserProfile from './UserProfile';
 import UpcomingAppointments from './Appointment/AppointmentLists';
 import OlderAppointments from './Appointment/AppointmentHistory';
@@ -164,7 +165,7 @@ const handleDropDown3 = () => {
           <div className="medical-history-drop-down" >
           
             <button onClick={() => setComponent('PrescriptionsList')}> Owned  </button>
-            <button onClick={() => setComponent('DispensedPrescription')}> Shared </button>
+            <button onClick={() => setComponent('PrescriptionShared')}> Shared </button>
 
           </div>
           )}
@@ -232,6 +233,7 @@ const handleDropDown3 = () => {
           {activeComponent === 'FamilyHistory' && <FamilyHistory />}
 
          {activeComponent === 'PrescriptionsList' && <PrescriptionsList />}
+         {activeComponent === 'PrescriptionShared' && <PrescriptionShared />}
           {activeComponent === 'UpcomingAppointments' && <UpcomingAppointments />}
           {activeComponent === 'OlderAppointments' && <OlderAppointments />}
          

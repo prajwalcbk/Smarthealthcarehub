@@ -36,12 +36,14 @@ function AppointmentManagement({appointment,handleViewClick , updateAppointment 
       return;
     }
 
+    const convertedTime = selectedTime.split(':').slice(0, 2).join(':');
+
     const data = {
       id:appointment.id,
       status:appointment.status,
       date : selectedDate.toISOString().split('T')[0] ,
       reason : reason ,
-      time: selectedTime,
+      time: convertedTime,
       duration: duration ,
       doctor_firstname: appointment.doctor_firstname,
       doctor_lastname : appointment.doctor_lastname    
@@ -53,7 +55,7 @@ function AppointmentManagement({appointment,handleViewClick , updateAppointment 
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     setError('');
     setSuccessMessage("Appointment Saved Successfully");
@@ -84,7 +86,7 @@ function AppointmentManagement({appointment,handleViewClick , updateAppointment 
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     setError('');
     setSuccessMessage("Appointment Cancelled Successfully");

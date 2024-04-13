@@ -22,7 +22,7 @@ function ComplianceOversight() {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     setCompliances(response.data);
   }
@@ -41,7 +41,7 @@ try {
               headers: {
                 'Authorization': `Bearer ${token}`
               },
-              timeout: 2000 // Set timeout to 2 seconds
+              timeout: process.env.timeout  // Set timeout to 2 seconds
             });
       setComments(response.data);
   }
@@ -63,7 +63,7 @@ try {
               headers: {
                 'Authorization': `Bearer ${token}`
               },
-              timeout: 2000 // Set timeout to 2 seconds
+              timeout: process.env.timeout  // Set timeout to 2 seconds
             });
       return response.data[0];
   }
@@ -75,13 +75,19 @@ try {
 
 
 const CloseSupport = async (Id) => {
-  // Update UsersList immutably
+  try {
   const response = await axios.get(`/api/close/support/issues/${Id}`, {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
+}
+catch (error) { 
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+  }
+
 };
 
 
@@ -154,6 +160,7 @@ return (
     <h1>Compliances</h1>
     <div className="compliance-list">
       <h2>Compliances List</h2>
+      <div>{error && <p className="error-message">{error}</p>}</div>
       <ul>
         {Compliances.map(compliance => (
           <li key={compliance.id}>

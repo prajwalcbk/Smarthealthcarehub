@@ -11,11 +11,11 @@ function Exercise() {
   const fetchExercises = async () => {
     try {
 
-      const response = await axios.get('/api/get/exercise/healthrecords/',  {
+      const response = await axios.get('/api/get/exercise/healthrecords',  {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
       console.log(response.data);
@@ -40,15 +40,16 @@ useEffect(() => {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
+    const updatedexercise = [...exercises];
+    updatedexercise.splice(index, 1);
+    setexercises(updatedexercise);
 
     } catch (error) {
       console.error('Error fetching health records:', error);
     }
-    const updatedexercise = [...exercises];
-    updatedexercise.splice(index, 1);
-    setexercises(updatedexercise);
+
   };
 
   const handleInputChange = (event, index, key) => {
@@ -78,7 +79,7 @@ useEffect(() => {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000
+      timeout: process.env.timeout 
       });
       
 
@@ -90,6 +91,10 @@ useEffect(() => {
 
     // Update the exercises state with the modified list
     setexercises(updatedExercises);
+        setSuccessMessage("Added successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
       
 
     } 
@@ -98,10 +103,7 @@ useEffect(() => {
     }
 
 
-    setSuccessMessage("Added successfully");
-    setTimeout(() => {
-            setSuccessMessage('');
-        }, 2000); 
+
 
   };
 

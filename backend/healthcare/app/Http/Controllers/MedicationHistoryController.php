@@ -24,7 +24,7 @@ class MedicationHistoryController extends Controller
             'type' => 'FAMILYHEALTH', // Set the type directly here
         ]);
 
-        return response()->json($medicationHistory, 201);
+        return response()->json($medicationHistory, 200);
     }
     public function storeSurgeriesHistory(Request $request)
     {
@@ -41,10 +41,10 @@ class MedicationHistoryController extends Controller
             'patient_id' => $patientId,
             'date' => $request->date,
             'description' => $request->description,
-            'type' => 'SURGEY', // Set the type directly here
+            'type' => 'SURGERY', // Set the type directly here
         ]);
 
-        return response()->json($medicationHistory, 201);
+        return response()->json($medicationHistory, 200);
     }
     public function storePastIllnessHistory(Request $request)
     {
@@ -64,7 +64,7 @@ class MedicationHistoryController extends Controller
             'type' => 'PASTILLNESS', // Set the type directly here
         ]);
 
-        return response()->json($medicationHistory, 201);
+        return response()->json($medicationHistory, 200);
     }
 
     public function storeAllergiesHistory(Request $request)
@@ -95,7 +95,7 @@ class MedicationHistoryController extends Controller
             'type' => "ALLERGIES", // Set the type directly here
         ]);
 
-        return response()->json($medicationHistory, 201);
+        return response()->json($medicationHistory, 200);
     }
 
 

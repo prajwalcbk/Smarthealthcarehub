@@ -5,19 +5,26 @@ function DoctorManagement() {
   const [UsersList, setUsersList] = useState([]);
   const token = localStorage.getItem('token');
   const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState(null);
 
 
 
 
   useEffect(() => {
     const fetchdata = async () => {
+      try {
     const response = await axios.get('/api/get/doctors',  {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     setUsersList(response.data)
+  }
+  catch (error) {
+      console.log(error)
+      setError('ERROR: Somethig went wrong');
+    }
   }
   fetchdata();
   }, []);
@@ -25,12 +32,13 @@ function DoctorManagement() {
 
 
 const handleVerifyUser = async (updateuser) => {
-  // Update UsersList immutably
+  
+  try {
   const response = await axios.get(`/api/verify/user/${updateuser.user_id}`,  {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
   if(updateuser.is_verified){
       setSuccessMessage("User Verification status Changed");
@@ -39,7 +47,7 @@ const handleVerifyUser = async (updateuser) => {
       setSuccessMessage("User Verified Successfully");
     }
       setTimeout(() => {
-            setSuccessMessage('')
+            setSuccessMessage('');
           }, 1000); 
  
   const updatedUsersList = UsersList.map(user => {
@@ -51,6 +59,12 @@ const handleVerifyUser = async (updateuser) => {
   });
 
   setUsersList(updatedUsersList);
+}
+catch (error) {
+      console.log(error)
+      setError('ERROR: Somethig went wrong');
+    }
+
 };
 
 
@@ -61,6 +75,7 @@ const handleVerifyUser = async (updateuser) => {
       <div className="users-list">
       <h2>Doctors Accounts </h2>
       <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>
+      <div>{error && <p className="error-message">{error}</p>}</div>
       <table>
         <thead>
           <tr>

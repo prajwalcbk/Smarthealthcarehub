@@ -19,7 +19,7 @@ const HealthForum = ({settings}) => {
 
     const fetchDataFromApi = async (page) => {
       const response = await axios.get(`/api/get/forums?page=${page}`, {
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
       return response.data;
   };
@@ -62,7 +62,7 @@ const handleSearch = async () => {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
       setForums(response.data);
 };

@@ -18,6 +18,7 @@ export default function Messenger({settings}) {
 
   useEffect(() => {
 
+
       const fetchUser = async () => {
       try {
         const token = localStorage.getItem('token');
@@ -26,7 +27,7 @@ export default function Messenger({settings}) {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
 
           if (response.status === 200) {
@@ -44,8 +45,7 @@ export default function Messenger({settings}) {
 
   useEffect(() => {
     if (currentUser) {
-      // socket.current = io(process.env.SOCKET_APP_BACKEND_APP_URL);
-      socket.current = io('http://192.168.214.236:5000/');
+      socket.current = io('https://healthcare-messenger.onrender.com/');
       socket.current.emit("add-user", currentUser.id);
     }
   }, [currentUser]);

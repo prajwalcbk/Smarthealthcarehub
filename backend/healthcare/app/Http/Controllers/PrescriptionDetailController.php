@@ -20,16 +20,17 @@ class PrescriptionDetailController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'prescriptions.*.id' => 'required|exists:prescription_details,id',
-            'prescriptions.*.name' => 'required|string',
-            'prescriptions.*.dosage' => 'required|integer',
-            'prescriptions.*.time' => 'required|string'
+            'editedprescriptionDetails.*.id' => 'required|exists:prescription_details,id',
+            'editedprescriptionDetails.*.name' => 'required|string',
+            'editedprescriptionDetails.*.dosage' => 'required|integer',
+            'editedprescriptionDetails.*.time' => 'required|string'
         ]);
 
 
         try {
+            
             DB::beginTransaction();
-            $prescriptionDetails = $request->prescriptionDetails;
+            $prescriptionDetails = $request->editedprescriptionDetails;
             foreach ($prescriptionDetails as $detailData) {
                 $prescriptionDetail = PrescriptionDetail::findOrFail($detailData['id']);
 

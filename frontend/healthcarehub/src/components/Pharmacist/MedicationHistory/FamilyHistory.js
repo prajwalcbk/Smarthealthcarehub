@@ -8,7 +8,7 @@ function FamilyHistory() {
     const [editMode, setEditMode] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const token = localStorage.getItem('token');
-  const [error, setError] = useState(null);
+    const [error, setError] = useState(null);
     const [Useroptions, setUseroptions] = useState([]);
 
     const fetchFamilyHistory = async (name) => {
@@ -18,7 +18,7 @@ function FamilyHistory() {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
       console.log(response.data);
@@ -49,7 +49,7 @@ useEffect(() => {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
     } catch (error) {
@@ -74,7 +74,7 @@ useEffect(() => {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000
+      timeout: process.env.timeout 
       });
     setSuccessMessage("Added successfully");
 
@@ -106,14 +106,22 @@ useEffect(() => {
 };
 
   const fetchUsers = async () => {
-    const response = await axios.get(`/api/get/share/patients/`, {
+    try {
+    const response = await axios.get(`/api/get/share/patients`, {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     return response.data;
-  };
+  }
+  catch (error) {
+      
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
+}
+
 
   const fetchOptions = async (inputValue) => {
     try {
@@ -145,6 +153,7 @@ const handleOptionChange = (e,index) => {
       <h2>Family Health History</h2>
       <SearchPatient search={fetchFamilyHistory}/>
         <h3>FamilyHistory:</h3>
+        <div>{error && <p className="error-message">{error}</p>}</div>
         <ul>
           {familyhistory.map((history, index) => (
             <li key={index}>
@@ -202,14 +211,11 @@ const handleOptionChange = (e,index) => {
                 disabled={!history.editable}
                 className={history.editable ? "editable" : ""}
               />
-              <button type="button" onClick={() => handleRemovefamilyhistory(index,history.id)}>Remove</button>
-              <button type="button" onClick={() => handleSave(index)}>Save</button>
             </li>
           ))}
         </ul>
         <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
-        <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddfamilyhistory}>Add</button>
     </div>
   );
 }

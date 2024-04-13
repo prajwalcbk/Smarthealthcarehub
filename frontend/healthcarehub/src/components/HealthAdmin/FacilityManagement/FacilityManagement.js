@@ -35,36 +35,53 @@ const HealthForum = () => {
 
 
     const fetchDataFromApi = async () => {
+      try {
       const response = await axios.get(`/api/get/facilities`, {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
       return response.data;
+    }
+    catch (error) { 
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+  }
+      
   };
 
 
   const Search = async () => {
+    try {
       const response = await axios.get(`/api/search/facility?name=${nameFilter}`, {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
       setFacilities(response.data);
-  };
+  }
+  catch (error) { 
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+  }
+      
+};
+
+
   const CreateNew = () => { 
     setCreateNew(!creatnew);
 
   }
 
     const handleSubmit = async() => {
+    try {
     const response = await axios.post('/api/create/facility', formData,  {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });;
     setSuccessMessage("Reported  successfully");
     setTimeout(() => {
@@ -82,7 +99,15 @@ const HealthForum = () => {
     setFacilities(updatedFacilities);
     setCreateNew(!creatnew);
     
-  };
+  }
+  catch (error) { 
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+  }
+      
+};
+
+
 
 
 useEffect(() => {
@@ -115,6 +140,7 @@ useEffect(() => {
       }
       {!creatnew &&  
       <div className="facilitymanagement-list">
+      <div>{error && <p className="error-message">{error}</p>}</div>
 
         {Facilities.map(facility => (
           <div href='' key={facility.id} className="facilitymanagement-card" >

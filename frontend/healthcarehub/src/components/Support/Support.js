@@ -15,6 +15,7 @@ function Support() {
   const [showChat, setShowChat] = useState(false);
   const [showForum, setshowForum] = useState(false);
   const token = localStorage.getItem('token');
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -45,14 +46,15 @@ function Support() {
     const [successMessage, setSuccessMessage] = useState('');
 
     const handleSubmit = async() => {
+
     //event.preventDefault();
 
-
+    try {
     const response = await axios.post('/api/create/support/issue', formData,  {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });;
     setSuccessMessage("Reported  successfully");
     setTimeout(() => {
@@ -68,7 +70,18 @@ function Support() {
     }, 5000); 
     setshowForum(false);
     
-  };
+  }
+  catch (error) { 
+      if(error.response.status==401){
+        setError('You Should login to Report an Issue');
+        setTimeout(() => {
+            setError('');
+        }, 2000); 
+      }
+      
+    }
+    console.log(error);
+}
 
   return (
     <div className="chatbox-container">
@@ -99,6 +112,8 @@ function Support() {
         { showForum && (
           <div className="forum-form">
           <h1 style={{"alignText":"left"}}>Report us </h1>
+
+          <div>{error && <p className="error-message">{error}</p>}</div>
 
             <label>Report Type *</label>
             <select name="type" value={formData.type} onChange={handleInputChange}>

@@ -5,6 +5,7 @@ function VitalSigns() {
   const [vitalsigns, setvitalsigns] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const token = localStorage.getItem('token');
+  const [error, setError] = useState(null);
 
   const fetchVitalSigns = async () => {
     try {
@@ -14,7 +15,7 @@ function VitalSigns() {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
       console.log(response.data);
@@ -32,6 +33,27 @@ useEffect(() => {
   }, []);
 
 
+ function isValidDate(dateString) {
+  // Check if the input string matches the expected date format (YYYY-MM-DD)
+  const regex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!regex.test(dateString)) {
+    return false;
+  }
+
+  // Parse the date components
+  const dateParts = dateString.split('-');
+  const year = parseInt(dateParts[0], 10);
+  const month = parseInt(dateParts[1], 10);
+  const day = parseInt(dateParts[2], 10);
+
+  // Validate year, month, and day ranges
+  const isValidYear = year >= 1 && year <= 9999;
+  const isValidMonth = month >= 1 && month <= 12;
+  const isValidDay = day >= 1 && day <= 31;
+
+  return isValidYear && isValidMonth && isValidDay;
+}
+
   const handleAddVitalSigns = () => {
     const vitalsign = { bloodpressure: '', date: '', editable: true };
     setvitalsigns([...vitalsigns, vitalsign]);
@@ -46,15 +68,16 @@ useEffect(() => {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
+    const updatedvitalsign = [...vitalsigns];
+    updatedvitalsign.splice(id, 1);
+    setvitalsigns(updatedvitalsign);
 
     } catch (error) {
       console.error('Error fetching health records:', error);
     }
-    const updatedvitalsign = [...vitalsigns];
-    updatedvitalsign.splice(id, 1);
-    setvitalsigns(updatedvitalsign);
+
   };
 
 
@@ -77,11 +100,20 @@ useEffect(() => {
     const handleSave = async (id) => {
     try {
       const data=vitalsigns[id];
+
+            if (!isValidDate(data['date'])) {
+      setError('Please enter a valid date (YYYY-MM-DD).');
+                setTimeout(() => {
+            setSuccessMessage('');
+            setError('');
+        }, 2000); 
+      return;
+    }
       const response = await axios.post('/api/create/vitalsign', data,  {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
 
@@ -92,16 +124,17 @@ useEffect(() => {
 
     // Update the exercises state with the modified list
     setvitalsigns(updatedvitalsign);
+        setSuccessMessage("Added successfully");
+    setTimeout(() => {
+            setSuccessMessage('');
+        }, 2000); 
 
     } catch (error) {
       console.error('Error fetching health records:', error);
     }
 
 
-    setSuccessMessage("Added successfully");
-    setTimeout(() => {
-            setSuccessMessage('');
-        }, 2000); 
+
 
   };
 
@@ -164,6 +197,7 @@ useEffect(() => {
           ))}
         </ul>
         <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
+        <div>{error && <p className="error-message">{error}</p>}</div>
         <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddVitalSigns}>Add</button>
       </form>
     </div>

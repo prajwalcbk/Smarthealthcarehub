@@ -56,7 +56,7 @@ class ForumPostAnswerController extends Controller
             )
             ->get();
 
-        return response()->json(['message' => 'Forum post Answer created successfully', 'post' => $newForumAnswer], 201);
+        return response()->json(['message' => 'Forum post Answer created successfully', 'post' => $newForumAnswer], 200);
     }
 
 

@@ -52,7 +52,7 @@ const DoctorSearchPage = ({settings}) => {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     setDoctors(response.data);
   }
@@ -67,7 +67,6 @@ const DoctorSearchPage = ({settings}) => {
   }, []);
 
   useEffect(() => {
-    // Apply filters whenever specializationFilter or locationFilter changes
     const filtered = doctors.filter(doctor => {
       const specialization = doctor.specialization || ''
       const location = doctor.location || '';

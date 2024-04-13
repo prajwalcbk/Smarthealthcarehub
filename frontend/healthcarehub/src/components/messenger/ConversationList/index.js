@@ -6,6 +6,7 @@ import './ConversationList.css';
 export default function ConversationList({ changeChat }) {
   const [conversations, setConversations] = useState([]);
   const [currentSelected, setCurrentSelected] = useState(undefined);
+  const [ filtername , setfiltername] = useState();
 
   
     const changeCurrentChat = (index, contact) => {
@@ -25,12 +26,24 @@ export default function ConversationList({ changeChat }) {
 
       try {
             const response = await axios.get('/api/get/users',  {
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           })
             setConversations(response.data)
         }
           catch (error) {
-          }
+    }
+  }
+
+ const searchConversations = async () => {
+
+      try {
+            const response = await axios.get('/api/get/users',  {
+            timeout: process.env.timeout  // Set timeout to 2 seconds
+          })
+            setConversations(response.data)
+        }
+          catch (error) {
+    }
   }
 
     return (
@@ -43,11 +56,21 @@ export default function ConversationList({ changeChat }) {
       </div>
         
         <div className="conversation-search">
+        
         <input
-          type="search"
+          type="Search"
           className="conversation-search-input"
-          placeholder="Search Messages"
+          placeholder="Search Users"
+          value={filtername}
+          onChange={e => setfiltername(e.target.value)}
+          onKeyDown={e => {
+          if (e.key === 'Enter') {
+            searchConversations();
+          }
+        }
+      }
         />
+      
       </div>
         {conversations.map((conversation , index)  =>
               <div

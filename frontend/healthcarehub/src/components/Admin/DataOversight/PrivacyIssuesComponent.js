@@ -18,15 +18,14 @@ const PrivacyIssuesComponent = () => {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
       console.log(response);
       setprivacyIssues(response.data);
     }
-    catch (error) {
-      
+    catch (error) { 
       console.log(error)
-        setError('ERROR: Somethig went wrong');
+      setError('ERROR: Somethig went wrong');
     }
 
     }

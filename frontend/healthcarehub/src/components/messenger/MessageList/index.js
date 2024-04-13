@@ -29,13 +29,13 @@ export default function MessageList({ currentChat, socket , currentUser}) {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
       console.log(response);
       setMessages(response.data);
     }
     catch (error) { 
-      console.log(error)
+      console.log(error);
     }
     }
     getMessages();
@@ -48,6 +48,7 @@ export default function MessageList({ currentChat, socket , currentUser}) {
 
 const handleSendMsg = async (msg) => {
 
+try {
     const response = await axios.post('/api/send/message', {
       from: currentUser.id,
       to: currentChat.id,
@@ -56,7 +57,7 @@ const handleSendMsg = async (msg) => {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
 
     console.log('Sending message');
@@ -66,7 +67,12 @@ const handleSendMsg = async (msg) => {
     const msgs = [...messages];
     msgs.push(response.data.message);
     setMessages(msgs);
-  };
+  }
+  catch (error) { 
+      console.log(error);
+    }
+}
+
 
 
   const Addmessage = () => {

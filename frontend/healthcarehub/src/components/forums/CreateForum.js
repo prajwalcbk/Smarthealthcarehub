@@ -12,6 +12,7 @@ const CreateForum = ({settings}) => {
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
+    const [error, setError] = useState(null);
   
   const handleSubmit = async () => {
 
@@ -21,19 +22,25 @@ const CreateForum = ({settings}) => {
           'description' : description,
           'user_id' : '1'
         }
+        try {
         const response = await axios.post(`/api/create/forum` , data , {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
-
+      }
+      catch (error) {
+      console.log(error)
+      setError('ERROR: Somethig went wrong');
+    }
         navigate('/forums')
   };
 
 
   return (
     <div className="container">
+    <div>{error && <p className="error-message">{error}</p>}</div>
     <Navbar settings={settings}/>
       <div className="healthforum-form">
         <h1>Create New Forum</h1>
@@ -54,7 +61,6 @@ const CreateForum = ({settings}) => {
           >
 
           <option value="">Select Category</option>
-          <option value="All">All</option>
           <option value="Diet">Diet</option>
           <option value="Exercise">Exercise</option>
           <option value="Mental Health">Mental Health</option>

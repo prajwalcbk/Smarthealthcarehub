@@ -24,6 +24,8 @@ use App\Http\Controllers\SupportController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserRecordsShareSettingsController;
 
+use App\Http\Controllers\PrescriptionDispensationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,8 +50,12 @@ Route::middleware('auth.jwt')->get('/protected-route', function (Request $reques
 
 //middleware('auth.jwt')->
 Route::get('/api/get/users', [UserController::class, 'getAll'])->name('users.get'); 
+Route::get('/api/get/search/users', [UserController::class, 'searchUsers'])->name('users.searchUsers'); 
 Route::middleware('auth.jwt')->get('/api/get/pharmacists', [UserController::class, 'getPharmacists'])->name('users.pharmacists');
 Route::get('/api/get/doctors', [UserController::class, 'getDoctors'])->name('users.doctors');
+
+
+
 Route::middleware('auth.jwt')->get('/api/get/doctor/profile', [UserController::class, 'getDoctorsProfile'])->name('users.getDoctorProfile');
 Route::middleware('auth.jwt')->get('/api/get/pharmacist/profile', [UserController::class, 'getPharmacistsProfile'])->name('users.getPharmacistsProfile');
 
@@ -114,12 +120,22 @@ Route::middleware(['settings:enableAppointments', 'auth.jwt'])->get('/api/get/do
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/user/prescriptions', [PrescriptionController::class, 'getByUser'])->name('prescription.getByUser');
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/doctor/prescriptions', [PrescriptionController::class, 'getByDoctor'])->name('prescription.getByDoctor');
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/shared/prescriptions', [PrescriptionController::class, 'getShared'])->name('prescription.getShared');
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/pharmacist/shared/prescriptions', [PrescriptionController::class, 'getPharmacistShared'])->name('prescription.getPharmacistShared');
 
+
+
+
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->post('/api/create/prescription/dispensation', [PrescriptionDispensationController::class, 'store'])->name('prescriptiondispensation.create');
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->put('/api/update/prescription/dispensation/{id}', [PrescriptionDispensationController::class, 'updateStatus'])->name('prescriptiondispensation.update');
+
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/user/prescription/dispensations', [PrescriptionDispensationController::class, 'getForPatient'])->name('prescriptiondispensation.getForPatient');
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/pharmacist/prescription/dispensations', [PrescriptionDispensationController::class, 'getForPharmacist'])->name('prescriptiondispensation.getForPharmacist');
 
 
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->post('/api/create/prescription', [PrescriptionController::class, 'store'])->name('prescription.create');
-Route::middleware(['settings:enablePrescription', 'auth.jwt'])->put('/api/update/prescription', [PrescriptionController::class, 'updateStatus'])->name('prescription.update');
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->put('/api/update/prescription/{id}', [PrescriptionController::class, 'updateStatus'])->name('prescription.update');
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->delete('/api/delete/prescription/{id}', [PrescriptionController::class, 'destroy'])->name('prescription.delete');
+
 
 
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->put('/api/update/prescription/details', [PrescriptionDetailController::class, 'update'])->name('prescriptiondetails.update');
@@ -198,7 +214,7 @@ Route::middleware(['settings:enableMessenger', 'auth.jwt'])->post('/api/send/mes
 Route::middleware('auth.jwt')->post('/api/create/share/records/', [UserRecordsShareSettingsController::class, 'createsharewithuser']);
 Route::middleware('auth.jwt')->post('/api/delete/share/records/', [UserRecordsShareSettingsController::class, 'deletesharewithuser']);
 Route::middleware('auth.jwt')->get('/api/get/share/users/', [UserRecordsShareSettingsController::class, 'getsharewithuser']);
-Route::middleware('auth.jwt')->get('/api/get/share/patients/', [UserRecordsShareSettingsController::class, 'getsharewithpatients']);
+Route::middleware('auth.jwt')->get('/api/get/share/patients', [UserRecordsShareSettingsController::class, 'getsharewithpatients']);
 
 
 

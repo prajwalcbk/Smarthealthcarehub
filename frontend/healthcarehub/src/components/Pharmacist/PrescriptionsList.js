@@ -1,58 +1,89 @@
 import React, { useState, useEffect } from 'react';
-import Prescription from './PrescriptionDetails';
+import axios from 'axios';
+import SearchPatient from './../SearchPatient'
+import PrescriptionDetails from './PrescriptionDetails';
 
 function PrescriptionList() {
   const [prescriptionList, setPrescriptionList] = useState([]);
   const [viewClicked, setViewClicked] = useState([]);
-  const [filterpatient , setFilterpatient] = useState('');
   const [iscreatenewprescription , setiscreatenewprescription]= useState(false);
+  const token = localStorage.getItem('token');
   const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState(null);
 
-  // Fetch prescription history data from an external source (e.g., API)
-  useEffect(() => {
-    const fetchPrescriptions = async () => {
-      // Simulated response from API
-      const prescriptionResponse = [
-         { "id": 1, "description": "Cold", "issuedDate": "15/03/2023", "provider": "David", "status": "Active" },
-        { "id": 3, "description": "Migraine", "issuedDate": "22/05/2024", "provider": "Alice", "status": "InActive" },
-        { "id": 2, "description": "Food Poisoning", "issuedDate": "05/12/200", "provider": "John", "status": "Active" },
-        { "id": 4, "description": "Stomach Flu", "issuedDate": "20/07/2001", "provider": "David", "status": "Active" },
-        { "id": 5, "description": "Allergy", "issuedDate": "10/10/2024", "provider": "Alice", "status": "InActive" },
-        { "id": 6, "description": "Sinusitis", "issuedDate": "18/09/2024", "provider": "John", "status": "Active" },
-        { "id": 7, "description": "Indigestion", "issuedDate": "30/04/200", "provider": "Alice", "status": "Active" }
-    ];  
-      setPrescriptionList(prescriptionResponse);
-    };
+    const fetchPrescriptions = async (name) => {
+    try {
 
-    fetchPrescriptions();
+      const response = await axios.get(`/api/get/pharmacist/shared/prescriptions`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: process.env.timeout  // Set timeout to 2 seconds
+    });
+
+      console.log(response.data);
+      setPrescriptionList(response.data);
+
+
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
+    }
+  };
+
+  const dispensePrescription = async(id) => {
+    try {
+
+      const data = {
+        prescription_id : id
+      }
+      const response = await axios.post(`/api/create/prescription/dispensation`, data ,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: process.env.timeout  // Set timeout to 2 seconds
+
+    });
+      setSuccessMessage('Dispense prescription successfully');
+
+
+
+    } catch (error) {
+      console.error('Error fetching Family History records:', error);
+    }
+  }
+
+
+useEffect(() => {
+    fetchPrescriptions('');
   }, []);
 
-    const SearchPrescriptions = () => {
-      // Simulated response from API
-      const prescriptionResponse = [
-        { "id": 5, "description": "Allergy", "issuedDate": "10/10/2024", "provider": "Alice", "status": "InActive" },
-        { "id": 6, "description": "Sinusitis", "issuedDate": "18/09/2024", "provider": "John", "status": "Active" },
-        { "id": 7, "description": "Indigestion", "issuedDate": "30/04/200", "provider": "Alice", "status": "Active" }
+    const SearchPrescriptions = async (filterpatient) => {
+    try {
+
+      const response = await axios.get(`/api/get/pharmacist/shared/prescriptions?name=${filterpatient}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: process.env.timeout  // Set timeout to 2 seconds
+    })
 
 
+      console.log(response.data);
+      setPrescriptionList(response.data);
 
-      ];
-      setPrescriptionList(prescriptionResponse);
+
+    } 
+    catch (error) {
+      console.error('Error fetching Family History records:', error);
     }
+  };
+
+
 
     const CreateNewPrescription = () => {
       setiscreatenewprescription(!iscreatenewprescription)
 
     }
-
-  const handleDispenseclick = (id) => {
-    setSuccessMessage("Prescription Dispense in progess");
-       setTimeout(() => {
-            setSuccessMessage('');
-        }, 2000); 
-    const updatedPrescriptionList = prescriptionList.filter(prescription => prescription.id !== id);
-    setPrescriptionList(updatedPrescriptionList);
-  };
 
   const handleViewClick = (id) => {
     setViewClicked(prevClicked => ({
@@ -62,69 +93,54 @@ function PrescriptionList() {
   };
 
   return (
-    <div>
-    {!iscreatenewprescription ? (
     <div className="prescription-list">
+      <h2>Shared Prescriptions</h2>
 
-      <h2>Prescriptions</h2>
-      <div className="prescription-filter-container">
-
-
-        <input
-          type="text"
-          placeholder="Search Patient"
-          value={filterpatient}
-          onChange={e => setFilterpatient(e.target.value)}
-          style={{"width":"60%"}}
-        />
-        <button style={{"margin":"2%"}} onClick={SearchPrescriptions}> Search </button>
-      </div>
-      <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
+      
+      <SearchPatient search={SearchPrescriptions}/>
       <table>
         <thead>
           <tr>
             <th>Patient</th>
+            <th>Prescribed By</th>
             <th>Description</th>
             <th>Date</th>
             <th>Status</th>
             <th></th>
           </tr>
         </thead>
-
         <tbody>
           {prescriptionList.map((prescription) => (
             <React.Fragment key={prescription.id}>
               <tr>
-                <td>{prescription.provider}</td>
+                <td>{prescription.user_firstname} {prescription.user_lastname}</td>
+                <td>{prescription.provider_firstname} {prescription.provider_lastname}</td>
                 <td>{prescription.description}</td>
-                <td>{prescription.issuedDate}</td>
+                <td>{prescription.created_at ? new Date(prescription.created_at).toISOString().split('T')[0] : "Invalid Date"}</td>
                 <td>{prescription.status}</td>
                 <td>
                   
                   {viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>Close</button>}
-                  {viewClicked[prescription.id] && <button onClick={() => handleDispenseclick(prescription.id)}>Dispense</button>}
+                  
+                  
                   {!viewClicked[prescription.id] && <button onClick={() => handleViewClick(prescription.id)}>View</button>}
+                  <b>   </b>
+                  {viewClicked[prescription.id] && <button onClick={() => dispensePrescription(prescription.id)}>Dispense</button>}
                 </td>
               </tr>
               {viewClicked[prescription.id] && (
                 <tr>
                   <td colSpan="5">
-                    <Prescription prescription={prescription} />
+                    <PrescriptionDetails PrescriptionId={prescription.id}  />
                   </td>
                 </tr>
               )}
             </React.Fragment>
           ))}
         </tbody>
-
       </table>
     </div>
-    ) : ( 
-    <div>
-      </div>
-    )}
-    </div>
-  );
+);
 }
 
 export default PrescriptionList;

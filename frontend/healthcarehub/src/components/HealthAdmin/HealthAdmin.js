@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import FacilityManagement from './FacilityManagement/FacilityManagement'
 import StaffCoordination from './StaffCoordination/StaffCoordination'
+import DoctorManagement from './StaffCoordination/DoctorManagement'
+import PharmacistManagement from './StaffCoordination/PharmacistManagement'
 import ComplianceOversight from './ComplianceOversight/ComplianceOversight'
 
 
@@ -23,6 +25,7 @@ function User({settings}) {
 
   const [isOpen, setIsopen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [isDropDownOpen, setDropDownOpen] = useState(false);
 
 
   useEffect(() => {
@@ -44,6 +47,13 @@ function User({settings}) {
   }
     setIsopen(!isOpen);
 
+  };
+
+    const handleDropDown = () => {
+    if(isMobile){
+    setActiveComponent('')
+  }
+    setDropDownOpen(!isDropDownOpen);
   };
 
 
@@ -70,7 +80,17 @@ function User({settings}) {
           <button onClick={handleToggle}> <img src={bar} alt="menu bar"  /> Menu Bar </button>
 
             <button onClick={() => setComponent('FacilityManagement')}> <img src={facilitymanagement} alt="Stethoscope Icon"  />  FacilityManagement </button>
-            <button onClick={() => setComponent('StaffCoordination')}> <img src={staffcoordination} alt="Stethoscope Icon"  />  StaffCoordination </button>
+            <button onClick={handleDropDown}> <img src={staffcoordination} alt="Stethoscope Icon"  />  
+            StaffCoordination </button>
+            {(
+            isDropDownOpen
+          ) && (          
+          <div className="medical-record-drop-down" >
+          
+            <button onClick={() => setComponent('Doctors')}>  Doctors </button>
+            <button onClick={() => setComponent('Pharmacists')}> Pharmacists </button>
+          </div>
+          )}
 
           {settings && settings.enableSupport === 1 && (
             <div>
@@ -101,6 +121,8 @@ function User({settings}) {
       )}
 
         <div className="user-data">
+          {activeComponent === 'Doctors' && <DoctorManagement />}
+          {activeComponent === 'Pharmacists' && <PharmacistManagement />}
           {activeComponent === 'FacilityManagement' && <FacilityManagement />}
           {activeComponent === 'StaffCoordination' && <StaffCoordination />}
           {activeComponent === 'ComplianceOversight' && <ComplianceOversight />}

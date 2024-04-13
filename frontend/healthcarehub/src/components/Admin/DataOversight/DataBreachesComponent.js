@@ -17,15 +17,13 @@ const DataBreachesComponent = () => {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout 
           });
-      console.log(response);
       setdataBreaches(response.data);
     }
     catch (error) {
-      
       console.log(error)
-        setError('ERROR: Somethig went wrong');
+      setError('ERROR: Somethig went wrong');
     }
     }
     fetchdataBreaches();

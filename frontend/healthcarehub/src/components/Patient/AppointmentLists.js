@@ -10,16 +10,21 @@ function AppointmentList() {
   // Fetch appointment history data from an external source (e.g., API)
   useEffect(() => {
     const fetchappointments = async () => {
-      
+
+      try {
       const response = await axios.get(`/api/get/user/appointments`, {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           }); 
 
       setappointmentList(response.data);
-    };
+    }
+  catch (error) {
+      console.error('Error Something went wrong:', error);
+    }
+  }
 
     fetchappointments();
   }, []);

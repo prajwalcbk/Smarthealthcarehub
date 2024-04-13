@@ -23,6 +23,24 @@ class UserController extends Controller
         return response()->json($users);
     }
 
+    public function searchUsers(Request $request)
+    {
+
+        $name = $request->input('name');
+
+        // Query doctors based on the search parameters
+        $users = User::query();
+
+        if ($name) {
+            $users->where('firstname', 'like', '%' . $name . '%');
+        }
+
+        $results = $users->get();
+
+        // Return the results as JSON response
+        return response()->json($results);
+    }
+
     public function getDoctor($id)
     {
         $doctor = User::where('doctors.id', $id)
@@ -45,6 +63,7 @@ class UserController extends Controller
     public function getDoctorsProfile(Request $request)
     {
         $user=$request->user;
+
 
         $doctor = User::where('doctors.user_id', $user->id)
                ->join('doctors', 'users.id', '=', 'doctors.user_id')
@@ -370,7 +389,7 @@ public function updatepharmacist(Request $request)
         }
 
 
-        // Execute the query and retrieve the results
+
         $results = $doctors->get();
 
         // Return the results as JSON response

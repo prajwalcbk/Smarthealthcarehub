@@ -21,7 +21,7 @@ function UserProfileData() {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     setUserProfile(response.data[0]);
     seteditedUserProfile(response.data[0]);
@@ -35,8 +35,15 @@ function UserProfileData() {
 
 
   const fetchFacilitiesFromApi = async () => {
+    try {
       const response = await axios.get(`/api/get/facilities`)
       return response.data;
+    }
+    catch (error) {
+      
+      console.log(error)
+      setError('ERROR: Somethig went wrong');
+    }
   };
 
   // Function to fetch primary care provider options from API
@@ -91,7 +98,7 @@ const handleHealthFacilityChange = (selectedOption) => {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           }); 
       setUserProfile(editedUserProfile);
     }
@@ -121,6 +128,7 @@ const handleHealthFacilityChange = (selectedOption) => {
   return (
     <div className="user-profile">
     <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
+    <div>{error && <p className="error-message">{error}</p>}</div>
       <h2>User Details</h2>
       {UserProfile ? (
         <div>

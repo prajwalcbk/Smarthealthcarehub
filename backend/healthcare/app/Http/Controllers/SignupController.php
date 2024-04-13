@@ -19,7 +19,7 @@ class SignupController extends Controller
     // Validate the request data
         $validatedData = $request->validate([
         'email' => 'required|email|unique:users',
-        'password' => 'required|min:6',
+        'password' => 'required',
         'firstname' => 'required',
         'lastname' => 'required',
         'phoneNumber' => 'required',
@@ -81,7 +81,7 @@ class SignupController extends Controller
     // Validate the request data
         $validatedData = $request->validate([
         'email' => 'required|email|unique:users',
-        'password' => 'required|min:6',
+        'password' => 'required',
         'firstname' => 'required',
         'lastname' => 'required',
         'phoneNumber' => 'required',
@@ -149,7 +149,7 @@ class SignupController extends Controller
     // Validate the request data
         $validatedData = $request->validate([
         'email' => 'required|email|unique:users',
-        'password' => 'required|min:6',
+        'password' => 'required',
         'firstname' => 'required',
         'lastname' => 'required',
         'phoneNumber' => 'required',

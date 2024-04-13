@@ -4,8 +4,9 @@ import axios from 'axios';
 
 const SystemConfiguration = () => {
   const [successMessage, setSuccessMessage] = useState(null);
-  const [settings, setSettings] = useState({});
+  const [settings, setSettings] = useState(null);
   const token = localStorage.getItem('token');
+  const [error, setError] = useState(null);
 
 
 
@@ -27,7 +28,7 @@ useEffect(() => {
       try {
        
           const response = await axios.get('/api/get/domain/settings', {
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
 
           if (response.status === 200) {
@@ -37,6 +38,7 @@ useEffect(() => {
         
        catch (error) {
             setSettings(null);
+            setError('Error while fetching domain Settings');
             console.error('Error while fetching domain Settings', error);
       }
 
@@ -59,7 +61,7 @@ useEffect(() => {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
 
           if (response.status === 200) {
@@ -83,7 +85,10 @@ useEffect(() => {
 
     <div className="systemconfiguration">
       <h2>System Configuration</h2>
+      <div>{error && <p className="error-message">{error}</p>}</div>
 
+    { settings && 
+      <div>
         <h3>Login and SignUp Settings</h3>
 
         <div className="form-group">
@@ -314,6 +319,8 @@ useEffect(() => {
         
 
       </div>
+      </div>
+    }
     </div>
   );
 };

@@ -28,7 +28,7 @@ class SupportController extends Controller
         ]);
 
 
-        return response()->json($support, 201);
+        return response()->json($support, 200);
     }
 
     public function getByUserType($id, $type)

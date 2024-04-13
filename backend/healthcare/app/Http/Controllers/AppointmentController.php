@@ -33,7 +33,6 @@ class AppointmentController extends Controller
     }
 
 
-
     public function store(Request $request)
     {
         $request->validate([
@@ -74,8 +73,6 @@ class AppointmentController extends Controller
             'status' => 'string|in:Active,Cancelled,Completed'
         ]);
 
-        $date = new \DateTime($request->date);
-        $formattedDate = $date->format('Y-m-d');
 
         $appointment->update($request->all());
         return response()->json($appointment, 200);

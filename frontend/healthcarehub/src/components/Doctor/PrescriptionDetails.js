@@ -23,7 +23,7 @@ function Prescription({PrescriptionId, handleViewClick}) {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
       console.log(response.data);
@@ -46,7 +46,7 @@ function Prescription({PrescriptionId, handleViewClick}) {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
       const updatedprescriptionDetails = prescriptionDetails.filter(prescriptionDetail => prescriptionDetail.id !== id);
@@ -63,12 +63,13 @@ function Prescription({PrescriptionId, handleViewClick}) {
 
 const UpdatePrescriptionDetails = async () => {
     try {
-      const data =  { prescriptionDetails };
+
+      const data =  { editedprescriptionDetails };
       const response = await axios.put(`/api/update/prescription/details`, data , {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
 
@@ -110,16 +111,13 @@ setEditedprescriptionDetails((prevState) => ({
   };
 
 
-const handleInputChange = (event, medicationId) => {
-  const { name, value } = event.target;
-
-  setEditedprescriptionDetails(prevState => ({
-    ...prevState,
-    [medicationId]: {
-      ...prevState[medicationId],
-      [name]: value
-    }
-  }));
+const handleInputChange = (event, index, key) => {
+  const { value } = event.target;
+  setEditedprescriptionDetails(prevState => {
+    const updatedDetails = [...prevState]; // Make a copy of the state array
+    updatedDetails[index] = { ...updatedDetails[index], [key]: value }; // Update the specific item
+    return updatedDetails; // Return the updated array
+  });
 };
 
 
@@ -136,7 +134,7 @@ const handleInputChange = (event, medicationId) => {
             <th>
               {viewEdit[prescriptionDetails.id] && <button onClick={() => handleEditClick(prescriptionDetails.id)}>Cancel</button>}
               {viewEdit[prescriptionDetails.id] && <button onClick={() => UpdatePrescriptionDetails(prescriptionDetails.id)}>Save</button>}
-              {!viewEdit[prescriptionDetails.id] && <button onClick={() => handleEditClick(prescriptionDetails.id)}>Edit</button>}
+              {!viewEdit[prescriptionDetails.id] && handleViewClick &&  <button onClick={() => handleEditClick(prescriptionDetails.id)}>Edit</button>}
             </th>
           </tr>
         </thead>
@@ -147,7 +145,7 @@ const handleInputChange = (event, medicationId) => {
                 <input
                   type="text"
                   value={editMode ? editedprescriptionDetails[index].name : medication.name}
-                  // onChange=onClick={() => handleInputChange(e,medication.id)}
+                  onChange={(e) => handleInputChange(e, index , 'name')}
                   disabled={!editMode}
                 />
               </td>
@@ -156,13 +154,13 @@ const handleInputChange = (event, medicationId) => {
                 <input
                   type="text"
                   value={editMode ? editedprescriptionDetails[index].dosage : medication.dosage}
-                  
+                  onChange={(e) => handleInputChange(e, index , 'dosage')}
                   disabled={!editMode}
                 />
               </td>
               <td>
                 <select value={editMode ? editedprescriptionDetails[index].time : medication.time}
-                    onChange={handleInputChange}
+                    onChange={(e) => handleInputChange(e, index , 'time')}
                     disabled={!editMode}
                   >
                   <option value="1-1-1">1-1-1</option>

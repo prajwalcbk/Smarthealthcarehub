@@ -15,11 +15,11 @@ function DoctorProfile(props) {
 
     const fetchDoctor = async () => {
       try {
-    const response = await axios.get(`/api/get/doctor/profile${props.id}`,  {
+    const response = await axios.get(`/api/get/doctor/${props.id}`,  {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     setDoctor(response.data[0]);
   }

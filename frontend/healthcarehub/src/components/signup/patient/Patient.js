@@ -21,25 +21,25 @@ function PatientSignup(props) {
 
   const [error, setError] = useState(null);
 
-  function isValidDate(dateString) {
-  // Check if the input string matches the expected date format (MM/DD/YYYY)
-  const regex = /^\d{2}\/\d{2}\/\d{4}$/;
+ function isValidDate(dateString) {
+  // Check if the input string matches the expected date format (YYYY-MM-DD)
+  const regex = /^\d{4}-\d{2}-\d{2}$/;
   if (!regex.test(dateString)) {
     return false;
   }
 
-  // Check if the date is a valid date
-  const dateParts = dateString.split('/');
-  const day = parseInt(dateParts[1], 10);
-  const month = parseInt(dateParts[0], 10) - 1; // Month is 0-based in JavaScript Date object
-  const year = parseInt(dateParts[2], 10);
-  const date = new Date(year, month, day);
+  // Parse the date components
+  const dateParts = dateString.split('-');
+  const year = parseInt(dateParts[0], 10);
+  const month = parseInt(dateParts[1], 10);
+  const day = parseInt(dateParts[2], 10);
 
-  return (
-    date.getFullYear() === year &&
-    date.getMonth() === month &&
-    date.getDate() === day
-  );
+  // Validate year, month, and day ranges
+  const isValidYear = year >= 1 && year <= 9999;
+  const isValidMonth = month >= 1 && month <= 12;
+  const isValidDay = day >= 1 && day <= 31;
+
+  return isValidYear && isValidMonth && isValidDay;
 }
 
 
@@ -47,7 +47,7 @@ function PatientSignup(props) {
 
   const handleSubmit = async () => {
     if (!isValidDate(dateofbirth)) {
-      setError('Please enter a valid date (MM/DD/YYYY).');
+      setError('Please enter a valid date (YYYY-MM-DD).');
       return;
     }
     if (!dateofbirth || !gender || !location ||!phoneNumber ) {
@@ -98,7 +98,7 @@ function PatientSignup(props) {
           <input
             type="text"
             id="dateofbirth"
-            placeholder="MM/DD/YYYY"
+            placeholder="YYYY-MM-DD"
             value={dateofbirth}
             onChange={(e) => setDateOfBirth(e.target.value)}
             className={!isValidDate(dateofbirth) ? 'invalid' : ''}

@@ -101,7 +101,7 @@ class ForumsController extends Controller
 
         $forumPost = ForumPost::create($request->only(['title', 'description', 'user_id', 'category']));
 
-        return response()->json(['message' => 'Forum post created successfully', 'post' => $forumPost], 201);
+        return response()->json(['message' => 'Forum post created successfully', 'post' => $forumPost], 200);
     }
 
     public function destroy($postId)

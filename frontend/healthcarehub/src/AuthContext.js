@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
 
           if (response.status === 200) {
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
       try {
        
           const response = await axios.get('/api/get/domain/settings', {
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
 
           if (response.status === 200) {

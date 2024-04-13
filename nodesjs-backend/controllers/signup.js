@@ -69,7 +69,7 @@ router.post('/register/doctor', (req, res) => {
         res.status(500).send('Internal Server Error');
         return;
       }
-      res.status(201).send('User registered successfully');
+      res.status(200).send('User registered successfully');
     });
   });
 });
@@ -95,7 +95,7 @@ router.post('/register/pharmacist', (req, res) => {
         res.status(500).send('Internal Server Error');
         return;
       }
-      res.status(201).send('User registered successfully');
+      res.status(200).send('User registered successfully');
     });
 
   });

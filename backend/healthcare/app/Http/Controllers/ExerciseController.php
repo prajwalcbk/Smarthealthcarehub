@@ -26,7 +26,7 @@ class ExerciseController extends Controller
         ]);
 
 
-        return response()->json($exercise, 201);
+        return response()->json($exercise, 200);
     }
 
     public function update(Request $request, $id)

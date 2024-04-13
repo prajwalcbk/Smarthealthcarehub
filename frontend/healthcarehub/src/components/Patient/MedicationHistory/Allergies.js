@@ -17,7 +17,7 @@ function Allergies() {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
       console.log(response.data);
@@ -66,7 +66,7 @@ useEffect(() => {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000
+      timeout: process.env.timeout 
       });
       setSuccessMessage("Added successfully");
       

@@ -14,6 +14,8 @@ const ForumPage = ({settings}) => {
   const [ answer , setAnswer] = useState('');
   const [ answer_section , setAnswer_section] = useState(false);
   const token = localStorage.getItem('token');
+  const [error, setError] = useState(null);
+
 
   const { forumId } = useParams(); // Get the forumId from the URL parameter
 
@@ -23,7 +25,7 @@ const ForumPage = ({settings}) => {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     return response.data;
   };
@@ -31,14 +33,28 @@ const ForumPage = ({settings}) => {
   useEffect(() => 
   {
         const fetchForum = async () => {
+          try {
             const data = await fetchDataFromApi(`/api/get/forum/${forumId}`);
             setForum(data[0]);
-        };
+        }
+          catch (error) {
+          console.log(error)
+          setError('ERROR: Somethig went wrong');
+        }
+      }
 
         const fetchForumAnswers = async () => {
+          try {
             const data = await fetchDataFromApi(`/api/get/forum/answers/${forumId}`);
             setAnswers(data);
-        };
+        }
+          catch (error) {
+        console.log(error)
+        setError('ERROR: Somethig went wrong');
+      }
+    }
+
+
         fetchForum();
         fetchForumAnswers();
     }, [forumId]);
@@ -64,19 +80,26 @@ const ForumPage = ({settings}) => {
           'user_id' : 1,
           'user_firstname' : 'Admin'
         }
-        const token = localStorage.getItem('token');
+        
+        try {
 
         const response = await axios.post(`/api/create/forum/answer` , data, {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
 
         const updatedAnswers = [response.data.post[0], ...answers];
         setAnswers(updatedAnswers);
         setAnswer('');
-        setAnswer_section(false)  
+        setAnswer_section(false);
+      }
+      catch (error) {
+      console.log(error)
+      setError('ERROR: Somethig went wrong');
+    }
+
   }
 };
   
@@ -84,6 +107,7 @@ const ForumPage = ({settings}) => {
     <div className="forum-container">
       <Navbar settings={settings}/>      
       <div className="forum-list">
+      <div>{error && <p className="error-message">{error}</p>}</div>
         {Forum && (
           <div className="forum-card">
             <div className="left-section">

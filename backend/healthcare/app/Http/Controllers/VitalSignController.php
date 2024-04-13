@@ -27,7 +27,7 @@ class VitalSignController extends Controller
             'user_id' => $user->id
         ]);
 
-        return response()->json($vitalSign, 201);
+        return response()->json($vitalSign, 200);
     }
 
     public function destroy($id)

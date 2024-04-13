@@ -23,7 +23,7 @@ class UserRecordsShareSettingsController extends Controller
         ]);
 
         // Return a response
-        return response()->json($shareSetting, 201);
+        return response()->json($shareSetting, 200);
     }
 
 

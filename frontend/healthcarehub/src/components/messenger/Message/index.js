@@ -11,6 +11,7 @@ export default function Message(props) {
       created_at
     } = props;
 
+    const formattedDate = new Date(created_at).toLocaleString();
     return (
       <div className={[
         'message',
@@ -20,7 +21,7 @@ export default function Message(props) {
           <div className="bubble" title={created_at}>
             { text }
             <div className="timestamp">
-            {created_at}
+            {formattedDate}
             </div>
           </div>
         </div>

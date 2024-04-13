@@ -107,7 +107,7 @@ function User({settings}) {
           ) && (          
           <div className="medical-history-drop-down" >
           
-            <button onClick={() => setComponent('PastIllness')}> Pasts illness </button>
+            <button onClick={() => setComponent('PastIllness')}> Past illness </button>
             <button onClick={() => setComponent('Allergies')}> Allergies </button>
             <button onClick={() => setComponent('Surgeries')}> Surgeries </button>
              <button onClick={() => setComponent('FamilyHistory')}> Family History </button>
@@ -129,7 +129,7 @@ function User({settings}) {
           <div className="medical-history-drop-down" >
           
             <button onClick={() => setComponent('PrescriptionsList')}> Shared  </button>
-            <button onClick={() => setComponent('DispensedPrescription')}> Dispensed </button>
+            <button onClick={() => setComponent('DispensedPrescription')}> Orders </button>
 
           </div>
           )}

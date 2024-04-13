@@ -5,35 +5,53 @@ function PharmacistManagement() {
   const [UsersList, setUsersList] = useState([]);
   const token = localStorage.getItem('token');
   const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState(null);
 
 
 
-
+  
   useEffect(() => {
     const fetchdata = async () => {
+      try {
     const response = await axios.get('/api/get/pharmacists',  {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     setUsersList(response.data)
+  }
+  catch (error) {
+      console.log(error)
+      setError('ERROR: Somethig went wrong');
+    }
   }
   fetchdata();
   }, []);
 
 
 
-const handleVerifyUser = async (userId) => {
-  // Update UsersList immutably
-  const response = await axios.get(`/api/verify/user/${userId}`,  {
+const handleVerifyUser = async (updateuser) => {
+  
+  try {
+  const response = await axios.get(`/api/verify/user/${updateuser.user_id}`,  {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
+  if(updateuser.is_verified){
+      setSuccessMessage("User Verification status Changed");
+    }
+    else{
+      setSuccessMessage("User Verified Successfully");
+    }
+      setTimeout(() => {
+            setSuccessMessage('');
+          }, 1000); 
+ 
   const updatedUsersList = UsersList.map(user => {
-    if (user.user_id  === userId) {
+    if (user.user_id  === updateuser.user_id) {
       
       return { ...user, is_verified: !user.is_verified };
     }
@@ -41,6 +59,12 @@ const handleVerifyUser = async (userId) => {
   });
 
   setUsersList(updatedUsersList);
+}
+catch (error) {
+      console.log(error)
+      setError('ERROR: Somethig went wrong');
+    }
+
 };
 
 
@@ -51,6 +75,7 @@ const handleVerifyUser = async (userId) => {
       <div className="users-list">
       <h2>Pharmacist Accounts </h2>
       <div>{successMessage && <p className="success-message">{successMessage}</p>}</div>
+      <div>{error && <p className="error-message">{error}</p>}</div>
       <table>
         <thead>
           <tr>
@@ -74,8 +99,8 @@ const handleVerifyUser = async (userId) => {
 
                 <td>{user.is_verified ? 'Verified' : 'Pending'} </td>
                 <td>
-                <button onClick={() => handleVerifyUser(user.user_id)}>
-                  {user.is_active ? 'ReVerify' : 'Verify'}
+                <button onClick={() => handleVerifyUser(user)}>
+                  {user.is_verified ? 'ReVerify' : 'Verify'}
                 </button>
                    
                 </td>

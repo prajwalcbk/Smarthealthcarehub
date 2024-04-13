@@ -18,7 +18,7 @@ function Surgeries() {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
       console.log(response.data);
@@ -48,7 +48,7 @@ useEffect(() => {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
     } catch (error) {
@@ -75,7 +75,7 @@ useEffect(() => {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000
+      timeout: process.env.timeout 
       });
       setSuccessMessage("Added successfully");
 
@@ -106,14 +106,21 @@ useEffect(() => {
   };
 
   const fetchUsers = async () => {
-    const response = await axios.get(`/api/get/share/patients/`, {
+    try {
+    const response = await axios.get(`/api/get/share/patients`, {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     return response.data;
-  };
+  }
+  catch (error) {
+      
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
+};
 
   const fetchOptions = async (inputValue) => {
     try {
@@ -213,14 +220,12 @@ const handleOptionChange = (e,index) => {
                 disabled={!surgery.editable}
                 className={surgery.editable ? "editable" : ""}
               />
-              <button type="button" onClick={() => handleRemoveSurgeries(index,surgery.id)}>Remove</button>
-              <button type="button" onClick={() => handleSave(index)}>Save</button>
+
             </li>
           ))}
         </ul>
         <div>{error && <p className="error-message">{error}</p>}</div>
         <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
-        <button type="button"  style={{"width":"100%" , "margin-bottom": "30%"}}  onClick={handleAddSurgeries}>Add</button>
     </div>
   );
 }

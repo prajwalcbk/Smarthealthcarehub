@@ -3,11 +3,11 @@ import axios from 'axios';
 import './prescriptionlist.css';
 import PrescriptionDetails from './PrescriptionDetails';
 import AddMedication from './AddMedication'
+import SearchPatient from './../SearchPatient'
 
 function PrescriptionList() {
   const [prescriptionList, setPrescriptionList] = useState([]);
   const [viewClicked, setViewClicked] = useState([]);
-  const [filterpatient , setFilterpatient] = useState('');
   const [iscreatenewprescription , setiscreatenewprescription]= useState(false);
   const token = localStorage.getItem('token');
   const [successMessage, setSuccessMessage] = useState('');
@@ -20,7 +20,7 @@ function PrescriptionList() {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
       console.log(response.data);
@@ -39,7 +39,7 @@ function PrescriptionList() {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
       const updatedprescriptionList = prescriptionList.filter(prescription => prescription.id !== id);
@@ -56,14 +56,14 @@ useEffect(() => {
     fetchPrescriptions('');
   }, []);
 
-    const SearchPrescriptions = async () => {
+    const SearchPrescriptions = async (filterpatient) => {
     try {
 
       const response = await axios.get(`/api/get/doctor/prescriptions?name=${filterpatient}`,  {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000 // Set timeout to 2 seconds
+      timeout: process.env.timeout  // Set timeout to 2 seconds
     });
 
       console.log(response.data);
@@ -94,19 +94,11 @@ useEffect(() => {
     {!iscreatenewprescription ? (
     <div className="prescription-list">
       <h2>Prescriptions</h2>
-      <div className="prescription-filter-container">
+      <button style={{"margin":"2%"}} onClick={CreateNewPrescription}> Create New Prescription</button>
 
-
-        <input
-          type="text"
-          placeholder="Search Patient"
-          value={filterpatient}
-          onChange={e => setFilterpatient(e.target.value)}
-          style={{"width":"60%"}}
-        />
-        <button style={{"margin":"2%"}} onClick={SearchPrescriptions}> Search </button>
-        <button style={{"margin":"2%"}} onClick={CreateNewPrescription}> Create</button>
-      </div>
+      
+      <SearchPatient search={SearchPrescriptions}/>
+        
       <table>
         <thead>
           <tr>

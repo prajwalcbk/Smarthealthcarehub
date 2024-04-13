@@ -30,11 +30,11 @@ const handleShare = async(user) => {
         shared_user_id: user.user_id,
         role: user.role
       }
-      const response = await axios.post('/api/create/share/records/', data,  {
+      const response = await axios.post('/api/create/share/records', data,  {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000
+      timeout: process.env.timeout 
       });
     setSuccessMessage("Shared  Successfully");
     setTimeout(() => {
@@ -55,11 +55,11 @@ const handledelete = async(user) => {
         shared_user_id: user.shared_user_id ,
         role: user.role
       }
-      const response = await axios.post('/api/delete/share/records/', data,  {
+      const response = await axios.post('/api/delete/share/records', data,  {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      timeout: 2000
+      timeout: process.env.timeout 
       });
       DeleteUser(user)
     setSuccessMessage("Share Deleted Successfully");
@@ -79,7 +79,7 @@ const handledelete = async(user) => {
             headers: {
               'Authorization': `Bearer ${token}`
             },
-            timeout: 2000 // Set timeout to 2 seconds
+            timeout: process.env.timeout  // Set timeout to 2 seconds
           });
     return response.data
   }
@@ -94,12 +94,12 @@ const handledelete = async(user) => {
 
      if(role === 'SharedUser') {
       try {
-            const data = await fetchdata(`/api/get/share/users/`);
+            const data = await fetchdata(`/api/get/share/users`);
             setError('')
             setSearchResults(data);
           } 
           catch (error) {
-            setError('Failed to Generate Report')
+            setError('Failed to get users')
             setSuccessMessage('')
             console.error('Error fetching users:', error);
           }
@@ -124,7 +124,7 @@ const handledelete = async(user) => {
             setSearchResults(data);
           } 
           catch (error) {
-            setError('Failed to Generate Report')
+            setError('Failed to get users')
             setSuccessMessage('')
             console.error('Error fetching users:', error);
           }
@@ -135,7 +135,7 @@ const handledelete = async(user) => {
             setSearchResults(data);
           } 
           catch (error) {
-            setError('Failed to Generate Report')
+            setError('Failed to get users')
             setSuccessMessage('')
             console.error('Error fetching users:', error);
           }
@@ -174,6 +174,7 @@ const handledelete = async(user) => {
           <div className='user-list'>
             <h3>{selectedRole}'s:</h3>
             <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
+            <div>{error && <p className="error-message">{error}</p>}</div>
             <ul>
               {searchResults.map((result, index) => (
                 <li key={index}>
