@@ -26,6 +26,8 @@ use App\Http\Controllers\UserRecordsShareSettingsController;
 
 use App\Http\Controllers\PrescriptionDispensationController;
 use App\Http\Controllers\MedicationRemindersController;
+use App\Http\Controllers\SymptomController;
+use App\Http\Controllers\DiseaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -227,6 +229,10 @@ Route::middleware('auth.jwt')->get('/api/get/share/patients', [UserRecordsShareS
 
 
 Route::get('/api/get/doctor/{id}', [UserController::class, 'getDoctor'])->name('users.doctor');
+
+
+Route::get('/api/get/symptoms', [SymptomController::class, 'getAll'])->name('symptoms.getAll');
+Route::post('/api/get/diseases', [DiseaseController::class, 'checkDisease'])->name('diseases.checkDisease');
 
 
 

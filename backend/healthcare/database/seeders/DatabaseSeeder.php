@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingsTableSeeder::class);
         $this->call(AdminUserSeeder::class);
         $this->call(HealthAdminUserSeeder::class);
+        $this->call(SymptomSeeder::class);
+        $this->call(DiseaseSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
