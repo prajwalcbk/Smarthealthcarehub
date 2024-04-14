@@ -27,7 +27,14 @@
   margin-bottom: 20px;
   padding-top: 3%;
   color: black;
-  /*font-size: 40px;*/
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 50px;
+    color: white;
+    background-color: rgb(3 15 39 / 96%);
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -49,6 +56,22 @@
   border-radius: 15px;
   font-size: 14px;
   height: 20px;
+}
+
+.facilitymanagement-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-top: 3%;
+  color: black;
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 50px;
+    font-size: small;
+    color: white;
+    background-color: rgb(3 15 39 / 96%);
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 }
 

@@ -9,9 +9,8 @@
   position: absolute;
   bottom: 20px;
   right: 20px;
-  width: 60px;
-  height: 60px;
-  background-color: #007bff;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;

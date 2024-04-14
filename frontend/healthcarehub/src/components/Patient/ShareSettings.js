@@ -166,6 +166,11 @@ const handledelete = async(user) => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={`Search ${selectedRole}s...`}
+              onKeyDown={e => {
+          if (e.key === 'Enter') {
+            handleSearch();
+          }
+        }}
           />
           <button onClick={handleSearch}>Search</button>
           </div>

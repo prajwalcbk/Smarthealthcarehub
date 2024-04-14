@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 import { Link } from "react-router-dom";
-import comments from './../../assets/comments.png'
+import comments from './../../assets/issue.png'
 import Logo from '../../assets/daily-health-app.png';
 import axios from 'axios';
 
@@ -19,7 +19,6 @@ function Support() {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    userEmail: '',
     severity:'Low',
     type: 'incident_response',
     status: 'Open'
@@ -62,7 +61,6 @@ function Support() {
             setFormData({
       title: '',
       description: '',
-      userEmail: '',
       type: 'General',
       severity:'Low',
       status: 'Open'
@@ -131,7 +129,7 @@ function Support() {
             </select>
 
             <label>Severity  *</label>
-            <select name="Severity" value={formData.severity} onChange={handleInputChange}>
+            <select name="severity" value={formData.severity} onChange={handleInputChange}>
               <option value="Low">Low</option>
               <option value="Medium">Medium</option>
               <option value="High">High</option>
@@ -147,8 +145,6 @@ function Support() {
             <label>Description *</label>
             <textarea name="description" value={formData.description} onChange={handleInputChange}  required rows={5}  />
 
-            <label>Email</label>
-            <input type="email" name="userEmail" value={formData.userEmail} onChange={handleInputChange} required />
 
 
 

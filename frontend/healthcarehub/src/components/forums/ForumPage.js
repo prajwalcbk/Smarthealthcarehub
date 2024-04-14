@@ -4,7 +4,7 @@ import Navbar from '../navbar/Navbar';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'; // Import useParams to access URL parameters
 import male_doctor from './../../assets/male_doctor.png'
-import female_doctor from './../../assets/female_doctor.png'
+import user_icon from './../../assets/profile.png'
 import { useHistory, useNavigate } from 'react-router-dom';
 
 
@@ -114,13 +114,14 @@ const ForumPage = ({settings}) => {
               <div style={{ paddingLeft: '20px' }}>
                 <h2>{Forum.title} {Forum.user_id}</h2>
                 <p>Category: {Forum.category}</p>
+                <p>{Forum.created_at ? new Date(Forum.created_at).toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, year: 'numeric', month: '2-digit', day: '2-digit' }) : "Invalid Date"}</p>
                 <p className="description">{Forum.description}</p>
               </div>
             </div>
           </div>
         )}
         <div className="answers-container">
-        {!answer_section && <button onClick={handleAnswerClick} style={{ "width":"25%"}} > Answer </button>}
+        {!answer_section && <button onClick={handleAnswerClick} style={{ "width":"25%"}} > Comment </button>}
         
         
         {(
@@ -128,7 +129,7 @@ const ForumPage = ({settings}) => {
           ) && ( 
         <div className="answer-section">
         <div className="form-group">
-        <h2> Your Answer </h2>
+        <h2> Your Comments </h2>
         
         
           <textarea
@@ -143,15 +144,15 @@ const ForumPage = ({settings}) => {
         </div>
         )}
         
-          <h2>Answers:</h2>
+          <h2>Comments:</h2>
           <ul>
             {answers.map((answer, index) => (
               <div className="answer">
-              <img src={answer.gender === 'male' ? male_doctor : female_doctor} alt="Doctor icon" className="profile-pic" style={{ width: '50px', height: '50px' }} />
+              <img src={user_icon} alt="user icon" className="profile-pic" style={{ width: '50px', height: '50px' }} />
               <label> {answer.user_firstname} {answer.user_lastname}  </label>
 
               <p key={index}>{answer.answer}</p>
-              <p> {answer.date}</p>
+              <p> {answer.created_at ? new Date(answer.created_at).toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, year: 'numeric', month: '2-digit', day: '2-digit' }) : "Invalid Date"}</p>
               </div>
 
             ))}

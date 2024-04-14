@@ -76,6 +76,10 @@ Route::middleware('auth.jwt')->get('/api/get/patients', [UserController::class, 
 Route::middleware('auth.jwt')->get('/api/get/healthadmins', [UserController::class, 'getHealthAdmins'])->name('users.healthadmins');
 
 
+
+Route::middleware('auth.jwt')->post('/api/search/appointment/doctors', [UserController::class, 'searchDoctorsForAppointments'])->name('users.searchDoctorsForAppointments'); 
+
+
 Route::middleware('auth.jwt')->get('/api/search/doctors', [UserController::class, 'searchDoctorsbyName'])->name('users.searchDoctorsbyName'); 
 Route::middleware('auth.jwt')->get('/api/search/pharmacists', [UserController::class, 'searchPharmacistsbyName'])->name('users.searchPharmacistsbyName'); 
 Route::middleware('auth.jwt')->get('/api/search/patients', [UserController::class, 'searchPatientsbyName'])->name('users.searchPatientsbyName'); 

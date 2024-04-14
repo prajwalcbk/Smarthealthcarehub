@@ -37,7 +37,7 @@
 
 
 .reason-container input[type="time"]{
-  width: 85%;
+  width: 90%;
 }
 
 .appointment-management-container h2{
@@ -74,7 +74,7 @@
 }
 
 .duration-select {
-  width: 90%;
+  width: 95%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 10px;

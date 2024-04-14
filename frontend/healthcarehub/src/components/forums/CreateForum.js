@@ -69,6 +69,13 @@ const CreateForum = ({settings}) => {
           <option value="Women's Health">Women's Health</option>
           <option value="Men's Health">Men's Health</option>
           <option value="Heart Health">Heart Health</option>
+          <option value="Nutrition">Nutrition</option>
+          <option value="Fitness">Fitness</option>
+          <option value="Stress Management">Stress Management</option>
+          <option value="Allergies">Allergies</option>
+          <option value="Skin Care">Skin Care</option>
+          <option value="Digestive Health">Digestive Health</option>
+          <option value="Respiratory Health">Respiratory Health</option>
         </select>
         </div>
 

@@ -27,6 +27,13 @@ function SignUpPage({settings}) {
     setPasswordsMatch(e.target.value === password);
   };
 
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    // Check if the passwords match whenever the confirm password field changes
+    setPasswordsMatch(e.target.value === confirmPassword);
+  };
+
   const handleToggleDoctor = () => {
     setIsDoctor(!isDoctor);
     setIsPharmacist(false); // Uncheck pharmacist if doctor is checked
@@ -39,8 +46,15 @@ function SignUpPage({settings}) {
 
 
   const handleSignupNext = () => {
+
+    if (!email || !firstname || !lastname ||!password ) {
+      setError('Please fill out the required fields.');
+      return;
+    }
     
     setNextClicked(true);
+
+
     
   };
 
@@ -94,7 +108,7 @@ function SignUpPage({settings}) {
               id="password"
               placeholder="Password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               required
             />
           </div>
@@ -141,7 +155,10 @@ function SignUpPage({settings}) {
             <label htmlFor="isPharmacist">  Are you a Pharmacist ? </label>
           </div>
 
-          <button onClick={handleSignupNext}>Next</button>
+
+          {passwordsMatch && <button onClick={handleSignupNext}>Next</button> }
+
+
           <div className="form-links">
             <span>Already have an account? </span>
             <Link to='/login'>  Login </Link>

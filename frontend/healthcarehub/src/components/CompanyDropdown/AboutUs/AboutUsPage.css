@@ -30,8 +30,8 @@
   
   .team-members {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-gap: 90px;
   }
   
   .team-member {
@@ -48,6 +48,8 @@
     border-radius: 50%;
     margin-bottom: 10px;
   }
+
+    
 }
 
 
@@ -56,6 +58,11 @@
     width: 100px;
     border-radius: 50%;
     margin-bottom: 10px;
+  }
+  .team-members {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    grid-gap: 20px;
   }
 }
 

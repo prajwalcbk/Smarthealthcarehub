@@ -49,6 +49,21 @@
   height: 20px;
 }
 
+.healthforum-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-top: 3%;
+  color: black;
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 50px;
+    color: white;
+    background-color: rgb(3 15 39 / 96%);
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 
 }
 
@@ -75,7 +90,14 @@
   margin-bottom: 20px;
   padding-top: 3%;
   color: black;
-  font-size: 40px;
+    width: 350px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 50px;
+    color: white;
+    background-color: rgb(3 15 39 / 96%);
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -134,7 +156,7 @@
     cursor: pointer;
     width: 20%;
     height: 60px;
-    font-size: large;
+    font-size: inherit;
     /*height: 3rem;*/
     /*font-size: 24px;*/
 } 

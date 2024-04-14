@@ -103,7 +103,7 @@ if (showMaintenancePage) {
 
           
 
-          <Route path="/forums" element={ settings.enableHealthForums === 1 ? <Forums /> : <DisablePage name='HealthForums' settings={settings}/> } />                    
+          <Route path="/forums" element={ settings.enableHealthForums === 1 ? <Forums settings={settings}/> : <DisablePage name='HealthForums' settings={settings}/> } />                    
           <Route path="/forum/:forumId" element={authIsReady ? (settings.enableHealthForums === 1 ?   <ForumPage settings={settings}/> : <DisablePage name='HealthForums Module' settings={settings}/> ) :  <Navigate to="/login" />} />
           <Route path="/createforum" element={authIsReady ?  (settings.enableHealthForums === 1 ?   <CreateForum settings={settings}/> : <DisablePage name='HealthForums Module' settings={settings}/> ) : <Navigate to="/login" />} />
 

@@ -54,7 +54,7 @@ const DoctorSearchPage = ({settings}) => {
             },
             timeout: process.env.timeout  // Set timeout to 2 seconds
           });
-    setDoctors(response.data);
+    setFilteredDoctors(response.data);
   }
   catch (error) {
       
@@ -66,19 +66,30 @@ const DoctorSearchPage = ({settings}) => {
 
   }, []);
 
-  useEffect(() => {
-    const filtered = doctors.filter(doctor => {
-      const specialization = doctor.specialization || ''
-      const location = doctor.location || '';
-      const name = doctor.name || '';
-      return (
-        specialization.toLowerCase().includes(specializationFilter.toLowerCase()) &&
-        location.toLowerCase().includes(locationFilter.toLowerCase()) && 
-        name.toLowerCase().includes(nameFilter.toLowerCase())
-      );
-    });
-    setFilteredDoctors(filtered);
-  }, [doctors, specializationFilter, locationFilter , nameFilter]);
+
+  
+const searchDoctors = async () => {
+    const data = { 
+      specialization : specializationFilter, 
+      name : nameFilter , 
+      location : locationFilter,
+    }
+    try {
+    const response = await axios.post('/api/search/appointment/doctors', data ,   {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            timeout: process.env.timeout  // Set timeout to 2 seconds
+          });
+    setFilteredDoctors(response.data);
+  }
+  catch (error) {
+      
+      console.log(error)
+        setError('ERROR: Somethig went wrong');
+    }
+
+}
 
   // Pagination
   const indexOfLastDoctor = currentPage * doctorsPerPage;
@@ -90,20 +101,17 @@ const DoctorSearchPage = ({settings}) => {
   return (
     <div className="appointment-container">
     <Navbar settings={settings}/>
-    <div>{error && <p className="error-message">{error}</p>}</div>
+    
       <h1 className="doctor-heading">Book Your Doctor Online </h1>
       <div className="filter-container">
 
 
-        <select
+        <input
+          type="text"
+          placeholder="Search by Specialization"
           value={specializationFilter}
           onChange={e => setSpecializationFilter(e.target.value)}
-        >
-          <option value=""> specialization</option>
-          <option value="Cardiologist">Cardiologist</option>
-          <option value="Pediatrician">Pediatrician</option>
-          <option value="Dentist">Dentist</option>
-        </select>
+        />
 
 
         <input
@@ -119,8 +127,14 @@ const DoctorSearchPage = ({settings}) => {
           value={locationFilter}
           onChange={e => setLocationFilter(e.target.value)}
         />
+
+        <br />
+        <button style={{'width': 'max-content' }}onClick={searchDoctors}>Search</button>
+
+
         
       </div>
+      <div>{error && <p className="error-message">{error}</p>}</div>
 
       <div className="doctor-list">
         {currentDoctors.map(doctor => (
@@ -152,25 +166,6 @@ const DoctorSearchPage = ({settings}) => {
 
           </div>
         ))}
-      </div>
-      <div className="pagination-container">
-        {filteredDoctors.length > doctorsPerPage && (
-          <div>
-          <label>
-          Count
-          </label>
-          <select
-            value={doctorsPerPage}
-            onChange={e => setdoctorsPerPage(e.target.value)}
-          >
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-        </select>
-            <button onClick={() => paginate(currentPage + 1)}>Next </button>
-            <button onClick={() => paginate(currentPage - 1)}>Previous </button>
-          </div>
-        )}
       </div>
     </div>
   );

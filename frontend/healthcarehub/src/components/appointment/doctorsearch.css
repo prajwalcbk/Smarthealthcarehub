@@ -40,7 +40,15 @@
   margin-bottom: 20px;
   padding-top: 4%;
   color: black;
-  font-size: 30px;
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 50px;
+    color: white;
+    background-color: rgb(3 15 39 / 96%);
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .filter-container {
@@ -78,6 +86,8 @@
 
 
 
+
+
 /* Styles for mobile */
 @media (max-width: 767px) {
   .doctor-list {
@@ -89,6 +99,23 @@
   .DoctorProfile label { 
     font-size: 18px
   }
+
+.doctor-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-top: 4%;
+  color: black;
+  font-size: 17px;
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 50px;
+    color: white;
+    background-color: rgb(3 15 39 / 96%);
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
 
 }
 

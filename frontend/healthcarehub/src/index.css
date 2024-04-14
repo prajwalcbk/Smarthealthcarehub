@@ -30,7 +30,7 @@ body p,a,h3 {
 
 
 h2 ,table th {
-  font-size: 15px;
+  font-size: 9px;
 }
 
 h1 {
@@ -88,6 +88,10 @@ input[type="time"] {
   padding: 10px;
   border-radius: 10px;
   border: 1.5px solid #ccc;
+}
+
+button {
+  font-size: small;
 }
 
 
@@ -164,6 +168,7 @@ button:hover {
     margin-bottom: 10px;
     text-align: center;
     font-weight: bold;
+    width: 90%;
 
 }
 
@@ -175,6 +180,7 @@ button:hover {
     margin-bottom: 10px;
     text-align: center;
     font-weight: bold;
+    width: 90%;
 
 }
 

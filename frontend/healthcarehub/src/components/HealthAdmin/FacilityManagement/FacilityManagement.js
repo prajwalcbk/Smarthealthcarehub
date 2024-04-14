@@ -123,8 +123,10 @@ useEffect(() => {
 
   return (
     <div className="facilitymanagement">
-      <h1 className="facilitymanagement-heading">Facility Management </h1>
+      
       {!creatnew &&  
+      <div>
+      <h1 className="facilitymanagement-heading">Facility Management </h1>
       <div className="facilitymanagement-filter-container">
 
         <input
@@ -134,8 +136,9 @@ useEffect(() => {
           onChange={e => setNameFilter(e.target.value)}
         />
         <button onClick={Search}> Search  </button>
-        <button onClick={CreateNew}> Create New  </button>
+        <button onClick={CreateNew}> Create  </button>
         
+      </div>
       </div>
       }
       {!creatnew &&  
@@ -157,6 +160,7 @@ useEffect(() => {
         
         ))}
     </div>
+
   }
   {creatnew &&  
       <div className="facilitymanagement-list">

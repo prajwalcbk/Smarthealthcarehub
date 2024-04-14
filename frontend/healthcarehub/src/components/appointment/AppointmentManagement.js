@@ -76,7 +76,7 @@ function AppointmentManagement( { doctorid , updateParentState , userid }  ) {
       <div className="appointment-management-container">
         <div className="calendar-container">
           <h2>Select Appointment Date:</h2>
-          <Calendar className="Calendar" onChange={handleDateChange} value={selectedDate} />
+          <Calendar className="Calendar" onChange={handleDateChange} value={selectedDate} minDate={new Date()}/>
         </div>
 
         <div className="reason-container">

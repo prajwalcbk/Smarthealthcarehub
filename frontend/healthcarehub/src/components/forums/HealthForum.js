@@ -100,6 +100,14 @@ const handleSearch = async () => {
           <option value="Women's Health">Women's Health</option>
           <option value="Men's Health">Men's Health</option>
           <option value="Heart Health">Heart Health</option>
+          <option value="Nutrition">Nutrition</option>
+          <option value="Fitness">Fitness</option>
+          <option value="Stress Management">Stress Management</option>
+          <option value="Allergies">Allergies</option>
+          <option value="Skin Care">Skin Care</option>
+          <option value="Digestive Health">Digestive Health</option>
+          <option value="Respiratory Health">Respiratory Health</option>
+
         </select>
 
 
@@ -110,7 +118,7 @@ const handleSearch = async () => {
           onChange={e => setTitleFilter(e.target.value)}
         />
         <button onClick={handleSearch}> Search  </button>
-        <button onClick={handleCreateClick}> Create New  </button>
+        <button onClick={handleCreateClick}> Create  </button>
         
       </div>
       <div className="healthforum-list">
@@ -120,9 +128,10 @@ const handleSearch = async () => {
             <div className="left-section">
               <div style={{ paddingLeft: '20px' }}>
                 <h2>{forum.title} </h2>
-                <p>Forum Date:{forum.Date_posted}</p>
-                <p>Category: {forum.category} </p>
+                <p>Category : {forum.category} </p>
                 <p className="healthforum-description">{forum.description}</p>
+                <p>{forum.created_at ? new Date(forum.created_at).toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, year: 'numeric', month: '2-digit', day: '2-digit' }) : "Invalid Date"}</p>
+
               </div>
             </div>
           </div>
@@ -130,12 +139,7 @@ const handleSearch = async () => {
         ))}
 
       </div>
-      <div className="healthforum-pagination-container">
-          <div className="healthforum-card" style={{ "width": "30%" }}>
-            <button onClick={() => handlePrevPage()} style={{ "margin": "2%" }} >Previous </button>
-            <button onClick={() => handleNextPage()} style={{ "margin": "2%" }}>Next </button>
-          </div>
-      </div>
+
     </div>
   );
 };
