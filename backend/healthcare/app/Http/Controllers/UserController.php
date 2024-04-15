@@ -371,13 +371,13 @@ public function updatepharmacist(Request $request)
 
 
 
-    public function searchDoctorsForAppointments(Request $request)
+        public function searchDoctorsForAppointments(Request $request)
     {
         $specialization = $request->input('specialization');
         $location = $request->input('location');
         $name = $request->input('name');
 
-        $query = User::where('role', 'DOCTOR')
+        $doctors = User::where('role', 'DOCTOR')
            ->join('doctors', 'users.id', '=', 'doctors.user_id')
            ->leftJoin('facilities', 'doctors.facility_id', '=', 'facilities.id')
            ->select('users.firstname', 
@@ -390,6 +390,11 @@ public function updatepharmacist(Request $request)
             'users.lastname as doctor_lastname',
             'users.is_verified'
         );
+        
+        if ($name) {
+    $doctors->where('users.firstname', 'like', '%' . $name . '%');
+    }
+
 
         if ($specialization) {
             $doctors->where('specialization', 'like', '%' . $specialization . '%');
@@ -398,11 +403,6 @@ public function updatepharmacist(Request $request)
         if ($location) {
             $doctors->where('address', 'like', '%' . $location . '%');
         }
-
-        if ($name) {
-        // Apply first name search filter
-        $query->where('users.firstname', 'like', "%$searchQuery%");
-    }
 
 
 
