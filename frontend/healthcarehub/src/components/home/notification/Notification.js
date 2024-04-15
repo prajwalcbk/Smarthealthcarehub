@@ -98,7 +98,7 @@ else {
             medicationReminder.map(medication => (
               <div>
           <p>Name : {medication.name}  </p>
-          <p> Dosage : {medication.dosage} mg</p>
+          <p> Dosage : {medication.dosage} </p>
           <hr />
           </div>
           

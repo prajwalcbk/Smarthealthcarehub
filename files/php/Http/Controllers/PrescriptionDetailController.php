@@ -35,7 +35,7 @@ $prescriptionDetails = PrescriptionDetail::where('prescription_id', $prescriptio
         $request->validate([
             'editedprescriptionDetails.*.id' => 'required|exists:prescription_details,id',
             'editedprescriptionDetails.*.name' => 'required|string',
-            'editedprescriptionDetails.*.dosage' => 'required|integer',
+            'editedprescriptionDetails.*.dosage' => 'required|string',
             'editedprescriptionDetails.*.time' => 'required|string'
         ]);
 

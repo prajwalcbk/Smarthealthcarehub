@@ -56,9 +56,6 @@ function AddMedication({CreateNewPrescription}) {
     CreateNewPrescription();
 
 
-
-
-
     }
     catch (error) {
       setError("Failed to Add");
@@ -68,7 +65,7 @@ function AddMedication({CreateNewPrescription}) {
 
   const fetchUsers = async () => {
     try {
-    const response = await axios.get(`/api/get/share/patients`, {
+    const response = await axios.get(`/api/get/patients`, {
             headers: {
               'Authorization': `Bearer ${token}`
             },
@@ -205,6 +202,8 @@ return (
           ))}
         </ul>
         <div>{successMessage && <p className="success-message">{successMessage}</p>} </div>
+        <div>{error && <p className="error-message">{error}</p>}</div>
+
         <button type="button" style={{"width":"100%"}} onClick={handleAddMedication}>Add Medications</button>  
         <div className="form-group">
           <button onClick={handleSubmit}>Submit</button>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('prescription_details', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('dosage');
+            $table->string('dosage');
             $table->string('time');
             $table->unsignedBigInteger('prescription_id');
             $table->timestamps();

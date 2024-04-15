@@ -125,7 +125,7 @@ class PrescriptionController extends Controller
             'status' => 'string|in:Active,Inactive',
 
             'medication.*.name' => 'required|string',
-            'medication.*.dosage' => 'required|integer',
+            'medication.*.dosage' => 'required|string',
             'medication.*.time' => 'required|string'
         ]);
 
