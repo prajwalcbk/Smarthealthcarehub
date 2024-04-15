@@ -46,7 +46,7 @@ function LoginPage({settings}) {
     } catch (error) {
       
       console.log(error)
-      if (error.response.status==403 && error.response) {
+      if (error.response && error.response.status==403 ) {
         setSuccessMessage(null);
         setError(error.response.data.error);
       }

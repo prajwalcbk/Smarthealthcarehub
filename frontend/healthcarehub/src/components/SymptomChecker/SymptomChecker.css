@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url(http://localhost:3000/static/media/3734225.dc33febef54d18e6f33d.jpg);
+    background-image: url("../../../public/3734225.jpg");
     background-size: cover;
     background-position: center;
     overflow-x: auto;
