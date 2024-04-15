@@ -139,7 +139,6 @@ Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/ph
 
 
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->post('/api/create/prescription', [PrescriptionController::class, 'store'])->name('prescription.create');
-Route::middleware(['settings:enablePrescription', 'auth.jwt'])->put('/api/update/prescription/{id}', [PrescriptionController::class, 'updateStatus'])->name('prescription.update');
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->delete('/api/delete/prescription/{id}', [PrescriptionController::class, 'destroy'])->name('prescription.delete');
 
 
@@ -151,6 +150,8 @@ Route::middleware(['settings:enablePrescription', 'auth.jwt'])->delete('/api/del
 
 
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->put('/api/update/prescription/details', [PrescriptionDetailController::class, 'update'])->name('prescriptiondetails.update');
+Route::middleware(['settings:enablePrescription', 'auth.jwt'])->put('/api/update/prescription/{id}', [PrescriptionController::class, 'updateStatus'])->name('prescription.update');
+
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->get('/api/get/prescription/details/{id}', [PrescriptionDetailController::class, 'getByPrescriptionId'])->name('prescriptiondetails.getByPrescriptionId');
 Route::middleware(['settings:enablePrescription', 'auth.jwt'])->delete('/api/delete/prescription/details/{id}', [PrescriptionDetailController::class, 'destroy'])->name('prescriptiondetails.delete');
 
